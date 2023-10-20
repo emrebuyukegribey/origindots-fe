@@ -1,0 +1,24 @@
+:root {
+    --red100: #EF4136;
+    --red200: #f45c52;
+    --red300: #fc867e;
+    --red400: #fbc9c5;
+    --dark100: #272735;
+    --dark200: #3E3E52;
+    --dark300: #56566D;
+    --dark400: #7a7a8f;
+    --bgGrey100: #2D2D2D;
+    --navbarGrey500:#d3d4d4;
+    --navbarFontColor: #f1f1f1;
+    --logoBlue: #4CC6E2;
+    --green100: #18bd5b;
+    --green200:  #3cd87b;
+    --green300:  #6de29b;
+    --grey200:  #aaaaae;
+    --grey300: #cbcbd3;
+    --grey400: #dddde3;
+    --blue100: #1677ff;
+    --blue200: #448df3;
+    --blue300: #71aaf9;
+    --blue400: #b7cdeb;
+}   

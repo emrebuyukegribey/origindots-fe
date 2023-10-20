@@ -1,0 +1,26 @@
+@import "../../../variables.css";
+
+.rb-container {
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--red100);
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.rb-container:hover {
+    background-color: var(--red300);
+    transition: all 0.3s ease-in-out;
+}
+
+.rb-text {
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}

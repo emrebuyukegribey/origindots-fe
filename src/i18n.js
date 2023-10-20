@@ -1,0 +1,86 @@
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translations: {
+        Dashboard: "Dashboard",
+        "Organization Management": "Organization Management",
+        "User Management": "User Management",
+        "Process Management": "Process Management",
+        "Analystic Data": "Analytics Data",
+        Settings: "Settings",
+        Help: "Help",
+        Logout: "Logout",
+        "Create New Process": "Create New Process",
+        "Process Management > New Process": "Process Management > New Process",
+        "Add Property": "Add Property",
+        "Sign In": "Sign In",
+        "Your email address or Username": "Your email address or Username",
+        "Your password": "Your password",
+        "I forgot my password": "I forgot my password",
+        "Sign Up": "Sign Up",
+        "First name": "First name",
+        "Last name": "Last name",
+        Username: "Username",
+        "Email address": "Email address",
+        "Your password repeat": "Your password repeat",
+        "First name field is required": "First name field is required",
+        "Last name field is required": "Last name field is required",
+        "Username field is required": "Username field is required",
+        "Email field is required": "Email field is required",
+        "Password field is required": "Password field is required",
+        "Password repeat field is required":
+          "Password repeat field is required",
+        "Password fields do not match": "Password fields do not match",
+      },
+    },
+    tr: {
+      translations: {
+        Dashboard: "Gösterge Paneli",
+        "Organization Management": "Organizasyon Yönetimi",
+        "User Management": "Kullanıcı Yönetimi",
+        "Process Management": "Süreç Yönetimi",
+        "Analystic Data": "Analistik Verileri",
+        Settings: "Ayarlar",
+        Help: "Yardım",
+        Logout: "Oturumu Kapat",
+        "Create New Process": "Yeni Process Oluştur",
+        "Process Management > New Process": "Süreç Yönetimi > Yeni Süreç",
+        "Add Property": "Özellik Ekle",
+        "Sign In": "Giriş Yap",
+        "Your email address or Username":
+          "E-Post adresiniz veya Kullanıcı adınız",
+        "Your password": "Şifreniz",
+        "I forgot my password": "Şifremi unuttum",
+        "Sign Up": "Kayıt Ol",
+        "First name": "İsminiz",
+        "Last name": "Soyisminiz",
+        Username: "Kullanıcı adınız",
+        "Email address": "E-Post adresiniz",
+        "Your password repeat": "Şifreniz tekrar",
+        "First name field is required": "İsim alanı zorunludur",
+        "Last name field is required": "Soyisim alanı zorunludur",
+        "Username field is required": "Kullanıcı adı alanı zorunludur",
+        "Email field is required": "Epost alanı zorunludur",
+        "Password field is required": "Şifre alanı zorunludur",
+        "Password repeat field is required": "Şifre tekrar alanı zorunludur",
+        "Password fields do not match": "Şifre alanları eşleşmiyor",
+      },
+    },
+  },
+  fallbackLng: "tr",
+  ns: ["translations"],
+  defaultNS: "translations",
+  keySeparator: false,
+  interpolation: {
+    escapeValue: false,
+    formSeparator: ",",
+  },
+  react: {
+    wait: true,
+  },
+});
+
+export default i18n;

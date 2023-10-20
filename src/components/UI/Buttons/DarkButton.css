@@ -1,0 +1,25 @@
+@import "../../../variables.css";
+
+.dark-button-container {
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--dark200);
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.dark-button-container:hover {
+    background-color: var(--dark400); 
+    transition: all 0.3s ease-in-out;
+}
+
+.dark-button-text {
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+}

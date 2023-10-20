@@ -1,0 +1,25 @@
+@import "../../../variables.css";
+
+.light-button-container {
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--grey300);
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.light-button-container:hover {
+    background-color: var(--grey400); 
+    transition: all 0.3s ease-in-out;
+}
+
+.light-button-text {
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+}

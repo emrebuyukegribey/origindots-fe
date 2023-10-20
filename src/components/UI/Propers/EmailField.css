@@ -1,0 +1,96 @@
+@import "../../../variables.css";
+
+
+.ant-email[disabled] {
+    background-color: #fff !important;
+    cursor: move !important;
+}
+
+.email-field-outer-container {
+   display: flex; 
+   width: 100%;
+}
+
+.email-field-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 10px 15px 10px;
+    padding: 20px;
+    background-color: #fefefe;
+    border: 1px solid var(--grey400);
+    border-radius: 2px;
+    cursor: move;
+}
+
+.email-field-title-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.email-field-title {
+    padding-bottom: 5px;
+    padding-left: 3px;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--dark200)
+}
+
+.email-field-description {
+    padding-top: 5px;
+    padding-left: 3px;
+    font-size: 13px;
+    color: var(--dark300);
+}
+
+.email-field-edit-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark200);
+    margin-right: 20px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.email-field-icons-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    height: 100%;
+}
+
+.email-field-edit-icon-container:hover {
+    background-color: var(--dark200);
+    color: #fff;
+}
+
+.email-field-edit-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.email-field-delete-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--red100);
+    margin-right: 20px;
+    margin-bottom: 15px;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.email-field-delete-icon-container:hover {
+    background-color: var(--red100);
+    color: #fff;
+}
+
+.email-field-delete-icon {
+    width: 24px;
+    height: 24px;
+}

@@ -1,0 +1,66 @@
+@import "../../variables.css";
+
+.process-form-container {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    color: var(--dark200);
+}
+
+.process-form {
+    margin-top: 20px;
+}
+
+.process-form-element-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.process-form-input {
+    width: 70%;
+}
+
+.process-form-label {
+    width: 30%;
+    margin-bottom: 10px;
+    
+    font-size: 18px;
+}
+
+.process-form-divider {
+    border-bottom: 1px solid var(--grey400);
+    margin: 25px 0px 40px 0px;
+}
+
+.process-form-container h3 {
+    color: var(--dark300);
+    font-size: 20px;
+}
+
+.process-form-radio-group {
+    margin-top: -8px;
+}
+
+.process-form-button-container {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.process-form-icon-container {
+    display: flex; 
+    align-items: center;
+}
+
+.process-form-icon {
+    width: 40px; 
+    height: 40px; 
+    padding: 5px; 
+    margin-right: 10px;
+}
+
+.process-form-icon-text {
+    font-weight: 600;
+}

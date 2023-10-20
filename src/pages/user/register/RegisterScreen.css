@@ -1,0 +1,132 @@
+.register-screen-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #f1f1f1;
+}
+
+.register-screen-logo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    width: 100%;
+    background-color: var(--dark100);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px;
+}
+
+.register-screen-language-container {
+    margin-left: 20px;
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.register-screen-language-selector {
+    border: 0;
+    padding: 3px;
+    font-weight: 600; 
+    background-color: var(--dark100);
+    color: #fff;
+}
+
+.register-screen-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.register-screen-form-container {
+    width: 550px;
+    padding-bottom: 20px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px;
+    background-color: #fff;
+}
+
+.register-screen-form-header {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    color: var(--dark100);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 1px solid var(--grey300);
+    width: 550px;
+}
+
+.register-screen-form-body {
+    margin-top: 0px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+}
+
+.register-screen-input-container {
+    padding: 15px 30px;
+}
+
+.register-screen-input-label {
+    margin-bottom: 10px;
+    color: var(--dark300);
+    font-weight: 600;
+    letter-spacing: 0.8px;
+}
+
+.register-screen-input {
+    height: 50px;
+    border: 1px solid var(--grey300)
+}
+
+.register-screen-button-container {
+    display: flex;
+    padding: 5px 20px 0px 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.register-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.register-screen-error-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    color: var(--red100);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid var(--red300)
+}
+
+.register-screen-success-message-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    color: var(--green100);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid var(--green100)
+}

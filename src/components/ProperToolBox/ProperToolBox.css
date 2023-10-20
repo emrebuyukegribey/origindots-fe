@@ -1,0 +1,86 @@
+@import "../../variables.css";
+
+.pb-closed-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--red100);
+    height: 60px;
+    padding: 10px 20px 10px 10px;
+    width: 130px;
+    border-radius: 0px 30px 30px 0px;
+    /*border-radius: 10px;*/
+    z-index: -1;
+    margin-left: -30px;
+    transition: width 0.5s;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
+    margin-top: 125px;
+}
+
+.pb-opened-container {
+    overflow-y: auto;
+    background-color: #fff;
+    height: 90%;
+    padding: 5px 0px 15px 0px;
+    width: 270px;
+    margin-left: 0px;
+    transition: width 0.5s;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+}
+
+.pb-open-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.pb-open-button-text {
+    font-size: 15px;
+    color: #fff;
+    letter-spacing: 0.8px;
+    text-align: center;
+}
+
+.pb-close-button-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    color: var(--dark200);
+    padding: 10px 10px 15px 3px;
+    border-bottom: 1px solid #e1e1e1;
+    font-weight: 700;
+}
+
+.pb-close-button-container-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 1px 10px;
+}
+
+.pb-close-button-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #fff;
+    color: var(--dark100);
+    padding: 5px;
+}
+
+.pb-close-button-icon-container:hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:  var(--red100);
+    color: #fff;
+    transition: all 0.5s ease-in-out;
+}
+

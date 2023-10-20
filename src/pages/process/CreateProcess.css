@@ -1,0 +1,132 @@
+@import "../../variables.css";
+
+.cp-container {
+    display: flex;    
+}
+
+.cp-proper-tool-box-container {
+    height: 99%;
+    position: fixed;
+    margin-right: 50px;
+}
+
+.cp-body-container {
+    margin-left: 350px;
+    width: 100%;
+}
+
+.cp-body-container-process-form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cp-body-top-container {
+    display: flex; 
+    justify-content: space-between;
+    width: 70% !important;
+    margin-bottom: 30px;
+    margin-right: 20px;
+}
+
+.cp-preview-icon {
+    padding: 2px;
+    background-color: #fff;
+    color: #3E3E52;
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
+}
+
+.cp-steps-container {
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.cp-step-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.cp-step-ok {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 18px;
+    background: var(--blue100);
+    margin-right: 10px;
+    padding: 5px; 
+    border-radius: 50%; 
+    width: 40px; 
+    height: 40px; 
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px;
+    cursor: pointer;
+}
+
+.cp-step-text {
+    font-size: 18px;
+    color: var(--dark200);
+}
+
+.cp-step-text-ok {
+    font-size: 18px;
+    color: var(--dark200);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cp-step-grey {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 18px;
+    background: var(--grey400); 
+    margin-right: 10px;
+    padding: 5px; 
+    border-radius: 50%; 
+    width: 40px; 
+    height: 40px; 
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px;
+}
+
+.cp-process-form-container {
+    background-color: #fff;
+    width: 70%;
+    margin-bottom: 100px;
+    padding: 30px;
+    border-radius: 10px;
+    color: var(--dark200);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
+}
+
+.cp-input-container {
+    margin-bottom: 10px;
+    color: #3E3E52;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.label {
+    color: #3E3E52;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.cp-divider {
+    border-bottom: 1px solid #cdcde0;
+    margin: 25px 0px;
+}
+
+h3 {
+    color: var(--dark200);
+}

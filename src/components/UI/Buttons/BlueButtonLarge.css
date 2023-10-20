@@ -1,0 +1,25 @@
+@import "../../../variables.css";
+
+.blue-button-large-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--blue100);
+    border-radius: 5px;;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.blue-button-large-container:hover {
+    background-color: var(--blue300); 
+    transition: all 0.3s ease-in-out;
+}
+
+.blue-button-large-text {
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}

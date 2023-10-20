@@ -1,0 +1,61 @@
+@import "../../variables.css";
+
+.proper-form-container h3 {
+    color: var(--dark300);
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.proper-header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.proper-preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -5px;
+    margin-right: 10px;
+}
+
+.proper-preview-icon {
+    padding: 4px;
+    width: 28px;
+    height: 28px;
+    margin-right: 15px;
+    margin-left: 5px;
+    color: var(--dark300);
+    border-radius: 5px;
+}
+
+.proper-preview-icon:hover {
+    background-color: var(--blue100);
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 5px;
+}
+
+.proper-form-divider {
+    border-bottom: 1px solid var(--grey400);
+    margin: 25px 0px 40px 0px;
+}
+
+.proper-form-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    height: auto;
+    /*border: 1px dashed  var(--grey300);*/
+    overflow-y: auto;
+}
+
+.proper-form-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 50px;
+}
