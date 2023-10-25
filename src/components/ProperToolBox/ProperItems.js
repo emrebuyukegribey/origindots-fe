@@ -178,6 +178,15 @@ const ProperItems = [
 ];
 
 export const ProperFormItemRenderer = (proper) => {
+  if (proper.type === "spacer") {
+    return (
+      <div
+        style={{ width: "100%", height: "150px", backgroundColor: "#c1c1c1" }}
+      >
+        SPACER
+      </div>
+    );
+  }
   if (proper.type === "InputField") {
     return (
       <InputField

@@ -9,7 +9,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { ProperFormItemRenderer } from "../ProperToolBox/ProperItems";
 
 function getRenderer(proper) {
-  ProperFormItemRenderer(proper);
+  return ProperFormItemRenderer(proper);
 }
 
 export function ProperFormItem(props) {
@@ -23,16 +23,11 @@ export function ProperFormItem(props) {
     className += " overlay";
   }
 
-  return (
-    <div className="className">
-      <Component {...rest} />
-    </div>
-  );
+  return <div className="className">{Component}</div>;
 }
 
 function SortableField(props) {
   const { id, index, proper } = props;
-
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id,
@@ -44,7 +39,6 @@ function SortableField(props) {
     });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
     transition,
   };
 
@@ -71,7 +65,6 @@ function ProperForm(props) {
       </div>
       <div className="proper-form-divider" />
       <div className="proper-form-area">
-        {console.log("proper list : ", properList)}
         {properList.length <= 0 ? (
           <div
             style={{
@@ -87,14 +80,16 @@ function ProperForm(props) {
             </div>
           </div>
         ) : (
-          <div>
+          <div style={{ width: "100%" }}>
             {properList.map((proper, i) => {
-              <SortableField
-                proper={proper}
-                key={proper.id}
-                id={proper.id}
-                index={i}
-              />;
+              return (
+                <SortableField
+                  proper={proper}
+                  key={proper.id}
+                  id={proper.id}
+                  index={i}
+                />
+              );
             })}
           </div>
         )}

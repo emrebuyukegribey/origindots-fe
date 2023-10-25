@@ -23,6 +23,7 @@ function CreateProcess() {
   const [activeProper, setActiveProper] = useState();
   const [properList, setProperList] = useState([]);
 
+  const spacerInsertedRef = useRef();
   const currentDragFieldRef = useRef();
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
@@ -58,7 +59,6 @@ function CreateProcess() {
   const handleDragStart = (e) => {
     const { active } = e;
     const activeData = getData(active);
-
     if (activeData.fromSidebar) {
       const { proper } = activeData;
       const { type } = proper;
@@ -86,99 +86,161 @@ function CreateProcess() {
   };
 
   const handleDragOver = (e) => {
-    console.log("drag over e : ", e);
+    console.log("handleDragOver");
+    const { active, over } = e;
+    const activeData = getData(active);
+
+    console.log("activeData : ", activeData);
+    if (activeData.fromSidebar) {
+      const overData = getData(over);
+
+      if (!spacerInsertedRef.current) {
+        const spacer = createSpacer({
+          id: active.id + "-spacer",
+        });
+
+        if (!properList.length) {
+          properList.push(spacer);
+        } else {
+          const nextIndex =
+            overData.index > -1 ? overData.index : properList.length;
+
+          let tempList = properList;
+          tempList.splice(nextIndex, 0, spacer);
+          setProperList(tempList);
+        }
+
+        spacerInsertedRef.current = true;
+      } else if (!over) {
+      }
+    }
+  };
+
+  const handleDragEnd = (e) => {
+    /*
+    setProperList((oldPropers) => [
+      ...oldPropers,
+      {
+        id: 2,
+
+        text: "Text Input",
+        type: "InputField",
+        title: "Proper name",
+        placeholder: "Placeholder",
+        description: "description (optional)",
+      },
+    ]);
+    */
   };
 
   return (
     <>
-      <DndContext onDragStart={handleDragStart} onDragOver={handleDragOver}>
-        <Navbar />
-        <LeftBar />
-        <div
-          className="right-container"
-          style={{
-            width: activeLeftBar ? "calc(100% - 275px)" : "calc(100% - 70px)",
-            marginLeft: activeLeftBar ? "275px" : "70px",
-          }}
-        >
-          <div className="cp-container">
-            {step === 2 && (
-              <div className="cp-proper-tool-box-container">
-                <ProperToolBox />
-              </div>
-            )}
-            <div
-              className={
-                step === 1
-                  ? "cp-body-container-process-form"
-                  : "cp-body-container"
-              }
-            >
-              <div className="cp-body-top-container">
-                <div className="cp-steps-container">
-                  <div
-                    className="cp-step-container"
-                    onClick={() => (step > 1 ? setStep(1) : {})}
-                  >
-                    <div className={step >= 1 ? "cp-step-ok" : "cp-step-grey"}>
-                      1
-                    </div>
+      <Navbar />
+      <LeftBar />
+      <DndContext
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragEnd={handleDragEnd}
+        autoScroll
+      >
+        <div style={{ display: "flex", width: "100%" }}>
+          <div
+            className="right-container"
+            style={{
+              width: activeLeftBar ? "calc(100% - 275px)" : "calc(100% - 70px)",
+              marginLeft: activeLeftBar ? "275px" : "70px",
+            }}
+          >
+            <div className="cp-container">
+              {step === 2 && (
+                <div className="cp-proper-tool-box-container">
+                  <ProperToolBox />
+                </div>
+              )}
+              <div
+                className={
+                  step === 1
+                    ? "cp-body-container-process-form"
+                    : "cp-body-container"
+                }
+              >
+                <div className="cp-body-top-container">
+                  <div className="cp-steps-container">
                     <div
-                      className={step >= 1 ? "cp-step-text-ok" : "cp-step-text"}
+                      className="cp-step-container"
+                      onClick={() => (step > 1 ? setStep(1) : {})}
                     >
-                      Create Process
+                      <div
+                        className={step >= 1 ? "cp-step-ok" : "cp-step-grey"}
+                      >
+                        1
+                      </div>
+                      <div
+                        className={
+                          step >= 1 ? "cp-step-text-ok" : "cp-step-text"
+                        }
+                      >
+                        Create Process
+                      </div>
                     </div>
-                  </div>
 
-                  <div
-                    className="cp-step-container"
-                    onClick={() => (step >= 2 ? setStep(2) : {})}
-                  >
-                    <div className={step >= 2 ? "cp-step-ok" : "cp-step-grey"}>
-                      2
-                    </div>
                     <div
-                      className={step >= 2 ? "cp-step-text-ok" : "cp-step-text"}
+                      className="cp-step-container"
+                      onClick={() => (step >= 2 ? setStep(2) : {})}
                     >
-                      Create Properties
+                      <div
+                        className={step >= 2 ? "cp-step-ok" : "cp-step-grey"}
+                      >
+                        2
+                      </div>
+                      <div
+                        className={
+                          step >= 2 ? "cp-step-text-ok" : "cp-step-text"
+                        }
+                      >
+                        Create Properties
+                      </div>
                     </div>
-                  </div>
 
-                  <div
-                    className="cp-step-container"
-                    onClick={() => (step > 2 ? setStep(3) : {})}
-                  >
-                    <div className={step > 2 ? "cp-step-ok" : "cp-step-grey"}>
-                      3
-                    </div>
                     <div
-                      className={step > 2 ? "cp-step-text-ok" : "cp-step-text"}
+                      className="cp-step-container"
+                      onClick={() => (step > 2 ? setStep(3) : {})}
                     >
-                      Publish
+                      <div className={step > 2 ? "cp-step-ok" : "cp-step-grey"}>
+                        3
+                      </div>
+                      <div
+                        className={
+                          step > 2 ? "cp-step-text-ok" : "cp-step-text"
+                        }
+                      >
+                        Publish
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="cp-process-form-container">
-                {step === 1 && <ProcessForm onClick={onCreateProcess} />}
-                {step === 2 && (
-                  <div>
-                    <SortableContext
-                      strategy={verticalListSortingStrategy}
-                      items={properList.map((proper) => proper.id)}
-                    >
-                      <ProperForm properList={properList} />
-                    </SortableContext>
-                    <DragOverlay dropAnimation={false}>
-                      {activeSidebarProper ? (
-                        <ProperItem overlay proper={activeSidebarProper} />
-                      ) : null}
-                      {activeProper ? (
-                        <ProperFormItem overlay proper={activeProper} />
-                      ) : null}
-                    </DragOverlay>
-                  </div>
-                )}
+                <div className="cp-process-form-container">
+                  {step === 1 && <ProcessForm onClick={onCreateProcess} />}
+                  {step === 2 && (
+                    <div style={{ width: "100%" }}>
+                      <SortableContext
+                        strategy={verticalListSortingStrategy}
+                        items={properList.map((proper) => proper.id)}
+                      >
+                        <ProperForm properList={properList} />
+                      </SortableContext>
+
+                      <DragOverlay dropAnimation={false}>
+                        {activeSidebarProper ? (
+                          <ProperItem overlay proper={activeSidebarProper} />
+                        ) : null}
+                        {activeProper ? (
+                          <ProperFormItem overlay proper={activeProper} />
+                        ) : null}
+                      </DragOverlay>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
