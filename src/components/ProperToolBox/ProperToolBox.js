@@ -7,6 +7,7 @@ import { BiHeading } from "react-icons/bi";
 import { BsCursorText } from "react-icons/bs";
 import { GoNumber } from "react-icons/go";
 import ProperItems from "./ProperItems";
+import DraggableProperItem from "./DraggableProperItem";
 
 function ProperToolBox(props) {
   const [isOpenProcessbar, setOpenProcessBar] = useState(false);
@@ -41,7 +42,7 @@ function ProperToolBox(props) {
           </div>
           <div>
             {ProperItems.map((proper) => (
-              <ProperItem text={proper.text} icon={proper.icon} />
+              <DraggableProperItem proper={proper} key={proper.id} />
             ))}
           </div>
         </div>

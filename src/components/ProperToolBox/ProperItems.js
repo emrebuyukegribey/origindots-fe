@@ -177,6 +177,19 @@ const ProperItems = [
   },
 ];
 
+export const ProperFormItemRenderer = (proper) => {
+  if (proper.type === "InputField") {
+    return (
+      <InputField
+        title={proper.title}
+        placeholder={proper.placeholder}
+        description={proper.description}
+      />
+    );
+  }
+};
+
+/*
 export const renderers = {
   HeaderField: () => (
     <HeaderField
@@ -271,7 +284,7 @@ export const renderers = {
     />
   ),
   */
-  /*
+/*
   AutoGenerateField: () => (
     <AutoGenerateField
       title={AutoGenerateField.title}
@@ -279,7 +292,7 @@ export const renderers = {
       description={AutoGenerateField.description}
     />
   ),
-  */
+  
   ServiceUrlField: () => (
     <ServiceUrlField
       title={ServiceUrlField.title}
@@ -295,5 +308,6 @@ export const renderers = {
     />
   ),
 };
+*/
 
 export default ProperItems;

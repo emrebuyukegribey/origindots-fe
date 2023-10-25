@@ -57,5 +57,12 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    padding-right: 50px;
+}
+
+.proper-form-item {
+    padding: 5px
+}
+
+.proper-form-item.overlay {
+    opacity: 0.5;
 }
