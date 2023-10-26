@@ -77,6 +77,7 @@ function LoginScreen(props) {
         if (e.response?.data) {
           setError(e.response.data.message);
         }
+        setLoading(false);
       } finally {
         setTimeout(() => {
           if (localStorage.getItem("token")) {
