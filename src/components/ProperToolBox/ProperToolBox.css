@@ -69,10 +69,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 50px;
     background-color: #fff;
     color: var(--dark100);
-    padding: 5px;
+    padding: 4px;
 }
 
 .pb-close-button-icon-container:hover {
@@ -82,5 +82,6 @@
     background-color:  var(--red100);
     color: #fff;
     transition: all 0.5s ease-in-out;
+    cursor: pointer;
 }
 

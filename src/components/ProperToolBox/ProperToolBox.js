@@ -33,7 +33,7 @@ function ProperToolBox(props) {
             </div>
             <div className="pb-close-button-icon-container">
               <AiOutlineClose
-                size={20}
+                size={17}
                 onClick={() => setOpenProcessBar(false)}
                 style={{ cursor: "pointer" }}
               />

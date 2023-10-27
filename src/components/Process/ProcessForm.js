@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./ProcessForm.css";
 import ProcessIcons from "./ProcessIcons";
 import BlueButton from "../UI/Buttons/BlueButton";
+import DarkButton from "../UI/Buttons/DarkButton";
 
 const icons = ProcessIcons;
 
@@ -115,7 +116,7 @@ function ProcessForm(props) {
       </div>
       <div className="process-form-divider" />
       <div className="process-form-button-container">
-        <BlueButton text="Create Process" onClick={handleProcess} />
+        <DarkButton text="Create Process" onClick={handleProcess} />
       </div>
     </div>
   );

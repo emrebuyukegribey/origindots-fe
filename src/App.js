@@ -13,11 +13,11 @@ import ProcessManagement from "./pages/process/ProcessManagement";
 import Navbar from "./components/Navbar/Navbar";
 import LeftBar from "./components/LeftBar/LeftBar";
 import { useState } from "react";
-import CreateProcess from "./pages/process/CreateProcess";
 import LoginScreen from "./pages/user/login/LoginScreen";
 import RegisterScreen from "./pages/user/register/RegisterScreen";
 
 import { useEffect } from "react";
+import NewProcess from "./pages/process/NewProcess";
 
 function App() {
   const [activeLeftBar, setActiveLeftBar] = useState(true);
@@ -53,8 +53,8 @@ function App() {
         <Route path="/user/login" element={<LoginScreen />} />
         <Route path="/process-management" element={<ProcessManagement />} />
         <Route
-          path="/process-management/create-process"
-          element={<CreateProcess />}
+          path="/process-management/new-process"
+          element={<NewProcess />}
         />
       </Routes>
     </MainContext.Provider>

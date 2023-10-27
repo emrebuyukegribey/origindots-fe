@@ -25,7 +25,7 @@ function ProcessManagement(props) {
             <div className="pm-header-menu-container">
               <div className="pm-header-menu-item">
                 <div className="pm-header-menu-text">
-                  <NavLink to="/process-management/create-process">
+                  <NavLink to="/process-management/new-process">
                     {props.t("Create New Process")}
                   </NavLink>
                 </div>

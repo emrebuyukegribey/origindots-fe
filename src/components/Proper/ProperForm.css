@@ -30,7 +30,7 @@
 }
 
 .proper-preview-icon:hover {
-    background-color: var(--blue100);
+    background-color: var(--dark200);
     cursor: pointer;
     border-radius: 5px;
     color: #fff;
@@ -39,7 +39,7 @@
 
 .proper-form-divider {
     border-bottom: 1px solid var(--grey400);
-    margin: 25px 0px 40px 0px;
+    margin: 15px 0px 15px 0px;
 }
 
 .proper-form-area {
@@ -55,7 +55,6 @@
 
 .proper-form-button-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
-    padding-right: 50px;
 }

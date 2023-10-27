@@ -1,7 +1,7 @@
 @import "../../../variables.css";
 
 .light-button-container {
-    width: 250px;
+    width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
