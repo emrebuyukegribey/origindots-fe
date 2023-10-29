@@ -8,6 +8,8 @@ import ProperForm from "../../components/Proper/ProperForm";
 import Navbar from "../../components/Navbar/Navbar";
 import LeftBar from "../../components/LeftBar/LeftBar";
 import { Button, Steps, theme, message } from "antd";
+import ProperRender from "../../components/Proper/ProperRender";
+import Property from "../../components/Property/Property";
 
 const steps = [
   {
@@ -29,6 +31,12 @@ function NewProcess() {
   const [procesType, setProcessType] = useState();
   const [processIcon, setProcessIcon] = useState();
   const [currentStep, setCurrentStep] = useState(0);
+
+  const [properList, setProperList] = useState([]);
+  const [openProperty, setOpenProperty] = useState(false);
+  const [selectedProper, setSelectedProper] = useState();
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
     useContext(MainContext);
@@ -58,10 +66,53 @@ function NewProcess() {
     setCurrentStep(currentStep - 1);
   };
 
+  const addProperOnForm = (proper) => {
+    let shallow = Object.assign({}, proper);
+    const uniqueId = `${proper.type}-${Math.floor(Math.random() * 1000)}`;
+    shallow.id = uniqueId;
+    shallow.isDrag = false;
+    messageApi.open({
+      type: "success",
+      content: `Added new proper : ${proper.text}`,
+    });
+    setProperList((oldPropers) => [...oldPropers, shallow]);
+  };
+
+  const deleteProperOnForm = (proper) => {
+    setProperList(properList.filter((p) => p.id !== proper.id));
+    messageApi.open({
+      type: "error",
+      content: `Deleted proper on the form : ${proper.text}`,
+    });
+  };
+
+  const openPropertyDrawer = (proper) => {
+    setSelectedProper(proper);
+    setOpenProperty(true);
+  };
+
+  const editProperOnForm = (proper) => {
+    const updatingProperList = properList.indexOf(proper);
+    const updatedList = [...properList];
+    updatedList[updatingProperList] = proper;
+    setProperList(updatedList);
+
+    messageApi.open({
+      type: "success",
+      content: `Updated proper on the form : ${proper.text}`,
+    });
+  };
+
+  const closeProperty = () => {
+    setSelectedProper(null);
+    setOpenProperty(false);
+  };
+
   return (
     <>
       <Navbar />
       <LeftBar />
+      {contextHolder}
       <div
         className="right-container"
         style={{
@@ -72,7 +123,7 @@ function NewProcess() {
         <div className="cp-container">
           {currentStep === 1 && (
             <div className="cp-proper-tool-box-container">
-              <ProperToolBox />
+              <ProperToolBox addProper={addProperOnForm} />
             </div>
           )}
           <div className="cp-body-container">
@@ -84,9 +135,24 @@ function NewProcess() {
               />
             </div>
             <div className="cp-process-form-container">
-              {console.log("currentStep : ", currentStep)}
               {currentStep === 0 && <ProcessForm onClick={onCreateProcess} />}
-              {currentStep === 1 && <ProperForm previosStep={prev} />}
+              {currentStep === 1 && (
+                <ProperForm
+                  previosStep={prev}
+                  properList={properList}
+                  setProperList={setProperList}
+                  deleteProper={deleteProperOnForm}
+                  editProper={openPropertyDrawer}
+                />
+              )}
+            </div>
+            <div>
+              <Property
+                open={openProperty}
+                onClose={closeProperty}
+                proper={selectedProper}
+                editProper={editProperOnForm}
+              />
             </div>
           </div>
         </div>

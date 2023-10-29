@@ -41,7 +41,7 @@ function ProperToolBox(props) {
           </div>
           <div>
             {ProperItems.map((proper) => (
-              <ProperItem text={proper.text} icon={proper.icon} />
+              <ProperItem proper={proper} addProper={props.addProper} />
             ))}
           </div>
         </div>

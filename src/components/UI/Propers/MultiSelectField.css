@@ -3,7 +3,6 @@
 
 .ant-input[disabled] {
     background-color: #fff !important;
-    cursor: move !important;
 }
 
 .input-field-outer-container {
@@ -11,7 +10,7 @@
    width: 100%;
 }
 
-.input-field-container {
+.multiselect-field-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,15 +20,15 @@
     background-color: #fefefe;
     border: 1px solid var(--grey400);
     border-radius: 2px;
-    cursor: move;
+    
 }
 
-.input-field-title-container {
+.multiselect-field-title-container {
     display: flex;
     justify-content: space-between;
 }
 
-.input-field-title {
+.multiselect-field-title {
     padding-bottom: 5px;
     padding-left: 3px;
     font-weight: 600;
@@ -37,14 +36,14 @@
     color: var(--dark200)
 }
 
-.input-field-description {
+.multiselect-field-description {
     padding-top: 5px;
     padding-left: 3px;
     font-size: 13px;
     color: var(--dark300);
 }
 
-.input-field-edit-icon-container {
+.multiselect-field-edit-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,24 +55,24 @@
     cursor: pointer;
 }
 
-.input-field-icons-container {
+.multiselect-field-icons-container {
     display: flex;
     flex-direction: column;
     margin-top: 15px;
     height: 100%;
 }
 
-.input-field-edit-icon-container:hover {
+.multiselect-field-edit-icon-container:hover {
     background-color: var(--dark200);
     color: #fff;
 }
 
-.input-field-edit-icon {
+.multiselect-field-edit-icon {
     width: 24px;
     height: 24px;
 }
 
-.input-field-delete-icon-container {
+.multiselect-field-delete-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,12 +86,12 @@
     cursor: pointer;
 }
 
-.input-field-delete-icon-container:hover {
+.multiselect-field-delete-icon-container:hover {
     background-color: var(--red100);
     color: #fff;
 }
 
-.input-field-delete-icon {
+.multiselect-field-delete-icon {
     width: 28px;
     height: 28px;
 }

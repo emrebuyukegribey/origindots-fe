@@ -3,12 +3,32 @@
 
 .ant-input[disabled] {
     background-color: #fff !important;
-    cursor: move !important;
+    
 }
 
 .input-field-outer-container {
    display: flex; 
-   width: 100%;
+   width: auto;
+   background-color: #fff;
+   margin: 10px 10px;
+   transition: all 0.5s ease-in-out;
+}
+
+.input-field-drag-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.input-field-drag-icon {
+    font-size: 24px;
+    color: var(--grey200)
+}
+
+.input-field-outer-container:hover .input-field-drag-icon {
+    color: var(--dark100);
+    font-size: 32px;
 }
 
 .input-field-container {
@@ -21,7 +41,13 @@
     background-color: #fefefe;
     border: 1px solid var(--grey400);
     border-radius: 2px;
-    cursor: move;
+    transition: width 0.5ms ease-in-out;
+}
+
+.input-field-outer-container:hover .input-field-container {
+    background-color: var(--dark300);
+    transition: all 0.5s ease-in-out;
+    margin: 5px;
 }
 
 .input-field-title-container {
@@ -37,6 +63,10 @@
     color: var(--dark200)
 }
 
+.input-field-outer-container:hover .input-field-title {
+    color: #fff;
+}
+
 .input-field-description {
     padding-top: 5px;
     padding-left: 3px;
@@ -44,55 +74,60 @@
     color: var(--dark300);
 }
 
-.input-field-edit-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--dark200);
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding: 5px;
-    border-radius: 3px;
-    cursor: pointer;
+.input-field-outer-container:hover .input-field-description {
+    color: var(--grey400)
 }
 
 .input-field-icons-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
-    height: 100%;
+    display: none;
 }
 
-.input-field-edit-icon-container:hover {
-    background-color: var(--dark200);
-    color: #fff;
+.input-field-outer-container:hover .input-field-icons-container {
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+    margin-top: -30px;
+    margin-right: -12px;
 }
 
 .input-field-edit-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.input-field-delete-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--red100);
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding: 5px;
-    width: 32px;
-    height: 32px;
-    border-radius: 3px;
+    margin-right: 15px;
+    color: #fff;
     cursor: pointer;
+    width: 20px;
+    height: 20px;
 }
 
-.input-field-delete-icon-container:hover {
+.input-field-edit-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--red100);
     color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+    
 }
 
 .input-field-delete-icon {
-    width: 28px;
-    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.input-field-delete-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--red100);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
 }

@@ -1,6 +1,136 @@
 
+.propergroup-field-outer-container {
+    display: flex; 
+    width: auto;
+    background-color: #fff;
+    margin: 10px 10px;
+    transition: all 0.5s ease-in-out;
+ }
 
-.proper-group-field-container {
+ .propergroup-field-drag-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.propergroup-field-drag-icon {
+    font-size: 24px;
+    color: var(--grey200)
+}
+
+.propergroup-field-outer-container:hover .propergroup-field-drag-icon {
+    color: var(--dark100);
+    font-size: 32px;
+}
+
+.propergroup-field-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 100%;
-    border: 1px solid var(--grey300)
+    margin: 10px 10px 15px 10px;
+    padding: 20px;
+    background-color: #fefefe;
+    border: 1px solid var(--grey400);
+    border-radius: 2px;
+    transition: width 0.5ms ease-in-out;
+}
+
+.propergroup-field-outer-container:hover .propergroup-field-container {
+    background-color: var(--dark300);
+    transition: all 0.5s ease-in-out;
+    margin: 5px;
+}
+
+.propergroup-field-title-container {
+    
+}
+
+.propergroup-field-title {
+    padding-bottom: 5px;
+    padding-left: 3px;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--dark200)
+}
+
+.propergroup-field-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.propergroup-field-content {
+    padding: 20px 10px;
+    border: 1px solid var(--grey400)
+}
+
+.propergroup-field-outer-container:hover .propergroup-field-title {
+    color: #fff;
+}
+
+.propergroup-field-description {
+    padding-top: 5px;
+    padding-left: 3px;
+    font-size: 13px;
+    color: var(--dark300);
+}
+
+.propergroup-field-divider {
+    border-bottom: 1px solid var(--grey300);
+    margin: 10px 0px;
+}
+
+.propergroup-field-icons-container {
+    display: none;
+}
+
+.propergroup-field-outer-container:hover .propergroup-field-icons-container {
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+    margin-top: -30px;
+    margin-right: -12px;
+}
+
+.propergroup-field-edit-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    color: #fff;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.propergroup-field-edit-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--red100);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+    
+}
+
+.propergroup-field-delete-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.propergroup-field-delete-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--red100);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
 }

@@ -30,7 +30,12 @@ import ServiceUrlField from "../UI/Propers/ServiceUrlField";
 import ProperGroupField from "../UI/Propers/ProperGroupField";
 
 const ProperItems = [
-  { id: 1, icon: <BiHeading />, text: "Header", type: "HeaderField" },
+  {
+    id: 1,
+    icon: <BiHeading />,
+    text: "Header",
+    type: "HeaderField",
+  },
   {
     id: 2,
     icon: <BsCursorText />,

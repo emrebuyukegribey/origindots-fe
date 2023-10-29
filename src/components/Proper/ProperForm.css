@@ -19,10 +19,14 @@
     margin-right: 10px;
 }
 
+.proper-preview-inner-container {
+    display: flex;
+}
+
 .proper-preview-icon {
     padding: 4px;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     margin-right: 15px;
     margin-left: 5px;
     color: var(--dark300);
@@ -45,16 +49,25 @@
 .proper-form-area {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     min-height: 300px;
     height: auto;
-    /*border: 1px dashed  var(--grey300);*/
+    border: 1px dashed  var(--grey300);
     overflow-y: auto;
+    padding: 0px 20px 0px 0px;
 }
 
 .proper-form-button-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.proper-form-drag-indicator {
+    width: 95%;
+    height: 3px;
+    background-color: var(--red200);
+    
+    margin: 15px;
+    transition: all 2s ease-in-out;
 }

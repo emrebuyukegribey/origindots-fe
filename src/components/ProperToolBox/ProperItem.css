@@ -4,7 +4,7 @@
     display: flex;
     width: 100%;
     background-color: #fff;
-    cursor: move;
+    cursor: crosshair;
     border-bottom: 1px solid #e1e1e1;
 }
 

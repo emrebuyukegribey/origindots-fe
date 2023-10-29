@@ -1,0 +1,11 @@
+@import "../../variables.css";
+
+.property-field-container {
+    margin-bottom: 20px;
+}
+
+.property-field-label {
+    color: var(--dark100);
+    font-family: "Nunito", sans-serif;
+    margin-bottom: 5px;
+}

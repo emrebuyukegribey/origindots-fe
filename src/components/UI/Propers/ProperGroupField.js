@@ -2,34 +2,39 @@ import "./InputField.css";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import "./ProperGroupField.css";
+import { RiDraggable } from "react-icons/ri";
 import InputField from "./InputField";
+import { AiOutlineClose } from "react-icons/ai";
 
-function ProperGroupField({ title, placeholder, description }) {
+function ProperGroupField({ proper, deleteProper, editProper }) {
   return (
-    <div style={{ width: "100%" }}>
-      <span style={{ paddingLeft: "10px" }} className="input-field-title">
-        {title}
-      </span>
-
-      <div className="input-field-outer-container">
-        <div className="input-field-container">
-          <div className="input-field-title-container"></div>
-          <InputField />
-          <InputField />
-          <InputField />
-        </div>
-        <div className="input-field-icons-container">
-          <div className="input-field-edit-icon-container">
-            <BiEditAlt className="input-field-edit-icon" />
-          </div>
-          <div className="input-field-delete-icon-container">
-            <AiOutlineDelete className="input-field-delete-icon" />
-          </div>
-        </div>
+    <div className="propergroup-field-outer-container">
+      <div className="propergroup-field-drag-icon-container">
+        <RiDraggable className="propergroup-field-drag-icon" />
       </div>
-      <span style={{ paddingLeft: "10px" }} className="input-field-description">
-        {description}
-      </span>
+      <div className="propergroup-field-container">
+        <div className="propergroup-field-title-container">
+          <span className="propergroup-field-title">{proper.title}</span>
+          <div className="propergroup-field-icons-container">
+            <div
+              className="propergroup-field-edit"
+              onClick={() => editProper(proper)}
+            >
+              <BiEditAlt className="propergroup-field-edit-icon" />
+            </div>
+            <div
+              className="propergroup-field-delete"
+              onClick={() => deleteProper(proper)}
+            >
+              <AiOutlineClose className="propergroup-field-delete-icon" />
+            </div>
+          </div>
+        </div>
+        <div className="propergroup-field-content"></div>
+        <span className="propergroup-field-description">
+          {proper.description}
+        </span>
+      </div>
     </div>
   );
 }
