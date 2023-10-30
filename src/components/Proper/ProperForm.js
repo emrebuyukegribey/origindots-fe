@@ -73,6 +73,11 @@ function ProperForm(props) {
     e.dataTransfer.dropEffect = "move";
     e.preventDefault();
   };
+
+  const clearAllPropers = () => {
+    props.setProperList([]);
+  };
+
   return (
     <div className="proper-form-container">
       <div className="proper-header-container">
@@ -143,7 +148,10 @@ function ProperForm(props) {
           <div>
             <DarkButton text="Create Propers" />
           </div>
-          <RedButton text="Clear Propers" />
+          <RedButton
+            text="Clear All Propers"
+            onClick={() => clearAllPropers()}
+          />
         </div>
       </div>
     </div>

@@ -1,25 +1,33 @@
 import { Input } from "antd";
 import "./HeaderField.css";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
+import { BiEditAlt } from "react-icons/bi";
+import { RiDraggable } from "react-icons/ri";
 
-function HeaderField({ title, description, placeholder }) {
+function HeaderField({ proper, deleteProper, editProper }) {
+  console.log("proper : ", proper);
   return (
     <div className="header-field-outer-container">
-      <div className="header-field-container">
-        <Input
-          placeholder={placeholder}
-          size="large"
-          style={{
-            border: "1px dashed #c1c1c1",
-            fontSize: "20px",
-            fontWeight: "600",
-            borderRadius: "0px",
-          }}
-        />
+      <div className="header-field-drag-icon-container">
+        <RiDraggable className="header-field-drag-icon" />
       </div>
-      <div className="header-field-icons-container">
-        <div className="header-field-delete-icon-container">
-          <AiOutlineDelete className="header-field-delete-icon" />
+      <div className="header-field-container">
+        <div className="header-field-title-container">
+          <span className="header-field-title">{proper.title}</span>
+          <div className="header-field-icons-container">
+            <div
+              className="header-field-edit"
+              onClick={() => editProper(proper)}
+            >
+              <BiEditAlt className="header-field-edit-icon" />
+            </div>
+            <div
+              className="header-field-delete"
+              onClick={() => deleteProper(proper)}
+            >
+              <AiOutlineClose className="header-field-delete-icon" />
+            </div>
+          </div>
         </div>
       </div>
     </div>

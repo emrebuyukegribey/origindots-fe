@@ -35,6 +35,7 @@ const ProperItems = [
     icon: <BiHeading />,
     text: "Header",
     type: "HeaderField",
+    title: "Header",
   },
   {
     id: 2,

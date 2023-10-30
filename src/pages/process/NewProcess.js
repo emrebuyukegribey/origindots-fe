@@ -67,6 +67,7 @@ function NewProcess() {
   };
 
   const addProperOnForm = (proper) => {
+    console.log("proper x :", proper);
     let shallow = Object.assign({}, proper);
     const uniqueId = `${proper.type}-${Math.floor(Math.random() * 1000)}`;
     shallow.id = uniqueId;

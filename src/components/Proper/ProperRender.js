@@ -7,9 +7,9 @@ export default function ProperRender(proper, deleteProper, editProper) {
   if (proper.type === "HeaderField") {
     return (
       <HeaderField
-        title={proper.title}
-        placeholder={proper.placeholder}
-        description={proper.description}
+        proper={proper}
+        deleteProper={deleteProper}
+        editProper={editProper}
       />
     );
   } else if (proper.type === "InputField") {
@@ -24,9 +24,9 @@ export default function ProperRender(proper, deleteProper, editProper) {
   } else if (proper.type === "NumberField") {
     return (
       <NumberField
-        title={proper.title}
-        placeholder={proper.placeholder}
-        description={proper.description}
+        proper={proper}
+        deleteProper={deleteProper}
+        editProper={editProper}
       />
     );
   } else if (proper.type === "ProperGroupField") {
