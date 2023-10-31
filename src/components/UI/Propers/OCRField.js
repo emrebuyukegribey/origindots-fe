@@ -1,25 +1,38 @@
-import { Input } from "antd";
 import "./OCRField.css";
-import { AiOutlineDelete } from "react-icons/ai";
+import { IoMdQrScanner } from "react-icons/io";
+import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
+import { RiDraggable } from "react-icons/ri";
 
-function OCRField({ title, description, placeholder }) {
+function OCRField({ proper, deleteProper, editProper }) {
   return (
     <div className="ocr-field-outer-container">
+      <div className="ocr-field-drag-icon-container">
+        <RiDraggable className="qr-field-drag-icon" />
+      </div>
       <div className="ocr-field-container">
         <div className="ocr-field-title-container">
-          <span className="ocr-field-title">{title}</span>
+          <div style={{ display: "flex" }}>
+            <div className="ocr-field-icon">{proper.icon}</div>
+            <span className="ocr-field-title">{proper.title}</span>
+          </div>
+          <div className="ocr-field-icons-container">
+            <div className="ocr-field-edit" onClick={() => editProper(proper)}>
+              <BiEditAlt className="ocr-field-edit-icon" />
+            </div>
+            <div
+              className="ocr-field-delete"
+              onClick={() => deleteProper(proper)}
+            >
+              <AiOutlineClose className="ocr-field-delete-icon" />
+            </div>
+          </div>
         </div>
-        <Input placeholder={placeholder} disabled size="large" />
-        <span className="ocr-field-description">{description}</span>
-      </div>
-      <div className="ocr-field-icons-container">
-        <div className="ocr-field-edit-icon-container">
-          <BiEditAlt className="ocr-field-edit-icon" />
+        <div className="ocr-field-upload-icon-container">
+          <IoMdQrScanner className="ocr-field-scanner-icon" />
+          {proper.placeholder}
         </div>
-        <div className="ocr-field-delete-icon-container">
-          <AiOutlineDelete className="ocr-field-delete-icon" />
-        </div>
+        <span className="ocr-field-description">{proper.description}</span>
       </div>
     </div>
   );

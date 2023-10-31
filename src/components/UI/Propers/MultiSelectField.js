@@ -1,28 +1,40 @@
-import { Input, Select } from "antd";
+import { Select } from "antd";
 import "./MultiSelectField.css";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
+import { RiDraggable } from "react-icons/ri";
 
-function MultiSelectField({ title, description, placeholder }) {
+function MultiSelectField({ proper, deleteProper, editProper }) {
   return (
-    <div className="input-field-outer-container">
-      <div className="input-field-container">
-        <div className="input-field-title-container">
-          <span className="input-field-title">{title}</span>
-        </div>
-        <Select
-          placeholder={placeholder}
-          options={[{ value: "Select1" }, { value: "Select2" }]}
-        />
-        <span className="input-field-description">{description}</span>
+    <div className="multi-select-field-outer-container">
+      <div className="multi-select-field-drag-icon-container">
+        <RiDraggable className="multi-select-field-drag-icon" />
       </div>
-      <div className="input-field-icons-container">
-        <div className="input-field-edit-icon-container">
-          <BiEditAlt className="input-field-edit-icon" />
+      <div className="multi-select-field-container">
+        <div className="multi-select-field-title-container">
+          <div style={{ display: "flex" }}>
+            <div className="multi-select-field-icon">{proper.icon}</div>
+            <span className="multi-select-field-title">{proper.title}</span>
+          </div>
+          <div className="multi-select-field-icons-container">
+            <div
+              className="multi-select-field-edit"
+              onClick={() => editProper(proper)}
+            >
+              <BiEditAlt className="multi-select-field-edit-icon" />
+            </div>
+            <div
+              className="multi-select-field-delete"
+              onClick={() => deleteProper(proper)}
+            >
+              <AiOutlineClose className="multi-select-field-delete-icon" />
+            </div>
+          </div>
         </div>
-        <div className="input-field-delete-icon-container">
-          <AiOutlineDelete className="input-field-delete-icon" />
-        </div>
+        <Select placeholder={proper.placeholder} options="" />
+        <span className="multi-select-field-description">
+          {proper.description}
+        </span>
       </div>
     </div>
   );

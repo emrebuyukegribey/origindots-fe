@@ -5,12 +5,13 @@ import "./Property.css";
 import DarkButton from "../UI/Buttons/DarkButton";
 import LightButton from "../UI/Buttons/LightButton";
 
-function Property({ open, onClose, proper, editProper }) {
+function Property({ open, onClose, proper, properValueList, editProper }) {
   const [type, setType] = useState(proper ? proper.type : "");
   const [title, setTitle] = useState(proper ? proper.title : "");
   const [placeholder, setPlaceholder] = useState();
   const [description, setDescription] = useState();
   const [updatedField, setUpdatedFields] = useState(false);
+  const [values, setValues] = useState();
 
   setTimeout(() => {
     if (proper && !updatedField) {
@@ -18,6 +19,18 @@ function Property({ open, onClose, proper, editProper }) {
       setTitle(proper.title);
       setPlaceholder(proper.placeholder);
       setDescription(proper.description);
+      console.log(
+        "emre : ",
+        properValueList
+          .filter((val) => val.properId === proper.id)
+          .map((item) => item.name)
+      );
+      setValues(
+        properValueList
+          ?.filter((value) => value.properId === proper.id)
+          .map((item) => item.name)
+      );
+
       setUpdatedFields(true);
     }
   }, 100);
@@ -39,7 +52,7 @@ function Property({ open, onClose, proper, editProper }) {
     setDescription(e.target.value);
   };
 
-  const edit = (ind) => {
+  const edit = () => {
     let updatedProper = proper;
     updatedProper.title = title;
     updatedProper.placeholder = placeholder;
@@ -73,6 +86,8 @@ function Property({ open, onClose, proper, editProper }) {
             </div>
           </div>
         )}
+
+        {values && <div>{values} </div>}
 
         <div
           className="property-field-container"

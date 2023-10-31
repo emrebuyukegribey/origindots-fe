@@ -29,8 +29,6 @@ function ProperForm(props) {
     e.preventDefault();
     dragOver.current = index;
 
-    console.log("props.properList : ", props.properList);
-
     const cpProperList = [...props.properList];
 
     let finalArr = [];

@@ -33,6 +33,7 @@ function NewProcess() {
   const [currentStep, setCurrentStep] = useState(0);
 
   const [properList, setProperList] = useState([]);
+  const [properValueList, setProperValueList] = useState([]);
   const [openProperty, setOpenProperty] = useState(false);
   const [selectedProper, setSelectedProper] = useState();
 
@@ -67,16 +68,43 @@ function NewProcess() {
   };
 
   const addProperOnForm = (proper) => {
-    console.log("proper x :", proper);
     let shallow = Object.assign({}, proper);
     const uniqueId = `${proper.type}-${Math.floor(Math.random() * 1000)}`;
     shallow.id = uniqueId;
     shallow.isDrag = false;
+    addProperValue(shallow);
     messageApi.open({
       type: "success",
       content: `Added new proper : ${proper.text}`,
     });
     setProperList((oldPropers) => [...oldPropers, shallow]);
+  };
+
+  const addProperValue = (proper) => {
+    if (proper.type === "MultiSelectField") {
+      const properValue1UniqueId = `${proper.type}-${Math.floor(
+        Math.random() * 1000
+      )}-value-${Math.floor(Math.random() * 1000)}`;
+      const properValue2UniqueId = `${proper.type}-${Math.floor(
+        Math.random() * 1000
+      )}-value-${Math.floor(Math.random() * 1000)}`;
+      const properValue1 = {
+        id: properValue1UniqueId,
+        name: "Value1",
+        properId: proper.id,
+      };
+      const properValue2 = {
+        id: properValue2UniqueId,
+        name: "Value2",
+        properId: proper.id,
+      };
+      setProperValueList((oldProperValues) => [
+        ...oldProperValues,
+        properValue1,
+        properValue2,
+      ]);
+    }
+    console.log("properValueList : ", properValueList);
   };
 
   const deleteProperOnForm = (proper) => {
@@ -152,6 +180,7 @@ function NewProcess() {
                 open={openProperty}
                 onClose={closeProperty}
                 proper={selectedProper}
+                properValueList={properValueList}
                 editProper={editProperOnForm}
               />
             </div>

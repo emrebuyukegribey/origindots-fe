@@ -5,7 +5,6 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
 function EmailField({ proper, deleteProper, editProper }) {
-  console.log("emil")
   return (
     <div className="email-field-outer-container">
       <div className="email-field-drag-icon-container">
@@ -13,7 +12,7 @@ function EmailField({ proper, deleteProper, editProper }) {
       </div>
       <div className="email-field-container">
         <div className="email-field-title-container">
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <div className="email-field-icon">{proper.icon}</div>
             <span className="email-field-title">{proper.title}</span>
           </div>

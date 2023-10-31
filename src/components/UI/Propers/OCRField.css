@@ -1,14 +1,33 @@
 @import "../../../variables.css";
 
 
-.ant-ocr[disabled] {
+.ant-input[disabled] {
     background-color: #fff !important;
-    cursor: move !important;
 }
 
 .ocr-field-outer-container {
    display: flex; 
    width: 100%;
+   background-color: #fff;
+   margin: 10px 10px;
+   transition: all 0.5s ease-in-out;
+}
+
+.ocr-field-drag-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.ocr-field-drag-icon {
+    font-size: 24px;
+    color: var(--grey200)
+}
+
+.ocr-field-outer-container:hover .ocr-field-drag-icon {
+    color: var(--dark100);
+    transition: all 0.5ms ease-in-out;
 }
 
 .ocr-field-container {
@@ -18,10 +37,15 @@
     width: 100%;
     margin: 10px 10px 15px 10px;
     padding: 20px;
-    background-color: #fefefe;
+    background-color: #fff;
     border: 1px solid var(--grey400);
     border-radius: 2px;
-    cursor: move;
+    transition: width 0.5ms ease-in-out;
+}
+
+.ocr-field-outer-container:hover .ocr-field-container {
+    border: 1px solid var(--dark300);
+    transition: all 0.5s ease-in-out;
 }
 
 .ocr-field-title-container {
@@ -29,9 +53,25 @@
     justify-content: space-between;
 }
 
+.ocr-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px ;
+    font-size: 18px;
+    border-color: var(--dark300);   
+}
+
 .ocr-field-title {
+    margin-top: 15px;
     padding-bottom: 5px;
-    padding-left: 3px;
+    padding-left: 0px;
     font-weight: 600;
     font-size: 16px;
     color: var(--dark200)
@@ -44,55 +84,97 @@
     color: var(--dark300);
 }
 
-.ocr-field-edit-icon-container {
-    display: flex;
+.ocr-field-icons-container {
+    display: none;
+}
+
+.ocr-field-outer-container:hover .ocr-field-icons-container {
+    display: flex ;
     justify-content: center;
     align-items: center;
-    color: var(--dark200);
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding: 5px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.ocr-field-icons-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
-    height: 100%;
-}
-
-.ocr-field-edit-icon-container:hover {
-    background-color: var(--dark200);
-    color: #fff;
+    margin-top: -45px;
+    margin-right: -12px;
 }
 
 .ocr-field-edit-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.ocr-field-delete-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--red100);
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding: 5px;
-    width: 32px;
-    height: 32px;
-    border-radius: 3px;
+    margin-right: 15px;
+    color: var(--dark300);
     cursor: pointer;
+    width: 18px;
+    height: 18px;
 }
 
-.ocr-field-delete-icon-container:hover {
-    background-color: var(--red100);
+.ocr-field-edit-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
     color: #fff;
+    padding: 2px;
+    border-radius: 50%;
 }
 
 .ocr-field-delete-icon {
-    width: 28px;
-    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.ocr-field-delete-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.ocr-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px ;
+    font-size: 18px;
+    border-color: var(--dark300);   
+}
+
+.ocr-field-upload-icon-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ocr-field-upload-icon {
+    width: 50px;
+    height: 50px;
+    color: var(--dark300);
+}
+
+.ocr-field-upload-text {
+    color: var(--dark300);
+}
+
+.ant-upload-wrapper {
+    text-align: center;
+}
+
+.ocr-field-scanner-icon {
+    width: 50px;
+    height: 50px;
 }

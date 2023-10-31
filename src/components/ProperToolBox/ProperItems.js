@@ -14,6 +14,7 @@ import {
   AiOutlineBorderlessTable,
 } from "react-icons/ai";
 import { RiAiGenerate } from "react-icons/ri";
+import { IoMdQrScanner } from "react-icons/io";
 import HeaderField from "../UI/Propers/HeaderField";
 import InputField from "../UI/Propers/InputField";
 import NumberField from "../UI/Propers/NumberField";
@@ -120,7 +121,7 @@ const ProperItems = [
   },
   {
     id: 11,
-    icon: <BsOpticalAudio />,
+    icon: <IoMdQrScanner />,
     text: "OCR",
     type: "OCRField",
     title: "Proper name",
@@ -144,7 +145,9 @@ const ProperItems = [
     title: "Proper name",
     placeholder: "Placeholder",
     description: "description (optional)",
+    values: ["value1"],
   },
+  /*
   {
     id: 14,
     icon: <AiOutlineBorderlessTable />,
@@ -172,6 +175,7 @@ const ProperItems = [
     placeholder: "Placeholder",
     description: "description (optional)",
   },
+  */
   {
     id: 17,
     icon: <BiCodeCurly />,

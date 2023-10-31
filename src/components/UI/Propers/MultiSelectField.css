@@ -5,93 +5,134 @@
     background-color: #fff !important;
 }
 
-.input-field-outer-container {
+.multi-select-field-outer-container {
    display: flex; 
    width: 100%;
+   background-color: #fff;
+   margin: 10px 10px;
+   transition: all 0.5s ease-in-out;
 }
 
-.multiselect-field-container {
+.multi-select-field-drag-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.multi-select-field-drag-icon {
+    font-size: 24px;
+    color: var(--grey200)
+}
+
+.multi-select-field-outer-container:hover .multi-select-field-drag-icon {
+    color: var(--dark100);
+    transition: all 0.5ms ease-in-out;
+}
+
+.multi-select-field-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
     margin: 10px 10px 15px 10px;
     padding: 20px;
-    background-color: #fefefe;
+    background-color: #fff;
     border: 1px solid var(--grey400);
     border-radius: 2px;
-    
+    transition: width 0.5ms ease-in-out;
 }
 
-.multiselect-field-title-container {
+.multi-select-field-outer-container:hover .multi-select-field-container {
+    border: 1px solid var(--dark300);
+    transition: all 0.5s ease-in-out;
+}
+
+.multi-select-field-title-container {
     display: flex;
     justify-content: space-between;
 }
 
-.multiselect-field-title {
+.multi-select-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px ;
+    font-size: 18px;
+    border-color: var(--dark300);   
+}
+
+.multi-select-field-title {
+    margin-top: 15px;
     padding-bottom: 5px;
-    padding-left: 3px;
+    padding-left: 0px;
     font-weight: 600;
     font-size: 16px;
     color: var(--dark200)
 }
 
-.multiselect-field-description {
+.multi-select-field-description {
     padding-top: 5px;
     padding-left: 3px;
     font-size: 13px;
     color: var(--dark300);
 }
 
-.multiselect-field-edit-icon-container {
+.multi-select-field-icons-container {
+    display: none;
+}
+
+.multi-select-field-outer-container:hover .multi-select-field-icons-container {
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+    margin-top: -45px;
+    margin-right: -12px;
+}
+
+.multi-select-field-edit-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--dark200);
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding: 5px;
-    border-radius: 3px;
+    margin-right: 15px;
+    color: var(--dark300);
     cursor: pointer;
+    width: 18px;
+    height: 18px;
 }
 
-.multiselect-field-icons-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
-    height: 100%;
-}
-
-.multiselect-field-edit-icon-container:hover {
-    background-color: var(--dark200);
-    color: #fff;
-}
-
-.multiselect-field-edit-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.multiselect-field-delete-icon-container {
+.multi-select-field-edit-icon:hover{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--red100);
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding: 5px;
-    width: 32px;
-    height: 32px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.multiselect-field-delete-icon-container:hover {
-    background-color: var(--red100);
+    background-color: var(--dark300);
     color: #fff;
+    padding: 2px;
+    border-radius: 50%;
 }
 
-.multiselect-field-delete-icon {
-    width: 28px;
-    height: 28px;
+.multi-select-field-delete-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.multi-select-field-delete-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
 }
