@@ -3,7 +3,6 @@
 
 .ant-input[disabled] {
     background-color: #fff !important;
-    
 }
 
 .header-field-outer-container {
@@ -27,9 +26,8 @@
 }
 
 .header-field-outer-container:hover .header-field-drag-icon {
-    display: none;
     color: var(--dark100);
-    font-size: 32px;
+    transition: all 0.5ms ease-in-out;
 }
 
 .header-field-container {
@@ -46,10 +44,8 @@
 }
 
 .header-field-outer-container:hover .header-field-container {
-    background-color: #f1f1f1;
-    border-radius: 10px;
+    border: 1px solid var(--dark300);
     transition: all 0.5s ease-in-out;
-    margin: 5px;
 }
 
 .header-field-title-container {
@@ -57,14 +53,29 @@
     justify-content: space-between;
 }
 
-.header-field-title {
-    padding-bottom: 5px;
-    padding-left: 3px;
-    font-weight: 700;
+.header-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px ;
     font-size: 18px;
-    color: var(--dark200)
+    border-color: var(--dark300);   
 }
 
+.header-field-title {
+    margin-top: 15px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--dark200)
+}
 
 .header-field-description {
     padding-top: 5px;
@@ -72,8 +83,6 @@
     font-size: 13px;
     color: var(--dark300);
 }
-
-
 
 .header-field-icons-container {
     display: none;
@@ -83,7 +92,7 @@
     display: flex ;
     justify-content: center;
     align-items: center;
-    margin-top: -30px;
+    margin-top: -45px;
     margin-right: -12px;
 }
 
@@ -106,7 +115,6 @@
     color: #fff;
     padding: 2px;
     border-radius: 50%;
-    
 }
 
 .header-field-delete-icon {

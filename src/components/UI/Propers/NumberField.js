@@ -6,30 +6,33 @@ import { RiDraggable } from "react-icons/ri";
 
 function NumberField({ proper, deleteProper, editProper }) {
   return (
-    <div className="input-field-outer-container">
-      <div className="input-field-drag-icon-container">
-        <RiDraggable className="input-field-drag-icon" />
+    <div className="number-field-outer-container">
+      <div className="number-field-drag-icon-container">
+        <RiDraggable className="number-field-drag-icon" />
       </div>
-      <div className="input-field-container">
-        <div className="input-field-title-container">
-          <span className="input-field-title">{proper.title}</span>
-          <div className="input-field-icons-container">
+      <div className="number-field-container">
+        <div className="number-field-title-container">
+          <div style={{display: "flex"}}>
+            <div className="number-field-icon">{proper.icon}</div>
+            <span className="number-field-title">{proper.title}</span>
+          </div>
+          <div className="number-field-icons-container">
             <div
-              className="input-field-edit"
+              className="number-field-edit"
               onClick={() => editProper(proper)}
             >
-              <BiEditAlt className="input-field-edit-icon" />
+              <BiEditAlt className="number-field-edit-icon" />
             </div>
             <div
-              className="input-field-delete"
+              className="number-field-delete"
               onClick={() => deleteProper(proper)}
             >
-              <AiOutlineClose className="input-field-delete-icon" />
+              <AiOutlineClose className="number-field-delete-icon" />
             </div>
           </div>
         </div>
         <InputNumber placeholder={proper.placeholder} disabled size="large" />
-        <span className="input-field-description">{proper.description}</span>
+        <span className="number-field-description">{proper.description}</span>
       </div>
     </div>
   );

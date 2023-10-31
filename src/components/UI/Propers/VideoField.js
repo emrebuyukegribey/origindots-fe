@@ -1,31 +1,43 @@
 import { Upload } from "antd";
 import "./VideoField.css";
-import { AiOutlineDelete, AiOutlineVideoCameraAdd } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
+import { RiDraggable } from "react-icons/ri";
 
-function VideoField({ title, description, placeholder }) {
+function VideoField({ proper, deleteProper, editProper }) {
   return (
-    <div className="video-field-outer-container">
-      <div className="video-field-container">
-        <div className="video-field-title-container">
-          <span className="video-field-title">{title}</span>
+    <div className="photo-field-outer-container">
+      <div className="photo-field-drag-icon-container">
+        <RiDraggable className="photo-field-drag-icon" />
+      </div>
+      <div className="photo-field-container">
+        <div className="photo-field-title-container">
+          <div style={{display: "flex"}}>
+            <div className="photo-field-icon">{proper.icon}</div>
+            <span className="photo-field-title">{proper.title}</span>
+          </div>
+          <div className="photo-field-icons-container">
+            <div
+              className="photo-field-edit"
+              onClick={() => editProper(proper)}
+            >
+              <BiEditAlt className="photo-field-edit-icon" />
+            </div>
+            <div
+              className="photo-field-delete"
+              onClick={() => deleteProper(proper)}
+            >
+              <AiOutlineClose className="photo-field-delete-icon" />
+            </div>
+          </div>
         </div>
-
         <Upload disabled size="large">
-          <div className="video-field-upload-icon-container">
-            <AiOutlineVideoCameraAdd className="video-field-upload-icon" />
-            <div className="video-field-upload-text">{placeholder}</div>
+          <div className="photo-field-upload-icon-container">
+            <AiOutlineVideoCameraAdd className="photo-field-upload-icon" />
+            <div className="photo-field-upload-text">{proper.placeholder}</div>
           </div>
         </Upload>
-        <span className="video-field-description">{description}</span>
-      </div>
-      <div className="video-field-icons-container">
-        <div className="video-field-edit-icon-container">
-          <BiEditAlt className="video-field-edit-icon" />
-        </div>
-        <div className="video-field-delete-icon-container">
-          <AiOutlineDelete className="video-field-delete-icon" />
-        </div>
+        <span className="photo-field-description">{proper.description}</span>
       </div>
     </div>
   );

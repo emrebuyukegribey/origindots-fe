@@ -42,7 +42,7 @@ const ProperItems = [
     icon: <BsCursorText />,
     text: "Text Input",
     type: "InputField",
-    title: "Proper name",
+    title: "Proper Name",
     placeholder: "Placeholder",
     description: "description (optional)",
   },

@@ -1,32 +1,45 @@
 import { Upload } from "antd";
 import "./PhotoField.css";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
+import { RiDraggable } from "react-icons/ri";
 import { HiOutlinePhoto } from "react-icons/hi2";
 
-function PhotoField({ title, description, placeholder }) {
-  return (
-    <div className="data-field-outer-container">
-      <div className="data-field-container">
-        <div className="data-field-title-container">
-          <span className="data-field-title">{title}</span>
-        </div>
 
+function PhotoField({ proper, deleteProper, editProper }) {
+  return (
+    <div className="photo-field-outer-container">
+      <div className="photo-field-drag-icon-container">
+        <RiDraggable className="photo-field-drag-icon" />
+      </div>
+      <div className="photo-field-container">
+        <div className="photo-field-title-container">
+          <div style={{display: "flex"}}>
+            <div className="photo-field-icon">{proper.icon}</div>
+            <span className="photo-field-title">{proper.title}</span>
+          </div>
+          <div className="photo-field-icons-container">
+            <div
+              className="photo-field-edit"
+              onClick={() => editProper(proper)}
+            >
+              <BiEditAlt className="photo-field-edit-icon" />
+            </div>
+            <div
+              className="photo-field-delete"
+              onClick={() => deleteProper(proper)}
+            >
+              <AiOutlineClose className="photo-field-delete-icon" />
+            </div>
+          </div>
+        </div>
         <Upload disabled size="large">
-          <div className="data-field-upload-icon-container">
-            <HiOutlinePhoto className="data-field-upload-icon" />
-            <div className="data-field-upload-text">{placeholder}</div>
+          <div className="photo-field-upload-icon-container">
+            <HiOutlinePhoto className="photo-field-upload-icon" />
+            <div className="photo-field-upload-text">{proper.placeholder}</div>
           </div>
         </Upload>
-        <span className="data-field-description">{description}</span>
-      </div>
-      <div className="data-field-icons-container">
-        <div className="data-field-edit-icon-container">
-          <BiEditAlt className="data-field-edit-icon" />
-        </div>
-        <div className="data-field-delete-icon-container">
-          <AiOutlineDelete className="data-field-delete-icon" />
-        </div>
+        <span className="photo-field-description">{proper.description}</span>
       </div>
     </div>
   );

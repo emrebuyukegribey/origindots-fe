@@ -1,14 +1,33 @@
 @import "../../../variables.css";
 
 
-.ant-upload-disabled {
+.ant-input[disabled] {
     background-color: #fff !important;
-    cursor: move !important;
 }
 
 .video-field-outer-container {
    display: flex; 
    width: 100%;
+   background-color: #fff;
+   margin: 10px 10px;
+   transition: all 0.5s ease-in-out;
+}
+
+.video-field-drag-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.video-field-drag-icon {
+    font-size: 24px;
+    color: var(--grey200)
+}
+
+.video-field-outer-container:hover .video-field-drag-icon {
+    color: var(--dark100);
+    transition: all 0.5ms ease-in-out;
 }
 
 .video-field-container {
@@ -18,10 +37,15 @@
     width: 100%;
     margin: 10px 10px 15px 10px;
     padding: 20px;
-    background-color: #fefefe;
+    background-color: #fff;
     border: 1px solid var(--grey400);
     border-radius: 2px;
-    cursor: move;
+    transition: width 0.5ms ease-in-out;
+}
+
+.video-field-outer-container:hover .video-field-container {
+    border: 1px solid var(--dark300);
+    transition: all 0.5s ease-in-out;
 }
 
 .video-field-title-container {
@@ -29,9 +53,25 @@
     justify-content: space-between;
 }
 
+.video-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px ;
+    font-size: 18px;
+    border-color: var(--dark300);   
+}
+
 .video-field-title {
+    margin-top: 15px;
     padding-bottom: 5px;
-    padding-left: 3px;
+    padding-left: 0px;
     font-weight: 600;
     font-size: 16px;
     color: var(--dark200)
@@ -44,78 +84,92 @@
     color: var(--dark300);
 }
 
-.video-field-edit-icon-container {
-    display: flex;
+.video-field-icons-container {
+    display: none;
+}
+
+.video-field-outer-container:hover .video-field-icons-container {
+    display: flex ;
     justify-content: center;
     align-items: center;
-    color: var(--dark200);
-    margin-right: 20px;
-    margin-bottom: 15px;
-    padding: 5px;
-    width: 32px;
-    height: 32px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.video-field-icons-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
-    height: 100%;
-}
-
-.video-field-edit-icon-container:hover {
-    background-color: var(--dark200);
-    color: #fff;
+    margin-top: -45px;
+    margin-right: -12px;
 }
 
 .video-field-edit-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.video-field-delete-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--red100);
-    margin-right: 20px;
-    margin-bottom: 5px;
-    padding: 5px;
-    width: 32px;
-    height: 32px;
-    border-radius: 3px;
+    margin-right: 15px;
+    color: var(--dark300);
     cursor: pointer;
+    width: 18px;
+    height: 18px;
 }
 
-.video-field-delete-icon-container:hover {
-    background-color: var(--red100);
+.video-field-edit-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
     color: #fff;
+    padding: 2px;
+    border-radius: 50%;
 }
 
 .video-field-delete-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.video-field-upload-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    border:1px solid var(--grey400);
-    border-radius: 5px;
-    padding: 8px 36px;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.video-field-delete-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.video-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px ;
+    font-size: 18px;
+    border-color: var(--dark300);   
+}
+
+.video-field-upload-icon-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .video-field-upload-icon {
-    width: 36px;
-    height: 36px;
-    margin-right: 16px;
-    color: var(--dark200)
+    width: 50px;
+    height: 50px;
+    color: var(--dark300);
 }
 
 .video-field-upload-text {
-    color: var(--dark200);
-    font-size: 16px;
+    color: var(--dark300);
+}
+
+.ant-upload-wrapper {
+    text-align: center;
 }

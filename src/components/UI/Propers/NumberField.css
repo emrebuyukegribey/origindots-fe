@@ -1,17 +1,13 @@
 @import "../../../variables.css";
 
 
-@import "../../../variables.css";
-
-
 .ant-input[disabled] {
     background-color: #fff !important;
-    
 }
 
 .number-field-outer-container {
    display: flex; 
-   width: auto;
+   width: 100%;
    background-color: #fff;
    margin: 10px 10px;
    transition: all 0.5s ease-in-out;
@@ -30,9 +26,8 @@
 }
 
 .number-field-outer-container:hover .number-field-drag-icon {
-    display: none;
     color: var(--dark100);
-    font-size: 32px;
+    transition: all 0.5ms ease-in-out;
 }
 
 .number-field-container {
@@ -49,10 +44,8 @@
 }
 
 .number-field-outer-container:hover .number-field-container {
-    background-color: #f1f1f1;
-    border-radius: 10px;
+    border: 1px solid var(--dark300);
     transition: all 0.5s ease-in-out;
-    margin: 5px;
 }
 
 .number-field-title-container {
@@ -60,14 +53,29 @@
     justify-content: space-between;
 }
 
+.number-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px ;
+    font-size: 18px;
+    border-color: var(--dark300);   
+}
+
 .number-field-title {
+    margin-top: 15px;
     padding-bottom: 5px;
-    padding-left: 3px;
+    padding-left: 0px;
     font-weight: 600;
     font-size: 16px;
     color: var(--dark200)
 }
-
 
 .number-field-description {
     padding-top: 5px;
@@ -75,8 +83,6 @@
     font-size: 13px;
     color: var(--dark300);
 }
-
-
 
 .number-field-icons-container {
     display: none;
@@ -86,7 +92,7 @@
     display: flex ;
     justify-content: center;
     align-items: center;
-    margin-top: -30px;
+    margin-top: -45px;
     margin-right: -12px;
 }
 
@@ -109,7 +115,6 @@
     color: #fff;
     padding: 2px;
     border-radius: 50%;
-    
 }
 
 .number-field-delete-icon {

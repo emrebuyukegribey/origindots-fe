@@ -1,26 +1,42 @@
 import { QRCode } from "antd";
 import "./QRField.css";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
+import { RiDraggable } from "react-icons/ri";
 
-function QRField({ title, description, placeholder }) {
+function QRField({  proper, deleteProper, editProper  }) {
   return (
-    <div className="qr-field-outer-container">
-      <div className="qr-field-container">
-        <div className="qr-field-title-container">
-          <span className="qr-field-title">{title}</span>
-        </div>
-        <QRCode value={"" || "-"} />
+    
 
-        <span className="qr-field-description">{description}</span>
+    <div className="data-field-outer-container">
+      <div className="data-field-drag-icon-container">
+        <RiDraggable className="data-field-drag-icon" />
       </div>
-      <div className="qr-field-icons-container">
-        <div className="qr-field-edit-icon-container">
-          <BiEditAlt className="qr-field-edit-icon" />
+      <div className="data-field-container">
+        <div className="data-field-title-container">
+          <div style={{display: "flex"}}>
+            <div className="data-field-icon">{proper.icon}</div>
+            <span className="data-field-title">{proper.title}</span>
+          </div>
+          <div className="data-field-icons-container">
+            <div
+              className="data-field-edit"
+              onClick={() => editProper(proper)}
+            >
+              <BiEditAlt className="data-field-edit-icon" />
+            </div>
+            <div
+              className="data-field-delete"
+              onClick={() => deleteProper(proper)}
+            >
+              <AiOutlineClose className="data-field-delete-icon" />
+            </div>
+          </div>
         </div>
-        <div className="qr-field-delete-icon-container">
-          <AiOutlineDelete className="qr-field-delete-icon" />
+        <div className="data-field-upload-icon-container">
+          <QRCode value={"" || "-"} />
         </div>
+        <span className="data-field-description">{proper.description}</span>
       </div>
     </div>
   );

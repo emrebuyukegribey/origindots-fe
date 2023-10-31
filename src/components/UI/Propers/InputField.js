@@ -12,7 +12,10 @@ function InputField({ proper, deleteProper, editProper }) {
       </div>
       <div className="input-field-container">
         <div className="input-field-title-container">
-          <span className="input-field-title">{proper.title}</span>
+          <div style={{display: "flex"}}>
+            <div className="input-field-icon">{proper.icon}</div>
+            <span className="input-field-title">{proper.title}</span>
+          </div>
           <div className="input-field-icons-container">
             <div
               className="input-field-edit"
