@@ -31,15 +31,23 @@ function NewProcess() {
   const [processIcon, setProcessIcon] = useState();
   const [currentStep, setCurrentStep] = useState(0);
 
-  const [properList, setProperList] = useState([]);
-  const [properValueList, setProperValueList] = useState([]);
+  // const [properList, setProperList] = useState([]);
+  // const [properValueList, setProperValueList] = useState([]);
   const [openProperty, setOpenProperty] = useState(false);
-  const [selectedProper, setSelectedProper] = useState();
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
-    useContext(MainContext);
+  const {
+    setNavbarHeaderText,
+    setActiveLeftBar,
+    activeLeftBar,
+    properList,
+    setProperList,
+    properValueList,
+    setProperValueList,
+    selectedProper,
+    setSelectedProper,
+  } = useContext(MainContext);
 
   const { token } = theme.useToken();
 
@@ -80,11 +88,15 @@ function NewProcess() {
   };
 
   const addProperValue = (proper) => {
-    if (proper.type === "MultiSelectField" || proper.type === "SingleSelectField" || proper.type === "DropDownField") {
+    if (
+      proper.type === "MultiSelectField" ||
+      proper.type === "SingleSelectField" ||
+      proper.type === "DropDownField"
+    ) {
       const properValue1UniqueId = `${proper.type}-${Math.floor(
         Math.random() * 1000
       )}-value-${Math.floor(Math.random() * 1000)}`;
-      
+
       const properValue2UniqueId = `${proper.type}-${Math.floor(
         Math.random() * 1000
       )}-value-${Math.floor(Math.random() * 1000)}`;
@@ -110,12 +122,11 @@ function NewProcess() {
         properId: proper.id,
       };
 
-
       setProperValueList((oldProperValues) => [
         ...oldProperValues,
         properValue1,
         properValue2,
-        properValue3
+        properValue3,
       ]);
     }
   };
@@ -125,6 +136,19 @@ function NewProcess() {
     messageApi.open({
       type: "error",
       content: `Deleted proper on the form : ${proper.text}`,
+    });
+  };
+
+  const deleteProperValue = (properValue) => {
+    setProperValueList(properValueList.filter((v) => v.id !== properValue.id));
+    setOpenProperty(false);
+    setTimeout(() => {
+      openPropertyDrawer(selectedProper);
+    }, 100);
+
+    messageApi.open({
+      type: "error",
+      content: `Deleted proper value on the proper : ${properValue.name}`,
     });
   };
 
@@ -181,22 +205,18 @@ function NewProcess() {
               {currentStep === 1 && (
                 <ProperForm
                   previosStep={prev}
-                  properList={properList}
-                  properValueList={properValueList}
-                  setProperList={setProperList}
-                  setProperValueList={setProperValueList}
-                  deleteProper={deleteProperOnForm}
                   editProper={openPropertyDrawer}
+                  deleteProper={deleteProperOnForm}
                 />
               )}
             </div>
             <div>
               <Property
                 open={openProperty}
+                openPropertyDrawer={openPropertyDrawer}
                 onClose={closeProperty}
-                proper={selectedProper}
-                properValueList={properValueList}
                 editProper={editProperOnForm}
+                deleteProperValue={deleteProperValue}
               />
             </div>
           </div>

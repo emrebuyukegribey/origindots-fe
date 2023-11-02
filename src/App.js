@@ -1,28 +1,20 @@
-import {
-  redirect,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { MainContext, useContext } from "./context";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { MainContext } from "./context";
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import ProcessManagement from "./pages/process/ProcessManagement";
-import Navbar from "./components/Navbar/Navbar";
-import LeftBar from "./components/LeftBar/LeftBar";
 import { useState } from "react";
 import LoginScreen from "./pages/user/login/LoginScreen";
-import RegisterScreen from "./pages/user/register/RegisterScreen";
-
-import { useEffect } from "react";
 import NewProcess from "./pages/process/NewProcess";
 
 function App() {
   const [activeLeftBar, setActiveLeftBar] = useState(true);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [navbarHeaderText, setNavbarHeaderText] = useState("");
+  const [properList, setProperList] = useState([]);
+  const [properValueList, setProperValueList] = useState([]);
+  const [selectedProper, setSelectedProper] = useState({});
 
   let location = useLocation();
 
@@ -33,6 +25,12 @@ function App() {
     setNavbarHeaderText,
     token,
     setToken,
+    properList,
+    setProperList,
+    properValueList,
+    setProperValueList,
+    selectedProper,
+    setSelectedProper,
   };
 
   const navigate = useNavigate();

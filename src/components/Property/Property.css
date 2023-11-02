@@ -8,4 +8,11 @@
     color: var(--dark100);
     font-family: "Nunito", sans-serif;
     margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.property-field-divider {
+    border-bottom: 1px solid #d1d1d1; 
+    margin: 10px 0px 20px 0px;
 }

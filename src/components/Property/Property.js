@@ -4,25 +4,38 @@ import { useEffect, useState } from "react";
 import "./Property.css";
 import DarkButton from "../UI/Buttons/DarkButton";
 import LightButton from "../UI/Buttons/LightButton";
+import ProperValueList from "./ProperValueList";
+import { MainContext, useContext } from "../../context";
+import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
 
-function Property({ open, onClose, proper, properValueList, editProper }) {
-  const [type, setType] = useState(proper ? proper.type : "");
-  const [title, setTitle] = useState(proper ? proper.title : "");
+function Property({
+  open,
+  openPropertyDrawer,
+  onClose,
+  editProper,
+  deleteProperValue,
+}) {
+  const { properValueList, selectedProper } = useContext(MainContext);
+
+  const [type, setType] = useState(selectedProper ? selectedProper.type : "");
+  const [title, setTitle] = useState(
+    selectedProper ? selectedProper.title : ""
+  );
   const [placeholder, setPlaceholder] = useState();
   const [description, setDescription] = useState();
   const [updatedField, setUpdatedFields] = useState(false);
   const [values, setValues] = useState();
 
   setTimeout(() => {
-    if (proper && !updatedField) {
-      setType(proper.type);
-      setTitle(proper.title);
-      setPlaceholder(proper.placeholder);
-      setDescription(proper.description);
+    if (selectedProper && selectedProper.type && !updatedField) {
+      setType(selectedProper.type);
+      setTitle(selectedProper.title);
+      setPlaceholder(selectedProper.placeholder);
+      setDescription(selectedProper.description);
       setValues(
         properValueList
-          ?.filter((value) => value.properId === proper.id)
-          .map((item) => item.name)
+          ?.filter((value) => value.properId === selectedProper.id)
+          .map((item) => item)
       );
 
       setUpdatedFields(true);
@@ -47,11 +60,11 @@ function Property({ open, onClose, proper, properValueList, editProper }) {
   };
 
   const edit = () => {
-    let updatedProper = proper;
+    let updatedProper = selectedProper;
     updatedProper.title = title;
     updatedProper.placeholder = placeholder;
     updatedProper.description = description;
-    editProper(proper);
+    editProper(selectedProper);
     setUpdatedFields(false);
     onClose();
   };
@@ -65,35 +78,50 @@ function Property({ open, onClose, proper, properValueList, editProper }) {
         onClose={onClose}
       >
         <div className="property-field-container">
-          <div className="property-field-label">Proper title : </div>
+          <h3>Base Properties</h3>
+          <div className="property-field-divider" />
+          <div className="property-field-label">Proper title</div>
           <Input value={title} onChange={onChangeName} />
         </div>
         {type !== "HeaderField" && (
           <div>
             <div className="property-field-container">
-              <div className="property-field-label">Proper placeholder : </div>
+              <div className="property-field-label">Proper placeholder</div>
               <Input value={placeholder} onChange={onChangePlaceholder} />
             </div>
             <div className="property-field-container">
-              <div className="property-field-label">Proper description : </div>
+              <div className="property-field-label">Proper description</div>
               <Input value={description} onChange={onChangeDescription} />
             </div>
           </div>
         )}
-
-        {values && <div>{values} </div>}
-
         <div
           className="property-field-container"
           style={{
             display: "flex",
             justifyContent: "space-between",
-            width: "auto",
+            width: "100%",
           }}
         >
-          <LightButton text="Cancel" onClick={onClose} />
-          <DarkButton text="Edit" onClick={edit} />
+          <DarkButtonBorder
+            text="Edit Base Properties"
+            onClick={edit}
+            style={{ width: "100%" }}
+          />
         </div>
+        {selectedProper &&
+          (selectedProper.type === "MultiSelectField" ||
+            selectedProper.type === "SingleSelectField" ||
+            selectedProper.type === "DropDownField") && (
+            <div style={{ marginTop: "50px" }}>
+              <ProperValueList
+                values={values}
+                deleteProperValue={deleteProperValue}
+                openPropertyDrawer={openPropertyDrawer}
+                onCloseProperty={onClose}
+              />
+            </div>
+          )}
       </Drawer>
     </>
   );

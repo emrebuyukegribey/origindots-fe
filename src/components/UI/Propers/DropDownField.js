@@ -3,15 +3,18 @@ import "./DropDownField.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
+import { MainContext, useContext } from "../../../context";
 
-
-function DropDownField({ proper, properValueList, deleteProper, editProper }) {
-
+function DropDownField({ proper, deleteProper, editProper }) {
+  const { properValueList } = useContext(MainContext);
   let properValues = [];
-  properValueList?.filter(element => element.properId === proper.id).map(value => value).forEach(element => {
-    const obj = {label: element.name, value: element.name}
-    properValues.push(obj)
-  });
+  properValueList
+    ?.filter((element) => element.properId === proper.id)
+    .map((value) => value)
+    .forEach((element) => {
+      const obj = { label: element.name, value: element.name };
+      properValues.push(obj);
+    });
 
   return (
     <div className="drop-down-field-outer-container">
@@ -39,11 +42,11 @@ function DropDownField({ proper, properValueList, deleteProper, editProper }) {
             </div>
           </div>
         </div>
-        <Select options={properValues}>
-          
-          
-        </Select>
-        
+        <Select
+          options={properValues}
+          placeholder={proper.placeholder}
+        ></Select>
+
         <span className="drop-down-field-description">
           {proper.description}
         </span>

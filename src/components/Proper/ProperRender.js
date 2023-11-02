@@ -14,7 +14,7 @@ import DropDownField from "../UI/Propers/DropDownField";
 import MultiSelectField from "../UI/Propers/MultiSelectField";
 import SingleSelectField from "../UI/Propers/SingleSelectField";
 
-export default function ProperRender(proper, properValueList, deleteProper, editProper) {
+export default function ProperRender(proper, deleteProper, editProper) {
   if (proper.type === "HeaderField") {
     return (
       <HeaderField
@@ -109,7 +109,6 @@ export default function ProperRender(proper, properValueList, deleteProper, edit
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
-        properValueList={properValueList}
       />
     );
   } else if (proper.type === "SingleSelectField") {
@@ -118,19 +117,16 @@ export default function ProperRender(proper, properValueList, deleteProper, edit
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
-        properValueList={properValueList}
       />
     );
-  } else if(proper.type === "MultiSelectField") {
-    console.log("multi select : ")
+  } else if (proper.type === "MultiSelectField") {
     return (
       <MultiSelectField
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
-        properValueList={properValueList}
       />
-    )
+    );
   } else if (proper.type === "ProperGroupField") {
     return (
       <ProperGroupField

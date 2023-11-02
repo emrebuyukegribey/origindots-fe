@@ -1,4 +1,3 @@
-import BlueButton from "../UI/Buttons/BlueButton";
 import LightButton from "../UI/Buttons/GreyButton";
 import { AiOutlineTablet } from "react-icons/ai";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
@@ -9,8 +8,13 @@ import DarkButton from "../UI/Buttons/DarkButton";
 import RedButton from "../UI/Buttons/RedButton";
 import React, { useRef } from "react";
 import ProperRender from "./ProperRender";
+import { MainContext, useContext } from "../../context";
+import { message } from "antd";
 
 function ProperForm(props) {
+  const { properList, setProperList, setProperValueList } =
+    useContext(MainContext);
+  const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
   let dragOver = useRef();
 
@@ -29,7 +33,8 @@ function ProperForm(props) {
     e.preventDefault();
     dragOver.current = index;
 
-    const cpProperList = [...props.properList];
+    // const cpProperList = [...props.properList];
+    const cpProperList = [...properList];
 
     let finalArr = [];
 
@@ -40,12 +45,14 @@ function ProperForm(props) {
     });
 
     finalArr[index].isDrag = true;
-    props.setProperList(finalArr);
+    // props.setProperList(finalArr);
+    setProperList(finalArr);
   };
 
   const onDragEnd = (e, index) => {
     e.preventDefault();
-    const arr1 = [...props.properList];
+    // const arr1 = [...props.properList];
+    const arr1 = [...properList];
 
     const itemMain = arr1[dragStart.current];
     arr1.splice(dragStart.current, 1);
@@ -63,7 +70,8 @@ function ProperForm(props) {
       });
     });
 
-    props.setProperList(arr1);
+    // props.setProperList(arr1);
+    setProperList(arr1);
   };
 
   const onDragLeave = (e, index) => {
@@ -73,12 +81,14 @@ function ProperForm(props) {
   };
 
   const clearAllPropers = () => {
-    props.setProperList([]);
-    props.setProperValueList([]);
+    // props.setProperList([]);
+    setProperList([]);
+    setProperValueList([]);
   };
 
   return (
     <div className="proper-form-container">
+      {contextHolder}
       <div className="proper-header-container">
         <h3>CREATE PROPERS</h3>
         <div className="proper-preview-container">
@@ -93,11 +103,10 @@ function ProperForm(props) {
       <div
         className="proper-form-area"
         style={{
-          justifyContent:
-            props.properList && props.properList.length === 0 ? "center" : "",
+          justifyContent: properList && properList.length === 0 ? "center" : "",
         }}
       >
-        {props.properList && props.properList.length === 0 ? (
+        {properList && properList.length === 0 ? (
           <div
             style={{
               display: "flex",
@@ -116,7 +125,7 @@ function ProperForm(props) {
             </div>
           </div>
         ) : (
-          props.properList.map((proper, index) => (
+          properList.map((proper, index) => (
             <React.Fragment>
               <div
                 className="proper-form-draggable"
@@ -129,7 +138,7 @@ function ProperForm(props) {
                 onDragEnd={(e) => onDragEnd(e, index)}
                 onDragLeave={(e) => onDragLeave(e, index)}
               >
-                {ProperRender(proper, props.properValueList, props.deleteProper, props.editProper)}
+                {ProperRender(proper, proper.deleteProper, props.editProper)}
               </div>
               {proper.isDrag ? (
                 <div className="proper-form-drag-indicator"></div>
@@ -144,7 +153,7 @@ function ProperForm(props) {
           <LightButton onClick={props.previosStep} text="Previos" />
         </div>
         <div style={{ display: "flex" }}>
-          <div>
+          <div style={{ marginRight: "20px" }}>
             <DarkButton text="Create Propers" />
           </div>
           <RedButton

@@ -2,11 +2,10 @@ import { MainContext, useContext } from "../context";
 
 import LeftBar from "../components/LeftBar/LeftBar";
 import Navbar from "../components/Navbar/Navbar";
-
 import { withTranslation } from "react-i18next";
 
 function Home() {
-  const { activeLeftBar, token, setNavbarHeaderText } = useContext(MainContext);
+  const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
   setNavbarHeaderText("Dashboard");
   return (
     <>

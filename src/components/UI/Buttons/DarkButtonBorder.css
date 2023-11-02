@@ -1,12 +1,12 @@
 @import "../../../variables.css";
 
-.dark-button-container {
+.dark-button-border-container {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px;
-    background-color: var(--dark200);
+    padding: 10px;
+    border: 1px solid var(--dark300);
     border-radius: 5px;
     margin: 10px 0px;
     margin: 10px 0px;
@@ -14,13 +14,17 @@
     transition: all 0.3s ease-in-out;
 }
 
-.dark-button-container:hover {
-    background-color: var(--dark400); 
+.dark-button-border-container:hover {
+    background-color: var(--dark300); 
     transition: all 0.3s ease-in-out;
 }
 
-.dark-button-text {
-    color: #fff;
+.dark-button-border-text {
+    color: var(--dark300);
     font-weight: 700;
     font-size: 18px;
+}
+
+.dark-button-border-container:hover .dark-button-border-text{
+    color: #fff;
 }

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./ProperToolBox.css";
 import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
 import { withTranslation } from "react-i18next";
 import ProperItem from "./ProperItem";
-import { BiHeading } from "react-icons/bi";
-import { BsCursorText } from "react-icons/bs";
-import { GoNumber } from "react-icons/go";
 import ProperItems from "./ProperItems";
 
 function ProperToolBox(props) {
@@ -41,7 +38,11 @@ function ProperToolBox(props) {
           </div>
           <div>
             {ProperItems.map((proper) => (
-              <ProperItem proper={proper} addProper={props.addProper} />
+              <ProperItem
+                proper={proper}
+                addProper={props.addProper}
+                key={proper.id}
+              />
             ))}
           </div>
         </div>

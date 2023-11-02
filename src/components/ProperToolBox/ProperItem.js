@@ -1,5 +1,4 @@
 import "./ProperItem.css";
-import { BiHeading } from "react-icons/bi";
 
 function ProperItem(props) {
   return (

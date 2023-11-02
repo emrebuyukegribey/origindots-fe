@@ -1,0 +1,54 @@
+@import "../../variables.css";
+
+.proper-value-container {
+    width: 100%;
+    margin: 5px 0px; 
+}
+
+.proper-value-name {
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+}
+
+.proper-value-button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 10px 5px
+}
+
+.proper-value-add-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    padding: 3px;
+    border: 1px solid var(--blue100);
+    color: var(--blue100);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.proper-value-add-button:hover {
+    background-color: var(--blue100);
+    color: #fff;
+}
+
+.proper-value-delete-button:hover {
+    background-color: var(--red200);
+    color: #fff;
+}
+
+.proper-value-delete-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    border: 1px solid var(--red200);
+    color: var(--red200);
+    border-radius: 5px;
+    cursor: pointer;
+}

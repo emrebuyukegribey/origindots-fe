@@ -1,0 +1,11 @@
+.proper-value-list-add-button {
+    padding: 10px;
+    font-size: 16px;
+    color: var(--dark100);
+    font-weight: 600;
+}
+
+.proper-value-list-divider {
+    border-bottom: 1px solid #d1d1d1; 
+    margin: 10px 0px 20px 0px;
+}
