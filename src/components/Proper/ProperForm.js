@@ -36,7 +36,6 @@ function ProperForm(props) {
     e.preventDefault();
     dragOver.current = index;
 
-    // const cpProperList = [...props.properList];
     const cpProperList = [...properList];
 
     let finalArr = [];
@@ -48,13 +47,11 @@ function ProperForm(props) {
     });
 
     finalArr[index].isDrag = true;
-    // props.setProperList(finalArr);
     setProperList(finalArr);
   };
 
   const onDragEnd = (e, index) => {
     e.preventDefault();
-    // const arr1 = [...props.properList];
     const arr1 = [...properList];
 
     const itemMain = arr1[dragStart.current];
@@ -73,7 +70,6 @@ function ProperForm(props) {
       });
     });
 
-    // props.setProperList(arr1);
     setProperList(arr1);
   };
 
@@ -84,7 +80,6 @@ function ProperForm(props) {
   };
 
   const clearAllPropers = () => {
-    // props.setProperList([]);
     setProperList([]);
     setProperValueList([]);
     messageApi.open({
