@@ -74,6 +74,7 @@ function ProperForm(props) {
 
   const clearAllPropers = () => {
     props.setProperList([]);
+    props.setProperValueList([]);
   };
 
   return (
@@ -128,7 +129,7 @@ function ProperForm(props) {
                 onDragEnd={(e) => onDragEnd(e, index)}
                 onDragLeave={(e) => onDragLeave(e, index)}
               >
-                {ProperRender(proper, props.deleteProper, props.editProper)}
+                {ProperRender(proper, props.properValueList, props.deleteProper, props.editProper)}
               </div>
               {proper.isDrag ? (
                 <div className="proper-form-drag-indicator"></div>

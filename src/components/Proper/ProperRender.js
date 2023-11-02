@@ -10,10 +10,11 @@ import PhotoField from "../UI/Propers/PhotoField";
 import VideoField from "../UI/Propers/VideoField";
 import QRField from "../UI/Propers/QRField";
 import OCRField from "../UI/Propers/OCRField";
+import DropDownField from "../UI/Propers/DropDownField";
 import MultiSelectField from "../UI/Propers/MultiSelectField";
 import SingleSelectField from "../UI/Propers/SingleSelectField";
 
-export default function ProperRender(proper, deleteProper, editProper) {
+export default function ProperRender(proper, properValueList, deleteProper, editProper) {
   if (proper.type === "HeaderField") {
     return (
       <HeaderField
@@ -102,12 +103,13 @@ export default function ProperRender(proper, deleteProper, editProper) {
         editProper={editProper}
       />
     );
-  } else if (proper.type === "MultiSelectField") {
+  } else if (proper.type === "DropDownField") {
     return (
-      <MultiSelectField
+      <DropDownField
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        properValueList={properValueList}
       />
     );
   } else if (proper.type === "SingleSelectField") {
@@ -116,8 +118,19 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        properValueList={properValueList}
       />
     );
+  } else if(proper.type === "MultiSelectField") {
+    console.log("multi select : ")
+    return (
+      <MultiSelectField
+        proper={proper}
+        deleteProper={deleteProper}
+        editProper={editProper}
+        properValueList={properValueList}
+      />
+    )
   } else if (proper.type === "ProperGroupField") {
     return (
       <ProperGroupField

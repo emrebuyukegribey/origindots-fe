@@ -7,8 +7,7 @@ import ProcessForm from "../../components/Process/ProcessForm";
 import ProperForm from "../../components/Proper/ProperForm";
 import Navbar from "../../components/Navbar/Navbar";
 import LeftBar from "../../components/LeftBar/LeftBar";
-import { Button, Steps, theme, message } from "antd";
-import ProperRender from "../../components/Proper/ProperRender";
+import { Steps, theme, message } from "antd";
 import Property from "../../components/Property/Property";
 
 const steps = [
@@ -81,11 +80,16 @@ function NewProcess() {
   };
 
   const addProperValue = (proper) => {
-    if (proper.type === "MultiSelectField") {
+    if (proper.type === "MultiSelectField" || proper.type === "SingleSelectField" || proper.type === "DropDownField") {
       const properValue1UniqueId = `${proper.type}-${Math.floor(
         Math.random() * 1000
       )}-value-${Math.floor(Math.random() * 1000)}`;
+      
       const properValue2UniqueId = `${proper.type}-${Math.floor(
+        Math.random() * 1000
+      )}-value-${Math.floor(Math.random() * 1000)}`;
+
+      const properValue3UniqueId = `${proper.type}-${Math.floor(
         Math.random() * 1000
       )}-value-${Math.floor(Math.random() * 1000)}`;
       const properValue1 = {
@@ -93,18 +97,27 @@ function NewProcess() {
         name: "Value1",
         properId: proper.id,
       };
+
       const properValue2 = {
         id: properValue2UniqueId,
         name: "Value2",
         properId: proper.id,
       };
+
+      const properValue3 = {
+        id: properValue3UniqueId,
+        name: "Value3",
+        properId: proper.id,
+      };
+
+
       setProperValueList((oldProperValues) => [
         ...oldProperValues,
         properValue1,
         properValue2,
+        properValue3
       ]);
     }
-    console.log("properValueList : ", properValueList);
   };
 
   const deleteProperOnForm = (proper) => {
@@ -169,7 +182,9 @@ function NewProcess() {
                 <ProperForm
                   previosStep={prev}
                   properList={properList}
+                  properValueList={properValueList}
                   setProperList={setProperList}
+                  setProperValueList={setProperValueList}
                   deleteProper={deleteProperOnForm}
                   editProper={openPropertyDrawer}
                 />

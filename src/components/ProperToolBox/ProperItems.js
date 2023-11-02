@@ -6,7 +6,7 @@ import {
 } from "react-icons/bi";
 import { BsCursorText, BsDatabaseAdd, BsOpticalAudio } from "react-icons/bs";
 import { GoNumber, GoMultiSelect } from "react-icons/go";
-import { MdAlternateEmail, MdOutlineDateRange } from "react-icons/md";
+import { MdAlternateEmail, MdOutlineDateRange, MdOutlineRadioButtonChecked } from "react-icons/md";
 import {
   AiOutlinePhone,
   AiOutlineVideoCameraAdd,
@@ -25,7 +25,7 @@ import TimeField from "../UI/Propers/TimeField";
 import PhotoField from "../UI/Propers/PhotoField";
 import VideoField from "../UI/Propers/VideoField";
 import QRField from "../UI/Propers/QRField";
-import MultiSelectField from "../UI/Propers/MultiSelectField";
+import MultiSelectField from "../UI/Propers/DropDownField";
 import SingleSelectField from "../UI/Propers/SingleSelectField";
 import ServiceUrlField from "../UI/Propers/ServiceUrlField";
 import ProperGroupField from "../UI/Propers/ProperGroupField";
@@ -131,22 +131,31 @@ const ProperItems = [
   {
     id: 12,
     icon: <GoMultiSelect />,
-    text: "Multi Select",
-    type: "MultiSelectField",
+    text: "Drop Down List",
+    type: "DropDownField",
     title: "Proper name",
     placeholder: "Placeholder",
     description: "description (optional)",
   },
   {
     id: 13,
-    icon: <BiSelectMultiple />,
+    icon: <MdOutlineRadioButtonChecked />,
     text: "Single Select",
     type: "SingleSelectField",
     title: "Proper name",
     placeholder: "Placeholder",
     description: "description (optional)",
-    values: ["value1"],
   },
+  {
+    id: 14,
+    icon: <BiSelectMultiple />,
+    text: "Multi Select",
+    type: "MultiSelectField",
+    title: "Proper name",
+    placeholder: "Placeholder",
+    description: "description (optional)",
+  },
+
   /*
   {
     id: 14,

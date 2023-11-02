@@ -19,12 +19,6 @@ function Property({ open, onClose, proper, properValueList, editProper }) {
       setTitle(proper.title);
       setPlaceholder(proper.placeholder);
       setDescription(proper.description);
-      console.log(
-        "emre : ",
-        properValueList
-          .filter((val) => val.properId === proper.id)
-          .map((item) => item.name)
-      );
       setValues(
         properValueList
           ?.filter((value) => value.properId === proper.id)
