@@ -31,11 +31,7 @@ function NewProcess() {
   const [procesType, setProcessType] = useState();
   const [processIcon, setProcessIcon] = useState();
   const [currentStep, setCurrentStep] = useState(0);
-
-  // const [properList, setProperList] = useState([]);
-  // const [properValueList, setProperValueList] = useState([]);
   const [openProperty, setOpenProperty] = useState(false);
-
   const [messageApi, contextHolder] = message.useMessage();
 
   const {
@@ -141,15 +137,12 @@ function NewProcess() {
       onOk() {
         deleteProperOnForm(proper);
       },
-      onCancel() {
-        console.log("");
-      },
+      onCancel() {},
       okType: "danger",
     });
   };
 
   const deleteProperOnForm = (proper) => {
-    console.log("deleteProperOnForm");
     setProperList(properList.filter((p) => p.id !== proper.id));
     messageApi.open({
       type: "error",

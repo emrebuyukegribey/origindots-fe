@@ -180,7 +180,6 @@ function ProperForm(props) {
           <div style={{ marginRight: "20px" }}>
             <DarkButton text="Create Propers" />
           </div>
-          {console.log("proper list size : ", properList.size)}
           <RedButton
             text="Clear All Propers"
             onClick={() => (properList.length > 0 ? deleteProperWarning() : "")}
