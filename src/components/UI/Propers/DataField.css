@@ -173,3 +173,10 @@
 .ant-upload-wrapper {
     text-align: center;
 }
+
+.data-field-required {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--red100);
+}

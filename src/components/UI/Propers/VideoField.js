@@ -12,9 +12,14 @@ function VideoField({ proper, deleteProper, editProper }) {
       </div>
       <div className="photo-field-container">
         <div className="photo-field-title-container">
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <div className="photo-field-icon">{proper.icon}</div>
-            <span className="photo-field-title">{proper.title}</span>
+            <span className="photo-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="video-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="photo-field-icons-container">
             <div

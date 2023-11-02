@@ -5,7 +5,6 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 import { HiOutlinePhoto } from "react-icons/hi2";
 
-
 function PhotoField({ proper, deleteProper, editProper }) {
   return (
     <div className="photo-field-outer-container">
@@ -14,9 +13,14 @@ function PhotoField({ proper, deleteProper, editProper }) {
       </div>
       <div className="photo-field-container">
         <div className="photo-field-title-container">
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <div className="photo-field-icon">{proper.icon}</div>
-            <span className="photo-field-title">{proper.title}</span>
+            <span className="photo-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="photo-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="photo-field-icons-container">
             <div

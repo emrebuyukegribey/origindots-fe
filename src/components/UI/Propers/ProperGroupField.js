@@ -14,7 +14,12 @@ function ProperGroupField({ proper, deleteProper, editProper }) {
       </div>
       <div className="propergroup-field-container">
         <div className="propergroup-field-title-container">
-          <span className="propergroup-field-title">{proper.title}</span>
+          <span className="propergroup-field-title">
+            {proper.title}{" "}
+            {proper.isRequired && (
+              <span className="propergroup-field-required">*</span>
+            )}
+          </span>
           <div className="propergroup-field-icons-container">
             <div
               className="propergroup-field-edit"

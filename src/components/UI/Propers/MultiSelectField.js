@@ -17,7 +17,12 @@ function MultiSelectField({ proper, deleteProper, editProper }) {
         <div className="multi-select-field-title-container">
           <div style={{ display: "flex" }}>
             <div className="multi-select-field-icon">{proper.icon}</div>
-            <span className="multi-select-field-title">{proper.title}</span>
+            <span className="multi-select-field-title">
+              {proper.title}
+              {proper.isRequired && (
+                <span className="multi-select-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="multi-select-field-icons-container">
             <div

@@ -25,7 +25,12 @@ function DropDownField({ proper, deleteProper, editProper }) {
         <div className="drop-down-field-title-container">
           <div style={{ display: "flex" }}>
             <div className="drop-down-field-icon">{proper.icon}</div>
-            <span className="drop-down-field-title">{proper.title}</span>
+            <span className="drop-down-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="drop-down-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="drop-down-field-icons-container">
             <div

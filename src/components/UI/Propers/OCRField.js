@@ -14,7 +14,12 @@ function OCRField({ proper, deleteProper, editProper }) {
         <div className="ocr-field-title-container">
           <div style={{ display: "flex" }}>
             <div className="ocr-field-icon">{proper.icon}</div>
-            <span className="ocr-field-title">{proper.title}</span>
+            <span className="ocr-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="ocr-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="ocr-field-icons-container">
             <div className="ocr-field-edit" onClick={() => editProper(proper)}>

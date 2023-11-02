@@ -25,7 +25,12 @@ function SingleSelectField({ proper, deleteProper, editProper }) {
         <div className="single-select-field-title-container">
           <div style={{ display: "flex" }}>
             <div className="single-select-field-icon">{proper.icon}</div>
-            <span className="single-select-field-title">{proper.title}</span>
+            <span className="single-select-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="single-select-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="single-select-field-icons-container">
             <div

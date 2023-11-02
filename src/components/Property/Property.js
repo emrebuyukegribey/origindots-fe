@@ -1,4 +1,4 @@
-import { Drawer, Input } from "antd";
+import { Checkbox, Drawer, Input } from "antd";
 import { useEffect, useState } from "react";
 
 import "./Property.css";
@@ -23,8 +23,11 @@ function Property({
   );
   const [placeholder, setPlaceholder] = useState();
   const [description, setDescription] = useState();
+  const [isRequired, setRequired] = useState(false);
   const [updatedField, setUpdatedFields] = useState(false);
   const [values, setValues] = useState();
+
+  console.log("selectedProper : ", selectedProper);
 
   setTimeout(() => {
     if (selectedProper && selectedProper.type && !updatedField) {
@@ -32,6 +35,7 @@ function Property({
       setTitle(selectedProper.title);
       setPlaceholder(selectedProper.placeholder);
       setDescription(selectedProper.description);
+      setRequired(selectedProper.isRequired);
       setValues(
         properValueList
           ?.filter((value) => value.properId === selectedProper.id)
@@ -56,11 +60,16 @@ function Property({
   };
 
   const onChangeDescription = (e) => {
-    setDescription(e.target.value);
+    setDescription(e.target);
+  };
+
+  const onChangeRequired = (e) => {
+    setRequired(e.target.checked);
   };
 
   const edit = () => {
     let updatedProper = selectedProper;
+    updatedProper.isRequired = isRequired;
     updatedProper.title = title;
     updatedProper.placeholder = placeholder;
     updatedProper.description = description;
@@ -80,6 +89,19 @@ function Property({
         <div className="property-field-container">
           <h3>Base Properties</h3>
           <div className="property-field-divider" />
+          {type !== "HeaderField" && (
+            <div className="property-field-container">
+              <div className="property-field-label">
+                Is required:
+                <Checkbox
+                  checked={isRequired}
+                  value={isRequired}
+                  onChange={onChangeRequired}
+                  style={{ marginLeft: "10px" }}
+                />
+              </div>
+            </div>
+          )}
           <div className="property-field-label">Proper title</div>
           <Input value={title} onChange={onChangeName} />
         </div>

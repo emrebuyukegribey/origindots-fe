@@ -14,7 +14,12 @@ function EmailField({ proper, deleteProper, editProper }) {
         <div className="email-field-title-container">
           <div style={{ display: "flex" }}>
             <div className="email-field-icon">{proper.icon}</div>
-            <span className="email-field-title">{proper.title}</span>
+            <span className="email-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="email-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="email-field-icons-container">
             <div

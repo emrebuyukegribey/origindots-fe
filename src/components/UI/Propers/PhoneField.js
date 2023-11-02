@@ -12,9 +12,14 @@ function PhoneField({ proper, deleteProper, editProper }) {
       </div>
       <div className="phone-field-container">
         <div className="phone-field-title-container">
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <div className="phone-field-icon">{proper.icon}</div>
-            <span className="phone-field-title">{proper.title}</span>
+            <span className="phone-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="phone-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="phone-field-icons-container">
             <div

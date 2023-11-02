@@ -1,9 +1,12 @@
-import { Input, Radio, Select } from "antd";
+import { Input, Modal, Radio, Select } from "antd";
 import { useState } from "react";
 import "./ProcessForm.css";
 import ProcessIcons from "./ProcessIcons";
 import BlueButton from "../UI/Buttons/BlueButton";
 import DarkButton from "../UI/Buttons/DarkButton";
+import { CiCircleAlert } from "react-icons/ci";
+
+const { confirm } = Modal;
 
 const icons = ProcessIcons;
 
@@ -47,7 +50,19 @@ function ProcessForm(props) {
       processIcon: props.processIcon,
     };
     saveFieldsInLocalStorage();
+    if (!processName || !processType || !processIcon) {
+      showCreatingProcessErrorModal();
+      return;
+    }
     props.onClick(process);
+  };
+
+  const showCreatingProcessErrorModal = () => {
+    Modal.warning({
+      title: "Process values can not be empty !",
+      icon: <CiCircleAlert size={20} color="#1677ff" />,
+      content: "Process's name, type and icon fields must be filled in",
+    });
   };
 
   return (

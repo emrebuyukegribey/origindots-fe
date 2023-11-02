@@ -2,6 +2,7 @@ import LightButton from "../UI/Buttons/GreyButton";
 import { AiOutlineTablet } from "react-icons/ai";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { SlScreenDesktop } from "react-icons/sl";
+import { CiCircleAlert } from "react-icons/ci";
 import { IoAddSharp } from "react-icons/io5";
 import "./ProperForm.css";
 import DarkButton from "../UI/Buttons/DarkButton";
@@ -9,7 +10,9 @@ import RedButton from "../UI/Buttons/RedButton";
 import React, { useRef } from "react";
 import ProperRender from "./ProperRender";
 import { MainContext, useContext } from "../../context";
-import { message } from "antd";
+import { message, Modal } from "antd";
+
+const { confirm } = Modal;
 
 function ProperForm(props) {
   const { properList, setProperList, setProperValueList } =
@@ -84,6 +87,27 @@ function ProperForm(props) {
     // props.setProperList([]);
     setProperList([]);
     setProperValueList([]);
+    messageApi.open({
+      type: "error",
+      content: `Deleted all propers`,
+    });
+  };
+
+  const deleteProperWarning = () => {
+    if (properList && properList.length > 0) {
+      confirm({
+        title: "Are you sure delete all propers ?",
+        icon: <CiCircleAlert size={20} color="red" />,
+        content: "All created propers will be deleted !",
+        onOk() {
+          clearAllPropers();
+        },
+        onCancel() {
+          console.log("");
+        },
+        okType: "danger",
+      });
+    }
   };
 
   return (
@@ -138,7 +162,7 @@ function ProperForm(props) {
                 onDragEnd={(e) => onDragEnd(e, index)}
                 onDragLeave={(e) => onDragLeave(e, index)}
               >
-                {ProperRender(proper, proper.deleteProper, props.editProper)}
+                {ProperRender(proper, props.deleteProper, props.editProper)}
               </div>
               {proper.isDrag ? (
                 <div className="proper-form-drag-indicator"></div>
@@ -156,9 +180,10 @@ function ProperForm(props) {
           <div style={{ marginRight: "20px" }}>
             <DarkButton text="Create Propers" />
           </div>
+          {console.log("proper list size : ", properList.size)}
           <RedButton
             text="Clear All Propers"
-            onClick={() => clearAllPropers()}
+            onClick={() => (properList.length > 0 ? deleteProperWarning() : "")}
           />
         </div>
       </div>

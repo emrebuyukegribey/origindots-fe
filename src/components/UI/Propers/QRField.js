@@ -14,7 +14,12 @@ function QRField({ proper, deleteProper, editProper }) {
         <div className="qr-field-title-container">
           <div style={{ display: "flex" }}>
             <div className="qr-field-icon">{proper.icon}</div>
-            <span className="qr-field-title">{proper.title}</span>
+            <span className="qr-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="qr-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="qr-field-icons-container">
             <div className="qr-field-edit" onClick={() => editProper(proper)}>

@@ -7,8 +7,9 @@ import ProcessForm from "../../components/Process/ProcessForm";
 import ProperForm from "../../components/Proper/ProperForm";
 import Navbar from "../../components/Navbar/Navbar";
 import LeftBar from "../../components/LeftBar/LeftBar";
-import { Steps, theme, message } from "antd";
+import { Steps, theme, message, Modal } from "antd";
 import Property from "../../components/Property/Property";
+import { CiCircleAlert } from "react-icons/ci";
 
 const steps = [
   {
@@ -79,6 +80,7 @@ function NewProcess() {
     const uniqueId = `${proper.type}-${Math.floor(Math.random() * 1000)}`;
     shallow.id = uniqueId;
     shallow.isDrag = false;
+    shallow.isRequired = false;
     addProperValue(shallow);
     messageApi.open({
       type: "success",
@@ -131,7 +133,23 @@ function NewProcess() {
     }
   };
 
+  const deleteProperWarning = (proper) => {
+    Modal.confirm({
+      title: "Are you sure you want to delete the proper ?",
+      content: "The selected proper will be deleted !",
+      icon: <CiCircleAlert size={20} color="red" />,
+      onOk() {
+        deleteProperOnForm(proper);
+      },
+      onCancel() {
+        console.log("");
+      },
+      okType: "danger",
+    });
+  };
+
   const deleteProperOnForm = (proper) => {
+    console.log("deleteProperOnForm");
     setProperList(properList.filter((p) => p.id !== proper.id));
     messageApi.open({
       type: "error",
@@ -206,7 +224,7 @@ function NewProcess() {
                 <ProperForm
                   previosStep={prev}
                   editProper={openPropertyDrawer}
-                  deleteProper={deleteProperOnForm}
+                  deleteProper={deleteProperWarning}
                 />
               )}
             </div>

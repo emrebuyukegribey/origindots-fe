@@ -12,9 +12,14 @@ function NumberField({ proper, deleteProper, editProper }) {
       </div>
       <div className="number-field-container">
         <div className="number-field-title-container">
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <div className="number-field-icon">{proper.icon}</div>
-            <span className="number-field-title">{proper.title}</span>
+            <span className="number-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="number-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="number-field-icons-container">
             <div

@@ -96,3 +96,10 @@
     width: 28px;
     height: 28px;
 }
+
+.service-url-field-required {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--red100);
+}

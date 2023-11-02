@@ -12,9 +12,14 @@ function InputField({ proper, deleteProper, editProper }) {
       </div>
       <div className="input-field-container">
         <div className="input-field-title-container">
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <div className="input-field-icon">{proper.icon}</div>
-            <span className="input-field-title">{proper.title}</span>
+            <span className="input-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="input-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="input-field-icons-container">
             <div

@@ -12,15 +12,17 @@ function DataField({ proper, deleteProper, editProper }) {
       </div>
       <div className="data-field-container">
         <div className="data-field-title-container">
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <div className="data-field-icon">{proper.icon}</div>
-            <span className="data-field-title">{proper.title}</span>
+            <span className="data-field-title">
+              {proper.title}
+              {proper.isRequired && (
+                <span className="data-field-required">*</span>
+              )}
+            </span>
           </div>
           <div className="data-field-icons-container">
-            <div
-              className="data-field-edit"
-              onClick={() => editProper(proper)}
-            >
+            <div className="data-field-edit" onClick={() => editProper(proper)}>
               <BiEditAlt className="data-field-edit-icon" />
             </div>
             <div

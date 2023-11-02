@@ -136,3 +136,10 @@
     padding: 2px;
     border-radius: 50%;
 }
+
+.input-field-required {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--red100);
+}
