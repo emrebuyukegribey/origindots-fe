@@ -44,6 +44,8 @@ function NewProcess() {
     setProperValueList,
     selectedProper,
     setSelectedProper,
+    selectedValueForAddProper,
+    setSelectedValueForAddProper,
   } = useContext(MainContext);
 
   const { token } = theme.useToken();
@@ -52,7 +54,9 @@ function NewProcess() {
     setActiveLeftBar(false);
   }, activeLeftBar);
 
-  setNavbarHeaderText("Process Management > New Process");
+  if (!selectedValueForAddProper) {
+    setNavbarHeaderText("Process Management > New Process");
+  }
 
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
 
@@ -71,18 +75,50 @@ function NewProcess() {
     setCurrentStep(currentStep - 1);
   };
 
-  const addProperOnForm = (proper) => {
+  const uniqueProper = (proper) => {
     let shallow = Object.assign({}, proper);
-    const uniqueId = `${proper.type}-${Math.floor(Math.random() * 1000)}`;
+    const uniqueId = `eb-${Date.now()}-${shallow.type}-${Math.floor(
+      Math.random() * 1000
+    )}`;
     shallow.id = uniqueId;
     shallow.isDrag = false;
     shallow.isRequired = false;
-    addProperValue(shallow);
+    shallow.listNo = properList.length;
+    shallow.childCount = 0;
+    shallow.parentId = selectedValueForAddProper
+      ? selectedValueForAddProper.id
+      : null;
+
+    return shallow;
+  };
+
+  const showMessage = (type, content) => {
     messageApi.open({
-      type: "success",
-      content: `Added new proper : ${proper.text}`,
+      type: type,
+      content: content,
     });
+  };
+
+  const addProperOnForm = (proper) => {
+    const shallow = uniqueProper(proper);
+    addProperValue(shallow);
+    showMessage("success", `Added new proper : ${proper.text}`);
     setProperList((oldPropers) => [...oldPropers, shallow]);
+  };
+
+  const createProperValue = (proper, valueName) => {
+    const properValueUniqueId = `eb-${Date.now()}-${proper.type}-${Math.floor(
+      Math.random() * 1000
+    )}-value-${valueName}-${Math.floor(Math.random() * 1000)}`;
+
+    const properValue = {
+      id: properValueUniqueId,
+      name: valueName,
+      properId: proper.id,
+      listNo: properValueList.length,
+    };
+
+    return properValue;
   };
 
   const addProperValue = (proper) => {
@@ -91,34 +127,9 @@ function NewProcess() {
       proper.type === "SingleSelectField" ||
       proper.type === "DropDownField"
     ) {
-      const properValue1UniqueId = `${proper.type}-${Math.floor(
-        Math.random() * 1000
-      )}-value-${Math.floor(Math.random() * 1000)}`;
-
-      const properValue2UniqueId = `${proper.type}-${Math.floor(
-        Math.random() * 1000
-      )}-value-${Math.floor(Math.random() * 1000)}`;
-
-      const properValue3UniqueId = `${proper.type}-${Math.floor(
-        Math.random() * 1000
-      )}-value-${Math.floor(Math.random() * 1000)}`;
-      const properValue1 = {
-        id: properValue1UniqueId,
-        name: "Value1",
-        properId: proper.id,
-      };
-
-      const properValue2 = {
-        id: properValue2UniqueId,
-        name: "Value2",
-        properId: proper.id,
-      };
-
-      const properValue3 = {
-        id: properValue3UniqueId,
-        name: "Value3",
-        properId: proper.id,
-      };
+      const properValue1 = createProperValue(proper, "Value1");
+      const properValue2 = createProperValue(proper, "Value2");
+      const properValue3 = createProperValue(proper, "Value3");
 
       setProperValueList((oldProperValues) => [
         ...oldProperValues,
@@ -127,6 +138,19 @@ function NewProcess() {
         properValue3,
       ]);
     }
+  };
+
+  const openFormForSelectedValue = (value) => {
+    setOpenProperty(false);
+    setNavbarHeaderText(
+      `Process Management > New Process > Proper > Selected > ${value.name}`
+    );
+    setSelectedValueForAddProper(value);
+  };
+
+  const cancelAddProperInValue = () => {
+    setSelectedValueForAddProper(null);
+    closeProperty();
   };
 
   const deleteProperWarning = (proper) => {
@@ -144,23 +168,24 @@ function NewProcess() {
 
   const deleteProperOnForm = (proper) => {
     setProperList(properList.filter((p) => p.id !== proper.id));
-    messageApi.open({
-      type: "error",
-      content: `Deleted proper on the form : ${proper.text}`,
-    });
+    // setProperList(properList.filter((p) => p.parentId !== proper.id));
+    showMessage("error", `Deleted proper on the form : ${proper.text}`);
   };
 
   const deleteProperValue = (properValue) => {
     setProperValueList(properValueList.filter((v) => v.id !== properValue.id));
+    setProperList(
+      properList.filter((proper) => proper.parentId !== properValue.id)
+    );
     setOpenProperty(false);
     setTimeout(() => {
       openPropertyDrawer(selectedProper);
     }, 100);
 
-    messageApi.open({
-      type: "error",
-      content: `Deleted proper value on the proper : ${properValue.name}`,
-    });
+    showMessage(
+      "error",
+      `Deleted proper value on the proper : ${properValue.name}`
+    );
   };
 
   const openPropertyDrawer = (proper) => {
@@ -169,15 +194,12 @@ function NewProcess() {
   };
 
   const editProperOnForm = (proper) => {
+    setSelectedProper(proper);
     const updatingProperList = properList.indexOf(proper);
     const updatedList = [...properList];
     updatedList[updatingProperList] = proper;
     setProperList(updatedList);
-
-    messageApi.open({
-      type: "success",
-      content: `Updated proper on the form : ${proper.text}`,
-    });
+    showMessage("success", `Updated proper on the form : ${proper.text}`);
   };
 
   const closeProperty = () => {
@@ -218,6 +240,7 @@ function NewProcess() {
                   previosStep={prev}
                   editProper={openPropertyDrawer}
                   deleteProper={deleteProperWarning}
+                  cancelAddProperInValue={cancelAddProperInValue}
                 />
               )}
             </div>
@@ -228,6 +251,7 @@ function NewProcess() {
                 onClose={closeProperty}
                 editProper={editProperOnForm}
                 deleteProperValue={deleteProperValue}
+                openFormForSelectedValue={openFormForSelectedValue}
               />
             </div>
           </div>

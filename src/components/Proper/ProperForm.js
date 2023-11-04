@@ -11,32 +11,40 @@ import React, { useRef } from "react";
 import ProperRender from "./ProperRender";
 import { MainContext, useContext } from "../../context";
 import { message, Modal } from "antd";
+import { useEffect } from "react";
 
 const { confirm } = Modal;
 
 function ProperForm(props) {
-  const { properList, setProperList, setProperValueList } =
-    useContext(MainContext);
+  const {
+    properList,
+    setProperList,
+    setProperValueList,
+    selectedValueForAddProper,
+  } = useContext(MainContext);
   const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
   let dragOver = useRef();
 
+  const properListForm = properList.filter((proper) =>
+    selectedValueForAddProper
+      ? proper.parentId === selectedValueForAddProper.id
+      : proper.parentId === null
+  );
+
   const onDragStart = (e, index) => {
-    console.log("start");
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.dropEffect = "move";
     dragStart.current = index;
   };
 
   const onDragEnter = (e, index) => {
-    console.log("enter");
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.dropEffect = "move";
-    console.log("e.dataTransfer.dropEffect: ", e.dataTransfer.dropEffect);
     e.preventDefault();
     dragOver.current = index;
 
-    const cpProperList = [...properList];
+    const cpProperList = [...properListForm];
 
     let finalArr = [];
 
@@ -52,7 +60,7 @@ function ProperForm(props) {
 
   const onDragEnd = (e, index) => {
     e.preventDefault();
-    const arr1 = [...properList];
+    const arr1 = [...properListForm];
 
     const itemMain = arr1[dragStart.current];
     arr1.splice(dragStart.current, 1);
@@ -62,8 +70,9 @@ function ProperForm(props) {
     dragOver.current = null;
 
     let f_arr = [];
-    arr1.forEach((item) => {
+    arr1.forEach((item, index) => {
       const cpItem = item;
+      cpItem.listNo = index;
       cpItem.isDrag = false;
       f_arr.push({
         cpItem,
@@ -97,9 +106,7 @@ function ProperForm(props) {
         onOk() {
           clearAllPropers();
         },
-        onCancel() {
-          console.log("");
-        },
+        onCancel() {},
         okType: "danger",
       });
     }
@@ -144,7 +151,7 @@ function ProperForm(props) {
             </div>
           </div>
         ) : (
-          properList.map((proper, index) => (
+          properListForm.map((proper, index) => (
             <React.Fragment>
               <div
                 className="proper-form-draggable"
@@ -168,18 +175,37 @@ function ProperForm(props) {
       </div>
       <div className="proper-form-divider" />
       <div className="proper-form-button-container">
-        <div>
-          <LightButton onClick={props.previosStep} text="Previos" />
-        </div>
-        <div style={{ display: "flex" }}>
-          <div style={{ marginRight: "20px" }}>
-            <DarkButton text="Create Propers" />
+        {!selectedValueForAddProper ? (
+          <div>
+            <LightButton onClick={props.previosStep} text="Previos" />
           </div>
-          <RedButton
-            text="Clear All Propers"
-            onClick={() => (properList.length > 0 ? deleteProperWarning() : "")}
-          />
-        </div>
+        ) : (
+          <div>
+            <LightButton
+              onClick={props.cancelAddProperInValue}
+              text="Return Base Form"
+            />
+          </div>
+        )}
+        {!selectedValueForAddProper && (
+          <div style={{ display: "flex" }}>
+            <div style={{ marginRight: "20px" }}>
+              <DarkButton
+                text={
+                  selectedValueForAddProper
+                    ? "Create Proper In Selected Value"
+                    : "Create Propers"
+                }
+              />
+            </div>
+            <RedButton
+              text="Clear All Propers"
+              onClick={() =>
+                properList.length > 0 ? deleteProperWarning() : ""
+              }
+            />
+          </div>
+        )}
       </div>
     </div>
   );

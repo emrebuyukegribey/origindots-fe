@@ -9,7 +9,9 @@ import { MainContext, useContext } from "../../../context";
 function SingleSelectField({ proper, deleteProper, editProper }) {
   const { properValueList } = useContext(MainContext);
   const [value, setValue] = useState(
-    properValueList?.filter((p) => p.properId === proper.id)[0].name
+    properValueList && properValueList.length > 0
+      ? properValueList.filter((p) => p.properId === proper.id)[0].name
+      : ""
   );
 
   const onChange = (e) => {

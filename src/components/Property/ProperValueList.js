@@ -10,8 +10,10 @@ function ProperValueList({
   deleteProperValue,
   openPropertyDrawer,
   onCloseProperty,
+  openFormForSelectedValue,
 }) {
-  const { selectedProper, setProperValueList } = useContext(MainContext);
+  const { selectedProper, properValueList, setProperValueList } =
+    useContext(MainContext);
 
   const [isProperValueModal, setProperValueModal] = useState(false);
   const [name, setName] = useState("");
@@ -25,6 +27,7 @@ function ProperValueList({
   };
 
   const onChangeNewProperValue = (e) => {
+    e.preventDefault();
     const value = e.target.value;
     setName(value);
   };
@@ -37,6 +40,7 @@ function ProperValueList({
       id: properValueUniqueId,
       name: name,
       properId: selectedProper.id,
+      listNo: properValueList.length,
     };
 
     setProperValueList((oldProperValues) => [...oldProperValues, properValue]);
@@ -56,6 +60,8 @@ function ProperValueList({
           <ProperValue
             value={element}
             deleteProperValue={deleteValue}
+            openFormForSelectedValue={openFormForSelectedValue}
+            onChangeNewProperValue={onChangeNewProperValue}
             key={element.id}
           />
         );

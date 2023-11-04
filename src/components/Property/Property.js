@@ -14,9 +14,10 @@ function Property({
   onClose,
   editProper,
   deleteProperValue,
+  openFormForSelectedValue,
+  cancelAddProperInValue,
 }) {
   const { properValueList, selectedProper } = useContext(MainContext);
-
   const [type, setType] = useState(selectedProper ? selectedProper.type : "");
   const [title, setTitle] = useState(
     selectedProper ? selectedProper.title : ""
@@ -26,8 +27,6 @@ function Property({
   const [isRequired, setRequired] = useState(false);
   const [updatedField, setUpdatedFields] = useState(false);
   const [values, setValues] = useState();
-
-  console.log("selectedProper : ", selectedProper);
 
   setTimeout(() => {
     if (selectedProper && selectedProper.type && !updatedField) {
@@ -141,6 +140,8 @@ function Property({
                 deleteProperValue={deleteProperValue}
                 openPropertyDrawer={openPropertyDrawer}
                 onCloseProperty={onClose}
+                openFormForSelectedValue={openFormForSelectedValue}
+                cancelAddProperInValue={cancelAddProperInValue}
               />
             </div>
           )}

@@ -5,40 +5,42 @@ import "./ProperGroupField.css";
 import { RiDraggable } from "react-icons/ri";
 import InputField from "./InputField";
 import { AiOutlineClose } from "react-icons/ai";
+import { Input } from "antd";
 
 function ProperGroupField({ proper, deleteProper, editProper }) {
   return (
-    <div className="propergroup-field-outer-container">
-      <div className="propergroup-field-drag-icon-container">
-        <RiDraggable className="propergroup-field-drag-icon" />
+    <div className="photo-field-outer-container">
+      <div className="photo-field-drag-icon-container">
+        <RiDraggable className="photo-field-drag-icon" />
       </div>
-      <div className="propergroup-field-container">
-        <div className="propergroup-field-title-container">
-          <span className="propergroup-field-title">
-            {proper.title}{" "}
-            {proper.isRequired && (
-              <span className="propergroup-field-required">*</span>
-            )}
-          </span>
-          <div className="propergroup-field-icons-container">
+      <div className="photo-field-container">
+        <div className="photo-field-title-container">
+          <div style={{ display: "flex" }}>
+            <div className="photo-field-icon">{proper.icon}</div>
+            <span className="photo-field-title">
+              {proper.title}{" "}
+              {proper.isRequired && (
+                <span className="photo-field-required">*</span>
+              )}
+            </span>
+          </div>
+          <div className="photo-field-icons-container">
             <div
-              className="propergroup-field-edit"
+              className="photo-field-edit"
               onClick={() => editProper(proper)}
             >
-              <BiEditAlt className="propergroup-field-edit-icon" />
+              <BiEditAlt className="photo-field-edit-icon" />
             </div>
             <div
-              className="propergroup-field-delete"
+              className="photo-field-delete"
               onClick={() => deleteProper(proper)}
             >
-              <AiOutlineClose className="propergroup-field-delete-icon" />
+              <AiOutlineClose className="photo-field-delete-icon" />
             </div>
           </div>
         </div>
-        <div className="propergroup-field-content"></div>
-        <span className="propergroup-field-description">
-          {proper.description}
-        </span>
+
+        <span className="photo-field-description">{proper.description}</span>
       </div>
     </div>
   );
