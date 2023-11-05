@@ -5,6 +5,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 import { useState } from "react";
 import { MainContext, useContext } from "../../../context";
+import { AiOutlineEye } from "react-icons/ai";
 
 function SingleSelectField({ proper, deleteProper, editProper }) {
   const { properValueList } = useContext(MainContext);
@@ -43,10 +44,31 @@ function SingleSelectField({ proper, deleteProper, editProper }) {
         {properValueList
           ?.filter((p) => p.properId === proper.id)
           .map((prop) => {
+            const name =
+              prop.childCount > 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                  }}
+                >
+                  {prop.name}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <AiOutlineEye />
+                  </div>
+                </div>
+              ) : (
+                <div>{prop.name}</div>
+              );
             return (
               <Radio.Group value={properValueList[0].name}>
                 <Radio size="large" value={prop.name}>
-                  {prop.name}
+                  {name}
                 </Radio>
               </Radio.Group>
             );

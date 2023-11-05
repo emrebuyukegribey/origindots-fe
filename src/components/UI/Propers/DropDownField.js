@@ -4,6 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 import { MainContext, useContext } from "../../../context";
+import { AiOutlineEye } from "react-icons/ai";
 
 function DropDownField({ proper, deleteProper, editProper }) {
   const { properValueList } = useContext(MainContext);
@@ -12,7 +13,31 @@ function DropDownField({ proper, deleteProper, editProper }) {
     ?.filter((element) => element.properId === proper.id)
     .map((value) => value)
     .forEach((element) => {
-      const obj = { label: element.name, value: element.name };
+      const name =
+        element.childCount > 0 ? (
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            {element.name}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginLeft: "10px",
+              }}
+            >
+              <AiOutlineEye />
+            </div>
+          </div>
+        ) : (
+          <div>{element.name}</div>
+        );
+      const obj = {
+        label: name,
+        value: element.name,
+      };
       properValues.push(obj);
     });
 

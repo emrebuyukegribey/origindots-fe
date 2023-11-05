@@ -103,6 +103,18 @@ function NewProcess() {
     const shallow = uniqueProper(proper);
     addProperValue(shallow);
     showMessage("success", `Added new proper : ${proper.text}`);
+
+    if (shallow.parentId) {
+      const parentProperValue = properValueList.filter(
+        (value) => value.id === selectedValueForAddProper.id
+      )[0];
+      parentProperValue.childCount++;
+      const updatingProperValueIndex =
+        properValueList.indexOf(parentProperValue);
+      const updatedProperValueList = [...properValueList];
+      updatedProperValueList[updatingProperValueIndex] = parentProperValue;
+      setProperValueList((oldValues) => [...oldValues, updatedProperValueList]);
+    }
     setProperList((oldPropers) => [...oldPropers, shallow]);
   };
 
@@ -115,7 +127,12 @@ function NewProcess() {
       id: properValueUniqueId,
       name: valueName,
       properId: proper.id,
-      listNo: properValueList.length,
+      listNo: selectedValueForAddProper
+        ? properValueList.filter(
+            (value) => value.properId === selectedValueForAddProper.id
+          ).length
+        : properValueList.length,
+      childCount: 0,
     };
 
     return properValue;
@@ -141,7 +158,6 @@ function NewProcess() {
   };
 
   const openFormForSelectedValue = (value) => {
-    console.log("openFormForSelectedValue : ", value);
     setOpenProperty(false);
     setNavbarHeaderText(
       `Process Management > New Process > Proper > Selected > ${value.name}`
@@ -150,7 +166,6 @@ function NewProcess() {
   };
 
   const cancelAddProperInValue = () => {
-    console.log("cancel proper");
     setSelectedValueList([]);
     setSelectedValueForAddProper(null);
     closeProperty();
@@ -161,16 +176,17 @@ function NewProcess() {
       (proper) => proper.id === selectedValueForAddProper.properId
     )[0];
 
-    const selectedProperValue = properValueList.filter(
-      (value) => value.id === parentProper.parentId
-    )[0];
+    if (parentProper && parentProper.parentId) {
+      const selectedProperValue = properValueList.filter(
+        (value) => value.id === parentProper.parentId
+      )[0];
 
-    if (selectedProperValue) {
-      setSelectedValueForAddProper({ selectedProperValue });
-      openFormForSelectedValue(selectedProperValue);
-    } else {
-      cancelAddProperInValue();
+      if (selectedProperValue) {
+        setSelectedValueForAddProper({ selectedProperValue });
+        openFormForSelectedValue(selectedProperValue);
+      }
     }
+    cancelAddProperInValue();
   };
 
   const deleteProperWarning = (proper) => {

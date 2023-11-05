@@ -1,8 +1,9 @@
 import { Checkbox } from "antd";
 import "./MultiSelectField.css";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
-import { RiDraggable } from "react-icons/ri";
+import { RiDraggable, RiMenu2Fill } from "react-icons/ri";
+import { CiMenuBurger } from "react-icons/ci";
 import { MainContext, useContext } from "../../../context";
 
 function MultiSelectField({ proper, deleteProper, editProper }) {
@@ -45,7 +46,20 @@ function MultiSelectField({ proper, deleteProper, editProper }) {
           {properValueList
             .filter((p) => p.properId === proper.id)
             .map((p) => {
-              return <Checkbox value={p.name}>{p.name}</Checkbox>;
+              return (
+                <div style={{ display: "flex" }}>
+                  <Checkbox value={p.name}>{p.name}</Checkbox>{" "}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {p.childCount > 0 && <AiOutlineEye />}
+                  </div>
+                </div>
+              );
             })}
         </div>
         <span className="multi-select-field-description">

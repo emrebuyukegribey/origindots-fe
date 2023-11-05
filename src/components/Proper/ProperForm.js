@@ -7,11 +7,14 @@ import { IoAddSharp } from "react-icons/io5";
 import "./ProperForm.css";
 import DarkButton from "../UI/Buttons/DarkButton";
 import RedButton from "../UI/Buttons/RedButton";
+import BackButton from "../UI/Buttons/BackButton";
 import React, { useRef } from "react";
 import ProperRender from "./ProperRender";
 import { MainContext, useContext } from "../../context";
 import { message, Modal } from "antd";
 import { useEffect } from "react";
+import BlueButton from "../UI/Buttons/BlueButton";
+import GreyButton from "../UI/Buttons/GreyButton";
 
 const { confirm } = Modal;
 
@@ -26,11 +29,6 @@ function ProperForm(props) {
     props.selectedValueForAddProper
       ? proper.parentId === props.selectedValueForAddProper.id
       : proper.parentId === null
-  );
-
-  console.log(
-    "props.selectedValueForAddProper : ",
-    props.selectedValueForAddProper
   );
   const onDragStart = (e, index) => {
     e.dataTransfer.effectAllowed = "move";
@@ -179,14 +177,14 @@ function ProperForm(props) {
       <div className="proper-form-button-container">
         {!props.selectedValueForAddProper ? (
           <div>
-            <LightButton onClick={props.previosStep} text="Previos" />
+            <BackButton onClick={props.previosStep} text="Previos" />
           </div>
         ) : (
           <div
             className="proper-form-button-container"
             style={{ justifyContent: "flex-start" }}
           >
-            <LightButton onClick={props.goBack} text="Go Back" />
+            <BackButton onClick={props.goBack} text="Go Back" />
             <LightButton
               onClick={props.cancelAddProperInValue}
               text="Return Base Form"
@@ -204,12 +202,14 @@ function ProperForm(props) {
                 }
               />
             </div>
-            <RedButton
-              text="Clear All Propers"
-              onClick={() =>
-                properList.length > 0 ? deleteProperWarning() : ""
-              }
-            />
+            <div>
+              <RedButton
+                text="Clear All Propers"
+                onClick={() =>
+                  properList.length > 0 ? deleteProperWarning() : ""
+                }
+              />
+            </div>
           </div>
         )}
       </div>

@@ -5,7 +5,7 @@ function BackButton({ text, onClick }) {
   return (
     <div className="back-button-container" onClick={onClick}>
       <div className="back-button-text">
-        <MdOutlineArrowBackIosNew size={36} />
+        <MdOutlineArrowBackIosNew size={30} />
       </div>
     </div>
   );

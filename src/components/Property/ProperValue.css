@@ -46,9 +46,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 10px;
     padding: 3px;
     border: 1px solid var(--red200);
     color: var(--red200);
     border-radius: 5px;
     cursor: pointer;
+}
+
+.proper-value-visible-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    border: 1px solid var(--dark200);
+    color: var(--dark200);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.proper-value-visible-button:hover {
+    background-color: var(--dark200);
+    color: #fff;
+}
+
+.proper-value-nonvisible-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    border: 1px solid var(--grey200);
+    color: var(--grey200);
+    border-radius: 5px;
 }
