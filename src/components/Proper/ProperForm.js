@@ -16,22 +16,22 @@ import { useEffect } from "react";
 const { confirm } = Modal;
 
 function ProperForm(props) {
-  const {
-    properList,
-    setProperList,
-    setProperValueList,
-    selectedValueForAddProper,
-  } = useContext(MainContext);
+  const { properList, setProperList, setProperValueList } =
+    useContext(MainContext);
   const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
   let dragOver = useRef();
 
   const properListForm = properList.filter((proper) =>
-    selectedValueForAddProper
-      ? proper.parentId === selectedValueForAddProper.id
+    props.selectedValueForAddProper
+      ? proper.parentId === props.selectedValueForAddProper.id
       : proper.parentId === null
   );
 
+  console.log(
+    "props.selectedValueForAddProper : ",
+    props.selectedValueForAddProper
+  );
   const onDragStart = (e, index) => {
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.dropEffect = "move";
@@ -117,7 +117,7 @@ function ProperForm(props) {
       {contextHolder}
       <div className="proper-header-container">
         <h3>CREATE PROPERS</h3>
-        {!selectedValueForAddProper && (
+        {!props.selectedValueForAddProper && (
           <div className="proper-preview-container">
             <div className="proper-preview-inner-container">
               <HiOutlineDevicePhoneMobile className="proper-preview-icon" />
@@ -177,7 +177,7 @@ function ProperForm(props) {
       </div>
       <div className="proper-form-divider" />
       <div className="proper-form-button-container">
-        {!selectedValueForAddProper ? (
+        {!props.selectedValueForAddProper ? (
           <div>
             <LightButton onClick={props.previosStep} text="Previos" />
           </div>
@@ -193,12 +193,12 @@ function ProperForm(props) {
             />
           </div>
         )}
-        {!selectedValueForAddProper && (
+        {!props.selectedValueForAddProper && (
           <div style={{ display: "flex" }}>
             <div style={{ marginRight: "20px" }}>
               <DarkButton
                 text={
-                  selectedValueForAddProper
+                  props.selectedValueForAddProper
                     ? "Create Proper In Selected Value"
                     : "Create Propers"
                 }

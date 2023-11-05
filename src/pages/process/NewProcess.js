@@ -33,6 +33,8 @@ function NewProcess() {
   const [currentStep, setCurrentStep] = useState(0);
   const [openProperty, setOpenProperty] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
+  const [selectedValueForAddProper, setSelectedValueForAddProper] = useState();
+  const [selectedValueList, setSelectedValueList] = useState([]);
 
   const {
     setNavbarHeaderText,
@@ -44,10 +46,6 @@ function NewProcess() {
     setProperValueList,
     selectedProper,
     setSelectedProper,
-    selectedValueForAddProper,
-    setSelectedValueForAddProper,
-    selectedValueList,
-    setSelectedValueList,
   } = useContext(MainContext);
 
   const { token } = theme.useToken();
@@ -143,14 +141,12 @@ function NewProcess() {
   };
 
   const openFormForSelectedValue = (value) => {
+    console.log("openFormForSelectedValue : ", value);
     setOpenProperty(false);
     setNavbarHeaderText(
       `Process Management > New Process > Proper > Selected > ${value.name}`
     );
     setSelectedValueForAddProper(value);
-    setSelectedValueList((oldValues) => [...oldValues, value]);
-
-    console.log("selected values : ", selectedValueList);
   };
 
   const cancelAddProperInValue = () => {
@@ -161,12 +157,20 @@ function NewProcess() {
   };
 
   const goBackPreviousForm = () => {
-    setSelectedValueList((previous) => previous.slice(0 - 1));
-    setSelectedValueForAddProper(
-      selectedValueList[selectedValueList.length - 1]
-    );
-    console.log("selectedValueForAddProper : ", selectedValueForAddProper);
-    console.log("selectedValueList after goBack : ", selectedValueList);
+    const parentProper = properList.filter(
+      (proper) => proper.id === selectedValueForAddProper.properId
+    )[0];
+
+    const selectedProperValue = properValueList.filter(
+      (value) => value.id === parentProper.parentId
+    )[0];
+
+    if (selectedProperValue) {
+      setSelectedValueForAddProper({ selectedProperValue });
+      openFormForSelectedValue(selectedProperValue);
+    } else {
+      cancelAddProperInValue();
+    }
   };
 
   const deleteProperWarning = (proper) => {
@@ -258,6 +262,8 @@ function NewProcess() {
                   deleteProper={deleteProperWarning}
                   cancelAddProperInValue={cancelAddProperInValue}
                   goBack={goBackPreviousForm}
+                  selectedValueForAddProper={selectedValueForAddProper}
+                  setSelectedValueForAddProper={selectedValueForAddProper}
                 />
               )}
             </div>
@@ -269,6 +275,8 @@ function NewProcess() {
                 editProper={editProperOnForm}
                 deleteProperValue={deleteProperValue}
                 openFormForSelectedValue={openFormForSelectedValue}
+                selectedValueForAddProper={selectedValueForAddProper}
+                setSelectedValueForAddProper={selectedValueForAddProper}
               />
             </div>
           </div>

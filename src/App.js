@@ -15,8 +15,6 @@ function App() {
   const [properList, setProperList] = useState([]);
   const [properValueList, setProperValueList] = useState([]);
   const [selectedProper, setSelectedProper] = useState({});
-  const [selectedValueForAddProper, setSelectedValueForAddProper] = useState();
-  const [selectedValueList, setSelectedValueList] = useState([]);
 
   let location = useLocation();
 
@@ -33,10 +31,6 @@ function App() {
     setProperValueList,
     selectedProper,
     setSelectedProper,
-    selectedValueForAddProper,
-    setSelectedValueForAddProper,
-    selectedValueList,
-    setSelectedValueList,
   };
 
   const navigate = useNavigate();
