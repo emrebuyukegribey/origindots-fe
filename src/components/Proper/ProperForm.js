@@ -117,13 +117,15 @@ function ProperForm(props) {
       {contextHolder}
       <div className="proper-header-container">
         <h3>CREATE PROPERS</h3>
-        <div className="proper-preview-container">
-          <div className="proper-preview-inner-container">
-            <HiOutlineDevicePhoneMobile className="proper-preview-icon" />
-            <AiOutlineTablet className="proper-preview-icon" />
-            <SlScreenDesktop className="proper-preview-icon" style={{}} />
+        {!selectedValueForAddProper && (
+          <div className="proper-preview-container">
+            <div className="proper-preview-inner-container">
+              <HiOutlineDevicePhoneMobile className="proper-preview-icon" />
+              <AiOutlineTablet className="proper-preview-icon" />
+              <SlScreenDesktop className="proper-preview-icon" style={{}} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="proper-form-divider" />
       <div
@@ -180,7 +182,11 @@ function ProperForm(props) {
             <LightButton onClick={props.previosStep} text="Previos" />
           </div>
         ) : (
-          <div>
+          <div
+            className="proper-form-button-container"
+            style={{ justifyContent: "flex-start" }}
+          >
+            <LightButton onClick={props.goBack} text="Go Back" />
             <LightButton
               onClick={props.cancelAddProperInValue}
               text="Return Base Form"

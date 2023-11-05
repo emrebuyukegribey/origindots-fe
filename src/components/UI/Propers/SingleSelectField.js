@@ -8,11 +8,8 @@ import { MainContext, useContext } from "../../../context";
 
 function SingleSelectField({ proper, deleteProper, editProper }) {
   const { properValueList } = useContext(MainContext);
-  const [value, setValue] = useState(
-    properValueList && properValueList.length > 0
-      ? properValueList.filter((p) => p.properId === proper.id)[0].name
-      : ""
-  );
+  console.log("single select properValueList : ", properValueList);
+  const [value, setValue] = useState();
 
   const onChange = (e) => {
     setValue(e.target.value);
@@ -53,7 +50,7 @@ function SingleSelectField({ proper, deleteProper, editProper }) {
           ?.filter((p) => p.properId === proper.id)
           .map((prop) => {
             return (
-              <Radio.Group value={value} onChange={onChange}>
+              <Radio.Group value={properValueList[0].name} onChange={onChange}>
                 <Radio size="large" value={prop.name}>
                   {prop.name}
                 </Radio>

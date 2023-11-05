@@ -46,6 +46,8 @@ function NewProcess() {
     setSelectedProper,
     selectedValueForAddProper,
     setSelectedValueForAddProper,
+    selectedValueList,
+    setSelectedValueList,
   } = useContext(MainContext);
 
   const { token } = theme.useToken();
@@ -146,11 +148,25 @@ function NewProcess() {
       `Process Management > New Process > Proper > Selected > ${value.name}`
     );
     setSelectedValueForAddProper(value);
+    setSelectedValueList((oldValues) => [...oldValues, value]);
+
+    console.log("selected values : ", selectedValueList);
   };
 
   const cancelAddProperInValue = () => {
+    console.log("cancel proper");
+    setSelectedValueList([]);
     setSelectedValueForAddProper(null);
     closeProperty();
+  };
+
+  const goBackPreviousForm = () => {
+    setSelectedValueList((previous) => previous.slice(0 - 1));
+    setSelectedValueForAddProper(
+      selectedValueList[selectedValueList.length - 1]
+    );
+    console.log("selectedValueForAddProper : ", selectedValueForAddProper);
+    console.log("selectedValueList after goBack : ", selectedValueList);
   };
 
   const deleteProperWarning = (proper) => {
@@ -241,6 +257,7 @@ function NewProcess() {
                   editProper={openPropertyDrawer}
                   deleteProper={deleteProperWarning}
                   cancelAddProperInValue={cancelAddProperInValue}
+                  goBack={goBackPreviousForm}
                 />
               )}
             </div>
