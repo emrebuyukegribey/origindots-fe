@@ -109,11 +109,17 @@ function NewProcess() {
         (value) => value.id === selectedValueForAddProper.id
       )[0];
       parentProperValue.childCount++;
-      const updatingProperValueIndex =
-        properValueList.indexOf(parentProperValue);
-      const updatedProperValueList = [...properValueList];
+      /*
+      const updatingProperValueIndex = properValueList.indexOf(parentProperValue);
+      const updatedProperValueList = properValueList;
       updatedProperValueList[updatingProperValueIndex] = parentProperValue;
-      setProperValueList((oldValues) => [...oldValues, updatedProperValueList]);
+      */
+
+      /*setProperValueList(updatedProperValueList);
+      setProperValueList((oldProperValues) => [
+        ...oldProperValues,
+        updatedProperValueList,
+      ])*/
     }
     setProperList((oldPropers) => [...oldPropers, shallow]);
   };
@@ -185,8 +191,9 @@ function NewProcess() {
         setSelectedValueForAddProper({ selectedProperValue });
         openFormForSelectedValue(selectedProperValue);
       }
+    } else {
+      cancelAddProperInValue();
     }
-    cancelAddProperInValue();
   };
 
   const deleteProperWarning = (proper) => {

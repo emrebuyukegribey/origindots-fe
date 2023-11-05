@@ -21,6 +21,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "InputField") {
@@ -29,6 +30,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "NumberField") {
@@ -37,6 +39,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "EmailField") {
@@ -45,6 +48,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "PhoneField") {
@@ -53,6 +57,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "DataField") {
@@ -61,6 +66,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "TimeField") {
@@ -69,6 +75,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "PhotoField") {
@@ -77,6 +84,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "VideoField") {
@@ -85,6 +93,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "QRField") {
@@ -93,6 +102,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "OCRField") {
@@ -101,6 +111,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "DropDownField") {
@@ -109,6 +120,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "SingleSelectField") {
@@ -117,6 +129,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "MultiSelectField") {
@@ -125,6 +138,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   } else if (proper.type === "ProperGroupField") {
@@ -133,6 +147,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
+        key={proper.id}
       />
     );
   }

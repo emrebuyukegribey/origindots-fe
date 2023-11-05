@@ -30,6 +30,7 @@ function ProperForm(props) {
       ? proper.parentId === props.selectedValueForAddProper.id
       : proper.parentId === null
   );
+
   const onDragStart = (e, index) => {
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.dropEffect = "move";
