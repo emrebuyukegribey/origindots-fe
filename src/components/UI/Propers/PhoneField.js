@@ -7,7 +7,7 @@ import { RiDraggable } from "react-icons/ri";
 function PhoneField({ proper, deleteProper, editProper }) {
   return (
     <div className="phone-field-outer-container">
-      <div className="inphoneput-field-drag-icon-container">
+      <div className="phone-field-drag-icon-container">
         <RiDraggable className="phone-field-drag-icon" />
       </div>
       <div className="phone-field-container">
