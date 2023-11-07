@@ -10,24 +10,28 @@ import RedButton from "../UI/Buttons/RedButton";
 import BackButton from "../UI/Buttons/BackButton";
 import React, { useRef } from "react";
 import ProperRender from "./ProperRender";
-import { MainContext, useContext } from "../../context";
 import { message, Modal } from "antd";
-import { useEffect } from "react";
-import BlueButton from "../UI/Buttons/BlueButton";
-import GreyButton from "../UI/Buttons/GreyButton";
 
 const { confirm } = Modal;
 
-function ProperForm(props) {
-  const { properList, setProperList, setProperValueList } =
-    useContext(MainContext);
+function ProperForm({
+  properList,
+  setProperList,
+  previosStep,
+  editProper,
+  deleteProper,
+  cancelAddProperInValue,
+  goBack,
+  selectedValueForAddProper,
+  setProperValueList,
+}) {
   const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
   let dragOver = useRef();
 
   const properListForm = properList.filter((proper) =>
-    props.selectedValueForAddProper
-      ? proper.parentId === props.selectedValueForAddProper.id
+    selectedValueForAddProper
+      ? proper.parentId === selectedValueForAddProper.id
       : proper.parentId === null
   );
 
@@ -116,7 +120,7 @@ function ProperForm(props) {
       {contextHolder}
       <div className="proper-header-container">
         <h3>CREATE PROPERS</h3>
-        {!props.selectedValueForAddProper && (
+        {!selectedValueForAddProper && (
           <div className="proper-preview-container">
             <div className="proper-preview-inner-container">
               <HiOutlineDevicePhoneMobile className="proper-preview-icon" />
@@ -165,7 +169,7 @@ function ProperForm(props) {
                 onDragEnd={(e) => onDragEnd(e, index)}
                 onDragLeave={(e) => onDragLeave(e, index)}
               >
-                {ProperRender(proper, props.deleteProper, props.editProper)}
+                {ProperRender(proper, deleteProper, editProper)}
               </div>
               {proper.isDrag ? (
                 <div className="proper-form-drag-indicator"></div>
@@ -176,28 +180,28 @@ function ProperForm(props) {
       </div>
       <div className="proper-form-divider" />
       <div className="proper-form-button-container">
-        {!props.selectedValueForAddProper ? (
+        {!selectedValueForAddProper ? (
           <div>
-            <BackButton onClick={props.previosStep} text="Previos" />
+            <BackButton onClick={previosStep} text="Previos" />
           </div>
         ) : (
           <div
             className="proper-form-button-container"
             style={{ justifyContent: "flex-start" }}
           >
-            <BackButton onClick={props.goBack} text="Go Back" />
+            <BackButton onClick={goBack} text="Go Back" />
             <LightButton
-              onClick={props.cancelAddProperInValue}
+              onClick={cancelAddProperInValue}
               text="Return Base Form"
             />
           </div>
         )}
-        {!props.selectedValueForAddProper && (
+        {!selectedValueForAddProper && (
           <div style={{ display: "flex" }}>
             <div style={{ marginRight: "20px" }}>
               <DarkButton
                 text={
-                  props.selectedValueForAddProper
+                  selectedValueForAddProper
                     ? "Create Proper In Selected Value"
                     : "Create Propers"
                 }

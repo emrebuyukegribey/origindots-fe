@@ -14,10 +14,16 @@ function ProperValue({
   openFormForSelectedValue,
   onChangeNewProperValue,
 }) {
+  console.log("value : ", value);
+
   return (
     <div className="proper-value-container">
       <div className="proper-value-name">
-        <Input value={value.name} onChange={onChangeNewProperValue} />
+        <Input
+          name="name"
+          value={value.name}
+          onChange={onChangeNewProperValue}
+        />
       </div>
       <div className="proper-value-button-container">
         <div className="proper-value-add-button">

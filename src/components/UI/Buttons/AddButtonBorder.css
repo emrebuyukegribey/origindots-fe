@@ -1,0 +1,59 @@
+@import "../../../variables.css";
+
+.add-button-border-container {
+    width: 100%;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    /*padding: 10px;*/
+    border: 1px solid var(--blue100);
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-button-border-container:hover {
+    background-color: var(--blue100); 
+    transition: all 0.3s ease-in-out;
+}
+
+.add-button-border-inner-container {
+    display: flex; 
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.add-button-border-text {
+    color: var(--blue100);
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.add-button-border-container:hover .add-button-border-text{
+    color: #fff;
+}
+
+.add-button-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--blue100);
+    font-size: 24px;
+    border-right: 1px solid var(--blue100);
+    padding: 10px;
+}
+
+.add-button-border-container:hover .add-button-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 24px;
+    border-right: 1px solid var(--grey200);
+    padding: 10px;
+}

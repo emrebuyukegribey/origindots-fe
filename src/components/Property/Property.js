@@ -15,9 +15,10 @@ function Property({
   editProper,
   deleteProperValue,
   openFormForSelectedValue,
-  cancelAddProperInValue,
+  properValueList,
+  setProperValueList,
+  selectedProper,
 }) {
-  const { properValueList, selectedProper } = useContext(MainContext);
   const [type, setType] = useState(selectedProper ? selectedProper.type : "");
   const [title, setTitle] = useState(
     selectedProper ? selectedProper.title : ""
@@ -136,12 +137,14 @@ function Property({
             selectedProper.type === "DropDownField") && (
             <div style={{ marginTop: "50px" }}>
               <ProperValueList
-                values={values}
+                values={values ? values : []}
                 deleteProperValue={deleteProperValue}
                 openPropertyDrawer={openPropertyDrawer}
                 onCloseProperty={onClose}
                 openFormForSelectedValue={openFormForSelectedValue}
-                cancelAddProperInValue={cancelAddProperInValue}
+                properValueList={properValueList}
+                setProperValueList={setProperValueList}
+                selectedProper={selectedProper}
               />
             </div>
           )}

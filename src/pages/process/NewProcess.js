@@ -34,19 +34,12 @@ function NewProcess() {
   const [openProperty, setOpenProperty] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const [selectedValueForAddProper, setSelectedValueForAddProper] = useState();
-  const [selectedValueList, setSelectedValueList] = useState([]);
+  const [properList, setProperList] = useState([]);
+  const [properValueList, setProperValueList] = useState([]);
+  const [selectedProper, setSelectedProper] = useState({});
 
-  const {
-    setNavbarHeaderText,
-    setActiveLeftBar,
-    activeLeftBar,
-    properList,
-    setProperList,
-    properValueList,
-    setProperValueList,
-    selectedProper,
-    setSelectedProper,
-  } = useContext(MainContext);
+  const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
+    useContext(MainContext);
 
   const { token } = theme.useToken();
 
@@ -172,7 +165,6 @@ function NewProcess() {
   };
 
   const cancelAddProperInValue = () => {
-    setSelectedValueList([]);
     setSelectedValueForAddProper(null);
     closeProperty();
   };
@@ -280,6 +272,8 @@ function NewProcess() {
               {currentStep === 0 && <ProcessForm onClick={onCreateProcess} />}
               {currentStep === 1 && (
                 <ProperForm
+                  properList={properList}
+                  setProperList={setProperList}
                   previosStep={prev}
                   editProper={openPropertyDrawer}
                   deleteProper={deleteProperWarning}
@@ -287,6 +281,7 @@ function NewProcess() {
                   goBack={goBackPreviousForm}
                   selectedValueForAddProper={selectedValueForAddProper}
                   setSelectedValueForAddProper={selectedValueForAddProper}
+                  setProperValueList={setProperValueList}
                 />
               )}
             </div>
@@ -300,6 +295,9 @@ function NewProcess() {
                 openFormForSelectedValue={openFormForSelectedValue}
                 selectedValueForAddProper={selectedValueForAddProper}
                 setSelectedValueForAddProper={selectedValueForAddProper}
+                properValueList={properValueList}
+                setProperValueList={setProperValueList}
+                selectedProper={selectedProper}
               />
             </div>
           </div>

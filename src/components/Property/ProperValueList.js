@@ -1,5 +1,4 @@
 import { Input, Modal } from "antd";
-import { MainContext, useContext } from "../../context";
 import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
 import ProperValue from "./ProperValue";
 import "./ProperValueList.css";
@@ -11,10 +10,10 @@ function ProperValueList({
   openPropertyDrawer,
   onCloseProperty,
   openFormForSelectedValue,
+  properValueList,
+  setProperValueList,
+  selectedProper,
 }) {
-  const { selectedProper, properValueList, setProperValueList } =
-    useContext(MainContext);
-
   const [isProperValueModal, setProperValueModal] = useState(false);
   const [name, setName] = useState("");
 
@@ -61,8 +60,8 @@ function ProperValueList({
             value={element}
             deleteProperValue={deleteValue}
             openFormForSelectedValue={openFormForSelectedValue}
-            onChangeNewProperValue={onChangeNewProperValue}
             key={element.id}
+            onChangeNewProperValue={onChangeNewProperValue}
           />
         );
       })}

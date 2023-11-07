@@ -12,7 +12,6 @@ function App() {
   const [activeLeftBar, setActiveLeftBar] = useState(true);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [navbarHeaderText, setNavbarHeaderText] = useState("");
-  const [properList, setProperList] = useState([]);
   const [properValueList, setProperValueList] = useState([]);
   const [selectedProper, setSelectedProper] = useState({});
 
@@ -25,8 +24,6 @@ function App() {
     setNavbarHeaderText,
     token,
     setToken,
-    properList,
-    setProperList,
     properValueList,
     setProperValueList,
     selectedProper,
