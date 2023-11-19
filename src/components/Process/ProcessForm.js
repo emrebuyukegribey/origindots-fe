@@ -1,8 +1,7 @@
 import { Input, Modal, Radio, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ProcessForm.css";
 import ProcessIcons from "./ProcessIcons";
-import BlueButton from "../UI/Buttons/BlueButton";
 import DarkButton from "../UI/Buttons/DarkButton";
 import { CiCircleAlert } from "react-icons/ci";
 
@@ -11,15 +10,15 @@ const { confirm } = Modal;
 const icons = ProcessIcons;
 
 function ProcessForm(props) {
-  const [processName, setProcessName] = useState(
-    localStorage.getItem("processName") || ""
-  );
-  const [processType, setProcessType] = useState(
-    localStorage.getItem("processType") || ""
-  );
-  const [processIcon, setProcessIcon] = useState(
-    localStorage.getItem("processIcon") || icons[0].id
-  );
+  const [processName, setProcessName] = useState();
+  const [processType, setProcessType] = useState();
+  const [processIcon, setProcessIcon] = useState(icons[0].id);
+
+  useEffect(() => {
+    setProcessName(localStorage.getItem("processName"));
+    setProcessType(localStorage.getItem("processType"));
+    setProcessIcon(localStorage.getItem("processIcon") || icons[0].id);
+  });
 
   const onChangeName = (e) => {
     e.preventDefault();

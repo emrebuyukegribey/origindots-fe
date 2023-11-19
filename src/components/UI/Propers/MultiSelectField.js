@@ -3,11 +3,45 @@ import "./MultiSelectField.css";
 import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable, RiMenu2Fill } from "react-icons/ri";
-import { CiMenuBurger } from "react-icons/ci";
-import { MainContext, useContext } from "../../../context";
 
-function MultiSelectField({ proper, deleteProper, editProper }) {
-  const { properValueList } = useContext(MainContext);
+function MultiSelectField({
+  proper,
+  deleteProper,
+  editProper,
+  properValueList,
+}) {
+  let properValues = [];
+  properValueList
+    ?.filter((element) => element.properId === proper.id)
+    .map((value) => value)
+    .forEach((element) => {
+      const name =
+        element.childCount > 0 ? (
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            {element.name}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginLeft: "10px",
+              }}
+            >
+              <AiOutlineEye />
+            </div>
+          </div>
+        ) : (
+          <div>{element.name}</div>
+        );
+      const obj = {
+        label: name,
+        value: element.name,
+      };
+      properValues.push(obj);
+    });
 
   return (
     <div className="multi-select-field-outer-container">
@@ -43,24 +77,13 @@ function MultiSelectField({ proper, deleteProper, editProper }) {
         <div
           style={{ display: "flex", flexDirection: "column", margin: "5px" }}
         >
-          {properValueList
-            .filter((p) => p.properId === proper.id)
-            .map((p) => {
-              return (
-                <div style={{ display: "flex" }}>
-                  <Checkbox value={p.name}>{p.name}</Checkbox>{" "}
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    {p.childCount > 0 && <AiOutlineEye />}
-                  </div>
-                </div>
-              );
-            })}
+          {properValues.map((p) => {
+            return (
+              <div style={{ display: "flex" }}>
+                <Checkbox value={p.value}>{p.label}</Checkbox>
+              </div>
+            );
+          })}
         </div>
         <span className="multi-select-field-description">
           {proper.description}

@@ -12,7 +12,8 @@ function SubProperItemList({
     <>
       <h3>Sub Proper Settings</h3>
       <div className="proper-item-list-divider" />
-      {values.length > 0 && (
+
+      {values && values.length > 0 && (
         <div>
           {values.map((proper) => {
             return <SubProperItem proper={proper} />;
@@ -21,9 +22,9 @@ function SubProperItemList({
       )}
 
       <div style={{ marginTop: "40px" }}>
-        <AddButtonBorder
+        <DarkButtonBorder
           text="Add New Proper"
-          onClick={openFormForSelectedValue(selectedProper)}
+          onClick={() => openFormForSelectedValue(selectedProper)}
         />
       </div>
     </>

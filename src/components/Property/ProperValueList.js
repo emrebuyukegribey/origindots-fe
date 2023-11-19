@@ -40,6 +40,7 @@ function ProperValueList({
       name: name,
       properId: selectedProper.id,
       listNo: properValueList.length,
+      childCount: 0,
     };
 
     setProperValueList((oldProperValues) => [...oldProperValues, properValue]);

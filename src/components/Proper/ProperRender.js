@@ -14,7 +14,13 @@ import DropDownField from "../UI/Propers/DropDownField";
 import MultiSelectField from "../UI/Propers/MultiSelectField";
 import SingleSelectField from "../UI/Propers/SingleSelectField";
 
-export default function ProperRender(proper, deleteProper, editProper) {
+export default function ProperRender(
+  proper,
+  deleteProper,
+  editProper,
+  properValueList,
+  properList
+) {
   if (proper.type === "HeaderField") {
     return (
       <HeaderField
@@ -121,6 +127,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        properValueList={properValueList}
       />
     );
   } else if (proper.type === "SingleSelectField") {
@@ -130,6 +137,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        properValueList={properValueList}
       />
     );
   } else if (proper.type === "MultiSelectField") {
@@ -139,6 +147,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        properValueList={properValueList}
       />
     );
   } else if (proper.type === "ProperGroupField") {
@@ -148,6 +157,7 @@ export default function ProperRender(proper, deleteProper, editProper) {
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        properList={properList}
       />
     );
   }

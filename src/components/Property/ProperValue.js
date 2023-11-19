@@ -6,7 +6,6 @@ import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
-import { isEditable } from "@testing-library/user-event/dist/utils";
 
 function ProperValue({
   value,
@@ -14,8 +13,6 @@ function ProperValue({
   openFormForSelectedValue,
   onChangeNewProperValue,
 }) {
-  console.log("value : ", value);
-
   return (
     <div className="proper-value-container">
       <div className="proper-value-name">

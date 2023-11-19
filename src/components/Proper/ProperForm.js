@@ -16,6 +16,7 @@ const { confirm } = Modal;
 
 function ProperForm({
   properList,
+  properValueList,
   setProperList,
   previosStep,
   editProper,
@@ -77,6 +78,7 @@ function ProperForm({
       const cpItem = item;
       cpItem.listNo = index;
       cpItem.isDrag = false;
+      cpItem.key = item.id;
       f_arr.push({
         cpItem,
       });
@@ -134,10 +136,11 @@ function ProperForm({
       <div
         className="proper-form-area"
         style={{
-          justifyContent: properList && properList.length === 0 ? "center" : "",
+          justifyContent:
+            properListForm && properListForm.length === 0 ? "center" : "",
         }}
       >
-        {properList && properList.length === 0 ? (
+        {properListForm && properListForm.length === 0 ? (
           <div
             style={{
               display: "flex",
@@ -169,7 +172,13 @@ function ProperForm({
                 onDragEnd={(e) => onDragEnd(e, index)}
                 onDragLeave={(e) => onDragLeave(e, index)}
               >
-                {ProperRender(proper, deleteProper, editProper)}
+                {ProperRender(
+                  proper,
+                  deleteProper,
+                  editProper,
+                  properValueList,
+                  properList
+                )}
               </div>
               {proper.isDrag ? (
                 <div className="proper-form-drag-indicator"></div>
@@ -182,7 +191,7 @@ function ProperForm({
       <div className="proper-form-button-container">
         {!selectedValueForAddProper ? (
           <div>
-            <BackButton onClick={previosStep} text="Previos" />
+            <BackButton onClick={goBack} text="Previos" />
           </div>
         ) : (
           <div

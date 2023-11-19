@@ -3,12 +3,47 @@ import "./SingleSelectField.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
-import { useState } from "react";
-import { MainContext, useContext } from "../../../context";
+
 import { AiOutlineEye } from "react-icons/ai";
 
-function SingleSelectField({ proper, deleteProper, editProper }) {
-  const { properValueList } = useContext(MainContext);
+function SingleSelectField({
+  proper,
+  deleteProper,
+  editProper,
+  properValueList,
+}) {
+  let properValues = [];
+  properValueList
+    ?.filter((element) => element.properId === proper.id)
+    .map((value) => value)
+    .forEach((element) => {
+      const name =
+        element.childCount > 0 ? (
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            {element.name}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginLeft: "10px",
+              }}
+            >
+              <AiOutlineEye />
+            </div>
+          </div>
+        ) : (
+          <div>{element.name}</div>
+        );
+      const obj = {
+        label: name,
+        value: element.name,
+      };
+      properValues.push(obj);
+    });
 
   return (
     <div className="single-select-field-outer-container">
@@ -41,38 +76,15 @@ function SingleSelectField({ proper, deleteProper, editProper }) {
             </div>
           </div>
         </div>
-        {properValueList
-          ?.filter((p) => p.properId === proper.id)
-          .map((prop) => {
-            const name =
-              prop.childCount > 0 ? (
-                <div
-                  style={{
-                    display: "flex",
-                  }}
-                >
-                  {prop.name}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginLeft: "10px",
-                    }}
-                  >
-                    <AiOutlineEye />
-                  </div>
-                </div>
-              ) : (
-                <div>{prop.name}</div>
-              );
-            return (
-              <Radio.Group value={properValueList[0].name}>
-                <Radio size="large" value={prop.name}>
-                  {name}
-                </Radio>
-              </Radio.Group>
-            );
-          })}
+        {properValues.map((prop) => {
+          return (
+            <Radio.Group value={properValues[0].value}>
+              <Radio size="large" value={prop.value}>
+                {prop.label}
+              </Radio>
+            </Radio.Group>
+          );
+        })}
         <span className="single-select-field-description">
           {proper.description}
         </span>

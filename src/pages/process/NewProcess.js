@@ -27,7 +27,7 @@ const steps = [
 ];
 
 function NewProcess() {
-  const [processName, setProcessName] = useState("");
+  const [processName, setProcessName] = useState();
   const [procesType, setProcessType] = useState();
   const [processIcon, setProcessIcon] = useState();
   const [currentStep, setCurrentStep] = useState(0);
@@ -42,6 +42,7 @@ function NewProcess() {
     useContext(MainContext);
 
   const { token } = theme.useToken();
+  let items;
 
   useEffect(() => {
     setActiveLeftBar(false);
@@ -51,7 +52,9 @@ function NewProcess() {
     setNavbarHeaderText("Process Management > New Process");
   }
 
-  const items = steps.map((item) => ({ key: item.title, title: item.title }));
+  useEffect(() => {
+    items = steps.map((item) => ({ key: item.title, title: item.title }));
+  });
 
   const onCreateProcess = (process) => {
     setProcessName(process.name);
@@ -96,12 +99,14 @@ function NewProcess() {
     const shallow = uniqueProper(proper);
     addProperValue(shallow);
     showMessage("success", `Added new proper : ${proper.text}`);
-
     if (shallow.parentId) {
       const parentProperValue = properValueList.filter(
         (value) => value.id === selectedValueForAddProper.id
       )[0];
-      parentProperValue.childCount++;
+      if (parentProperValue) {
+        parentProperValue.childCount++;
+      }
+
       /*
       const updatingProperValueIndex = properValueList.indexOf(parentProperValue);
       const updatedProperValueList = properValueList;
@@ -113,6 +118,23 @@ function NewProcess() {
         ...oldProperValues,
         updatedProperValueList,
       ])*/
+    }
+
+    if (
+      shallow.parentId &&
+      shallow.type &&
+      shallow.type === "ProperGroupField"
+    ) {
+      const shallow = uniqueProper(proper);
+      addProperValue(shallow);
+      showMessage("success", `Added new proper : ${proper.text}`);
+
+      const parentProperValue = properList.filter(
+        (value) => value.id === selectedValueForAddProper.id
+      )[0];
+      if (parentProperValue) {
+        parentProperValue.childCount++;
+      }
     }
     setProperList((oldPropers) => [...oldPropers, shallow]);
   };
@@ -143,23 +165,29 @@ function NewProcess() {
       proper.type === "SingleSelectField" ||
       proper.type === "DropDownField"
     ) {
+      /*
       const properValue1 = createProperValue(proper, "Value1");
       const properValue2 = createProperValue(proper, "Value2");
       const properValue3 = createProperValue(proper, "Value3");
+      */
 
       setProperValueList((oldProperValues) => [
         ...oldProperValues,
-        properValue1,
+        /*properValue1,
         properValue2,
         properValue3,
+        */
       ]);
     }
   };
 
   const openFormForSelectedValue = (value) => {
     setOpenProperty(false);
+    const selectedValue = value.type
+      ? `Selected Proper > ${value.title}`
+      : `Selected Proper Value > ${value.name}`;
     setNavbarHeaderText(
-      `Process Management > New Process > Proper > Selected > ${value.name}`
+      `Process Management > New Process > Proper > ${selectedValue}`
     );
     setSelectedValueForAddProper(value);
   };
@@ -170,21 +198,50 @@ function NewProcess() {
   };
 
   const goBackPreviousForm = () => {
-    const parentProper = properList.filter(
-      (proper) => proper.id === selectedValueForAddProper.properId
-    )[0];
+    let selectedProperValue;
+    let parentProper;
+    if (
+      selectedValueForAddProper &&
+      selectedValueForAddProper.type &&
+      selectedValueForAddProper.type === "ProperGroupField"
+    ) {
+      if (
+        selectedValueForAddProper.parentId &&
+        selectedValueForAddProper.parentId.includes("-value-")
+      ) {
+        parentProper = properValueList.filter(
+          (value) => value.id === selectedValueForAddProper.parentId
+        )[0];
+      } else {
+        parentProper = properList.filter(
+          (proper) => proper.id === selectedValueForAddProper.parentId
+        )[0];
+      }
 
-    if (parentProper && parentProper.parentId) {
-      const selectedProperValue = properValueList.filter(
-        (value) => value.id === parentProper.parentId
+      if (parentProper) {
+        setSelectedValueForAddProper({ parentProper });
+        openFormForSelectedValue(parentProper);
+      } else {
+        cancelAddProperInValue();
+      }
+    }
+    if (selectedValueForAddProper && !selectedValueForAddProper.type) {
+      parentProper = properList.filter(
+        (proper) => proper.id === selectedValueForAddProper.properId
       )[0];
 
-      if (selectedProperValue) {
-        setSelectedValueForAddProper({ selectedProperValue });
-        openFormForSelectedValue(selectedProperValue);
+      if (parentProper && parentProper.parentId) {
+        selectedProperValue = properList.filter(
+          (value) => value.id === parentProper.parentId
+        )[0];
+
+        if (selectedProperValue) {
+          setSelectedValueForAddProper({ selectedProperValue });
+          openFormForSelectedValue(selectedProperValue);
+        }
+      } else {
+        cancelAddProperInValue();
       }
-    } else {
-      cancelAddProperInValue();
     }
   };
 
@@ -281,6 +338,7 @@ function NewProcess() {
                   goBack={goBackPreviousForm}
                   selectedValueForAddProper={selectedValueForAddProper}
                   setSelectedValueForAddProper={selectedValueForAddProper}
+                  properValueList={properValueList}
                   setProperValueList={setProperValueList}
                 />
               )}
@@ -295,6 +353,7 @@ function NewProcess() {
                 openFormForSelectedValue={openFormForSelectedValue}
                 selectedValueForAddProper={selectedValueForAddProper}
                 setSelectedValueForAddProper={selectedValueForAddProper}
+                properList={properList}
                 properValueList={properValueList}
                 setProperValueList={setProperValueList}
                 selectedProper={selectedProper}

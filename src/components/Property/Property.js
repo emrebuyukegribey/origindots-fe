@@ -7,6 +7,7 @@ import LightButton from "../UI/Buttons/LightButton";
 import ProperValueList from "./ProperValueList";
 import { MainContext, useContext } from "../../context";
 import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
+import SubProperItemList from "./SubProperItemList";
 
 function Property({
   open,
@@ -15,6 +16,7 @@ function Property({
   editProper,
   deleteProperValue,
   openFormForSelectedValue,
+  properList,
   properValueList,
   setProperValueList,
   selectedProper,
@@ -36,11 +38,19 @@ function Property({
       setPlaceholder(selectedProper.placeholder);
       setDescription(selectedProper.description);
       setRequired(selectedProper.isRequired);
-      setValues(
-        properValueList
-          ?.filter((value) => value.properId === selectedProper.id)
-          .map((item) => item)
-      );
+      if (selectedProper.type === "ProperGroupField") {
+        setValues(
+          properList
+            ?.filter((value) => value.parentId === selectedProper.id)
+            .map((item) => item)
+        );
+      } else {
+        setValues(
+          properValueList
+            ?.filter((value) => value.properId === selectedProper.id)
+            .map((item) => item)
+        );
+      }
 
       setUpdatedFields(true);
     }
@@ -148,6 +158,16 @@ function Property({
               />
             </div>
           )}
+
+        {selectedProper && selectedProper.type === "ProperGroupField" && (
+          <div style={{ marginTop: "50px" }}>
+            <SubProperItemList
+              values={values ? values : []}
+              selectedProper={selectedProper}
+              openFormForSelectedValue={openFormForSelectedValue}
+            />
+          </div>
+        )}
       </Drawer>
     </>
   );

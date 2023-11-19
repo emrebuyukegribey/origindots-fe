@@ -6,8 +6,7 @@ import { RiDraggable } from "react-icons/ri";
 import { MainContext, useContext } from "../../../context";
 import { AiOutlineEye } from "react-icons/ai";
 
-function DropDownField({ proper, deleteProper, editProper }) {
-  const { properValueList } = useContext(MainContext);
+function DropDownField({ proper, deleteProper, editProper, properValueList }) {
   let properValues = [];
   properValueList
     ?.filter((element) => element.properId === proper.id)
@@ -36,7 +35,7 @@ function DropDownField({ proper, deleteProper, editProper }) {
         );
       const obj = {
         label: name,
-        value: element.name,
+        value: name,
       };
       properValues.push(obj);
     });

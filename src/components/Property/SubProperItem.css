@@ -1,0 +1,33 @@
+@import "../../variables.css";
+
+.subproper-item-container {
+    display: flex;
+    align-items: center;;
+    padding: 5px;
+    border-bottom: 1px solid var(--grey400);
+}
+
+.subproper-item-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    color: var(--dark300);
+    padding: 3px;
+    background: var(--dark200);
+    border-radius: 3px;
+    color: white;
+}
+
+.subproper-item-title {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    color: var(--dark100);
+}
+
+.subproper-item-text {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    color: var(--dark300);
+}

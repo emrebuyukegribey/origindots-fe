@@ -7,6 +7,8 @@
   font-family: "Nunito", sans-serif;
 }
 
+iframe#webpack-dev-server-client-overlay{display:none!important}
+
 .App {
   display: flex;
   flex-direction: column;
