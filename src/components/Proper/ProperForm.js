@@ -18,7 +18,6 @@ function ProperForm({
   properList,
   properValueList,
   setProperList,
-  previosStep,
   editProper,
   deleteProper,
   cancelAddProperInValue,
@@ -30,11 +29,25 @@ function ProperForm({
   let dragStart = useRef();
   let dragOver = useRef();
 
+  console.log("proepr list : ", properList);
   const properListForm = properList.filter((proper) =>
     selectedValueForAddProper
       ? proper.parentId === selectedValueForAddProper.id
       : proper.parentId === null
   );
+
+  const sortProperListByListNo = (list) => {
+    return list.sort((a, b) => (a.listNo > b.listNo ? 1 : -1));
+  };
+
+  const updateProperList = (list) => {
+    const updatedList = [...properList];
+    list.forEach((proper) => {
+      const updatingProperList = properList.indexOf(proper);
+      updatedList[updatingProperList] = proper;
+    });
+    return updatedList;
+  };
 
   const onDragStart = (e, index) => {
     e.dataTransfer.effectAllowed = "move";
@@ -59,7 +72,10 @@ function ProperForm({
     });
 
     finalArr[index].isDrag = true;
-    setProperList(finalArr);
+
+    const updatedList = updateProperList(finalArr);
+    const sortedListByListNo = sortProperListByListNo(updatedList);
+    setProperList(sortedListByListNo);
   };
 
   const onDragEnd = (e, index) => {
@@ -84,7 +100,9 @@ function ProperForm({
       });
     });
 
-    setProperList(arr1);
+    const updatedList = updateProperList(arr1);
+    const sortedListByListNo = sortProperListByListNo(updatedList);
+    setProperList(sortedListByListNo);
   };
 
   const onDragLeave = (e, index) => {
@@ -161,12 +179,14 @@ function ProperForm({
         ) : (
           properListForm.map((proper, index) => (
             <React.Fragment>
+              {console.log("proper ", proper)}
+              {console.log("index ", index)}
               <div
                 className="proper-form-draggable"
                 style={{ width: "100%", cursor: "move" }}
                 key={index}
                 draggable
-                droppable
+                droppable="true"
                 onDragStart={(e) => onDragStart(e, index)}
                 onDragEnter={(e) => onDragEnter(e, index)}
                 onDragEnd={(e) => onDragEnd(e, index)}

@@ -1,17 +1,13 @@
 import "./InputField.css";
-import { AiOutlineDelete } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import "./ProperGroupField.css";
 import { RiDraggable } from "react-icons/ri";
-import InputField from "./InputField";
-import { AiOutlineEye, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 
 function ProperGroupField({ proper, deleteProper, editProper, properList }) {
-  console.log("properList : ", properList);
   let subPropers = [];
   subPropers = properList?.filter((element) => element.parentId === proper.id);
 
-  console.log("subProper : ", subPropers);
   return (
     <div className="photo-field-outer-container">
       <div className="photo-field-drag-icon-container">
@@ -52,11 +48,9 @@ function ProperGroupField({ proper, deleteProper, editProper, properList }) {
           }}
         >
           {subPropers.map((p) => {
-            {
-              console.log("p : ", p);
-            }
             return (
               <div
+                key={p.id}
                 style={{
                   display: "flex",
                   alignItems: "center",

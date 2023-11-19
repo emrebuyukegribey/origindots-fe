@@ -259,8 +259,9 @@ function NewProcess() {
   };
 
   const deleteProperOnForm = (proper) => {
-    setProperList(properList.filter((p) => p.id !== proper.id));
-    // setProperList(properList.filter((p) => p.parentId !== proper.id));
+    setProperList(
+      properList.filter((p) => p.parentId !== proper.id && p.id !== proper.id)
+    );
     showMessage("error", `Deleted proper on the form : ${proper.text}`);
   };
 

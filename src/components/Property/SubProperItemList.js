@@ -16,7 +16,7 @@ function SubProperItemList({
       {values && values.length > 0 && (
         <div>
           {values.map((proper) => {
-            return <SubProperItem proper={proper} />;
+            return <SubProperItem proper={proper} key={proper.id} />;
           })}
         </div>
       )}

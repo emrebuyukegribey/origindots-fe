@@ -13,7 +13,7 @@ function ProperItemList({
       <h3>Sub Propers</h3>
       <div className="proper-item-list-divider" />
       {subPropers.map((proper) => {
-        return <SubProperItem proper={proper} />;
+        return <SubProperItem proper={proper} key={proper.id} />;
       })}
       <div className="proper-value-list-add-button">
         <DarkButtonBorder

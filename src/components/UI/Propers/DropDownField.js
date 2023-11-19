@@ -15,6 +15,7 @@ function DropDownField({ proper, deleteProper, editProper, properValueList }) {
       const name =
         element.childCount > 0 ? (
           <div
+            key={element.id}
             style={{
               display: "flex",
             }}
@@ -31,7 +32,7 @@ function DropDownField({ proper, deleteProper, editProper, properValueList }) {
             </div>
           </div>
         ) : (
-          <div>{element.name}</div>
+          <div key={element.id}>{element.name}</div>
         );
       const obj = {
         label: name,

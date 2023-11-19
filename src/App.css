@@ -19,13 +19,13 @@
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--dark400); 
+  background: var(--dark300); 
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--grey300); 
+  background: var(--dark500); 
 }
 
 iframe#webpack-dev-server-client-overlay{display:none!important}
