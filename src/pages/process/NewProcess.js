@@ -37,6 +37,7 @@ function NewProcess() {
   const [properList, setProperList] = useState([]);
   const [properValueList, setProperValueList] = useState([]);
   const [selectedProper, setSelectedProper] = useState({});
+  const [openDesktopPreview, setOpenDesktopPreview] = useState(false);
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
     useContext(MainContext);
@@ -341,6 +342,8 @@ function NewProcess() {
                   setSelectedValueForAddProper={selectedValueForAddProper}
                   properValueList={properValueList}
                   setProperValueList={setProperValueList}
+                  openDesktopPreview={openDesktopPreview}
+                  setOpenDesktopPreview={setOpenDesktopPreview}
                 />
               )}
             </div>
@@ -363,6 +366,16 @@ function NewProcess() {
           </div>
         </div>
       </div>
+      <Modal
+        centered
+        open={openDesktopPreview}
+        onOk={() => setOpenDesktopPreview(false)}
+        onCancel={() => setOpenDesktopPreview(false)}
+        width={900}
+        title="Preview Desktop"
+      >
+        <div>{processName}</div>
+      </Modal>
     </>
   );
 }

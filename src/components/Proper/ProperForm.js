@@ -8,9 +8,10 @@ import "./ProperForm.css";
 import DarkButton from "../UI/Buttons/DarkButton";
 import RedButton from "../UI/Buttons/RedButton";
 import BackButton from "../UI/Buttons/BackButton";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import ProperRender from "./ProperRender";
 import { message, Modal } from "antd";
+import Preview from "../UI/Preview/Preview";
 
 const { confirm } = Modal;
 
@@ -22,14 +23,15 @@ function ProperForm({
   deleteProper,
   cancelAddProperInValue,
   goBack,
+  previosStep,
   selectedValueForAddProper,
   setProperValueList,
+  setOpenDesktopPreview,
 }) {
   const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
   let dragOver = useRef();
 
-  console.log("proepr list : ", properList);
   const properListForm = properList.filter((proper) =>
     selectedValueForAddProper
       ? proper.parentId === selectedValueForAddProper.id
@@ -134,7 +136,6 @@ function ProperForm({
       });
     }
   };
-
   return (
     <div className="proper-form-container">
       {contextHolder}
@@ -145,7 +146,12 @@ function ProperForm({
             <div className="proper-preview-inner-container">
               <HiOutlineDevicePhoneMobile className="proper-preview-icon" />
               <AiOutlineTablet className="proper-preview-icon" />
-              <SlScreenDesktop className="proper-preview-icon" style={{}} />
+              <SlScreenDesktop
+                className="proper-preview-icon"
+                onClick={() => {
+                  setOpenDesktopPreview(true);
+                }}
+              />
             </div>
           </div>
         )}
@@ -179,8 +185,6 @@ function ProperForm({
         ) : (
           properListForm.map((proper, index) => (
             <React.Fragment>
-              {console.log("proper ", proper)}
-              {console.log("index ", index)}
               <div
                 className="proper-form-draggable"
                 style={{ width: "100%", cursor: "move" }}
@@ -211,7 +215,7 @@ function ProperForm({
       <div className="proper-form-button-container">
         {!selectedValueForAddProper ? (
           <div>
-            <BackButton onClick={goBack} text="Previos" />
+            <BackButton onClick={previosStep} text="Previos" />
           </div>
         ) : (
           <div
