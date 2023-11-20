@@ -28,7 +28,7 @@ const steps = [
 
 function NewProcess() {
   const [processName, setProcessName] = useState();
-  const [procesType, setProcessType] = useState();
+  const [processType, setProcessType] = useState();
   const [processIcon, setProcessIcon] = useState();
   const [currentStep, setCurrentStep] = useState(0);
   const [openProperty, setOpenProperty] = useState(false);
@@ -44,6 +44,12 @@ function NewProcess() {
 
   const { token } = theme.useToken();
   let items;
+
+  useEffect(() => {
+    setProcessName(localStorage.getItem("processName"));
+    setProcessType(localStorage.getItem("processType"));
+    setProcessIcon(localStorage.getItem("processIcon"));
+  });
 
   useEffect(() => {
     setActiveLeftBar(false);
@@ -319,7 +325,10 @@ function NewProcess() {
               <ProperToolBox addProper={addProperOnForm} />
             </div>
           )}
-          <div className="cp-body-container">
+          <div
+            className="cp-body-container"
+            style={{ marginLeft: currentStep === 0 ? "150px" : "300px" }}
+          >
             <div className="cp-body-top-container">
               <Steps
                 current={currentStep}
@@ -372,9 +381,12 @@ function NewProcess() {
         onOk={() => setOpenDesktopPreview(false)}
         onCancel={() => setOpenDesktopPreview(false)}
         width={900}
-        title="Preview Desktop"
       >
-        <div>{processName}</div>
+        <div style={{ padding: "20px" }}>
+          <div>{processName}</div>
+          <div>{processType}</div>
+          <div>{processIcon}</div>
+        </div>
       </Modal>
     </>
   );

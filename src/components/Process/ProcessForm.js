@@ -5,35 +5,27 @@ import ProcessIcons from "./ProcessIcons";
 import DarkButton from "../UI/Buttons/DarkButton";
 import { CiCircleAlert } from "react-icons/ci";
 
-const { confirm } = Modal;
-
 const icons = ProcessIcons;
 
 function ProcessForm(props) {
-  const [processName, setProcessName] = useState();
-  const [processType, setProcessType] = useState();
-  const [processIcon, setProcessIcon] = useState(icons[0].id);
-
-  useEffect(() => {
-    setProcessName(localStorage.getItem("processName"));
-    setProcessType(localStorage.getItem("processType"));
-    setProcessIcon(localStorage.getItem("processIcon") || icons[0].id);
-  });
+  let processName = localStorage.getItem("processName");
+  let processType = localStorage.getItem("processType");
+  let processIcon = localStorage.getItem("processIcon") || icons[0].id;
 
   const onChangeName = (e) => {
     e.preventDefault();
     const value = e.target.value;
-    setProcessName(value);
+    processName = value;
   };
 
   const onChangeType = (e) => {
     const value = e.target.value;
-    setProcessType(value);
+    processType = value;
   };
 
   const onChangeIcon = (e) => {
     const selectedIcon = icons.filter((icon) => icon.id === e);
-    setProcessIcon(selectedIcon[0].id);
+    processIcon = selectedIcon[0].id;
   };
 
   const saveFieldsInLocalStorage = () => {
@@ -44,9 +36,9 @@ function ProcessForm(props) {
 
   const handleProcess = () => {
     const process = {
-      processName: props.processName,
-      processType: props.processType,
-      processIcon: props.processIcon,
+      processName,
+      processType,
+      processIcon,
     };
     saveFieldsInLocalStorage();
     if (!processName || !processType || !processIcon) {
@@ -73,7 +65,7 @@ function ProcessForm(props) {
           <div className="process-form-label">Name of Process </div>
           <Input
             size="large"
-            value={processName}
+            defaultValue={processName}
             className="process-form-input"
             onChange={onChangeName}
             placeholder="Please enter name of process"
@@ -82,11 +74,11 @@ function ProcessForm(props) {
         <div className="process-form-element-container">
           <div className="process-form-label">Type of Process </div>
           <Radio.Group
-            value={processType}
+            defaultValue={processType ? processType : "STATIC_LOCATION"}
             onChange={onChangeType}
             className="process-form-radio-group"
           >
-            <Radio style={{ fontSize: "16px" }} value="STATIC_LOCATION" checked>
+            <Radio style={{ fontSize: "16px" }} value="STATIC_LOCATION">
               Static Location
             </Radio>
             <Radio style={{ fontSize: "16px" }} value="DYNAMIC_LOCATION">
@@ -112,7 +104,7 @@ function ProcessForm(props) {
             size="large"
             className="process-form-input"
             onChange={onChangeIcon}
-            value={
+            defaultValue={
               icons.find((icon) => Number(icon.id) === Number(processIcon)).name
             }
             placeholder="Please select a process icon"
