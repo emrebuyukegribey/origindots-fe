@@ -382,7 +382,12 @@ function NewProcess() {
         onCancel={() => setOpenDesktopPreview(false)}
         width={900}
       >
-        <div style={{ padding: "20px" }}>
+        <div
+          style={{
+            padding: "20px",
+            backgroundImage: `url(require(../../assets/preview/desktop.png))`,
+          }}
+        >
           <div>{processName}</div>
           <div>{processType}</div>
           <div>{processIcon}</div>
