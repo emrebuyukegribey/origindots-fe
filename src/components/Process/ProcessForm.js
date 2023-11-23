@@ -96,6 +96,7 @@ function ProcessForm(props) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              fontSize: "32px",
             }}
           >
             {icons.find((icon) => Number(icon.id) === Number(processIcon)).icon}

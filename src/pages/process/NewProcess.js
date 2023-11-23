@@ -10,6 +10,8 @@ import LeftBar from "../../components/LeftBar/LeftBar";
 import { Steps, theme, message, Modal } from "antd";
 import Property from "../../components/Property/Property";
 import { CiCircleAlert } from "react-icons/ci";
+import ProcessIcons from "../../components/Process/ProcessIcons";
+import Preview from "../../components/Preview/Preview";
 
 const steps = [
   {
@@ -43,13 +45,14 @@ function NewProcess() {
     useContext(MainContext);
 
   const { token } = theme.useToken();
-  let items;
+  const items = steps.map((item) => ({ key: item.title, title: item.title }));
 
   useEffect(() => {
     setProcessName(localStorage.getItem("processName"));
     setProcessType(localStorage.getItem("processType"));
+
     setProcessIcon(localStorage.getItem("processIcon"));
-  });
+  }, [processName, processType, processIcon]);
 
   useEffect(() => {
     setActiveLeftBar(false);
@@ -58,10 +61,6 @@ function NewProcess() {
   if (!selectedValueForAddProper) {
     setNavbarHeaderText("Process Management > New Process");
   }
-
-  useEffect(() => {
-    items = steps.map((item) => ({ key: item.title, title: item.title }));
-  });
 
   const onCreateProcess = (process) => {
     setProcessName(process.name);
@@ -375,6 +374,7 @@ function NewProcess() {
           </div>
         </div>
       </div>
+
       <Modal
         centered
         open={openDesktopPreview}
@@ -382,16 +382,12 @@ function NewProcess() {
         onCancel={() => setOpenDesktopPreview(false)}
         width={900}
       >
-        <div
-          style={{
-            padding: "20px",
-            backgroundImage: `url(require(../../assets/preview/desktop.png))`,
-          }}
-        >
-          <div>{processName}</div>
-          <div>{processType}</div>
-          <div>{processIcon}</div>
-        </div>
+        <Preview
+          properList={properList}
+          processName={processName}
+          processType={processType}
+          processIcon={processIcon}
+        />
       </Modal>
     </>
   );

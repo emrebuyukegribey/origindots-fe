@@ -5,24 +5,24 @@ import { RiFileList3Line, RiListSettingsLine } from "react-icons/ri";
 import { PiListPlusBold } from "react-icons/pi";
 
 const ProcessIcons = [
-  { id: 1, name: "Card List Proces Icon", icon: <BsCardList size={32} /> },
-  { id: 2, name: "List Check Process Icon", icon: <BsListCheck size={32} /> },
-  { id: 3, name: "View List Process Icon", icon: <CiViewList size={32} /> },
-  { id: 4, name: "Task List Process Icon", icon: <GoTasklist size={32} /> },
+  { id: 1, name: "Card List Proces Icon", icon: <BsCardList /> },
+  { id: 2, name: "List Check Process Icon", icon: <BsListCheck /> },
+  { id: 3, name: "View List Process Icon", icon: <CiViewList /> },
+  { id: 4, name: "Task List Process Icon", icon: <GoTasklist /> },
   {
     id: 5,
     name: "Task List Process Icon",
-    icon: <RiFileList3Line size={32} />,
+    icon: <RiFileList3Line />,
   },
   {
     id: 6,
     name: "Settings List Process Icon",
-    icon: <RiListSettingsLine size={32} />,
+    icon: <RiListSettingsLine />,
   },
   {
     id: 7,
     name: "Plus List Bold Process Icon",
-    icon: <PiListPlusBold size={32} />,
+    icon: <PiListPlusBold />,
   },
 ];
 

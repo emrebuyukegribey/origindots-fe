@@ -70,7 +70,7 @@ function Property({
   };
 
   const onChangeDescription = (e) => {
-    setDescription(e.target);
+    setDescription(e.target.value);
   };
 
   const onChangeRequired = (e) => {

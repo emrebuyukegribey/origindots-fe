@@ -1,0 +1,39 @@
+.inputFieldPreview-container {
+    margin-bottom: 50px;
+}
+
+.inputFieldPreview-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dark200);
+    margin-bottom: 5px;
+}
+
+.inputFieldPreview-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.inputFieldPreview-description {
+    color: var(--dark300);
+}
+
+.inputFieldPreview-upload-icon-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputFieldPreview-upload-icon {
+    width: 50px;
+    height: 50px;
+    color: var(--dark300);
+}
+
+.inputFieldPreview-upload-text {
+    color: var(--dark300);
+}

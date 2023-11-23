@@ -8,10 +8,9 @@ import "./ProperForm.css";
 import DarkButton from "../UI/Buttons/DarkButton";
 import RedButton from "../UI/Buttons/RedButton";
 import BackButton from "../UI/Buttons/BackButton";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import ProperRender from "./ProperRender";
 import { message, Modal } from "antd";
-import Preview from "../UI/Preview/Preview";
 
 const { confirm } = Modal;
 
