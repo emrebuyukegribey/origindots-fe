@@ -13,6 +13,7 @@ function ProperValueList({
   properValueList,
   setProperValueList,
   selectedProper,
+  t,
 }) {
   const [isProperValueModal, setProperValueModal] = useState(false);
   const [name, setName] = useState("");
@@ -68,20 +69,20 @@ function ProperValueList({
       })}
       <div className="proper-value-list-add-button">
         <DarkButtonBorder
-          text="Add New Proper Value"
+          text={t("Add New Proper Value")}
           onClick={() => setProperValueModal(true)}
         />
       </div>
 
       <Modal
-        title="Add New Proper Value"
+        title={t("Add New Proper Value")}
         open={isProperValueModal}
         onOk={addNewProperValue}
         onCancel={handleCancelProperValueModal}
       >
         <Input
           onChange={onChangeNewProperValue}
-          placeholder="Please enter proper value name"
+          placeholder={t("Please enter proper value name")}
         />
       </Modal>
     </>

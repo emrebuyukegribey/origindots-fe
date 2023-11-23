@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function EmailField({ proper, deleteProper, editProper }) {
+function EmailField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="email-field-outer-container">
       <div className="email-field-drag-icon-container">
@@ -15,7 +15,7 @@ function EmailField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="email-field-icon">{proper.icon}</div>
             <span className="email-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="email-field-required">*</span>
               )}
@@ -36,8 +36,8 @@ function EmailField({ proper, deleteProper, editProper }) {
             </div>
           </div>
         </div>
-        <Input placeholder={proper.placeholder} disabled size="large" />
-        <span className="email-field-description">{proper.description}</span>
+        <Input placeholder={t(proper.placeholder)} disabled size="large" />
+        <span className="email-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

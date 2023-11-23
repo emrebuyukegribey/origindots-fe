@@ -4,7 +4,7 @@ import {
   BiSelectMultiple,
   BiCodeCurly,
 } from "react-icons/bi";
-import { BsCursorText, BsDatabaseAdd, BsOpticalAudio } from "react-icons/bs";
+import { BsCursorText, BsDatabaseAdd, BsTextareaResize } from "react-icons/bs";
 import { GoNumber, GoMultiSelect } from "react-icons/go";
 import {
   MdAlternateEmail,
@@ -15,9 +15,7 @@ import {
   AiOutlinePhone,
   AiOutlineVideoCameraAdd,
   AiOutlineQrcode,
-  AiOutlineBorderlessTable,
 } from "react-icons/ai";
-import { RiAiGenerate } from "react-icons/ri";
 import { IoMdQrScanner, IoMdTimer } from "react-icons/io";
 import HeaderField from "../UI/Propers/HeaderField";
 import InputField from "../UI/Propers/InputField";
@@ -34,6 +32,7 @@ import SingleSelectField from "../UI/Propers/SingleSelectField";
 import ServiceUrlField from "../UI/Propers/ServiceUrlField";
 import ProperGroupField from "../UI/Propers/ProperGroupField";
 import DateField from "../UI/Propers/DateField";
+import TextareaField from "../UI/Propers/TextareaField";
 
 const ProperItems = [
   {
@@ -48,12 +47,21 @@ const ProperItems = [
     icon: <BsCursorText />,
     text: "Text Input",
     type: "InputField",
-    title: "Proper Name",
+    title: "Proper name",
     placeholder: "Placeholder",
     description: "description (optional)",
   },
   {
     id: 3,
+    icon: <BsTextareaResize />,
+    text: "Textarea Input",
+    type: "TextareaField",
+    title: "Proper name",
+    placeholder: "Placeholder",
+    description: "description (optional)",
+  },
+  {
+    id: 4,
     icon: <GoNumber />,
     text: "Number Input",
     type: "NumberField",
@@ -62,7 +70,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 4,
+    id: 5,
     icon: <MdAlternateEmail />,
     text: "Email Input",
     type: "EmailField",
@@ -71,7 +79,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 5,
+    id: 6,
     icon: <AiOutlinePhone />,
     text: "Phone Input",
     type: "PhoneField",
@@ -80,7 +88,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 6,
+    id: 7,
     icon: <BsDatabaseAdd />,
     text: "Data Input",
     type: "DataField",
@@ -89,7 +97,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 18,
+    id: 8,
     icon: <MdOutlineDateRange />,
     text: "Date Input",
     type: "DateField",
@@ -98,7 +106,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 7,
+    id: 9,
     icon: <IoMdTimer />,
     text: "Time Input",
     type: "TimeField",
@@ -107,7 +115,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 8,
+    id: 10,
     icon: <BiPhotoAlbum />,
     text: "Photo",
     type: "PhotoField",
@@ -116,7 +124,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 9,
+    id: 11,
     icon: <AiOutlineVideoCameraAdd />,
     text: "Video",
     type: "VideoField",
@@ -125,7 +133,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 10,
+    id: 12,
     icon: <AiOutlineQrcode />,
     text: "QR",
     type: "QRField",
@@ -134,7 +142,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 11,
+    id: 13,
     icon: <IoMdQrScanner />,
     text: "OCR",
     type: "OCRField",
@@ -143,7 +151,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 12,
+    id: 14,
     icon: <GoMultiSelect />,
     text: "Drop Down List",
     type: "DropDownField",
@@ -152,7 +160,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 13,
+    id: 15,
     icon: <MdOutlineRadioButtonChecked />,
     text: "Single Select",
     type: "SingleSelectField",
@@ -161,7 +169,7 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 14,
+    id: 16,
     icon: <BiSelectMultiple />,
     text: "Multi Select",
     type: "MultiSelectField",
@@ -224,6 +232,13 @@ export const renderers = {
       description={InputField.description}
     />
   ),
+  TextareaField: () => {
+    <TextareaField
+      title={TextareaField.title}
+      placeholder={TextareaField.placeholder}
+      description={TextareaField.description}
+    />;
+  },
   NumberField: () => (
     <NumberField
       title={NumberField.title}

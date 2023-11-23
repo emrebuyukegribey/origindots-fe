@@ -3,7 +3,7 @@ import "./PhotoFieldPreview.css";
 import { AiOutlineUpload } from "react-icons/ai";
 import { HiOutlinePhoto } from "react-icons/hi2";
 
-function PhotoFieldPreview({ proper }) {
+function PhotoFieldPreview({ proper, t }) {
   return (
     <div className="photoFieldPreview-container">
       <div className="photoFieldPreview-name">{proper.title}</div>

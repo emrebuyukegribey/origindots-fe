@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function InputField({ proper, deleteProper, editProper }) {
+function InputField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="input-field-outer-container">
       <div className="input-field-drag-icon-container">
@@ -15,7 +15,7 @@ function InputField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="input-field-icon">{proper.icon}</div>
             <span className="input-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="input-field-required">*</span>
               )}
@@ -36,8 +36,8 @@ function InputField({ proper, deleteProper, editProper }) {
             </div>
           </div>
         </div>
-        <Input placeholder={proper.placeholder} disabled size="large" />
-        <span className="input-field-description">{proper.description}</span>
+        <Input placeholder={t(proper.placeholder)} disabled size="large" />
+        <span className="input-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

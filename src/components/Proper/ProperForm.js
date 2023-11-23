@@ -11,6 +11,7 @@ import BackButton from "../UI/Buttons/BackButton";
 import React, { useRef } from "react";
 import ProperRender from "./ProperRender";
 import { message, Modal } from "antd";
+import { withTranslation } from "react-i18next";
 
 const { confirm } = Modal;
 
@@ -26,6 +27,7 @@ function ProperForm({
   selectedValueForAddProper,
   setProperValueList,
   setOpenDesktopPreview,
+  t,
 }) {
   const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
@@ -117,16 +119,16 @@ function ProperForm({
     setProperValueList([]);
     messageApi.open({
       type: "error",
-      content: `Deleted all propers`,
+      content: t("Deleted all propers"),
     });
   };
 
   const deleteProperWarning = () => {
     if (properList && properList.length > 0) {
       confirm({
-        title: "Are you sure delete all propers ?",
+        title: t("Are you sure delete all propers"),
         icon: <CiCircleAlert size={20} color="red" />,
-        content: "All created propers will be deleted !",
+        content: t("All created propers will be deleted !"),
         onOk() {
           clearAllPropers();
         },
@@ -139,7 +141,7 @@ function ProperForm({
     <div className="proper-form-container">
       {contextHolder}
       <div className="proper-header-container">
-        <h3>CREATE PROPERS</h3>
+        <h3>{t("CREATE PROPERS")}</h3>
         {!selectedValueForAddProper && (
           <div className="proper-preview-container">
             <div className="proper-preview-inner-container">
@@ -178,7 +180,9 @@ function ProperForm({
                 fontSize: "18px",
               }}
             >
-              You can create your properties by clicking on the toolbar menu.
+              {t(
+                "You can create your properties by clicking on the toolbar menu"
+              )}
             </div>
           </div>
         ) : (
@@ -200,7 +204,8 @@ function ProperForm({
                   deleteProper,
                   editProper,
                   properValueList,
-                  properList
+                  properList,
+                  t
                 )}
               </div>
               {proper.isDrag ? (
@@ -224,7 +229,7 @@ function ProperForm({
             <BackButton onClick={goBack} text="Go Back" />
             <LightButton
               onClick={cancelAddProperInValue}
-              text="Return Base Form"
+              text={t("Return Base Form")}
             />
           </div>
         )}
@@ -234,14 +239,14 @@ function ProperForm({
               <DarkButton
                 text={
                   selectedValueForAddProper
-                    ? "Create Proper In Selected Value"
-                    : "Create Propers"
+                    ? t("Create Proper In Selected Value")
+                    : t("Create Propers")
                 }
               />
             </div>
             <div>
               <RedButton
-                text="Clear All Propers"
+                text={t("Clear All Propers")}
                 onClick={() =>
                   properList.length > 0 ? deleteProperWarning() : ""
                 }
@@ -254,4 +259,5 @@ function ProperForm({
   );
 }
 
-export default ProperForm;
+const ProperFormWithTranslation = withTranslation()(ProperForm);
+export default ProperFormWithTranslation;

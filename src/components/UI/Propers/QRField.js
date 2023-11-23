@@ -4,7 +4,7 @@ import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function QRField({ proper, deleteProper, editProper }) {
+function QRField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="qr-field-outer-container">
       <div className="qr-field-drag-icon-container">
@@ -15,7 +15,7 @@ function QRField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="qr-field-icon">{proper.icon}</div>
             <span className="qr-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="qr-field-required">*</span>
               )}
@@ -36,7 +36,7 @@ function QRField({ proper, deleteProper, editProper }) {
         <div className="qr-field-upload-icon-container">
           <QRCode value={"" || "-"} />
         </div>
-        <span className="qr-field-description">{proper.description}</span>
+        <span className="qr-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

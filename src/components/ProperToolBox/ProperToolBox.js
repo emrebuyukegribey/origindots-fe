@@ -26,7 +26,7 @@ function ProperToolBox(props) {
         <div>
           <div className="pb-close-button-container">
             <div className="pb-close-button-container-text">
-              Özellik Listesi
+              {props.t("Proper List")}
             </div>
             <div className="pb-close-button-icon-container">
               <AiOutlineClose

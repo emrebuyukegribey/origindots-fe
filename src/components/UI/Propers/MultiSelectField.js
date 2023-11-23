@@ -9,6 +9,7 @@ function MultiSelectField({
   deleteProper,
   editProper,
   properValueList,
+  t,
 }) {
   let properValues = [];
   properValueList
@@ -54,7 +55,7 @@ function MultiSelectField({
           <div style={{ display: "flex" }}>
             <div className="multi-select-field-icon">{proper.icon}</div>
             <span className="multi-select-field-title">
-              {proper.title}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="multi-select-field-required">*</span>
               )}
@@ -87,7 +88,7 @@ function MultiSelectField({
           })}
         </div>
         <span className="multi-select-field-description">
-          {proper.description}
+          {t(proper.description)}
         </span>
       </div>
     </div>

@@ -11,6 +11,7 @@ function SingleSelectField({
   deleteProper,
   editProper,
   properValueList,
+  t,
 }) {
   let properValues = [];
   properValueList
@@ -55,7 +56,7 @@ function SingleSelectField({
           <div style={{ display: "flex" }}>
             <div className="single-select-field-icon">{proper.icon}</div>
             <span className="single-select-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="single-select-field-required">*</span>
               )}
@@ -86,7 +87,7 @@ function SingleSelectField({
           );
         })}
         <span className="single-select-field-description">
-          {proper.description}
+          {t(proper.description)}
         </span>
       </div>
     </div>

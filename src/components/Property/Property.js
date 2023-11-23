@@ -8,6 +8,7 @@ import ProperValueList from "./ProperValueList";
 import { MainContext, useContext } from "../../context";
 import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
 import SubProperItemList from "./SubProperItemList";
+import { withTranslation } from "react-i18next";
 
 function Property({
   open,
@@ -20,6 +21,7 @@ function Property({
   properValueList,
   setProperValueList,
   selectedProper,
+  t,
 }) {
   const [type, setType] = useState(selectedProper ? selectedProper.type : "");
   const [title, setTitle] = useState(
@@ -91,18 +93,18 @@ function Property({
   return (
     <>
       <Drawer
-        title="Proper Settings"
+        title={t("Proper Settings")}
         placement="right"
         open={open}
         onClose={onClose}
       >
         <div className="property-field-container">
-          <h3>Base Properties</h3>
+          <h3>{t("Base Settings")}</h3>
           <div className="property-field-divider" />
           {type !== "HeaderField" && (
             <div className="property-field-container">
               <div className="property-field-label">
-                Is required:
+                {t("Is required")}:
                 <Checkbox
                   checked={isRequired}
                   value={isRequired}
@@ -112,18 +114,22 @@ function Property({
               </div>
             </div>
           )}
-          <div className="property-field-label">Proper title</div>
-          <Input value={title} onChange={onChangeName} />
+          <div className="property-field-label">{t("Proper title")}</div>
+          <Input value={t(title)} onChange={onChangeName} />
         </div>
         {type !== "HeaderField" && (
           <div>
             <div className="property-field-container">
-              <div className="property-field-label">Proper placeholder</div>
-              <Input value={placeholder} onChange={onChangePlaceholder} />
+              <div className="property-field-label">
+                {t("Proper placeholder")}
+              </div>
+              <Input value={t(placeholder)} onChange={onChangePlaceholder} />
             </div>
             <div className="property-field-container">
-              <div className="property-field-label">Proper description</div>
-              <Input value={description} onChange={onChangeDescription} />
+              <div className="property-field-label">
+                {t("Proper description")}
+              </div>
+              <Input value={t(description)} onChange={onChangeDescription} />
             </div>
           </div>
         )}
@@ -136,7 +142,7 @@ function Property({
           }}
         >
           <DarkButtonBorder
-            text="Edit Base Properties"
+            text={t("Edit Base Settings")}
             onClick={edit}
             style={{ width: "100%" }}
           />
@@ -155,6 +161,7 @@ function Property({
                 properValueList={properValueList}
                 setProperValueList={setProperValueList}
                 selectedProper={selectedProper}
+                t={t}
               />
             </div>
           )}
@@ -165,6 +172,7 @@ function Property({
               values={values ? values : []}
               selectedProper={selectedProper}
               openFormForSelectedValue={openFormForSelectedValue}
+              t={t}
             />
           </div>
         )}
@@ -173,4 +181,5 @@ function Property({
   );
 }
 
-export default Property;
+const PropertyWithTranslation = withTranslation()(Property);
+export default PropertyWithTranslation;

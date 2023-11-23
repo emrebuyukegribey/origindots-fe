@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function HeaderField({ proper, deleteProper, editProper }) {
+function HeaderField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="header-field-outer-container">
       <div className="header-field-drag-icon-container">
@@ -14,7 +14,7 @@ function HeaderField({ proper, deleteProper, editProper }) {
         <div className="header-field-title-container">
           <div style={{ display: "flex" }}>
             <div className="header-field-icon">{proper.icon}</div>
-            <span className="header-field-title">{proper.title}</span>
+            <span className="header-field-title">{t(proper.title)}</span>
           </div>
           <div className="header-field-icons-container">
             <div

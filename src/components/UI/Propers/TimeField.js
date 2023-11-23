@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function TimeField({ proper, deleteProper, editProper }) {
+function TimeField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="time-field-outer-container">
       <div className="time-field-drag-icon-container">
@@ -15,7 +15,7 @@ function TimeField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="time-field-icon">{proper.icon}</div>
             <span className="time-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="time-field-required">*</span>
               )}
@@ -33,8 +33,8 @@ function TimeField({ proper, deleteProper, editProper }) {
             </div>
           </div>
         </div>
-        <TimePicker placeholder={proper.placeholder} disabled size="large" />
-        <span className="time-field-description">{proper.description}</span>
+        <TimePicker placeholder={t(proper.placeholder)} disabled size="large" />
+        <span className="time-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

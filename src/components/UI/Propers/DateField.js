@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function DateField({ proper, deleteProper, editProper }) {
+function DateField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="date-field-outer-container">
       <div className="date-field-drag-icon-container">
@@ -15,7 +15,7 @@ function DateField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="date-field-icon">{proper.icon}</div>
             <span className="date-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="date-field-required">*</span>
               )}
@@ -33,8 +33,8 @@ function DateField({ proper, deleteProper, editProper }) {
             </div>
           </div>
         </div>
-        <DatePicker placeholder={proper.placeholder} disabled size="large" />
-        <span className="date-field-description">{proper.description}</span>
+        <DatePicker placeholder={t(proper.placeholder)} disabled size="large" />
+        <span className="date-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

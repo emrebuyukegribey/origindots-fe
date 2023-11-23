@@ -4,7 +4,7 @@ import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function DataField({ proper, deleteProper, editProper }) {
+function DataField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="data-field-outer-container">
       <div className="data-field-drag-icon-container">
@@ -15,7 +15,7 @@ function DataField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="data-field-icon">{proper.icon}</div>
             <span className="data-field-title">
-              {proper.title}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="data-field-required">*</span>
               )}
@@ -36,10 +36,12 @@ function DataField({ proper, deleteProper, editProper }) {
         <Upload disabled size="large">
           <div className="data-field-upload-icon-container">
             <AiOutlineUpload className="data-field-upload-icon" />
-            <div className="data-field-upload-text">{proper.placeholder}</div>
+            <div className="data-field-upload-text">
+              {t(proper.placeholder)}
+            </div>
           </div>
         </Upload>
-        <span className="data-field-description">{proper.description}</span>
+        <span className="data-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

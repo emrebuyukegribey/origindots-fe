@@ -37,6 +37,9 @@ export default function PreviewProperRender(
   if (proper.type === "InputField") {
     return <InputFieldPreview proper={proper} key={proper.id} />;
   }
+  if (proper.type === "TextareaField") {
+    return <InputFieldPreview proper={proper} key={proper.id} />;
+  }
   if (proper.type === "NumberField") {
     return <NumberFieldPreview proper={proper} key={proper.id} />;
   }

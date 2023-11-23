@@ -6,7 +6,13 @@ import { RiDraggable } from "react-icons/ri";
 import { MainContext, useContext } from "../../../context";
 import { AiOutlineEye } from "react-icons/ai";
 
-function DropDownField({ proper, deleteProper, editProper, properValueList }) {
+function DropDownField({
+  proper,
+  deleteProper,
+  editProper,
+  properValueList,
+  t,
+}) {
   let properValues = [];
   properValueList
     ?.filter((element) => element.properId === proper.id)
@@ -51,7 +57,7 @@ function DropDownField({ proper, deleteProper, editProper, properValueList }) {
           <div style={{ display: "flex" }}>
             <div className="drop-down-field-icon">{proper.icon}</div>
             <span className="drop-down-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="drop-down-field-required">*</span>
               )}
@@ -74,11 +80,11 @@ function DropDownField({ proper, deleteProper, editProper, properValueList }) {
         </div>
         <Select
           options={properValues}
-          placeholder={proper.placeholder}
+          placeholder={t(proper.placeholder)}
         ></Select>
 
         <span className="drop-down-field-description">
-          {proper.description}
+          {t(proper.description)}
         </span>
       </div>
     </div>

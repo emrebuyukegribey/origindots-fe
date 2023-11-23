@@ -14,13 +14,16 @@ import DropDownField from "../UI/Propers/DropDownField";
 import MultiSelectField from "../UI/Propers/MultiSelectField";
 import SingleSelectField from "../UI/Propers/SingleSelectField";
 import DateField from "../UI/Propers/DateField";
+import { withTranslation } from "react-i18next";
+import TextareaField from "../UI/Propers/TextareaField";
 
-export default function ProperRender(
+function ProperRender(
   proper,
   deleteProper,
   editProper,
   properValueList,
-  properList
+  properList,
+  t
 ) {
   if (proper.type === "HeaderField") {
     return (
@@ -29,6 +32,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "InputField") {
@@ -38,6 +42,17 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
+      />
+    );
+  } else if (proper.type === "TextareaField") {
+    return (
+      <TextareaField
+        proper={proper}
+        deleteProper={deleteProper}
+        editProper={editProper}
+        key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "NumberField") {
@@ -47,6 +62,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "EmailField") {
@@ -56,6 +72,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "PhoneField") {
@@ -65,6 +82,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "DataField") {
@@ -74,6 +92,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "DateField") {
@@ -83,6 +102,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "TimeField") {
@@ -92,6 +112,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "PhotoField") {
@@ -101,6 +122,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "VideoField") {
@@ -110,6 +132,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "QRField") {
@@ -119,6 +142,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "OCRField") {
@@ -128,6 +152,7 @@ export default function ProperRender(
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
+        t={t}
       />
     );
   } else if (proper.type === "DropDownField") {
@@ -138,6 +163,7 @@ export default function ProperRender(
         editProper={editProper}
         key={proper.id}
         properValueList={properValueList}
+        t={t}
       />
     );
   } else if (proper.type === "SingleSelectField") {
@@ -148,6 +174,7 @@ export default function ProperRender(
         editProper={editProper}
         key={proper.id}
         properValueList={properValueList}
+        t={t}
       />
     );
   } else if (proper.type === "MultiSelectField") {
@@ -158,6 +185,7 @@ export default function ProperRender(
         editProper={editProper}
         key={proper.id}
         properValueList={properValueList}
+        t={t}
       />
     );
   } else if (proper.type === "ProperGroupField") {
@@ -168,7 +196,10 @@ export default function ProperRender(
         editProper={editProper}
         key={proper.id}
         properList={properList}
+        t={t}
       />
     );
   }
 }
+
+export default ProperRender;

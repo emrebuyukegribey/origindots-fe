@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function NumberField({ proper, deleteProper, editProper }) {
+function NumberField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="number-field-outer-container">
       <div className="number-field-drag-icon-container">
@@ -15,7 +15,7 @@ function NumberField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="number-field-icon">{proper.icon}</div>
             <span className="number-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="number-field-required">*</span>
               )}
@@ -36,8 +36,14 @@ function NumberField({ proper, deleteProper, editProper }) {
             </div>
           </div>
         </div>
-        <InputNumber placeholder={proper.placeholder} disabled size="large" />
-        <span className="number-field-description">{proper.description}</span>
+        <InputNumber
+          placeholder={t(proper.placeholder)}
+          disabled
+          size="large"
+        />
+        <span className="number-field-description">
+          {t(proper.description)}
+        </span>
       </div>
     </div>
   );

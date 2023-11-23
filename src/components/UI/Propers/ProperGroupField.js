@@ -3,8 +3,9 @@ import { BiEditAlt } from "react-icons/bi";
 import "./ProperGroupField.css";
 import { RiDraggable } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
+import { withTranslation } from "react-i18next";
 
-function ProperGroupField({ proper, deleteProper, editProper, properList }) {
+function ProperGroupField({ proper, deleteProper, editProper, properList, t }) {
   let subPropers = [];
   subPropers = properList?.filter((element) => element.parentId === proper.id);
 
@@ -18,7 +19,7 @@ function ProperGroupField({ proper, deleteProper, editProper, properList }) {
           <div style={{ display: "flex" }}>
             <div className="photo-field-icon">{proper.icon}</div>
             <span className="photo-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="photo-field-required">*</span>
               )}
@@ -85,7 +86,7 @@ function ProperGroupField({ proper, deleteProper, editProper, properList }) {
             );
           })}
         </div>
-        <span className="photo-field-description">{proper.description}</span>
+        <span className="photo-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

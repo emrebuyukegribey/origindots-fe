@@ -3,15 +3,15 @@ import "./ServiceUrlField.css";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 
-function ServiceUrlField({ title, description, placeholder }) {
+function ServiceUrlField({ title, description, placeholder, t }) {
   return (
     <div className="service-url-field-outer-container">
       <div className="service-url-field-container">
         <div className="service-url-field-title-container">
-          <span className="service-url-field-title">{title}</span>
+          <span className="service-url-field-title">{t(title)}</span>
         </div>
-        <Input placeholder={placeholder} disabled size="large" />
-        <span className="service-url-field-description">{description}</span>
+        <Input placeholder={t(placeholder)} disabled size="large" />
+        <span className="service-url-field-description">{t(description)}</span>
       </div>
       <div className="service-url-field-icons-container">
         <div className="service-url-field-edit-icon-container">

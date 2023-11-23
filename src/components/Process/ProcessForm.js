@@ -4,6 +4,7 @@ import "./ProcessForm.css";
 import ProcessIcons from "./ProcessIcons";
 import DarkButton from "../UI/Buttons/DarkButton";
 import { CiCircleAlert } from "react-icons/ci";
+import { withTranslation } from "react-i18next";
 
 const icons = ProcessIcons;
 
@@ -58,11 +59,13 @@ function ProcessForm(props) {
 
   return (
     <div className="process-form-container">
-      <h3>CREATE PROCESS</h3>
+      <h3>{props.t("CREATE PROCESS")}</h3>
       <div className="process-form-divider" />
       <div className="process-form">
         <div className="process-form-element-container">
-          <div className="process-form-label">Name of Process </div>
+          <div className="process-form-label">
+            {props.t("Name of Process")}{" "}
+          </div>
           <Input
             size="large"
             defaultValue={processName}
@@ -72,22 +75,26 @@ function ProcessForm(props) {
           />
         </div>
         <div className="process-form-element-container">
-          <div className="process-form-label">Type of Process </div>
+          <div className="process-form-label">
+            {props.t("Type of Process")}{" "}
+          </div>
           <Radio.Group
             defaultValue={processType ? processType : "STATIC_LOCATION"}
             onChange={onChangeType}
             className="process-form-radio-group"
           >
             <Radio style={{ fontSize: "16px" }} value="STATIC_LOCATION">
-              Static Location
+              {props.t("Static Location")}
             </Radio>
             <Radio style={{ fontSize: "16px" }} value="DYNAMIC_LOCATION">
-              Dynamic Location
+              {props.t("Dynamic Location")}
             </Radio>
           </Radio.Group>
         </div>
         <div className="process-form-element-container">
-          <div className="process-form-label">Name of Process </div>
+          <div className="process-form-label">
+            {props.t("Icon of Process")}{" "}
+          </div>
 
           <div
             style={{
@@ -124,11 +131,15 @@ function ProcessForm(props) {
       <div className="process-form-divider" />
       <div className="process-form-button-container">
         <div style={{ width: "40%" }}>
-          <DarkButton text="Create Process" onClick={handleProcess} />
+          <DarkButton
+            text={props.t("Create Process")}
+            onClick={handleProcess}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-export default ProcessForm;
+const ProcessFormtWithTranslation = withTranslation()(ProcessForm);
+export default ProcessFormtWithTranslation;

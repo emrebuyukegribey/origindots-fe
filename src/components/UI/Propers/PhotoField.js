@@ -5,7 +5,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 import { HiOutlinePhoto } from "react-icons/hi2";
 
-function PhotoField({ proper, deleteProper, editProper }) {
+function PhotoField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="photo-field-outer-container">
       <div className="photo-field-drag-icon-container">
@@ -16,7 +16,7 @@ function PhotoField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="photo-field-icon">{proper.icon}</div>
             <span className="photo-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="photo-field-required">*</span>
               )}
@@ -40,10 +40,12 @@ function PhotoField({ proper, deleteProper, editProper }) {
         <Upload disabled size="large">
           <div className="photo-field-upload-icon-container">
             <HiOutlinePhoto className="photo-field-upload-icon" />
-            <div className="photo-field-upload-text">{proper.placeholder}</div>
+            <div className="photo-field-upload-text">
+              {t(proper.placeholder)}
+            </div>
           </div>
         </Upload>
-        <span className="photo-field-description">{proper.description}</span>
+        <span className="photo-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

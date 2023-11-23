@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function OCRField({ proper, deleteProper, editProper }) {
+function OCRField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="ocr-field-outer-container">
       <div className="ocr-field-drag-icon-container">
@@ -15,7 +15,7 @@ function OCRField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="ocr-field-icon">{proper.icon}</div>
             <span className="ocr-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="ocr-field-required">*</span>
               )}
@@ -35,9 +35,9 @@ function OCRField({ proper, deleteProper, editProper }) {
         </div>
         <div className="ocr-field-upload-icon-container">
           <IoMdQrScanner className="ocr-field-scanner-icon" />
-          {proper.placeholder}
+          {t(proper.placeholder)}
         </div>
-        <span className="ocr-field-description">{proper.description}</span>
+        <span className="ocr-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

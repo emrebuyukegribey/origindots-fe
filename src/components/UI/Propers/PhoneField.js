@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
-function PhoneField({ proper, deleteProper, editProper }) {
+function PhoneField({ proper, deleteProper, editProper, t }) {
   return (
     <div className="phone-field-outer-container">
       <div className="phone-field-drag-icon-container">
@@ -15,7 +15,7 @@ function PhoneField({ proper, deleteProper, editProper }) {
           <div style={{ display: "flex" }}>
             <div className="phone-field-icon">{proper.icon}</div>
             <span className="phone-field-title">
-              {proper.title}{" "}
+              {t(proper.title)}
               {proper.isRequired && (
                 <span className="phone-field-required">*</span>
               )}
@@ -37,8 +37,12 @@ function PhoneField({ proper, deleteProper, editProper }) {
           </div>
         </div>
 
-        <InputNumber placeholder={proper.placeholder} disabled size="large" />
-        <span className="phone-field-description">{proper.description}</span>
+        <InputNumber
+          placeholder={t(proper.placeholder)}
+          disabled
+          size="large"
+        />
+        <span className="phone-field-description">{t(proper.description)}</span>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import Property from "../../components/Property/Property";
 import { CiCircleAlert } from "react-icons/ci";
 import ProcessIcons from "../../components/Process/ProcessIcons";
 import Preview from "../../components/Preview/Preview";
+import { withTranslation } from "react-i18next";
 
 const steps = [
   {
@@ -23,12 +24,12 @@ const steps = [
     content: "Create-Propers",
   },
   {
-    title: "Public",
+    title: "Publish",
     content: "Publish",
   },
 ];
 
-function NewProcess() {
+function NewProcess(props) {
   const [processName, setProcessName] = useState();
   const [processType, setProcessType] = useState();
   const [processIcon, setProcessIcon] = useState();
@@ -45,7 +46,10 @@ function NewProcess() {
     useContext(MainContext);
 
   const { token } = theme.useToken();
-  const items = steps.map((item) => ({ key: item.title, title: item.title }));
+  const items = steps.map((item) => ({
+    key: item.title,
+    title: props.t(item.title),
+  }));
 
   useEffect(() => {
     setProcessName(localStorage.getItem("processName"));
@@ -253,8 +257,8 @@ function NewProcess() {
 
   const deleteProperWarning = (proper) => {
     Modal.confirm({
-      title: "Are you sure you want to delete the proper ?",
-      content: "The selected proper will be deleted !",
+      title: props.t("Are you sure you want to delete the proper ?"),
+      content: props.t("The selected proper will be deleted !"),
       icon: <CiCircleAlert size={20} color="red" />,
       onOk() {
         deleteProperOnForm(proper);
@@ -352,6 +356,7 @@ function NewProcess() {
                   setProperValueList={setProperValueList}
                   openDesktopPreview={openDesktopPreview}
                   setOpenDesktopPreview={setOpenDesktopPreview}
+                  t={props.t}
                 />
               )}
             </div>
@@ -369,6 +374,7 @@ function NewProcess() {
                 properValueList={properValueList}
                 setProperValueList={setProperValueList}
                 selectedProper={selectedProper}
+                t={props.t}
               />
             </div>
           </div>
@@ -393,4 +399,5 @@ function NewProcess() {
   );
 }
 
-export default NewProcess;
+const NewProcessWithTranslation = withTranslation()(NewProcess);
+export default NewProcessWithTranslation;
