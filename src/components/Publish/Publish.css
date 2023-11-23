@@ -1,0 +1,30 @@
+@import "../../variables.css";
+
+
+.publish-container {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    color: var(--dark200);
+}
+
+.publish-container h3{
+    color: var(--dark300);
+        font-size: 20px;
+}
+
+.publish-divider {
+    border-bottom: 1px solid var(--grey400);
+    margin: 25px 0px 40px 0px;
+}
+
+.publish-button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.publish-body {
+    margin: 20px 0px;
+    padding: 0px 10px;
+}

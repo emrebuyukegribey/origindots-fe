@@ -3,7 +3,6 @@ import "./ProperGroupFieldPreview.css";
 import PreviewProperRender from "../../Preview/PreviewProperRender";
 
 function ProperGroupFieldPreview({ proper, properList }) {
-  console.log("sub propers : ", properList);
   return (
     <div className="properGroupFieldPreview-container">
       <div className="properGroupFieldPreview-name">{proper.title}</div>

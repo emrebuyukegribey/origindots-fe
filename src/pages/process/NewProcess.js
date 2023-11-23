@@ -13,6 +13,7 @@ import { CiCircleAlert } from "react-icons/ci";
 import ProcessIcons from "../../components/Process/ProcessIcons";
 import Preview from "../../components/Preview/Preview";
 import { withTranslation } from "react-i18next";
+import Publish from "../../components/Publish/Publish";
 
 const steps = [
   {
@@ -73,6 +74,10 @@ function NewProcess(props) {
     next();
   };
 
+  const onCreatePropers = () => {
+    next();
+  };
+
   const next = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -89,11 +94,21 @@ function NewProcess(props) {
     shallow.id = uniqueId;
     shallow.isDrag = false;
     shallow.isRequired = false;
-    shallow.listNo = properList.length;
+    shallow.isContentInfo = false;
+    shallow.hasMask = false;
+
     shallow.childCount = 0;
     shallow.parentId = selectedValueForAddProper
       ? selectedValueForAddProper.id
       : null;
+
+    if (shallow.parentId) {
+      shallow.listNo = properList.filter(
+        (proper) => proper.parentId === shallow.parentId
+      ).length;
+    } else {
+      shallow.listNo = properList.length;
+    }
 
     return shallow;
   };
@@ -107,45 +122,52 @@ function NewProcess(props) {
 
   const addProperOnForm = (proper) => {
     const shallow = uniqueProper(proper);
-    addProperValue(shallow);
+    // addProperValue(shallow);
     showMessage("success", `Added new proper : ${proper.text}`);
     if (shallow.parentId) {
       const parentProperValue = properValueList.filter(
-        (value) => value.id === selectedValueForAddProper.id
+        (value) => value.id === shallow.parentId
       )[0];
-      if (parentProperValue) {
-        parentProperValue.childCount++;
+      if (parentProperValue && !parentProperValue.type) {
+        if (parentProperValue) {
+          parentProperValue.childCount++;
+          const updatingProperValueIndex =
+            properValueList.indexOf(parentProperValue);
+          const updatedProperValueList = properValueList;
+          updatedProperValueList[updatingProperValueIndex] = parentProperValue;
+
+          setProperValueList(updatedProperValueList);
+          /*
+          setProperValueList((oldProperValues) => [
+            ...oldProperValues,
+            updatedProperValueList,
+          ]);
+          */
+        }
+      } else {
+        const parentProper = properList.filter(
+          (proper) => proper.id === selectedValueForAddProper.parentId
+        )[0];
+        if (
+          parentProper &&
+          parentProper.type &&
+          parentProper.type === "ProperGroupField"
+        ) {
+          parentProper.childCount++;
+          const updatingProperIndex = properValueList.indexOf(parentProper);
+          const updatedProperList = properList;
+          updatedProperList[updatingProperIndex] = parentProper;
+          setProperValueList(updatedProperList);
+          /*
+          setProperValueList((oldProperValues) => [
+            ...oldProperValues,
+            updatedProperList,
+          ]);
+          */
+        }
       }
-
-      /*
-      const updatingProperValueIndex = properValueList.indexOf(parentProperValue);
-      const updatedProperValueList = properValueList;
-      updatedProperValueList[updatingProperValueIndex] = parentProperValue;
-      */
-
-      /*setProperValueList(updatedProperValueList);
-      setProperValueList((oldProperValues) => [
-        ...oldProperValues,
-        updatedProperValueList,
-      ])*/
     }
 
-    if (
-      shallow.parentId &&
-      shallow.type &&
-      shallow.type === "ProperGroupField"
-    ) {
-      const shallow = uniqueProper(proper);
-      addProperValue(shallow);
-      showMessage("success", `Added new proper : ${proper.text}`);
-
-      const parentProperValue = properList.filter(
-        (value) => value.id === selectedValueForAddProper.id
-      )[0];
-      if (parentProperValue) {
-        parentProperValue.childCount++;
-      }
-    }
     setProperList((oldPropers) => [...oldPropers, shallow]);
   };
 
@@ -349,6 +371,7 @@ function NewProcess(props) {
                   editProper={openPropertyDrawer}
                   deleteProper={deleteProperWarning}
                   cancelAddProperInValue={cancelAddProperInValue}
+                  handlePropers={onCreatePropers}
                   goBack={goBackPreviousForm}
                   selectedValueForAddProper={selectedValueForAddProper}
                   setSelectedValueForAddProper={selectedValueForAddProper}
@@ -358,6 +381,16 @@ function NewProcess(props) {
                   setOpenDesktopPreview={setOpenDesktopPreview}
                   t={props.t}
                 />
+              )}
+              {currentStep === 2 && (
+                <div>
+                  <Publish
+                    properList={properList}
+                    properValueList={properValueList}
+                    previosStep={prev}
+                    t={props.t}
+                  />
+                </div>
               )}
             </div>
             <div>

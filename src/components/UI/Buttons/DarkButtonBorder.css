@@ -21,8 +21,8 @@
 
 .dark-button-border-text {
     color: var(--dark300);
-    font-weight: 700;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 17px;
 }
 
 .dark-button-border-container:hover .dark-button-border-text{

@@ -22,6 +22,7 @@ function ProperForm({
   editProper,
   deleteProper,
   cancelAddProperInValue,
+  handlePropers,
   goBack,
   previosStep,
   selectedValueForAddProper,
@@ -237,6 +238,7 @@ function ProperForm({
           <div style={{ display: "flex" }}>
             <div style={{ marginRight: "20px" }}>
               <DarkButton
+                onClick={handlePropers}
                 text={
                   selectedValueForAddProper
                     ? t("Create Proper In Selected Value")

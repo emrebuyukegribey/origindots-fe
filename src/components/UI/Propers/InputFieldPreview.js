@@ -2,7 +2,6 @@ import { Input } from "antd";
 import "./InputFieldPreview.css";
 
 function InputFieldPreview({ proper }) {
-  console.log("ali");
   return (
     <div className="inputFieldPreview-container">
       <div className="inputFieldPreview-name">{proper.title}</div>

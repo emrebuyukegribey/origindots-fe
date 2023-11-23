@@ -32,6 +32,7 @@ function App() {
 
   const navigate = useNavigate();
 
+  /*
   if (!token) {
     navigate("/user/login");
   }
@@ -39,6 +40,7 @@ function App() {
   if (token && location.pathname === "/user/login") {
     navigate("/");
   }
+  */
 
   return (
     <MainContext.Provider value={data} className="App">
