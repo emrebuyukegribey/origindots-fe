@@ -1,0 +1,145 @@
+@import "../../../variables.css";
+
+
+.ant-input[disabled] {
+    background-color: #fff !important;
+}
+
+.date-field-outer-container {
+   display: flex; 
+   width: 100%;
+   background-color: #fff;
+   margin: 10px 10px;
+   transition: all 0.5s ease-in-out;
+}
+
+.date-field-drag-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.date-field-drag-icon {
+    font-size: 24px;
+    color: var(--grey200)
+}
+
+.date-field-outer-container:hover .date-field-drag-icon {
+    color: var(--dark100);
+    transition: all 0.5ms ease-in-out;
+}
+
+.date-field-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 10px 15px 10px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid var(--grey400);
+    border-radius: 2px;
+    transition: width 0.5ms ease-in-out;
+}
+
+.date-field-outer-container:hover .date-field-container {
+    border: 1px solid var(--dark300);
+    transition: all 0.5s ease-in-out;
+}
+
+.date-field-title-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.date-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px ;
+    font-size: 18px;
+    border-color: var(--dark300);   
+}
+
+.date-field-title {
+    margin-top: 15px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--dark200)
+}
+
+.date-field-description {
+    padding-top: 5px;
+    padding-left: 3px;
+    font-size: 13px;
+    color: var(--dark300);
+}
+
+.date-field-icons-container {
+    display: none;
+}
+
+.date-field-outer-container:hover .date-field-icons-container {
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+    margin-top: -45px;
+    margin-right: -12px;
+}
+
+.date-field-edit-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.date-field-edit-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.date-field-delete-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.date-field-delete-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.date-field-required {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--red100);
+}

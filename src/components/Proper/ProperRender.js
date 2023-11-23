@@ -13,6 +13,7 @@ import OCRField from "../UI/Propers/OCRField";
 import DropDownField from "../UI/Propers/DropDownField";
 import MultiSelectField from "../UI/Propers/MultiSelectField";
 import SingleSelectField from "../UI/Propers/SingleSelectField";
+import DateField from "../UI/Propers/DateField";
 
 export default function ProperRender(
   proper,
@@ -69,6 +70,15 @@ export default function ProperRender(
   } else if (proper.type === "DataField") {
     return (
       <DataField
+        proper={proper}
+        deleteProper={deleteProper}
+        editProper={editProper}
+        key={proper.id}
+      />
+    );
+  } else if (proper.type === "DateField") {
+    return (
+      <DateField
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}

@@ -1,0 +1,14 @@
+.headerFieldPreview-container {
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--grey300);
+}
+
+.headerFieldPreview-name {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--dark100);
+    margin-bottom: 5px;
+}
+
+
+

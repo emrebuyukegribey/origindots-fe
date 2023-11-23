@@ -6,7 +6,11 @@ import {
 } from "react-icons/bi";
 import { BsCursorText, BsDatabaseAdd, BsOpticalAudio } from "react-icons/bs";
 import { GoNumber, GoMultiSelect } from "react-icons/go";
-import { MdAlternateEmail, MdOutlineDateRange, MdOutlineRadioButtonChecked } from "react-icons/md";
+import {
+  MdAlternateEmail,
+  MdOutlineDateRange,
+  MdOutlineRadioButtonChecked,
+} from "react-icons/md";
 import {
   AiOutlinePhone,
   AiOutlineVideoCameraAdd,
@@ -14,7 +18,7 @@ import {
   AiOutlineBorderlessTable,
 } from "react-icons/ai";
 import { RiAiGenerate } from "react-icons/ri";
-import { IoMdQrScanner } from "react-icons/io";
+import { IoMdQrScanner, IoMdTimer } from "react-icons/io";
 import HeaderField from "../UI/Propers/HeaderField";
 import InputField from "../UI/Propers/InputField";
 import NumberField from "../UI/Propers/NumberField";
@@ -29,6 +33,7 @@ import MultiSelectField from "../UI/Propers/DropDownField";
 import SingleSelectField from "../UI/Propers/SingleSelectField";
 import ServiceUrlField from "../UI/Propers/ServiceUrlField";
 import ProperGroupField from "../UI/Propers/ProperGroupField";
+import DateField from "../UI/Propers/DateField";
 
 const ProperItems = [
   {
@@ -84,8 +89,17 @@ const ProperItems = [
     description: "description (optional)",
   },
   {
-    id: 7,
+    id: 18,
     icon: <MdOutlineDateRange />,
+    text: "Date Input",
+    type: "DateField",
+    title: "Proper name",
+    placeholder: "Placeholder",
+    description: "description (optional)",
+  },
+  {
+    id: 7,
+    icon: <IoMdTimer />,
     text: "Time Input",
     type: "TimeField",
     title: "Proper name",
@@ -244,6 +258,13 @@ export const renderers = {
       title={TimeField.title}
       placeholder={TimeField.placeholder}
       description={TimeField.description}
+    />
+  ),
+  DateField: () => (
+    <DateField
+      title={DateField.title}
+      placeholder={DateField.placeholder}
+      description={DateField.description}
     />
   ),
   PhotoField: () => (

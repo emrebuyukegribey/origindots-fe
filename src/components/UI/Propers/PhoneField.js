@@ -36,6 +36,7 @@ function PhoneField({ proper, deleteProper, editProper }) {
             </div>
           </div>
         </div>
+
         <InputNumber placeholder={proper.placeholder} disabled size="large" />
         <span className="phone-field-description">{proper.description}</span>
       </div>

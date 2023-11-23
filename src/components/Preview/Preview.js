@@ -22,9 +22,8 @@ function Preview({ properList, processName, processIcon }) {
           <div className="review-process-name">{processName}</div>,
         </div>
         <div className="review-propers-container">
-          {console.log("proper list : ", properList)}
           {properList &&
-            properList.map((proper) => PreviewProperRender(proper))}
+            properList.map((proper) => PreviewProperRender(proper, properList))}
         </div>
       </div>
     </div>

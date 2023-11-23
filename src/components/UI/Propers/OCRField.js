@@ -8,7 +8,7 @@ function OCRField({ proper, deleteProper, editProper }) {
   return (
     <div className="ocr-field-outer-container">
       <div className="ocr-field-drag-icon-container">
-        <RiDraggable className="qr-field-drag-icon" />
+        <RiDraggable className="ocr-field-drag-icon" />
       </div>
       <div className="ocr-field-container">
         <div className="ocr-field-title-container">

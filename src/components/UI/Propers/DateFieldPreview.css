@@ -1,28 +1,27 @@
-
-.dataFieldPreview-container {
+.dateFieldPreview-container {
     margin-bottom: 50px;
 }
 
-.dataFieldPreview-name {
+.dateFieldPreview-name {
     font-size: 17px;
     font-weight: 500;
     color: var(--dark200);
     margin-bottom: 5px;
 }
 
-.dataFieldPreview-input {
+.dateFieldPreview-input {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
 }
 
-.dataFieldPreview-description {
+.dateFieldPreview-description {
     font-size: 13px;
     color: var(--dark300);
 }
 
-.dataFieldPreview-upload-icon-container {
+.dateFieldPreview-upload-icon-container {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -30,12 +29,12 @@
     align-items: center;
 }
 
-.dataFieldPreview-upload-icon {
+.dateFieldPreview-upload-icon {
     width: 50px;
     height: 50px;
     color: var(--dark300);
 }
 
-.dataFieldPreview-upload-text {
+.dateFieldPreview-upload-text {
     color: var(--dark300);
 }

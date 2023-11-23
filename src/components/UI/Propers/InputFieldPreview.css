@@ -3,8 +3,8 @@
 }
 
 .inputFieldPreview-name {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 500;
     color: var(--dark200);
     margin-bottom: 5px;
 }
@@ -17,6 +17,7 @@
 }
 
 .inputFieldPreview-description {
+    font-size: 13px;
     color: var(--dark300);
 }
 

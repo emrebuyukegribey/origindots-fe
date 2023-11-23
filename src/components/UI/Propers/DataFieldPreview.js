@@ -3,14 +3,13 @@ import "./DataFieldPreview.css";
 import { AiOutlineUpload } from "react-icons/ai";
 
 function DataFieldPreview({ proper }) {
-  console.log("proper : ", proper);
   return (
     <div className="dataFieldPreview-container">
       <div className="dataFieldPreview-name">{proper.title}</div>
       <div className="dataFieldPreview-input">
         <Upload size="large">
           <div className="dataFieldPreview-upload-icon-container">
-            <AiOutlineUpload className="data-field-upload-icon" />
+            <AiOutlineUpload className="dataFieldPreview-upload-icon" />
             <div className="dataFieldPreview-upload-text">
               {proper.placeholder}
             </div>
