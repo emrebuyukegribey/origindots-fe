@@ -146,7 +146,7 @@ function NewProcess(props) {
         }
       } else {
         const parentProper = properList.filter(
-          (proper) => proper.id === selectedValueForAddProper.parentId
+          (proper) => proper.id === selectedValueForAddProper.id
         )[0];
         if (
           parentProper &&
@@ -157,6 +157,7 @@ function NewProcess(props) {
           const updatingProperIndex = properValueList.indexOf(parentProper);
           const updatedProperList = properList;
           updatedProperList[updatingProperIndex] = parentProper;
+          console.log("parent proper : ", parentProper);
           setProperValueList(updatedProperList);
           /*
           setProperValueList((oldProperValues) => [
@@ -167,7 +168,6 @@ function NewProcess(props) {
         }
       }
     }
-
     setProperList((oldPropers) => [...oldPropers, shallow]);
   };
 

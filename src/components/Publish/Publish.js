@@ -10,7 +10,7 @@ function Publish(props) {
       <div className="publish-divider" />
       <div className="publish-body">
         {props.properList.map((proper) => (
-          <ProperItem proper={proper} />
+          <ProperItem proper={proper} key={proper.id} />
         ))}
       </div>
       <div className="publish-divider" />
