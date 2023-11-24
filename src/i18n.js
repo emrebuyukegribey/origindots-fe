@@ -85,6 +85,7 @@ i18n.use(initReactI18next).init({
         "Data Input": "Data",
         "Date Input": "Date",
         "Time Input": "Time",
+        Photo: "Photo",
         "Photo Input": "Photo",
         "Video Input": "Video",
         QR: "QR Code",
@@ -93,6 +94,7 @@ i18n.use(initReactI18next).init({
         "Single Select": "Single Select",
         "Multi Select": "Multi Select",
         "Proper Group": "Proper Group,",
+        Value: "Value",
       },
     },
     tr: {
@@ -186,6 +188,7 @@ i18n.use(initReactI18next).init({
         "Single Select": "Tekli Seçim",
         "Multi Select": "Çoklu Seçim",
         "Proper Group": "Bileşen Grubu",
+        Value: "Değer",
       },
     },
   },

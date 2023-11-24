@@ -1,8 +1,15 @@
 import { Tree } from "antd";
+import { BsTextareaResize } from "react-icons/bs";
 import BackButton from "../UI/Buttons/BackButton";
 import DarkButton from "../UI/Buttons/DarkButton";
 import ProperItem from "./ProperItem";
 import "./Publish.css";
+import {
+  CarryOutOutlined,
+  CheckOutlined,
+  FormOutlined,
+} from "@ant-design/icons";
+import { PiNoteBlankLight } from "react-icons/pi";
 
 function Publish(props) {
   const combineLists = () => {
@@ -11,7 +18,8 @@ function Publish(props) {
     properList.forEach((element) => {
       const item = {
         id: element.id,
-        title: element.title,
+        icon: element.icon,
+        title: `${element.title} (${props.t(element.text)})`,
         key: element.title,
         parentId: element.parentId,
         childCount: element.childCount,
@@ -22,7 +30,8 @@ function Publish(props) {
     properValueList.forEach((element) => {
       const item = {
         id: element.id,
-        title: element.name,
+        icon: <PiNoteBlankLight />,
+        title: `${element.name} (${props.t("Value")})`,
         key: element.name,
         parentId: element.properId,
         childCount: element.childCount,
@@ -48,9 +57,26 @@ function Publish(props) {
     }
   }
 
+  /*
   function removeEmptyChildren(obj) {
     for (const prop in obj) {
       if (obj[prop] !== null && typeof obj[prop] === "object") {
+        removeEmptyChildren(obj[prop]);
+        if (Array.isArray(obj[prop]) && obj[prop].length === 0) {
+          delete obj[prop];
+        }
+      }
+    }
+  }
+  */
+
+  function removeEmptyChildren(obj) {
+    for (const prop in obj) {
+      if (
+        obj[prop] !== null &&
+        typeof obj[prop] === "object" &&
+        prop === "children"
+      ) {
         removeEmptyChildren(obj[prop]);
         if (Array.isArray(obj[prop]) && obj[prop].length === 0) {
           delete obj[prop];
@@ -86,13 +112,12 @@ function Publish(props) {
   }
 
   const treeData = createTree();
-  console.log("treeData : ", treeData);
   return (
     <div className="publish-container">
       <h3>{props.t("PUBLISH")}</h3>
       <div className="publish-divider" />
       <div className="publish-body">
-        <Tree treeData={treeData} />
+        <Tree showIcon={true} treeData={treeData} />
       </div>
       <div className="publish-divider" />
       <div className="publish-button-container" onClick={props.previosStep}>
