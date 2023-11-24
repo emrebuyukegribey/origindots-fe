@@ -18,6 +18,7 @@ function Property({
   deleteProperValue,
   openFormForSelectedValue,
   properList,
+  setProperList,
   properValueList,
   setProperValueList,
   selectedProper,
@@ -191,6 +192,8 @@ function Property({
             selectedProper.type === "DropDownField") && (
             <div style={{ marginTop: "50px" }}>
               <ProperValueList
+                properList={properList}
+                setProperList={setProperList}
                 values={values ? values : []}
                 deleteProperValue={deleteProperValue}
                 openPropertyDrawer={openPropertyDrawer}

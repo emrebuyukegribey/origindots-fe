@@ -11,65 +11,44 @@ class Node {
 }
 
 function Publish(props) {
-  const createTree = () => {
+  function buildTree() {
     const { properList, properValueList } = props;
-    console.log("PROPER LIST : ", properList);
-    console.log("PROPER VALUE LIST : ", properValueList);
-    let tree = [];
-    if (properList && properList.length > 0) {
-      properList.forEach((proper) => {
-        if (proper.childCount === 0) {
-          tree.push({ title: proper.title, key: proper.title });
-        } else {
-          console.log("emre");
+    console.log("properList 2: ", properList);
+    console.log("properValueList 2: ", properValueList);
+    const treeMap = {};
 
-          const children = [];
-          properList
-            .filter((subProper) => subProper.parentId === proper.id)
-            .map((s) => {
-              console.log("s : ", s);
-              const sub = { title: s.title, key: s.title };
-              children.push(sub);
-            });
-          tree.push({ title: proper.title, key: proper.title, children });
-          if (properValueList && properValueList.length > 0) {
-            properValueList
-              .filter((subValue) => subValue.parentId === proper.id)
-              .map((v) => {
-                const subVal = {
-                  title: v.name,
-                  key: v.name,
-                };
-                if (v.childCount > 0) {
-                  const children = [];
-                  properList
-                    .filter((p) => p.parentId === v.id)
-                    .map((v) => {
-                      console.log("v : ", v);
-                      children.push(v);
-                    });
-                  tree.push({
-                    subVal,
-                    children,
-                  });
-                }
-              });
-          }
+    function addToTreeMap(item) {
+      const newItem = { ...item, children: [] };
+
+      if (!treeMap[item.id]) {
+        treeMap[item.id] = newItem;
+      } else {
+        treeMap[item.id] = { ...treeMap[item.id], ...newItem };
+      }
+
+      if (item.parentId && treeMap[item.parentId]) {
+        if (!treeMap[item.parentId].children) {
+          treeMap[item.parentId].children = [];
         }
-      });
+        treeMap[item.parentId].children.push(treeMap[item.id]);
+      }
     }
-    console.log("tree : ", tree);
-  };
 
-  const tree = createTree();
+    properList.forEach((item) => addToTreeMap(item));
+    properValueList.forEach((item) => addToTreeMap(item));
 
-  console.log(tree); // Ağaç yapısını konsola yazdır
+    const roots = Object.values(treeMap).filter((node) => !node.parentId);
+    return roots;
+  }
+
+  const tree = buildTree();
+  console.log(tree);
 
   return (
     <div className="publish-container">
       <h3>{props.t("PUBLISH")}</h3>
       <div className="publish-divider" />
-      <div className="publish-body">{createTree}</div>
+      <div className="publish-body"></div>
       <div className="publish-divider" />
       <div className="publish-button-container" onClick={props.previosStep}>
         <BackButton onClick={props.previosStep} text="Previos" />

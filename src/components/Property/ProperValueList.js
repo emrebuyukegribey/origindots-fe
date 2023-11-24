@@ -5,6 +5,8 @@ import "./ProperValueList.css";
 import { useState } from "react";
 
 function ProperValueList({
+  properList,
+  setProperList,
   values,
   deleteProperValue,
   openPropertyDrawer,
@@ -43,6 +45,16 @@ function ProperValueList({
       listNo: properValueList.length,
       childCount: 0,
     };
+
+    const parentProper = properList.filter(
+      (proper) => proper.id === properValue.properId
+    )[0];
+
+    parentProper.childCount++;
+    const updatingProperIndex = properValueList.indexOf(parentProper);
+    const updatedProperList = properList;
+    updatedProperList[updatingProperIndex] = parentProper;
+    setProperList(updatedProperList);
 
     setProperValueList((oldProperValues) => [...oldProperValues, properValue]);
     setProperValueModal(false);

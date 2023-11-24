@@ -33,7 +33,6 @@ function ProperForm({
   const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
   let dragOver = useRef();
-
   const properListForm = properList.filter((proper) =>
     selectedValueForAddProper
       ? proper.parentId === selectedValueForAddProper.id

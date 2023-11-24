@@ -137,12 +137,6 @@ function NewProcess(props) {
           updatedProperValueList[updatingProperValueIndex] = parentProperValue;
 
           setProperValueList(updatedProperValueList);
-          /*
-          setProperValueList((oldProperValues) => [
-            ...oldProperValues,
-            updatedProperValueList,
-          ]);
-          */
         }
       } else {
         const parentProper = properList.filter(
@@ -157,14 +151,7 @@ function NewProcess(props) {
           const updatingProperIndex = properValueList.indexOf(parentProper);
           const updatedProperList = properList;
           updatedProperList[updatingProperIndex] = parentProper;
-
-          setProperValueList(updatedProperList);
-          /*
-          setProperValueList((oldProperValues) => [
-            ...oldProperValues,
-            updatedProperList,
-          ]);
-          */
+          setProperList(updatedProperList);
         }
       }
     }
@@ -404,6 +391,7 @@ function NewProcess(props) {
                 selectedValueForAddProper={selectedValueForAddProper}
                 setSelectedValueForAddProper={selectedValueForAddProper}
                 properList={properList}
+                setProperList={setProperList}
                 properValueList={properValueList}
                 setProperValueList={setProperValueList}
                 selectedProper={selectedProper}
