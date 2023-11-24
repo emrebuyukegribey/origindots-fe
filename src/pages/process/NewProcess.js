@@ -157,7 +157,7 @@ function NewProcess(props) {
           const updatingProperIndex = properValueList.indexOf(parentProper);
           const updatedProperList = properList;
           updatedProperList[updatingProperIndex] = parentProper;
-          console.log("parent proper : ", parentProper);
+
           setProperValueList(updatedProperList);
           /*
           setProperValueList((oldProperValues) => [
