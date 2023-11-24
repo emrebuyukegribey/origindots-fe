@@ -1,54 +1,99 @@
+import { Tree } from "antd";
 import BackButton from "../UI/Buttons/BackButton";
 import DarkButton from "../UI/Buttons/DarkButton";
 import ProperItem from "./ProperItem";
 import "./Publish.css";
 
-class Node {
-  constructor(name) {
-    this.name = name;
-    this.children = [];
-  }
-}
-
 function Publish(props) {
-  function buildTree() {
+  const combineLists = () => {
     const { properList, properValueList } = props;
-    console.log("properList 2: ", properList);
-    console.log("properValueList 2: ", properValueList);
-    const treeMap = {};
+    const allList = [];
+    properList.forEach((element) => {
+      const item = {
+        id: element.id,
+        title: element.title,
+        key: element.title,
+        parentId: element.parentId,
+        childCount: element.childCount,
+      };
+      allList.push(item);
+    });
 
-    function addToTreeMap(item) {
-      const newItem = { ...item, children: [] };
+    properValueList.forEach((element) => {
+      const item = {
+        id: element.id,
+        title: element.name,
+        key: element.name,
+        parentId: element.properId,
+        childCount: element.childCount,
+      };
+      allList.push(item);
+    });
+    return allList;
+  };
 
-      if (!treeMap[item.id]) {
-        treeMap[item.id] = newItem;
+  function assignKeys(nodes, key) {
+    let counter = 0;
+    for (let i = 0; i < nodes.length; i++) {
+      if (nodes[i].parentId === null) {
+        nodes[i].key = `${counter}`;
+        counter++;
       } else {
-        treeMap[item.id] = { ...treeMap[item.id], ...newItem };
+        nodes[i].key = `${key}-${counter}`;
+        counter++;
       }
+      if (nodes[i].children.length > 0) {
+        assignKeys(nodes[i].children, nodes[i].key);
+      }
+    }
+  }
 
-      if (item.parentId && treeMap[item.parentId]) {
-        if (!treeMap[item.parentId].children) {
-          treeMap[item.parentId].children = [];
+  function removeEmptyChildren(obj) {
+    for (const prop in obj) {
+      if (obj[prop] !== null && typeof obj[prop] === "object") {
+        removeEmptyChildren(obj[prop]);
+        if (Array.isArray(obj[prop]) && obj[prop].length === 0) {
+          delete obj[prop];
         }
-        treeMap[item.parentId].children.push(treeMap[item.id]);
+      }
+    }
+  }
+
+  function createTree(list) {
+    list = combineLists();
+    const map = {};
+    let node,
+      roots = [],
+      i;
+
+    for (i = 0; i < list.length; i += 1) {
+      map[list[i].id] = i;
+      list[i].children = [];
+    }
+
+    for (i = 0; i < list.length; i += 1) {
+      node = list[i];
+      if (node.parentId !== null && map[node.parentId] !== undefined) {
+        list[map[node.parentId]].children.push(node);
+      } else {
+        roots.push(node);
       }
     }
 
-    properList.forEach((item) => addToTreeMap(item));
-    properValueList.forEach((item) => addToTreeMap(item));
-
-    const roots = Object.values(treeMap).filter((node) => !node.parentId);
+    assignKeys(roots, null);
+    removeEmptyChildren(roots);
     return roots;
   }
 
-  const tree = buildTree();
-  console.log(tree);
-
+  const treeData = createTree();
+  console.log("treeData : ", treeData);
   return (
     <div className="publish-container">
       <h3>{props.t("PUBLISH")}</h3>
       <div className="publish-divider" />
-      <div className="publish-body"></div>
+      <div className="publish-body">
+        <Tree treeData={treeData} />
+      </div>
       <div className="publish-divider" />
       <div className="publish-button-container" onClick={props.previosStep}>
         <BackButton onClick={props.previosStep} text="Previos" />

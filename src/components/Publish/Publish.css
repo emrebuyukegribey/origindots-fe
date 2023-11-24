@@ -28,3 +28,16 @@
     margin: 20px 0px;
     padding: 0px 10px;
 }
+
+.ant-tree .ant-tree-node-content-wrapper {
+    background-color: var(--grey500);
+    color: var(--dark200);
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    padding: 5px 20px;
+    border: 1px solid var(--dark300) !important;
+    letter-spacing: 0.5px;
+    border-radius: 10px;
+    
+}
