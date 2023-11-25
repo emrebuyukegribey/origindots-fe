@@ -7,3 +7,7 @@ export function registerUser(body) {
 export function loginUser(body) {
   return axios.post("/api/v1/auth/authenticate", body);
 }
+
+export function processStore(body) {
+  return axios.post("/api/v1/process", body);
+}

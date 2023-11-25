@@ -184,7 +184,7 @@ i18n.use(initReactI18next).init({
         "Video Input": "Video",
         QR: "QR Kod",
         OCR: "OCR Kod",
-        "Drop Down List": "Açılır List",
+        "Drop Down List": "Açılır Liste",
         "Single Select": "Tekli Seçim",
         "Multi Select": "Çoklu Seçim",
         "Proper Group": "Bileşen Grubu",

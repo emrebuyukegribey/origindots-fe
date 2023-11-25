@@ -11,6 +11,7 @@ import {
 } from "@ant-design/icons";
 import { PiNoteBlankLight } from "react-icons/pi";
 import ProcessIcons from "../Process/ProcessIcons";
+import { processStore } from "../../services/http";
 
 function Publish(props) {
   const combineLists = () => {
@@ -111,6 +112,15 @@ function Publish(props) {
     removeEmptyChildren(roots);
     return roots;
   }
+
+  const onSubmit = () => {
+    const body = {
+      process: props.process,
+      properList: props.properList,
+      properValueList: props.properValueList,
+    };
+    processStore(body);
+  };
 
   const treeData = createTree();
   return (
