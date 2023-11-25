@@ -10,6 +10,7 @@ import {
   FormOutlined,
 } from "@ant-design/icons";
 import { PiNoteBlankLight } from "react-icons/pi";
+import ProcessIcons from "../Process/ProcessIcons";
 
 function Publish(props) {
   const combineLists = () => {
@@ -19,7 +20,7 @@ function Publish(props) {
       const item = {
         id: element.id,
         icon: element.icon,
-        title: `${element.title} (${props.t(element.text)})`,
+        title: `${props.t(element.title)} (${props.t(element.text)})`,
         key: element.title,
         parentId: element.parentId,
         childCount: element.childCount,
@@ -31,7 +32,7 @@ function Publish(props) {
       const item = {
         id: element.id,
         icon: <PiNoteBlankLight />,
-        title: `${element.name} (${props.t("Value")})`,
+        title: `${props.t(element.name)} (${props.t("Value")})`,
         key: element.name,
         parentId: element.properId,
         childCount: element.childCount,
@@ -117,6 +118,21 @@ function Publish(props) {
       <h3>{props.t("PUBLISH")}</h3>
       <div className="publish-divider" />
       <div className="publish-body">
+        <div className="publish-process-container">
+          <div className="publish-process-icon">
+            {props.processIcon &&
+              ProcessIcons.filter(
+                (icon) => icon.id.toString() === props.processIcon
+              )[0].icon}
+          </div>
+          <div className="publish-process-name">
+            {props.processName} -{" "}
+            {props.processType === "STATIC_LOCATION"
+              ? props.t("Static Location")
+              : props.t("Dynamic Location")}
+          </div>
+        </div>
+        <div className="publish-divider" />
         <Tree showIcon={true} treeData={treeData} />
       </div>
       <div className="publish-divider" />

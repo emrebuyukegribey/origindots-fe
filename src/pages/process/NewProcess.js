@@ -374,6 +374,9 @@ function NewProcess(props) {
                   <Publish
                     properList={properList}
                     properValueList={properValueList}
+                    processName={processName}
+                    processType={processType}
+                    processIcon={processIcon}
                     previosStep={prev}
                     t={props.t}
                   />
