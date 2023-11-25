@@ -88,7 +88,7 @@ function NewProcess(props) {
 
   const uniqueProper = (proper) => {
     let shallow = Object.assign({}, proper);
-    const uniqueId = `eb-${Date.now()}-${shallow.type}-${Math.floor(
+    const uniqueId = `prp-${Date.now()}-${shallow.type}-${Math.floor(
       Math.random() * 1000
     )}`;
     shallow.id = uniqueId;
@@ -159,9 +159,11 @@ function NewProcess(props) {
   };
 
   const createProperValue = (proper, valueName) => {
-    const properValueUniqueId = `eb-${Date.now()}-${proper.type}-${Math.floor(
+    const properValueUniqueId = `prp-v-${Date.now()}-${
+      proper.type
+    }-${Math.floor(Math.random() * 1000)}-value-${valueName}-${Math.floor(
       Math.random() * 1000
-    )}-value-${valueName}-${Math.floor(Math.random() * 1000)}`;
+    )}`;
 
     const properValue = {
       id: properValueUniqueId,

@@ -93,7 +93,7 @@ i18n.use(initReactI18next).init({
         "Drop Down List": "Drop Down List",
         "Single Select": "Single Select",
         "Multi Select": "Multi Select",
-        "Proper Group": "Proper Group,",
+        "Proper Group": "Proper Group",
         Value: "Value",
       },
     },
