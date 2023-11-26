@@ -311,6 +311,22 @@ function NewProcess(props) {
     );
   };
 
+  const editProperValue = (properValue, newValue) => {
+    console.log("properValue : ", properValue);
+    console.log("new value : ", newValue);
+    const updatingProperValue = properValueList.indexOf(properValue);
+    const updatedValueList = [...properValueList];
+    properValue.name = newValue;
+    updatedValueList[updatingProperValue] = properValue;
+    setProperValueList(updatedValueList);
+    showMessage(
+      "success",
+      `Updated proper value on the form : ${properValue.name}`
+    );
+
+    console.log("Proper value list : ", properValueList);
+  };
+
   const openPropertyDrawer = (proper) => {
     setSelectedProper(proper);
     setOpenProperty(true);
@@ -401,6 +417,7 @@ function NewProcess(props) {
                 onClose={closeProperty}
                 editProper={editProperOnForm}
                 deleteProperValue={deleteProperValue}
+                editProperValue={editProperValue}
                 openFormForSelectedValue={openFormForSelectedValue}
                 selectedValueForAddProper={selectedValueForAddProper}
                 setSelectedValueForAddProper={selectedValueForAddProper}

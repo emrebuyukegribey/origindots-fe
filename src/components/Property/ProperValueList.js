@@ -9,6 +9,7 @@ function ProperValueList({
   setProperList,
   values,
   deleteProperValue,
+  editProperValue,
   openPropertyDrawer,
   onCloseProperty,
   openFormForSelectedValue,
@@ -73,9 +74,11 @@ function ProperValueList({
           <ProperValue
             value={element}
             deleteProperValue={deleteValue}
+            editProperValue={editProperValue}
             openFormForSelectedValue={openFormForSelectedValue}
             key={element.id}
             onChangeNewProperValue={onChangeNewProperValue}
+            t={t}
           />
         );
       })}

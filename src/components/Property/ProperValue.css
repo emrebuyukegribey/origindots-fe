@@ -35,6 +35,19 @@
     font-size: 14px;
 }
 
+.proper-value-edit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    padding: 3px;
+    border: 1px solid var(--orange300);
+    color: var(--orange300);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px; 
+}
+
 .proper-value-add-button:hover {
     background-color: var(--blue100);
     color: #fff;
