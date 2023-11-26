@@ -12,6 +12,10 @@ import React, { useRef } from "react";
 import ProperRender from "./ProperRender";
 import { message, Modal } from "antd";
 import { withTranslation } from "react-i18next";
+import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
+import RedButtonBorder from "../UI/Buttons/RedButtonBorder";
+import BackButtonBorder from "../UI/Buttons/BackButtonBorder";
+import ReturnButtonBorder from "../UI/Buttons/ReturnButtonBorder";
 
 const { confirm } = Modal;
 
@@ -219,24 +223,21 @@ function ProperForm({
       <div className="proper-form-button-container">
         {!selectedValueForAddProper ? (
           <div>
-            <BackButton onClick={previosStep} text="Previos" />
+            <BackButtonBorder onClick={previosStep} text="Previos" />
           </div>
         ) : (
           <div
             className="proper-form-button-container"
             style={{ justifyContent: "flex-start" }}
           >
-            <BackButton onClick={goBack} text="Go Back" />
-            <LightButton
-              onClick={cancelAddProperInValue}
-              text={t("Return Base Form")}
-            />
+            <BackButtonBorder onClick={goBack} text="Go Back" />
+            <ReturnButtonBorder onClick={cancelAddProperInValue} />
           </div>
         )}
         {!selectedValueForAddProper && (
           <div style={{ display: "flex" }}>
             <div style={{ marginRight: "20px" }}>
-              <DarkButton
+              <DarkButtonBorder
                 onClick={handlePropers}
                 text={
                   selectedValueForAddProper
@@ -246,7 +247,7 @@ function ProperForm({
               />
             </div>
             <div>
-              <RedButton
+              <RedButtonBorder
                 text={t("Clear All Propers")}
                 onClick={() =>
                   properList.length > 0 ? deleteProperWarning() : ""

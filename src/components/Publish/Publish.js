@@ -12,6 +12,8 @@ import {
 import { PiNoteBlankLight } from "react-icons/pi";
 import ProcessIcons from "../Process/ProcessIcons";
 import { processStore } from "../../services/http";
+import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
+import BackButtonBorder from "../UI/Buttons/BackButtonBorder";
 
 function Publish(props) {
   const combineLists = () => {
@@ -147,9 +149,9 @@ function Publish(props) {
       </div>
       <div className="publish-divider" />
       <div className="publish-button-container" onClick={props.previosStep}>
-        <BackButton onClick={props.previosStep} text="Previos" />
+        <BackButtonBorder onClick={props.previosStep} text="Previos" />
         <div>
-          <DarkButton
+          <DarkButtonBorder
             // onClick={handlePropers}
             text={props.t("Publish")}
           />

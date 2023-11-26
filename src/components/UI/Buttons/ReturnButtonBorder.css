@@ -1,0 +1,33 @@
+@import "../../../variables.css";
+
+.return-button-border-container {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px;
+    border: 1px solid var(--grey300);
+    border-radius: 5px;
+    margin: 10px 0px;
+    margin: 10px 0px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.return-button-border-container:hover {
+    background-color: var(--grey300); 
+    transition: all 0.3s ease-in-out;
+}
+
+.return-button-border-text {
+    color: var(--grey300);
+    font-weight: 500;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.return-button-border-container:hover .return-button-border-text{
+    color: #fff;
+}

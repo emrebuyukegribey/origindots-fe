@@ -5,6 +5,7 @@ import ProcessIcons from "./ProcessIcons";
 import DarkButton from "../UI/Buttons/DarkButton";
 import { CiCircleAlert } from "react-icons/ci";
 import { withTranslation } from "react-i18next";
+import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
 
 const icons = ProcessIcons;
 
@@ -130,8 +131,8 @@ function ProcessForm(props) {
       </div>
       <div className="process-form-divider" />
       <div className="process-form-button-container">
-        <div style={{ width: "40%" }}>
-          <DarkButton
+        <div style={{ width: "20%" }}>
+          <DarkButtonBorder
             text={props.t("Create Process")}
             onClick={handleProcess}
           />
