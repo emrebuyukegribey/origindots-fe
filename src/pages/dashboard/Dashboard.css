@@ -1,0 +1,15 @@
+
+
+.dashboard-widget-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 32px;
+}
+
+.dashboard-table-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 48px;
+}

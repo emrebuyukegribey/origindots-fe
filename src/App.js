@@ -7,6 +7,7 @@ import ProcessManagement from "./pages/process/ProcessManagement";
 import { useState } from "react";
 import LoginScreen from "./pages/user/login/LoginScreen";
 import NewProcess from "./pages/process/NewProcess";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   const [activeLeftBar, setActiveLeftBar] = useState(true);
@@ -45,7 +46,7 @@ function App() {
   return (
     <MainContext.Provider value={data} className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/user/login" element={<LoginScreen />} />
         <Route path="/process-management" element={<ProcessManagement />} />

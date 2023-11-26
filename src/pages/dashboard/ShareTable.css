@@ -1,0 +1,22 @@
+.share-table-header-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--dark300);
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.share-table-header-icon {
+    display: flex;
+    font-size: 24px;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.share-table-header-text {
+    display: flex;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+}
