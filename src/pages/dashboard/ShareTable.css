@@ -1,7 +1,7 @@
 .share-table-header-container {
     display: flex;
     align-items: center;
-    background-color: var(--dark300);
+     /*background-color: var(--dark300); */
     padding: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -9,14 +9,19 @@
 
 .share-table-header-icon {
     display: flex;
-    font-size: 24px;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    padding: 5px;
+    background-color: var(--dark300);
+    border-radius: 8px;
     color: #fff;
     margin-right: 10px;
 }
 
 .share-table-header-text {
     display: flex;
-    color: #fff;
+    color: var(--dark200);
     font-size: 18px;
     font-weight: 500;
 }

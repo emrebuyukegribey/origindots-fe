@@ -37,14 +37,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #35c492;
+    background-color: var(--dark300);
     padding: 15px 15px 15px 15px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
 }
 
 .pm-header-menu-item:hover {
-    background-color: #24a578;
+    background-color: var(--dark400);
     cursor: pointer;
 }
 

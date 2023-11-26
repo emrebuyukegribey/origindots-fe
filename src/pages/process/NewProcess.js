@@ -246,19 +246,28 @@ function NewProcess(props) {
         cancelAddProperInValue();
       }
     }
+
     if (selectedValueForAddProper && !selectedValueForAddProper.type) {
       parentProper = properList.filter(
         (proper) => proper.id === selectedValueForAddProper.properId
       )[0];
 
       if (parentProper && parentProper.parentId) {
-        selectedProperValue = properList.filter(
-          (value) => value.id === parentProper.parentId
-        )[0];
+        if (parentProper.parentId.includes("ProperGroupField")) {
+          selectedProperValue = properList.filter(
+            (value) => value.id === parentProper.parentId
+          )[0];
+        } else {
+          selectedProperValue = properValueList.filter(
+            (value) => value.id === parentProper.parentId
+          )[0];
+        }
 
         if (selectedProperValue) {
           setSelectedValueForAddProper({ selectedProperValue });
           openFormForSelectedValue(selectedProperValue);
+        } else {
+          cancelAddProperInValue();
         }
       } else {
         cancelAddProperInValue();

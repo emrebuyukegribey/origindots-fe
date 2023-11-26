@@ -62,7 +62,7 @@ function RecordTable() {
           }}
         >
           <div className="record-table-header-text">Record Table</div>
-          <a href="#" style={{ fontSize: "14px" }}>
+          <a href="#" style={{ color: "#3E3E52", fontSize: "14px" }}>
             Show All
           </a>
         </div>

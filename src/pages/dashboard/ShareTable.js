@@ -62,7 +62,7 @@ function ShareTable() {
           }}
         >
           <div className="share-table-header-text">Share Table</div>
-          <a href="#" style={{ fontSize: "14px" }}>
+          <a href="#" style={{ color: "#3E3E52", fontSize: "14px" }}>
             Show All
           </a>
         </div>
