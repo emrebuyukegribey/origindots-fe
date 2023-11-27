@@ -10,24 +10,30 @@ import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
 const icons = ProcessIcons;
 
 function ProcessForm(props) {
-  let processName = localStorage.getItem("processName");
-  let processType = localStorage.getItem("processType");
-  let processIcon = localStorage.getItem("processIcon") || icons[0].id;
+  const [processName, setProcessName] = useState(
+    localStorage.getItem("processName")
+  );
+  const [processType, setProcessType] = useState(
+    localStorage.getItem("processType")
+  );
+  const [processIcon, setProcessIcon] = useState(
+    localStorage.getItem("processIcon")
+  );
 
   const onChangeName = (e) => {
     e.preventDefault();
     const value = e.target.value;
-    processName = value;
+    setProcessName(value);
   };
 
   const onChangeType = (e) => {
     const value = e.target.value;
-    processType = value;
+    setProcessType(value);
   };
 
   const onChangeIcon = (e) => {
     const selectedIcon = icons.filter((icon) => icon.id === e);
-    processIcon = selectedIcon[0].id;
+    setProcessIcon(selectedIcon[0].id);
   };
 
   const saveFieldsInLocalStorage = () => {

@@ -101,7 +101,7 @@ function LeftBar(props) {
               </div>
             </li>
           </NavLink>
-          <NavLink>
+          <NavLink to="/user-management">
             <li
               className={
                 activeLink.includes("user")

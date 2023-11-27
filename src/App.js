@@ -8,6 +8,7 @@ import { useState } from "react";
 import LoginScreen from "./pages/user/login/LoginScreen";
 import NewProcess from "./pages/process/NewProcess";
 import Dashboard from "./pages/dashboard/Dashboard";
+import UserManagement from "./pages/users/UserManagement";
 
 function App() {
   const [activeLeftBar, setActiveLeftBar] = useState(true);
@@ -48,6 +49,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/user/login" element={<LoginScreen />} />
         <Route path="/process-management" element={<ProcessManagement />} />
+        <Route path="/user-management" element={<UserManagement />} />
         <Route
           path="/process-management/new-process"
           element={<NewProcess />}
