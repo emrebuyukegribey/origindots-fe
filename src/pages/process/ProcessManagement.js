@@ -1,16 +1,27 @@
 import "./ProcessManagementStyles.css";
 import { withTranslation } from "react-i18next";
 import { MainContext, useContext } from "../../context";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import LeftBar from "../../components/LeftBar/LeftBar";
+import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
+import { useRef } from "react";
 
 function ProcessManagement(props) {
   const { setNavbarHeaderText, activeLeftBar } = useContext(MainContext);
   setNavbarHeaderText("Process Management");
 
+  const navigate = useNavigate();
+
+  const openNewProcess = () => {
+    navigate("/process-management/new-process");
+  };
+
   return (
     <>
+      <NavLink to="/process-management/new-process">
+        {props.t("Create New Process")}
+      </NavLink>
       <Navbar />
       <LeftBar />
       <div
@@ -20,16 +31,13 @@ function ProcessManagement(props) {
           marginLeft: activeLeftBar ? "275px" : "70px",
         }}
       >
-        <div className="pm-container">
-          <div className="pm-header-container">
-            <div className="pm-header-menu-container">
-              <div className="pm-header-menu-item">
-                <div className="pm-header-menu-text">
-                  <NavLink to="/process-management/new-process">
-                    {props.t("Create New Process")}
-                  </NavLink>
-                </div>
-              </div>
+        <div className="process-management-container">
+          <div className="process-management-header-container">
+            <div className="process-management-menu-container">
+              <DarkButtonBorder
+                text="Create Process"
+                onClick={openNewProcess}
+              />
             </div>
           </div>
         </div>
