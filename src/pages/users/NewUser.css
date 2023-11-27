@@ -1,0 +1,19 @@
+@import "../../variables.css";
+
+.new-user-divider {
+    border-bottom: 1px solid var(--grey400);
+    margin: 25px 0px 40px 0px;
+}
+
+.new-user-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 65px;
+}
+
+
+.ant-form-item-label >label {
+    font-size: 16px !important;
+    color: var(--dark300);
+    margin-right: 20px;
+}

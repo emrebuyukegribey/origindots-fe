@@ -1,0 +1,16 @@
+
+
+.ant-btn-default {
+    background-color: #ffffff;
+    border-color: var(--dark300);
+    color: var(--dark300);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ant-btn-default:hover {
+    background-color: var(--dark300) !important;
+    color: #fff !important;
+}
