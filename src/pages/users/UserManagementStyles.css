@@ -83,6 +83,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 860px;
     padding: 10px 30px;
     margin-top: 10px;

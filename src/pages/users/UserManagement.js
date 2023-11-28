@@ -52,7 +52,6 @@ function UserManagement() {
   const submitNewUser = async (user) => {
     try {
       const response = await inviteUser(user);
-      console.log("response : ", response);
       if (response.status === 200) {
         navigate("/user-management");
         showMessage("success", "Created new user");

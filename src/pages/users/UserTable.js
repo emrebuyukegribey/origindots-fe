@@ -98,6 +98,7 @@ function UserTable(props) {
         rowKey={(u) => u.id}
         columns={columns}
         dataSource={props.users.data || []}
+        pagination={{ pageSize: 8 }}
       />
     </div>
   );
