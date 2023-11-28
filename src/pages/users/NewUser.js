@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Radio } from "antd";
 import "./NewUser.css";
 import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
 import RedButtonBorder from "../../components/UI/Buttons/RedButtonBorder";
@@ -8,27 +8,37 @@ import { MainContext, useContext } from "../../context";
 import { useState } from "react";
 import { useEffect } from "react";
 import { inviteUser } from "../../services/http";
+import { useNavigate } from "react-router-dom";
 
 function NewUser(props) {
   const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
   setNavbarHeaderText("User Management > Create New User");
   const [form] = Form.useForm();
 
+  const [isActive, setActive] = useState("yes");
+
   const formItemLayout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 17 },
   };
 
-  const onFinish = (values) => {
+  const onChangeActive = (e) => {
+    console.log("e : ", e);
+    form.setFieldsValue({ isActive: e.target.value });
+    setActive(e.target.value);
+  };
+
+  const onFinish = async (values) => {
     const user = {
       firstName: values.firstName,
       lastName: values.lastName,
       username: values.username,
       email: values.email,
+      isActive: values.isActive == "yes" ? true : false,
       password: values.password,
     };
-
-    inviteUser(user);
+    console.log("user : ", user);
+    props.submit(user);
   };
 
   return (
@@ -68,6 +78,21 @@ function NewUser(props) {
           rules={[{ required: true, message: "Email is required" }]}
         >
           <Input size="large" />
+        </Form.Item>
+        <Form.Item
+          label="Active"
+          name="isActive"
+          {...formItemLayout}
+          rules={[{ required: true }]}
+        >
+          <Radio.Group
+            onChange={onChangeActive}
+            value={isActive}
+            defaultValue={isActive}
+          >
+            <Radio value="yes">Yes</Radio>
+            <Radio value="no">No</Radio>
+          </Radio.Group>
         </Form.Item>
         <Form.Item
           label="Parola"

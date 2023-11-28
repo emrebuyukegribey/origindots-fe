@@ -53,10 +53,23 @@ function NewProcess(props) {
   }));
 
   useEffect(() => {
-    setProcessName(localStorage.getItem("processName"));
-    setProcessType(localStorage.getItem("processType"));
+    setProcessName(
+      localStorage.getItem("processName")
+        ? localStorage.getItem("processName")
+        : ""
+    );
+    setProcessType(
+      localStorage.getItem("processType")
+        ? localStorage.getItem("processType")
+        : ""
+    );
 
-    setProcessIcon(localStorage.getItem("processIcon"));
+    setProcessIcon(
+      localStorage.getItem("processIcon")
+        ? localStorage.getItem("processIcon")
+        : ProcessIcons[0].icon
+    );
+    console.log("emre");
   }, [processName, processType, processIcon]);
 
   useEffect(() => {

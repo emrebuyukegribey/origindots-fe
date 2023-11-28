@@ -113,14 +113,21 @@ function ProcessForm(props) {
               fontSize: "32px",
             }}
           >
-            {icons.find((icon) => Number(icon.id) === Number(processIcon)).icon}
+            {processIcon
+              ? icons.find((icon) => Number(icon.id) === Number(processIcon))
+                  .icon
+              : icons[0].icon}
           </div>
+
           <Select
             size="large"
             className="process-form-input"
             onChange={onChangeIcon}
             defaultValue={
-              icons.find((icon) => Number(icon.id) === Number(processIcon)).name
+              processIcon
+                ? icons.find((icon) => Number(icon.id) === Number(processIcon))
+                    .name
+                : icons[0].name
             }
             placeholder="Please select a process icon"
             options={icons.map((i) => ({

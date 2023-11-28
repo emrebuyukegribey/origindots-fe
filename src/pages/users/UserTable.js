@@ -1,14 +1,15 @@
 import { Space, Table } from "antd";
 import "./UserTable.css";
 import { MainContext, useContext } from "../../context";
+import ProperItems from "../../components/ProperToolBox/ProperItems";
 
 interface DataType {
-  key: string;
   firstName: string;
   lastName: string;
   username: string;
   email: string;
   isActive: string;
+  createdDate: string;
 }
 
 const columns: ColumnsType<DataType> = [
@@ -36,6 +37,34 @@ const columns: ColumnsType<DataType> = [
     title: "Is Active?",
     dataIndex: "isActive",
     key: "isActive",
+    render: (text, record) => (
+      <div className="user-table-isActive-container">
+        <div
+          className="user-table-isActive"
+          style={{
+            color: record.active ? "#18bd5b" : "#f45c52",
+          }}
+        >
+          {record.active === true ? "yes" : "no"}
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: "Created Date",
+    dataIndex: "createdDate",
+    key: "createdDate",
+    render: (text, record) => (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {new Date(record.createdDate).toLocaleString()}
+      </div>
+    ),
   },
 
   {
@@ -57,41 +86,19 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const data: DataType[] = [
-  {
-    key: "1",
-    firstName: "John",
-    lastName: "Brown",
-    username: "JohnBrown",
-    email: "johnbrown@gmail.com",
-    isActive: "Yes",
-  },
-  {
-    key: "2",
-    firstName: "Jim",
-    lastName: "Green",
-    username: "JimGreen",
-    email: "jimgreen@gmail.com",
-    isActive: "No",
-  },
-  {
-    key: "3",
-    firstName: "Joe",
-    lastName: "Black",
-    username: "JoeBlack",
-    email: "joeblack@gmail.com",
-    isActive: "Yes",
-  },
-];
+function UserTable(props) {
+  const data = [];
 
-function UserTable() {
   const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
   setNavbarHeaderText("User Management > Users");
-
   return (
     <div className="user-table-container">
       <div style={{ marginBottom: "15px" }}></div>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        rowKey={(u) => u.id}
+        columns={columns}
+        dataSource={props.users.data || []}
+      />
     </div>
   );
 }

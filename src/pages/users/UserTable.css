@@ -72,3 +72,20 @@
 .ant-table-thead .ant-table-cell::before {
     display: none !important;
 }
+
+.user-table-isActive-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-table-isActive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    width: 36px;
+    height: 30px;
+    border-radius: 8px;
+    font-weight: 600;
+}
