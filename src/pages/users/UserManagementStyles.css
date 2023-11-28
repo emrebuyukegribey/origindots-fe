@@ -64,7 +64,7 @@
 .user-management-divider {
     width: 100%;
     border-bottom: 1px solid var(--grey300);
-    margin: 25px 0px 40px 0px;
+    margin: 15px 0px 15px 0px;
 }
 
 .user-management-new-user {
@@ -85,7 +85,7 @@
     justify-content: center;
     width: 860px;
     padding: 10px 30px;
-    margin-top: 30px;
+    margin-top: 10px;
     background-color: #f1f1f1;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;

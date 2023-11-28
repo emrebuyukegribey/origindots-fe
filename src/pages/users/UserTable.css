@@ -2,8 +2,9 @@
 
 .user-table-container {
     width: 100%;
-    min-width: 1100px;
+    min-width: 1200px;
     margin-top: 0px;
+    margin-bottom: 30px;
 }
 
 .user-table-action-invite {
