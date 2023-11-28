@@ -1,11 +1,9 @@
 import axios from "axios";
 
 const token = localStorage.getItem("token");
-
 let headerConfig = {
   headers: { Authorization: `Bearer ${token}` },
 };
-console.log("headerConfig : ", headerConfig);
 
 export function registerUser(body) {
   return axios.post("/api/v1/auth/register", body);
