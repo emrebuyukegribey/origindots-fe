@@ -7,6 +7,7 @@ import "./UserManagementStyles.css";
 import { IoSearchOutline } from "react-icons/io5";
 import NewUser from "./NewUser";
 import { useState } from "react";
+import UserTable from "./UserTable";
 
 function UserManagement() {
   const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
@@ -57,10 +58,12 @@ function UserManagement() {
               </div>
             )}
           </div>
-          {showNewUserForm && (
+          {showNewUserForm ? (
             <div className="user-management-new-user">
               <NewUser submit={submitNewUser} cancel={cancelNewUser} />
             </div>
+          ) : (
+            <UserTable submit={submitNewUser} cancel={cancelNewUser} />
           )}
         </div>
       </div>

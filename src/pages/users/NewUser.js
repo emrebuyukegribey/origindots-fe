@@ -3,27 +3,36 @@ import "./NewUser.css";
 import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
 import RedButtonBorder from "../../components/UI/Buttons/RedButtonBorder";
 import SubmitButtonBorder from "../../components/UI/Buttons/SubmitButtonBorder";
+import CancelButtonBorder from "../../components/UI/Buttons/CancelButtonBorder";
 
 function NewUser(props) {
+  const [form] = Form.useForm();
+
   const formItemLayout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 18 },
   };
 
   const onFinish = (values) => {
-    console.log("values : ", values);
+    const user = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
   };
 
   return (
     <>
       <h3>Add New User</h3>
       <div className="new-user-divider" />
-      <Form onFinish={onFinish}>
+      <Form form={form} name="new-user" onFinish={onFinish}>
         <Form.Item
           label="Ad"
           name="firstName"
           {...formItemLayout}
-          rules={[]}
+          rules={[{ required: true, message: "First Name is required" }]}
           className="new-user-label"
         >
           <Input size="large" />
@@ -32,7 +41,7 @@ function NewUser(props) {
           label="Soyad"
           name="lastName"
           {...formItemLayout}
-          rules={[{ required: true }]}
+          rules={[{ required: true, message: "Last Name is required" }]}
         >
           <Input size="large" />
         </Form.Item>
@@ -40,31 +49,48 @@ function NewUser(props) {
           label="Kullanıcı Adı"
           name="username"
           {...formItemLayout}
-          rules={[]}
+          rules={[{ required: true, message: "Username is required" }]}
         >
           <Input size="large" />
         </Form.Item>
-        <Form.Item label="Email" name="email" {...formItemLayout} rules={[]}>
+        <Form.Item
+          label="Email"
+          name="email"
+          {...formItemLayout}
+          rules={[{ required: true, message: "Email is required" }]}
+        >
           <Input size="large" />
         </Form.Item>
-        <Form.Item label="Parola" name="parola" {...formItemLayout} rules={[]}>
+        <Form.Item
+          label="Parola"
+          name="password"
+          {...formItemLayout}
+          rules={[{ required: true, message: "Password  is required" }]}
+        >
           <Input.Password size="large" />
         </Form.Item>
         <Form.Item
           label="Parola Tekrar"
-          name="parola"
+          name="passwordRepeat"
           {...formItemLayout}
-          rules={[]}
+          rules={[
+            {
+              required:
+                form.getFieldValue("password") &&
+                form.getFieldValue("password") !==
+                  form.getFieldValue("passwordRepeat"),
+              message: "Password fields does not match",
+            },
+          ]}
         >
           <Input.Password size="large" />
         </Form.Item>
         <div className="new-user-button-container">
-          <SubmitButtonBorder text="Kaydet" />
           <div style={{ marginRight: "20px" }}>
-            <DarkButtonBorder text="Kaydet" onClick={props.submit} />
+            <SubmitButtonBorder text="Kaydet" />
           </div>
           <div>
-            <RedButtonBorder text="Vazgeç" onClick={onFinish} />
+            <CancelButtonBorder onClick={props.cancel} text="Cancel" />
           </div>
         </div>
       </Form>

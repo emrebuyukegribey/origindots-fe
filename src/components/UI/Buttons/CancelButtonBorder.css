@@ -1,9 +1,7 @@
-
-
-.ant-btn-default {
+.ant-btn-dangerous {
     background-color: #ffffff;
-    border-color: var(--dark300);
-    color: var(--dark300);
+    border-color: var(--red200);
+    color: var(--red200);
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -13,8 +11,8 @@
     margin: 10px 0px;
 }
 
-.ant-btn-default:hover {
-    background-color: var(--dark300) !important;
+.ant-btn-dangerous:hover {
+    background-color: var(--red200) !important;
     color: #fff !important;
-    border:none
+    border: none
 }

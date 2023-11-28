@@ -11,3 +11,7 @@ export function loginUser(body) {
 export function processStore(body) {
   return axios.post("/api/v1/process", body);
 }
+
+export function saveUser(body) {
+  return axios.post("api/v1/users/invite");
+}

@@ -1,0 +1,62 @@
+@import "../../variables.css";
+
+.user-table-container {
+    width: 800px;
+    margin-top: 30px;
+}
+
+.user-table-action-invite {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--blue100);
+    margin-right: 10px;
+}
+
+.user-table-action-invite-link {
+    color: var(--blue100)
+}
+
+.user-table-action-invite:hover {
+    background-color: var(--blue100);
+}
+
+.user-table-action-invite:hover .user-table-action-invite-link{
+    color: #fff;
+}
+
+.user-table-action-edit {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--orange200);
+    margin-right: 10px;
+}
+
+.user-table-action-edit-link {
+    color: var(--orange200)
+}
+
+.user-table-action-edit:hover {
+    background-color: var(--orange200);
+}
+
+.user-table-action-edit:hover .user-table-action-edit-link {
+    color: #fff;
+}
+
+.user-table-action-delete {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--red200);
+}
+
+.user-table-action-delete-link {
+    color: var(--red200)
+}
+
+.user-table-action-delete:hover {
+    background-color: var(--red200);
+}
+
+.user-table-action-delete:hover .user-table-action-delete-link {
+    color: #fff;
+}

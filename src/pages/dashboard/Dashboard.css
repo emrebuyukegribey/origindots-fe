@@ -4,12 +4,12 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 32px;
+    margin-top: 24px;
 }
 
 .dashboard-table-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 48px;
+    margin-top: 32px;
 }
