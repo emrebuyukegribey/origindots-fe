@@ -61,15 +61,32 @@
     color: #fff;
 }
 
+.user-management-divider {
+    width: 100%;
+    border-bottom: 1px solid var(--grey300);
+    margin: 25px 0px 40px 0px;
+}
+
 .user-management-new-user {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 800px;
+    width: 1000px;
     padding: 30px;
     margin-top: 30px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
+}
 
+.user-management-users {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 860px;
+    padding: 10px 30px;
+    margin-top: 30px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
 }

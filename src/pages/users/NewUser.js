@@ -4,16 +4,34 @@ import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
 import RedButtonBorder from "../../components/UI/Buttons/RedButtonBorder";
 import SubmitButtonBorder from "../../components/UI/Buttons/SubmitButtonBorder";
 import CancelButtonBorder from "../../components/UI/Buttons/CancelButtonBorder";
+import { MainContext, useContext } from "../../context";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function NewUser(props) {
+  const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
+  setNavbarHeaderText("User Management > Create New User");
+
+  const [isPasswordMatch, setPasswordMatch] = useState(false);
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    const password = form.getFieldValue("password");
+    const passwordRepeat = form.getFieldValue("passwordRepeat");
+
+    setPasswordMatch(password === passwordRepeat);
+  }, [isPasswordMatch]);
+
   const formItemLayout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 18 },
+    labelCol: { span: 6 },
+    wrapperCol: { span: 17 },
   };
 
   const onFinish = (values) => {
+    if (values.password !== values.passwordRepeat) {
+      setPasswordMatch(false);
+      return;
+    }
     const user = {
       firstName: values.firstName,
       lastName: values.lastName,
@@ -25,7 +43,7 @@ function NewUser(props) {
 
   return (
     <>
-      <h3>Add New User</h3>
+      <h3>Create New User</h3>
       <div className="new-user-divider" />
       <Form form={form} name="new-user" onFinish={onFinish}>
         <Form.Item
@@ -69,16 +87,14 @@ function NewUser(props) {
         >
           <Input.Password size="large" />
         </Form.Item>
+
         <Form.Item
           label="Parola Tekrar"
           name="passwordRepeat"
           {...formItemLayout}
           rules={[
             {
-              required:
-                form.getFieldValue("password") &&
-                form.getFieldValue("password") !==
-                  form.getFieldValue("passwordRepeat"),
+              required: isPasswordMatch,
               message: "Password fields does not match",
             },
           ]}

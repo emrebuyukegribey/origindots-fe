@@ -6,7 +6,7 @@
 }
 
 .proper-value-list-divider {
-    border-bottom: 1px solid #d1d1d1; 
+    border-bottom: 1px solid var(--grey300); 
     margin: 10px 0px 20px 0px;
 }
 

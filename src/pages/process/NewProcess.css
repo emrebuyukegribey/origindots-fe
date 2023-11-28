@@ -124,7 +124,7 @@
 }
 
 .cp-divider {
-    border-bottom: 1px solid #cdcde0;
+    border-bottom: 1px solid var(--grey300);
     margin: 25px 0px;
 }
 

@@ -58,12 +58,18 @@ function UserManagement() {
               </div>
             )}
           </div>
+          {!showNewUserForm && <div class="user-management-divider" />}
           {showNewUserForm ? (
-            <div className="user-management-new-user">
+            <div
+              className="user-management-new-user"
+              style={{ marginLeft: "50px" }}
+            >
               <NewUser submit={submitNewUser} cancel={cancelNewUser} />
             </div>
           ) : (
-            <UserTable submit={submitNewUser} cancel={cancelNewUser} />
+            <div style={{ marginLeft: "50px" }}>
+              <UserTable submit={submitNewUser} cancel={cancelNewUser} />
+            </div>
           )}
         </div>
       </div>

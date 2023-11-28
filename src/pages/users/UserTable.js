@@ -1,5 +1,6 @@
 import { Space, Table } from "antd";
 import "./UserTable.css";
+import { MainContext, useContext } from "../../context";
 
 interface DataType {
   key: string;
@@ -84,12 +85,13 @@ const data: DataType[] = [
 ];
 
 function UserTable() {
+  const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
+  setNavbarHeaderText("User Management > Users");
+
   return (
     <div className="user-table-container">
-      <div style={{ marginBottom: "15px" }}>
-        <h3>Users Table</h3>
-      </div>
-      <Table columns={columns} dataSource={data} />;
+      <div style={{ marginBottom: "15px" }}></div>
+      <Table columns={columns} dataSource={data} />
     </div>
   );
 }

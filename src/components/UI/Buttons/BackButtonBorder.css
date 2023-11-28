@@ -7,7 +7,7 @@
     align-items: center;
     padding: 7px;
     border: 1px solid var(--grey300);
-    border-radius: 5px;
+    border-radius: 50px;
     margin: 10px 10px 10px 0px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
