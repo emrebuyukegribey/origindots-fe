@@ -12,12 +12,18 @@ const icons = ProcessIcons;
 function ProcessForm(props) {
   const [processName, setProcessName] = useState(
     localStorage.getItem("processName")
+      ? localStorage.getItem("processName")
+      : ""
   );
   const [processType, setProcessType] = useState(
     localStorage.getItem("processType")
+      ? localStorage.getItem("processType")
+      : "STATIC_LOCATION"
   );
   const [processIcon, setProcessIcon] = useState(
     localStorage.getItem("processIcon")
+      ? localStorage.getItem("processIcon")
+      : icons[0].id
   );
 
   const onChangeName = (e) => {
@@ -86,7 +92,8 @@ function ProcessForm(props) {
             {props.t("Type of Process")}{" "}
           </div>
           <Radio.Group
-            defaultValue={processType ? processType : "STATIC_LOCATION"}
+            value={processType ? processType : "STATIC_LOCATION"}
+            // defaultValue={processType ? processType : "STATIC_LOCATION"}
             onChange={onChangeType}
             className="process-form-radio-group"
           >
