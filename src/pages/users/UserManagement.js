@@ -14,7 +14,7 @@ import { jwtDecode } from "jwt-decode";
 
 function UserManagement() {
   const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
-  setNavbarHeaderText("User Management");
+  // setNavbarHeaderText("User Management");
 
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -31,9 +31,9 @@ function UserManagement() {
     setUsers(usersByOwner);
   };
 
-  getAllUsers();
-
-  useEffect(() => {}, [users]);
+  useEffect(() => {
+    getAllUsers();
+  }, []);
 
   const showMessage = (type, content) => {
     messageApi.open({
@@ -98,7 +98,7 @@ function UserManagement() {
                     }}
                   />
                 </div>
-                <div class="user-management-menu-search-container">
+                <div className="user-management-menu-search-container">
                   <Input
                     className="user-management-menu-search-input"
                     placeholder="Please enter name, email or anythink of user"
@@ -110,7 +110,7 @@ function UserManagement() {
               </div>
             )}
           </div>
-          {!showNewUserForm && <div class="user-management-divider" />}
+          {!showNewUserForm && <div className="user-management-divider" />}
           {showNewUserForm ? (
             <div
               className="user-management-new-user"

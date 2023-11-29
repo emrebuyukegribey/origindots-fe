@@ -8,7 +8,7 @@ interface DataType {
   lastName: string;
   username: string;
   email: string;
-  isActive: string;
+  active: string;
   createdDate: string;
 }
 
@@ -34,9 +34,9 @@ const columns: ColumnsType<DataType> = [
     key: "email",
   },
   {
-    title: "Is Active?",
-    dataIndex: "isActive",
-    key: "isActive",
+    title: "Active",
+    dataIndex: "active",
+    key: "active",
     render: (text, record) => (
       <div className="user-table-isActive-container">
         <div
@@ -90,7 +90,7 @@ function UserTable(props) {
   const data = [];
 
   const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
-  setNavbarHeaderText("User Management > Users");
+  // setNavbarHeaderText("User Management > Users");
   return (
     <div className="user-table-container">
       <div style={{ marginBottom: "15px" }}></div>

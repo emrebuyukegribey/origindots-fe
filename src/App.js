@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import ProcessManagement from "./pages/process/ProcessManagement";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginScreen from "./pages/user/login/LoginScreen";
 import NewProcess from "./pages/process/NewProcess";
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -34,20 +34,27 @@ function App() {
 
   const navigate = useNavigate();
 
-  if (!token) {
-    navigate("/user/login");
-  }
+  useEffect(() => {
+    console.log("TOKEN : ", token);
+    setTimeout(() => {
+      if (!token) {
+        navigate("/user/login");
+        return null;
+      }
 
-  if (token && location.pathname === "/user/login") {
-    navigate("/");
-  }
+      if (token && location.pathname === "/user/login") {
+        navigate("/");
+        return null;
+      }
+    }, 200);
+  }, []);
 
   return (
     <MainContext.Provider value={data} className="App">
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
-        <Route path="/user/login" element={<LoginScreen />} />
+        <Route path="/user/login" element={<LoginScreen setToken />} />
         <Route path="/process-management" element={<ProcessManagement />} />
         <Route path="/user-management" element={<UserManagement />} />
         <Route

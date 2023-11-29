@@ -8,7 +8,6 @@ import { useState } from "react";
 import CircleLoading from "../../../components/UI/Loading/LoadingBar";
 import { useEffect } from "react";
 import { loginUser } from "../../../services/http";
-import { MainContext, useContext } from "../../../context";
 import RegisterScreen from "../register/RegisterScreen";
 
 function LoginScreen(props) {
@@ -17,7 +16,6 @@ function LoginScreen(props) {
     i18n.changeLanguage(language);
   };
 
-  const { token, setToken } = useContext(MainContext);
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     email: "",
@@ -54,8 +52,6 @@ function LoginScreen(props) {
     setActiveTabSection("register");
   };
 
-  useEffect(() => {}, [token]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -70,7 +66,6 @@ function LoginScreen(props) {
           if (response.data) {
             localStorage.setItem("token", response.data.token);
             props.setToken(response.data?.token);
-            setToken(response.data.token);
           }
         }
       } catch (e) {

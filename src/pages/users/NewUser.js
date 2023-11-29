@@ -12,10 +12,10 @@ import { useNavigate } from "react-router-dom";
 
 function NewUser(props) {
   const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
-  setNavbarHeaderText("User Management > Create New User");
+  // setNavbarHeaderText("User Management > Create New User");
   const [form] = Form.useForm();
 
-  const [isActive, setActive] = useState("yes");
+  const [active, setActive] = useState(1);
 
   const formItemLayout = {
     labelCol: { span: 6 },
@@ -23,8 +23,7 @@ function NewUser(props) {
   };
 
   const onChangeActive = (e) => {
-    console.log("e : ", e);
-    form.setFieldsValue({ isActive: e.target.value });
+    form.setFieldsValue({ active: e.target.value });
     setActive(e.target.value);
   };
 
@@ -34,10 +33,9 @@ function NewUser(props) {
       lastName: values.lastName,
       username: values.username,
       email: values.email,
-      isActive: values.isActive == "yes" ? true : false,
+      active: values.active == 1 ? true : false,
       password: values.password,
     };
-    console.log("user : ", user);
     props.submit(user);
   };
 
@@ -79,19 +77,17 @@ function NewUser(props) {
         >
           <Input size="large" />
         </Form.Item>
+
         <Form.Item
           label="Active"
-          name="isActive"
+          name="active"
+          initialValue={1}
           {...formItemLayout}
-          rules={[{ required: true }]}
+          rules={[{ required: true, message: "Please select an option!" }]}
         >
-          <Radio.Group
-            onChange={onChangeActive}
-            value={isActive}
-            defaultValue={isActive}
-          >
-            <Radio value="yes">Yes</Radio>
-            <Radio value="no">No</Radio>
+          <Radio.Group onChange={onChangeActive} value={active}>
+            <Radio value={1}>Yes</Radio>
+            <Radio value={2}>No</Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item
