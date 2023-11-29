@@ -23,27 +23,40 @@ function NewUser(props) {
     setActive(e.target.value);
   };
 
+  useEffect(() => {
+    const defaultValues = {
+      firstName: props.user.firstName,
+      lastName: props.user.lastName,
+      username: props.user.username,
+      email: props.user.email,
+      active: props.user.active === true ? 1 : 2,
+    };
+    form.setFieldsValue(defaultValues);
+  }, []);
+
   const onFinish = async (values) => {
-    const user = {
+    const body = {
+      id: props.user.id ? props.user.id : null,
       firstName: values.firstName,
       lastName: values.lastName,
       username: values.username,
       email: values.email,
       active: values.active == 1 ? true : false,
-      password: values.password,
+      password: props.user.password ? props.user.password : values.password,
     };
-    props.submit(user);
+    props.submit(body);
     window.location.reload();
   };
 
   return (
     <>
-      <h3>Create New User</h3>
+      <h3>{!props.user ? "Create New User" : "Update User"}</h3>
       <div className="new-user-divider" />
       <Form form={form} name="new-user" onFinish={onFinish}>
         <Form.Item
           label="Ad"
           name="firstName"
+          value={props.user.firstName ? props.user.firstName : ""}
           {...formItemLayout}
           rules={[{ required: true, message: "First Name is required" }]}
           className="new-user-label"
@@ -87,14 +100,16 @@ function NewUser(props) {
             <Radio value={2}>No</Radio>
           </Radio.Group>
         </Form.Item>
-        <Form.Item
-          label="Parola"
-          name="password"
-          {...formItemLayout}
-          rules={[{ required: true, message: "Password  is required" }]}
-        >
-          <Input.Password size="large" />
-        </Form.Item>
+        {!props.user.id && (
+          <Form.Item
+            label="Parola"
+            name="password"
+            {...formItemLayout}
+            rules={[{ required: true, message: "Password  is required" }]}
+          >
+            <Input.Password size="large" />
+          </Form.Item>
+        )}
 
         <div className="new-user-button-container">
           <div style={{ marginRight: "20px" }}>

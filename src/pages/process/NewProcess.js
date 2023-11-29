@@ -75,7 +75,7 @@ function NewProcess(props) {
     if (!selectedValueForAddProper) {
       props.setNavbarHeaderText("Process Management > New Process");
     }
-  }, [activeLeftBar]);
+  }, []);
 
   const onCreateProcess = (process) => {
     setProcessName(process.name);

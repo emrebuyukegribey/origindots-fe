@@ -52,15 +52,6 @@
     color: var(--dark300);
 }
 
-.user-management-menu-search-icon-container:hover {
-    background-color: var(--dark300);
-    cursor: pointer;
-}
-
-.user-management-menu-search-icon-container:hover .user-management-menu-search-icon{
-    color: #fff;
-}
-
 .user-management-divider {
     width: 100%;
     border-bottom: 1px solid var(--grey300);
@@ -90,4 +81,24 @@
     background-color: #f1f1f1;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
+}
+
+.user-management-show-user-item {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.user-management-show-user-item-label {
+    font-size: 16px;
+    color: var(--dark300);
+    font-weight: 500;
+    font-family: "Nunito", sans-serif;
+}
+
+.user-management-show-user-item-content {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--dark400);
+    font-family: "Nunito", sans-serif;
 }

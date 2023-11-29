@@ -30,3 +30,7 @@ export function inviteUser(body) {
 export function getAllUsersByOwnerUser(ownerUser) {
   return axios.get(`${BASE_URL}/users/owner/${ownerUser}`, headerConfig);
 }
+
+export function deleteUser(id) {
+  return axios.delete(`${BASE_URL}/users/${id}`, headerConfig);
+}

@@ -1,4 +1,4 @@
-import { Input, message, notification } from "antd";
+import { Input, Modal, message, notification } from "antd";
 import LeftBar from "../../components/LeftBar/LeftBar";
 import Navbar from "../../components/Navbar/Navbar";
 import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
@@ -8,10 +8,17 @@ import { IoSearchOutline } from "react-icons/io5";
 import NewUser from "./NewUser";
 import { useEffect, useState } from "react";
 import UserTable from "./UserTable";
-import { getAllUsersByOwnerUser, inviteUser } from "../../services/http";
+import {
+  deleteUser,
+  getAllUsersByOwnerUser,
+  inviteUser,
+} from "../../services/http";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
+import UserItemCard from "./UserItemCard";
+import confirm from "antd/es/modal/confirm";
+import { CiCircleAlert } from "react-icons/ci";
 
 function UserManagement(props) {
   const { activeLeftBar } = useContext(MainContext);
@@ -24,9 +31,20 @@ function UserManagement(props) {
   const [showNewUserForm, setShowNewUserForm] = useState(false);
 
   const [users, setUsers] = useState([]);
+  const [searchedUsers, setSearchedUsers] = useState([]);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    props.setNavbarHeaderText("User Management");
+    if (showNewUserForm && !user.id) {
+      props.setNavbarHeaderText("User Management > Create New User");
+    } else if (showNewUserForm && user.id) {
+      props.setNavbarHeaderText("User Management > Edit User");
+    } else if (showUserModal && user.id) {
+      props.setNavbarHeaderText("User Management > User Information");
+    } else {
+      props.setNavbarHeaderText("User Management");
+    }
   });
 
   const getAllUsers = async () => {
@@ -34,7 +52,8 @@ function UserManagement(props) {
     const token = localStorage.getItem("token");
     const user = jwtDecode(token);
     const usersByOwner = await getAllUsersByOwnerUser(user.sub);
-    setUsers(usersByOwner);
+    setUsers(usersByOwner.data);
+    setSearchedUsers(usersByOwner.data);
     setLoading(false);
   };
 
@@ -56,7 +75,23 @@ function UserManagement(props) {
     });
   };
 
+  const showUserInformations = (user) => {
+    setUser(user);
+    setShowUserModal(true);
+  };
+
+  const cancelShowUserInformations = () => {
+    setUser({});
+    setShowUserModal(false);
+  };
+
+  const showUserEdit = (user) => {
+    setUser(user);
+    setShowNewUserForm(true);
+  };
+
   const submitNewUser = async (user) => {
+    setUser({});
     try {
       setLoading(true);
       const response = await inviteUser(user);
@@ -65,22 +100,78 @@ function UserManagement(props) {
         showMessage("success", "Created new user");
         setShowNewUserForm(false);
       } else {
-        openErrorNotification("error", "Creating new user error", "asdasdad");
+        openErrorNotification(
+          "error",
+          "Creating new user error",
+          response.data.message
+        );
       }
-      setLoading(false);
     } catch (err) {
       openErrorNotification(
         "error",
         "Creating new user error",
         err.response.data.message
       );
+    } finally {
       setShowNewUserForm(true);
       setLoading(false);
     }
   };
 
   const cancelNewUser = () => {
+    setUser({});
     setShowNewUserForm(false);
+  };
+
+  const handleDeleteUser = async (user) => {
+    try {
+      setLoading(true);
+      const response = await deleteUser(user.id);
+      if (response.status === 200) {
+        showMessage("success", "Created new user");
+      } else {
+        openErrorNotification(
+          "error",
+          "Deleting the user error",
+          response.data.message
+        );
+      }
+    } catch (err) {
+      openErrorNotification(
+        "error",
+        "Deleting user error",
+        err.response.data.message
+      );
+    } finally {
+      setLoading(false);
+      window.location.reload();
+    }
+  };
+
+  const deleteUserWarning = (user) => {
+    Modal.confirm({
+      title: "Are you sure delete the user",
+      icon: <CiCircleAlert size={20} color="red" />,
+      content: "",
+      onOk() {
+        handleDeleteUser(user);
+      },
+
+      onCancel() {},
+      okType: "danger",
+    });
+  };
+
+  const searchUsers = (e) => {
+    const value = e.target.value;
+    const filteredUsers = searchedUsers.filter(
+      (user) =>
+        user.firstName.toLowerCase().includes(value.toLowerCase()) ||
+        user.lastName.toLowerCase().includes(value.toLowerCase()) ||
+        user.username.toLowerCase().includes(value.toLowerCase()) ||
+        user.email.toLowerCase().includes(value.toLowerCase())
+    );
+    setUsers(filteredUsers);
   };
 
   if (loading) {
@@ -116,6 +207,7 @@ function UserManagement(props) {
                   <Input
                     className="user-management-menu-search-input"
                     placeholder="Please enter name, email or anythink of user"
+                    onChange={searchUsers}
                   />
                   <div className="user-management-menu-search-icon-container">
                     <IoSearchOutline className="user-management-menu-search-icon" />
@@ -134,6 +226,7 @@ function UserManagement(props) {
                 setNavbarHeaderText={props.setNavbarHeaderText}
                 submit={submitNewUser}
                 cancel={cancelNewUser}
+                user={user}
               />
             </div>
           ) : (
@@ -143,11 +236,25 @@ function UserManagement(props) {
                 users={users}
                 submit={submitNewUser}
                 cancel={cancelNewUser}
+                showUserInformations={showUserInformations}
+                showUserEdit={showUserEdit}
+                deleteUser={deleteUserWarning}
               />
             </div>
           )}
         </div>
       </div>
+      <Modal
+        title={"User Informations"}
+        open={showUserModal}
+        onOk={cancelShowUserInformations}
+        onCancel={cancelShowUserInformations}
+      >
+        <div>
+          <div className="user-management-divider" />
+          <UserItemCard user={user} />
+        </div>
+      </Modal>
     </>
   );
 }

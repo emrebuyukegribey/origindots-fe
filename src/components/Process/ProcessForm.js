@@ -151,7 +151,7 @@ function ProcessForm(props) {
       </div>
       <div className="process-form-divider" />
       <div className="process-form-button-container">
-        <div style={{ width: "20%" }}>
+        <div style={{ width: "30%" }}>
           <DarkButtonBorder
             text={props.t("Create Process")}
             onClick={handleProcess}

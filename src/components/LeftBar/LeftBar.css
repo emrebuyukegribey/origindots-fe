@@ -140,6 +140,7 @@ a {
     border-radius: 50%;
     padding: 5px;
     transform: rotate(0deg);
+    cursor: pointer;
 }
 
 .lb-bottom-icon-right {
@@ -152,6 +153,7 @@ a {
     justify-content: center;
     margin-left: 10px;
     transform: rotate(180deg);
+    cursor: pointer;
 }
 /*
 @media screen and (max-width: 555px) {
