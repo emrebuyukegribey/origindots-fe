@@ -11,9 +11,11 @@ import UserTable from "./UserTable";
 import { getAllUsersByOwnerUser, inviteUser } from "../../services/http";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import CircleLoading from "../../components/UI/Loading/LoadingBar";
 
 function UserManagement(props) {
   const { activeLeftBar } = useContext(MainContext);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -28,10 +30,12 @@ function UserManagement(props) {
   });
 
   const getAllUsers = async () => {
+    setLoading(true);
     const token = localStorage.getItem("token");
     const user = jwtDecode(token);
     const usersByOwner = await getAllUsersByOwnerUser(user.sub);
     setUsers(usersByOwner);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -54,6 +58,7 @@ function UserManagement(props) {
 
   const submitNewUser = async (user) => {
     try {
+      setLoading(true);
       const response = await inviteUser(user);
       if (response.status === 200) {
         navigate("/user-management");
@@ -62,6 +67,7 @@ function UserManagement(props) {
       } else {
         openErrorNotification("error", "Creating new user error", "asdasdad");
       }
+      setLoading(false);
     } catch (err) {
       openErrorNotification(
         "error",
@@ -69,12 +75,17 @@ function UserManagement(props) {
         err.response.data.message
       );
       setShowNewUserForm(true);
+      setLoading(false);
     }
   };
 
   const cancelNewUser = () => {
     setShowNewUserForm(false);
   };
+
+  if (loading) {
+    return <CircleLoading />;
+  }
 
   return (
     <>

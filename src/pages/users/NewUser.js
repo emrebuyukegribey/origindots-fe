@@ -1,14 +1,9 @@
-import { Button, Form, Input, Radio } from "antd";
+import { Form, Input, Radio } from "antd";
 import "./NewUser.css";
-import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
-import RedButtonBorder from "../../components/UI/Buttons/RedButtonBorder";
 import SubmitButtonBorder from "../../components/UI/Buttons/SubmitButtonBorder";
 import CancelButtonBorder from "../../components/UI/Buttons/CancelButtonBorder";
-import { MainContext, useContext } from "../../context";
 import { useState } from "react";
 import { useEffect } from "react";
-import { inviteUser } from "../../services/http";
-import { useNavigate } from "react-router-dom";
 
 function NewUser(props) {
   const [form] = Form.useForm();
@@ -38,6 +33,7 @@ function NewUser(props) {
       password: values.password,
     };
     props.submit(user);
+    window.location.reload();
   };
 
   return (

@@ -21,3 +21,24 @@
     margin-right: 20px;
     font-weight: 500;
 }
+
+.new-user-profile-photo-upload {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--grey500);
+    border-radius: 5px;
+    border: 1px solid var(--grey300);
+    padding: 15px;
+    width: 50%;
+}
+
+.new-user-profile-photo {
+    font-size: 48px;
+    color: var(--dark300);
+}
+
+.new-user-profile-photo {
+    columns: var(--dark300);
+}
