@@ -116,8 +116,13 @@ function Publish(props) {
   }
 
   const onSubmit = () => {
+    const process = {
+      name: props.processName,
+      type: props.processType,
+      icon: props.icon,
+    };
     const body = {
-      process: props.process,
+      process: process,
       properList: props.properList,
       properValueList: props.properValueList,
     };
@@ -151,10 +156,7 @@ function Publish(props) {
       <div className="publish-button-container" onClick={props.previosStep}>
         <BackButtonBorder onClick={props.previosStep} text="Previos" />
         <div>
-          <DarkButtonBorder
-            // onClick={handlePropers}
-            text={props.t("Publish")}
-          />
+          <DarkButtonBorder onClick={onSubmit} text={props.t("Publish")} />
         </div>
       </div>
     </div>
