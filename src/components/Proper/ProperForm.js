@@ -191,11 +191,11 @@ function ProperForm({
           </div>
         ) : (
           properListForm.map((proper, index) => (
-            <React.Fragment>
+            <React.Fragment key={index}>
               <div
                 className="proper-form-draggable"
                 style={{ width: "100%", cursor: "move" }}
-                key={index}
+                key={proper.id}
                 draggable
                 droppable="true"
                 onDragStart={(e) => onDragStart(e, index)}
