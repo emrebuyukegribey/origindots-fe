@@ -11,11 +11,12 @@ import { inviteUser } from "../../services/http";
 import { useNavigate } from "react-router-dom";
 
 function NewUser(props) {
-  const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
-  // setNavbarHeaderText("User Management > Create New User");
   const [form] = Form.useForm();
-
   const [active, setActive] = useState(1);
+
+  useEffect(() => {
+    props.setNavbarHeaderText("User Management > Create New User");
+  });
 
   const formItemLayout = {
     labelCol: { span: 6 },

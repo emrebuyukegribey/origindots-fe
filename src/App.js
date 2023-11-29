@@ -35,7 +35,6 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("TOKEN : ", token);
     setTimeout(() => {
       if (!token) {
         navigate("/user/login");
@@ -52,14 +51,25 @@ function App() {
   return (
     <MainContext.Provider value={data} className="App">
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route
+          path="/"
+          element={<Dashboard setNavbarHeaderText={setNavbarHeaderText} />}
+        />
         <Route path="/about" element={<About />} />
         <Route path="/user/login" element={<LoginScreen setToken />} />
-        <Route path="/process-management" element={<ProcessManagement />} />
-        <Route path="/user-management" element={<UserManagement />} />
+        <Route
+          path="/process-management"
+          element={
+            <ProcessManagement setNavbarHeaderText={setNavbarHeaderText} />
+          }
+        />
+        <Route
+          path="/user-management"
+          element={<UserManagement setNavbarHeaderText={setNavbarHeaderText} />}
+        />
         <Route
           path="/process-management/new-process"
-          element={<NewProcess />}
+          element={<NewProcess setNavbarHeaderText={setNavbarHeaderText} />}
         />
       </Routes>
     </MainContext.Provider>

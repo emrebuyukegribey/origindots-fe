@@ -7,7 +7,7 @@ import ProcessForm from "../../components/Process/ProcessForm";
 import ProperForm from "../../components/Proper/ProperForm";
 import Navbar from "../../components/Navbar/Navbar";
 import LeftBar from "../../components/LeftBar/LeftBar";
-import { Steps, theme, message, Modal } from "antd";
+import { Steps, message, Modal } from "antd";
 import Property from "../../components/Property/Property";
 import { CiCircleAlert } from "react-icons/ci";
 import ProcessIcons from "../../components/Process/ProcessIcons";
@@ -46,7 +46,6 @@ function NewProcess(props) {
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
     useContext(MainContext);
 
-  const { token } = theme.useToken();
   const items = steps.map((item) => ({
     key: item.title,
     title: props.t(item.title),
@@ -69,16 +68,14 @@ function NewProcess(props) {
         ? localStorage.getItem("processIcon")
         : ProcessIcons[0].icon
     );
-    console.log("emre");
   }, [processName, processType, processIcon]);
 
   useEffect(() => {
     setActiveLeftBar(false);
-  }, activeLeftBar);
-
-  if (!selectedValueForAddProper) {
-    setNavbarHeaderText("Process Management > New Process");
-  }
+    if (!selectedValueForAddProper) {
+      props.setNavbarHeaderText("Process Management > New Process");
+    }
+  }, [activeLeftBar]);
 
   const onCreateProcess = (process) => {
     setProcessName(process.name);
@@ -325,8 +322,6 @@ function NewProcess(props) {
   };
 
   const editProperValue = (properValue, newValue) => {
-    console.log("properValue : ", properValue);
-    console.log("new value : ", newValue);
     const updatingProperValue = properValueList.indexOf(properValue);
     const updatedValueList = [...properValueList];
     properValue.name = newValue;
@@ -336,8 +331,6 @@ function NewProcess(props) {
       "success",
       `Updated proper value on the form : ${properValue.name}`
     );
-
-    console.log("Proper value list : ", properValueList);
   };
 
   const openPropertyDrawer = (proper) => {
@@ -382,11 +375,7 @@ function NewProcess(props) {
             style={{ marginLeft: currentStep === 0 ? "150px" : "300px" }}
           >
             <div className="cp-body-top-container">
-              <Steps
-                current={currentStep}
-                items={items}
-                navArrowColor="yellow"
-              />
+              <Steps current={currentStep} items={items} />
             </div>
             <div className="cp-process-form-container">
               {currentStep === 0 && <ProcessForm onClick={onCreateProcess} />}

@@ -12,9 +12,8 @@ import { getAllUsersByOwnerUser, inviteUser } from "../../services/http";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-function UserManagement() {
-  const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
-  // setNavbarHeaderText("User Management");
+function UserManagement(props) {
+  const { activeLeftBar } = useContext(MainContext);
 
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
@@ -23,6 +22,10 @@ function UserManagement() {
   const [showNewUserForm, setShowNewUserForm] = useState(false);
 
   const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    props.setNavbarHeaderText("User Management");
+  });
 
   const getAllUsers = async () => {
     const token = localStorage.getItem("token");
@@ -116,11 +119,16 @@ function UserManagement() {
               className="user-management-new-user"
               style={{ marginLeft: "50px" }}
             >
-              <NewUser submit={submitNewUser} cancel={cancelNewUser} />
+              <NewUser
+                setNavbarHeaderText={props.setNavbarHeaderText}
+                submit={submitNewUser}
+                cancel={cancelNewUser}
+              />
             </div>
           ) : (
             <div style={{ marginLeft: "50px" }}>
               <UserTable
+                setNavbarHeaderText={props.setNavbarHeaderText}
                 users={users}
                 submit={submitNewUser}
                 cancel={cancelNewUser}

@@ -5,13 +5,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import LeftBar from "../../components/LeftBar/LeftBar";
 import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
-import { useRef } from "react";
+import { useEffect } from "react";
 
 function ProcessManagement(props) {
-  const { setNavbarHeaderText, activeLeftBar } = useContext(MainContext);
-  setNavbarHeaderText("Process Management");
+  const { activeLeftBar } = useContext(MainContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    props.setNavbarHeaderText("Process Management");
+  });
 
   const openNewProcess = () => {
     navigate("/process-management/new-process");

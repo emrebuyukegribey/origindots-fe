@@ -2,6 +2,7 @@ import { Space, Table } from "antd";
 import "./UserTable.css";
 import { MainContext, useContext } from "../../context";
 import ProperItems from "../../components/ProperToolBox/ProperItems";
+import { useEffect } from "react";
 
 interface DataType {
   firstName: string;
@@ -89,8 +90,10 @@ const columns: ColumnsType<DataType> = [
 function UserTable(props) {
   const data = [];
 
-  const { activeLeftBar, setNavbarHeaderText } = useContext(MainContext);
-  // setNavbarHeaderText("User Management > Users");
+  useEffect(() => {
+    props.setNavbarHeaderText("User Management > Users");
+  });
+
   return (
     <div className="user-table-container">
       <div style={{ marginBottom: "15px" }}></div>

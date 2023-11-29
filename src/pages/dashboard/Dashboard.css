@@ -1,5 +1,7 @@
 
-
+.dashboard-container {
+    position: absolute;
+}
 .dashboard-widget-container {
     display: flex;
     justify-content: space-around;
