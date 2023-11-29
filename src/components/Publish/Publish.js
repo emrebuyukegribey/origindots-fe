@@ -1,14 +1,5 @@
 import { Tree } from "antd";
-import { BsTextareaResize } from "react-icons/bs";
-import BackButton from "../UI/Buttons/BackButton";
-import DarkButton from "../UI/Buttons/DarkButton";
-import ProperItem from "./ProperItem";
 import "./Publish.css";
-import {
-  CarryOutOutlined,
-  CheckOutlined,
-  FormOutlined,
-} from "@ant-design/icons";
 import { PiNoteBlankLight } from "react-icons/pi";
 import ProcessIcons from "../Process/ProcessIcons";
 import { processStore } from "../../services/http";
