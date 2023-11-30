@@ -110,13 +110,14 @@ function Publish(props) {
     const process = {
       name: props.processName,
       type: props.processType,
-      icon: props.icon,
+      icon: props.processIcon,
     };
     const body = {
       process: process,
       properList: props.properList,
       properValueList: props.properValueList,
     };
+    console.log("body : ", body);
     processStore(body);
   };
 
