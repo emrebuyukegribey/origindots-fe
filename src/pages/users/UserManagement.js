@@ -20,6 +20,7 @@ import UserItemCard from "./UserItemCard";
 import confirm from "antd/es/modal/confirm";
 import { CiCircleAlert } from "react-icons/ci";
 import { withTranslation } from "react-i18next";
+import PageHeaderMenu from "../../components/UI/PageHeaderMenu";
 
 function UserManagement(props) {
   const { activeLeftBar } = useContext(MainContext);
@@ -175,6 +176,11 @@ function UserManagement(props) {
     setUsers(filteredUsers);
   };
 
+  const newUserCreate = () => {
+    setUser({});
+    setShowNewUserForm(true);
+  };
+
   if (loading) {
     return <CircleLoading />;
   }
@@ -195,29 +201,14 @@ function UserManagement(props) {
         <div className="user-management-container">
           <div className="user-management-header-container">
             {!showNewUserForm && (
-              <div className="user-management-menu-container">
-                <div style={{ marginRight: "40px" }}>
-                  <DarkButtonBorder
-                    text={props.t("Create User")}
-                    onClick={() => {
-                      setUser({});
-                      setShowNewUserForm(true);
-                    }}
-                  />
-                </div>
-                <div className="user-management-menu-search-container">
-                  <Input
-                    className="user-management-menu-search-input"
-                    placeholder={props.t(
-                      "Please enter something about the user"
-                    )}
-                    onChange={searchUsers}
-                  />
-                  <div className="user-management-menu-search-icon-container">
-                    <IoSearchOutline className="user-management-menu-search-icon" />
-                  </div>
-                </div>
-              </div>
+              <PageHeaderMenu
+                buttonText={props.t("Create User")}
+                buttonOnClick={newUserCreate}
+                searchOnChange={searchUsers}
+                searchPlaceholder={props.t(
+                  "Please enter something about the user"
+                )}
+              />
             )}
           </div>
           {!showNewUserForm && <div className="user-management-divider" />}
