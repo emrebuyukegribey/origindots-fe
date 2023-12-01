@@ -41,12 +41,10 @@ function NewUser(props) {
       password: props.user.password ? props.user.password : values.password,
     };
     props.submit(body);
-    window.location.reload();
   };
 
   return (
     <>
-      {console.log("user : ", props.user)}
       <h3>
         {props.user && !props.user.id
           ? props.t("Create New User")

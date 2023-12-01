@@ -7,7 +7,6 @@ i18n.use(initReactI18next).init({
       translations: {
         Dashboard: "Dashboard",
         "Organization Management": "Organization Management",
-        "User Management": "User Management",
         "Process Management": "Process Management",
         "Analystic Data": "Analytics Data",
         Settings: "Settings",

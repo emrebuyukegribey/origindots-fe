@@ -115,7 +115,8 @@ function UserManagement(props) {
         err.response.data.message
       );
     } finally {
-      setShowNewUserForm(true);
+      // setShowNewUserForm(true);
+      await getAllUsers();
       setLoading(false);
     }
   };
@@ -130,7 +131,7 @@ function UserManagement(props) {
       setLoading(true);
       const response = await deleteUser(user.id);
       if (response.status === 200) {
-        showMessage("success", props.t("Created new user"));
+        showMessage("error", props.t("Deleting the user error"));
       } else {
         openErrorNotification(
           "error",
@@ -146,7 +147,8 @@ function UserManagement(props) {
       );
     } finally {
       setLoading(false);
-      window.location.reload();
+      // window.location.reload();
+      await getAllUsers();
     }
   };
 
