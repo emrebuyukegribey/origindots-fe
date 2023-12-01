@@ -25,7 +25,7 @@ function NewUser(props) {
       lastName: props.user.lastName,
       username: props.user.username,
       email: props.user.email,
-      active: props.user.active === true ? 1 : 2,
+      active: props.user.id ? (props.user.active === true ? 1 : 2) : active,
     };
     form.setFieldsValue(defaultValues);
   }, []);
