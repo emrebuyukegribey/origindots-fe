@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { MainContext } from "./context";
 import "./App.css";
+
 import About from "./pages/About";
 import ProcessManagement from "./pages/process/ProcessManagement";
 import { useEffect, useState } from "react";

@@ -38,3 +38,7 @@ export function deleteUser(id) {
 export function storeOrganization(body) {
   return axios.post(`${BASE_URL}/organizations`, body, headerConfig);
 }
+
+export function getAllOrganizationsByOwner(ownerId) {
+  return axios.get(`${BASE_URL}/users/owner/${ownerId}`, headerConfig);
+}

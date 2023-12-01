@@ -10,9 +10,12 @@ import OrganizationForm from "./OrganizationForm";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import { storeOrganization } from "../../services/http";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 function OrganizationManagement(props) {
-  const { activeLeftBar } = useContext(MainContext);
+  const { activeLeftBar, loginUser, token } = useContext(MainContext);
+  console.log("token : ", token);
+  console.log("login User : ", loginUser);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -22,6 +25,7 @@ function OrganizationManagement(props) {
 
   const [showOrganizationForm, setShowOrganizationForm] = useState(false);
   const [organization, setOrganization] = useState({});
+  const [organizations, setOrganizations] = useState([]);
 
   const newOrganizationCreate = () => {
     setShowOrganizationForm(true);
@@ -47,6 +51,27 @@ function OrganizationManagement(props) {
         description: description,
       });
     }, 300);
+  };
+
+  const getAllOrganizations = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const user = jwtDecode(token);
+      const response = await getAllOrganizations(user.sub);
+      if (response.status === 200) {
+        navigate("/organization-management");
+        showMessage("success", props.t("Created new organization"));
+        setShowOrganizationForm(false);
+      } else {
+        openErrorNotification(
+          "error",
+          props.t("Creating new organization error"),
+          response.data.message
+        );
+      }
+    } catch (err) {
+    } finally {
+    }
   };
 
   const submitOrganization = async (organization) => {

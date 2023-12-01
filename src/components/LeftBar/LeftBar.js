@@ -17,7 +17,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
 function LeftBar(props) {
-  const { activeLeftBar, setActiveLeftBar, setToken } = useContext(MainContext);
+  const { activeLeftBar, setActiveLeftBar } = useContext(MainContext);
   const [activeLink, setActiveLink] = useState(
     localStorage.getItem("activeLink") || "dashboard"
   );
