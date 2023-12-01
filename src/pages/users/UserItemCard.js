@@ -1,26 +1,26 @@
 import UserItem from "./UserItem";
 
-function UserItemCard({ user }) {
+function UserItemCard({ user, t }) {
   return (
     <>
       {user.profilePhoto && (
         <UserItem label="Profile photo : " content={user.profilePhoto} />
       )}
-      <UserItem label="First name : " content={user.firstName} />
-      <UserItem label="Last name : " content={user.lastName} />
-      <UserItem label="Email : " content={user.email} />
-      <UserItem label="Username : " content={user.username} />
-      <UserItem label="Is active : " content={user.active ? "yes" : "no"} />
+      <UserItem label={t("First name")} content={user.firstName} />
+      <UserItem label={t("Last name")} content={user.lastName} />
+      <UserItem label={t("Email")} content={user.email} />
+      <UserItem label={t("Username")} content={user.username} />
+      <UserItem label={"Active"} content={user.active ? "yes" : "no"} />
       <UserItem
-        label="Created date : "
+        label={t("Created Date")}
         content={new Date(user.createdDate).toLocaleString()}
       />
       <UserItem
-        label="Modified date : "
+        label={t("Modified Date")}
         content={new Date(user.modifiedDate).toLocaleString()}
       />
       <UserItem
-        label="Last login : "
+        label={t("Last Login")}
         content={
           user.lastLogin ? new Date(user.lastLogin).toLocaleString() : ""
         }

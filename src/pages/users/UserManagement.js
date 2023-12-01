@@ -19,6 +19,7 @@ import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import UserItemCard from "./UserItemCard";
 import confirm from "antd/es/modal/confirm";
 import { CiCircleAlert } from "react-icons/ci";
+import { withTranslation } from "react-i18next";
 
 function UserManagement(props) {
   const { activeLeftBar } = useContext(MainContext);
@@ -37,13 +38,13 @@ function UserManagement(props) {
 
   useEffect(() => {
     if (showNewUserForm && !user.id) {
-      props.setNavbarHeaderText("User Management > Create New User");
+      props.setNavbarHeaderText(props.t("User Management > Create New User"));
     } else if (showNewUserForm && user.id) {
-      props.setNavbarHeaderText("User Management > Edit User");
+      props.setNavbarHeaderText(props.t("User Management > Edit User"));
     } else if (showUserModal && user.id) {
-      props.setNavbarHeaderText("User Management > User Information");
+      props.setNavbarHeaderText(props.t("User Management > User Information"));
     } else {
-      props.setNavbarHeaderText("User Management");
+      props.setNavbarHeaderText(props.t("User Management"));
     }
   });
 
@@ -97,19 +98,19 @@ function UserManagement(props) {
       const response = await inviteUser(user);
       if (response.status === 200) {
         navigate("/user-management");
-        showMessage("success", "Created new user");
+        showMessage("success", props.t("Created new user"));
         setShowNewUserForm(false);
       } else {
         openErrorNotification(
           "error",
-          "Creating new user error",
+          props.t("Creating new user error"),
           response.data.message
         );
       }
     } catch (err) {
       openErrorNotification(
         "error",
-        "Creating new user error",
+        props.t("Creating new user error"),
         err.response.data.message
       );
     } finally {
@@ -128,18 +129,18 @@ function UserManagement(props) {
       setLoading(true);
       const response = await deleteUser(user.id);
       if (response.status === 200) {
-        showMessage("success", "Created new user");
+        showMessage("success", props.t("Created new user"));
       } else {
         openErrorNotification(
           "error",
-          "Deleting the user error",
+          props.t("Deleting the user error"),
           response.data.message
         );
       }
     } catch (err) {
       openErrorNotification(
         "error",
-        "Deleting user error",
+        props.t("Deleting the user error"),
         err.response.data.message
       );
     } finally {
@@ -150,7 +151,7 @@ function UserManagement(props) {
 
   const deleteUserWarning = (user) => {
     Modal.confirm({
-      title: "Are you sure delete the user",
+      title: props.t("Are you sure delete the user"),
       icon: <CiCircleAlert size={20} color="red" />,
       content: "",
       onOk() {
@@ -197,8 +198,9 @@ function UserManagement(props) {
               <div className="user-management-menu-container">
                 <div style={{ marginRight: "40px" }}>
                   <DarkButtonBorder
-                    text="Create User"
+                    text={props.t("Create User")}
                     onClick={() => {
+                      setUser({});
                       setShowNewUserForm(true);
                     }}
                   />
@@ -206,7 +208,9 @@ function UserManagement(props) {
                 <div className="user-management-menu-search-container">
                   <Input
                     className="user-management-menu-search-input"
-                    placeholder="Please enter name, email or anythink of user"
+                    placeholder={props.t(
+                      "Please enter something about the user"
+                    )}
                     onChange={searchUsers}
                   />
                   <div className="user-management-menu-search-icon-container">
@@ -227,6 +231,7 @@ function UserManagement(props) {
                 submit={submitNewUser}
                 cancel={cancelNewUser}
                 user={user}
+                t={props.t}
               />
             </div>
           ) : (
@@ -239,24 +244,26 @@ function UserManagement(props) {
                 showUserInformations={showUserInformations}
                 showUserEdit={showUserEdit}
                 deleteUser={deleteUserWarning}
+                t={props.t}
               />
             </div>
           )}
         </div>
       </div>
       <Modal
-        title={"User Informations"}
+        title={props.t("User Informations")}
         open={showUserModal}
         onOk={cancelShowUserInformations}
         onCancel={cancelShowUserInformations}
       >
         <div>
           <div className="user-management-divider" />
-          <UserItemCard user={user} />
+          <UserItemCard user={user} t={props.t} />
         </div>
       </Modal>
     </>
   );
 }
 
-export default UserManagement;
+const UserManagementWithTranslation = withTranslation()(UserManagement);
+export default UserManagementWithTranslation;

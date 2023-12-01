@@ -9,10 +9,6 @@ function NewUser(props) {
   const [form] = Form.useForm();
   const [active, setActive] = useState(1);
 
-  useEffect(() => {
-    props.setNavbarHeaderText("User Management > Create New User");
-  });
-
   const formItemLayout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 17 },
@@ -50,11 +46,16 @@ function NewUser(props) {
 
   return (
     <>
-      <h3>{!props.user ? "Create New User" : "Update User"}</h3>
+      {console.log("user : ", props.user)}
+      <h3>
+        {props.user && !props.user.id
+          ? props.t("Create New User")
+          : props.t("Update User")}
+      </h3>
       <div className="new-user-divider" />
       <Form form={form} name="new-user" onFinish={onFinish}>
         <Form.Item
-          label="Ad"
+          label={props.t("First name")}
           name="firstName"
           value={props.user.firstName ? props.user.firstName : ""}
           {...formItemLayout}
@@ -64,7 +65,7 @@ function NewUser(props) {
           <Input size="large" />
         </Form.Item>
         <Form.Item
-          label="Soyad"
+          label={props.t("Last Name")}
           name="lastName"
           {...formItemLayout}
           rules={[{ required: true, message: "Last Name is required" }]}
@@ -72,7 +73,7 @@ function NewUser(props) {
           <Input size="large" />
         </Form.Item>
         <Form.Item
-          label="Kullanıcı Adı"
+          label={props.t("Username")}
           name="username"
           {...formItemLayout}
           rules={[{ required: true, message: "Username is required" }]}
@@ -80,7 +81,7 @@ function NewUser(props) {
           <Input size="large" />
         </Form.Item>
         <Form.Item
-          label="Email"
+          label={props.t("Email")}
           name="email"
           {...formItemLayout}
           rules={[{ required: true, message: "Email is required" }]}
@@ -89,7 +90,7 @@ function NewUser(props) {
         </Form.Item>
 
         <Form.Item
-          label="Active"
+          label={props.t("Active")}
           name="active"
           initialValue={1}
           {...formItemLayout}
@@ -102,7 +103,7 @@ function NewUser(props) {
         </Form.Item>
         {!props.user.id && (
           <Form.Item
-            label="Parola"
+            label={props.t("Password")}
             name="password"
             {...formItemLayout}
             rules={[{ required: true, message: "Password  is required" }]}
@@ -116,7 +117,10 @@ function NewUser(props) {
             <SubmitButtonBorder text="Kaydet" />
           </div>
           <div>
-            <CancelButtonBorder onClick={props.cancel} text="Cancel" />
+            <CancelButtonBorder
+              onClick={props.cancel}
+              text={props.t("Cancel")}
+            />
           </div>
         </div>
       </Form>

@@ -117,7 +117,6 @@ function Publish(props) {
       properList: props.properList,
       properValueList: props.properValueList,
     };
-    console.log("body : ", body);
     processStore(body);
   };
 

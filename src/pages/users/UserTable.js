@@ -14,27 +14,27 @@ interface DataType {
 function UserTable(props) {
   const columns: ColumnsType<DataType> = [
     {
-      title: "First Name",
+      title: props.t("First Name"),
       dataIndex: "firstName",
       key: "firsname",
     },
     {
-      title: "Last Name",
+      title: props.t("Last Name"),
       dataIndex: "lastName",
       key: "lastName",
     },
     {
-      title: "Username",
+      title: props.t("Username"),
       dataIndex: "username",
       key: "username",
     },
     {
-      title: "Email",
+      title: props.t("Email"),
       dataIndex: "email",
       key: "email",
     },
     {
-      title: "Active",
+      title: props.t("Active"),
       dataIndex: "active",
       key: "active",
       render: (text, record) => (
@@ -42,16 +42,17 @@ function UserTable(props) {
           <div
             className="user-table-isActive"
             style={{
-              color: record.active ? "#18bd5b" : "#f45c52",
+              backgroundColor: record.active ? "#18bd5b" : "#f45c52",
+              color: "#fff",
             }}
           >
-            {record.active === true ? "yes" : "no"}
+            {record.active === true ? props.t("YES") : props.t("NO")}
           </div>
         </div>
       ),
     },
     {
-      title: "Created Date",
+      title: props.t("Created Date"),
       dataIndex: "createdDate",
       key: "createdDate",
       render: (text, record) => (
@@ -68,8 +69,8 @@ function UserTable(props) {
     },
 
     {
-      title: "Action",
-      key: "action",
+      title: props.t("Actions"),
+      key: "actions",
       render: (_, record) => (
         <div style={{ display: "flex" }}>
           <div className="user-table-action-invite ">
@@ -77,7 +78,7 @@ function UserTable(props) {
               className="user-table-action-invite-link"
               onClick={() => props.showUserInformations(record)}
             >
-              Show User
+              {props.t("Show User")}
             </a>
           </div>
           <div className="user-table-action-edit ">
@@ -85,7 +86,7 @@ function UserTable(props) {
               className="user-table-action-edit-link"
               onClick={() => props.showUserEdit(record)}
             >
-              Edit{" "}
+              {props.t("Edit")}
             </a>
           </div>
           <div className="user-table-action-delete ">
@@ -95,7 +96,7 @@ function UserTable(props) {
                 props.deleteUser(record);
               }}
             >
-              Delete{" "}
+              {props.t("Delete")}
             </a>
           </div>
         </div>

@@ -1,0 +1,32 @@
+@import "../../variables.css";
+
+.page-header-search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-header-search-input {
+    width: 450px;
+    height: 45px;
+    border-radius: 30px;
+    z-index: 0;
+    padding-left: 15px;
+}
+
+.page-header-search-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -40px;
+    background-color: #fff;
+    /* border:1px solid var(--dark300); */
+    padding: 5px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.page-header-search-icon {
+    font-size: 18px;
+    color: var(--dark300);
+}
