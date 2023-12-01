@@ -82,7 +82,7 @@ function LeftBar(props) {
               </div>
             </li>
           </NavLink>
-          <NavLink>
+          <NavLink to="/organization-management">
             <li
               className={
                 activeLink.includes("organization")

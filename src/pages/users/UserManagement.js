@@ -64,17 +64,21 @@ function UserManagement(props) {
   }, []);
 
   const showMessage = (type, content) => {
-    messageApi.open({
-      type: type,
-      content: content,
-    });
+    setTimeout(() => {
+      messageApi.open({
+        type: type,
+        content: content,
+      });
+    }, 300);
   };
 
   const openErrorNotification = (type, message, description) => {
-    notificationApi[type]({
-      message: message,
-      description: description,
-    });
+    setTimeout(() => {
+      notificationApi[type]({
+        message: message,
+        description: description,
+      });
+    }, 300);
   };
 
   const showUserInformations = (user) => {

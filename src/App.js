@@ -1,7 +1,6 @@
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { MainContext } from "./context";
 import "./App.css";
-import Home from "./pages/Home";
 import About from "./pages/About";
 import ProcessManagement from "./pages/process/ProcessManagement";
 import { useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import LoginScreen from "./pages/user/login/LoginScreen";
 import NewProcess from "./pages/process/NewProcess";
 import Dashboard from "./pages/dashboard/Dashboard";
 import UserManagement from "./pages/users/UserManagement";
+import OrganizationManagement from "./pages/organization/OrganizationManagement";
 
 function App() {
   const [activeLeftBar, setActiveLeftBar] = useState(true);
@@ -66,6 +66,12 @@ function App() {
         <Route
           path="/user-management"
           element={<UserManagement setNavbarHeaderText={setNavbarHeaderText} />}
+        />
+        <Route
+          path="/organization-management"
+          element={
+            <OrganizationManagement setNavbarHeaderText={setNavbarHeaderText} />
+          }
         />
         <Route
           path="/process-management/new-process"

@@ -1,0 +1,27 @@
+
+
+.organization-management-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.organization-management-divider {
+    width: 100%;
+    border-bottom: 1px solid var(--grey300);
+    margin: 15px 0px 15px 0px;
+}
+
+.organization-management-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1000px;
+    padding: 30px;
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
+}

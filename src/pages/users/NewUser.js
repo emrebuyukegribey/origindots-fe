@@ -112,7 +112,7 @@ function NewUser(props) {
 
         <div className="new-user-button-container">
           <div style={{ marginRight: "20px" }}>
-            <SubmitButtonBorder text="Kaydet" />
+            <SubmitButtonBorder text={props.t("Save")} />
           </div>
           <div>
             <CancelButtonBorder
