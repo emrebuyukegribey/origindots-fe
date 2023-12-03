@@ -30,15 +30,19 @@
     margin-left: 30px;
     /* transition: all 0.5s; */
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 0px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
     margin-top: 70px;
     border-radius: 50%;
     border: 5px solid #ffffff;
-    background: linear-gradient(329deg, var(--dark100) 0%, var(--dark400) 100%);
+    background: linear-gradient(135deg, var(--dark100  ) 0%, var(--dark400) 100%);
     cursor: pointer;
 }
 
 .pb-closed-container:hover {
-    background: linear-gradient(329deg, var(--dark400) 0%, var(--dark300) 100%);
+    background: linear-gradient(270deg, var(--dark300) 0%, var(--dark400) 100%);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px;
+    
+    border: 6px solid #ffffff;
 }
 
 .pb-opened-container {

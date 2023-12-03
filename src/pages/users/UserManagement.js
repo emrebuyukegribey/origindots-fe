@@ -67,7 +67,7 @@ function UserManagement(props) {
         type: type,
         content: content,
       });
-    }, 300);
+    }, 500);
   };
 
   const openErrorNotification = (type, message, description) => {
@@ -76,7 +76,7 @@ function UserManagement(props) {
         message: message,
         description: description,
       });
-    }, 300);
+    }, 500);
   };
 
   const showUserInformations = (user) => {
@@ -101,7 +101,10 @@ function UserManagement(props) {
       const response = await inviteUser(user);
       if (response.status === 200) {
         navigate("/user-management");
-        showMessage("success", props.t("Created new user"));
+        showMessage(
+          "success",
+          props.t(user.id ? "Updated user" : "Created new user")
+        );
         setShowNewUserForm(false);
       } else {
         openErrorNotification(
@@ -133,7 +136,7 @@ function UserManagement(props) {
       setLoading(true);
       const response = await deleteUser(user.id);
       if (response.status === 200) {
-        showMessage("error", props.t("Deleting the user error"));
+        showMessage("error", props.t("Deleted user"));
       } else {
         openErrorNotification(
           "error",
