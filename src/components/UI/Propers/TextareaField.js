@@ -3,6 +3,7 @@ import "./TextareaField.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
+import { BsTextareaResize } from "react-icons/bs";
 
 const { TextArea } = Input;
 function TextareaField({ proper, deleteProper, editProper, t }) {
@@ -14,7 +15,9 @@ function TextareaField({ proper, deleteProper, editProper, t }) {
       <div className="textarea-field-container">
         <div className="textarea-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="textarea-field-icon">{proper.icon}</div>
+            <div className="textarea-field-icon">
+              {proper.icon ? proper.icon : <BsTextareaResize />}
+            </div>
             <span className="textarea-field-title">
               {t(proper.title)}
               {proper.isRequired && (

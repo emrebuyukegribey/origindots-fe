@@ -5,6 +5,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
 import { AiOutlineEye } from "react-icons/ai";
+import { MdOutlineRadioButtonChecked } from "react-icons/md";
 
 function SingleSelectField({
   proper,
@@ -54,7 +55,9 @@ function SingleSelectField({
       <div className="single-select-field-container">
         <div className="single-select-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="single-select-field-icon">{proper.icon}</div>
+            <div className="single-select-field-icon">
+              {proper.icon ? proper.icon : <MdOutlineRadioButtonChecked />}
+            </div>
             <span className="single-select-field-title">
               {t(proper.title)}
               {proper.isRequired && (

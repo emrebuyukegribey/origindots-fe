@@ -1,0 +1,91 @@
+@import "../../variables.css";
+
+.process-card-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -15px;
+    padding-bottom: 15px;
+
+    
+}
+
+.process-card-divider {
+    width: 100%;
+    border-bottom: 1px solid var(--grey300);
+    margin: 15px 0px 15px 0px;
+}
+
+.process-card-tree-container {
+
+    .ant-tree .ant-tree-node-content-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--dark200);
+        font-size: 15px;
+        margin-bottom: 3px;
+        font-weight: 500;
+        padding: 5px 10px 5px 0px;
+        /* border: 1px solid var(--grey300) !important; */
+        border:none !important;
+        letter-spacing: 0.5px;
+        border-radius: 5px;
+    }
+    
+    .ant-tree-iconEle {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 3px;
+        font-size: 20px;
+        margin-right: 7px;
+    }
+    
+    .ant-tree-iconEle svg {
+       font-size: 50px;
+    }
+    
+    .ant-tree-switcher {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.process-card-open-tree {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 15px 20px 15px; 
+    font-size: 16px;
+    color: var(--dark200);
+    border: 1px solid var(--dark200);
+    width: 100px;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.process-card-open-tree:hover {
+    background-color: var(--dark200);
+    color: #fff;
+}
+
+.process-card-close-tree {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 15px 20px 15px; 
+    font-size: 16px;
+    color: var(--red200);
+    border: 1px solid var(--red200);
+    width: 100px;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.process-card-close-tree:hover {
+    background-color: var(--red200);
+    color: #fff;
+}

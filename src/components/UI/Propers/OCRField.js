@@ -13,7 +13,9 @@ function OCRField({ proper, deleteProper, editProper, t }) {
       <div className="ocr-field-container">
         <div className="ocr-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="ocr-field-icon">{proper.icon}</div>
+            <div className="ocr-field-icon">
+              {proper.icon ? proper.icon : <IoMdQrScanner />}
+            </div>
             <span className="ocr-field-title">
               {t(proper.title)}
               {proper.isRequired && (

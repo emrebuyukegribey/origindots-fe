@@ -1,6 +1,10 @@
 import { QRCode } from "antd";
 import "./QRField.css";
-import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiOutlineQrcode,
+  AiOutlineUpload,
+} from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
@@ -13,7 +17,9 @@ function QRField({ proper, deleteProper, editProper, t }) {
       <div className="qr-field-container">
         <div className="qr-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="qr-field-icon">{proper.icon}</div>
+            <div className="qr-field-icon">
+              {proper.icon ? proper.icon : <AiOutlineQrcode />}
+            </div>
             <span className="qr-field-title">
               {t(proper.title)}
               {proper.isRequired && (

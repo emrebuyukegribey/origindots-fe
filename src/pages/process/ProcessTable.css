@@ -1,0 +1,117 @@
+@import "../../variables.css";
+
+.process-table-container {
+    width: 100%;
+    min-width: 1000px;
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+
+.process-table-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--dark200);
+    font-size: 36px;
+    color: #fff;
+}
+
+.process-table-action-show {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--dark200);
+    margin-right: 10px;
+}
+
+.process-table-action-show-link {
+    color: var(--dark200)
+}
+
+.process-table-action-show:hover {
+    background-color: var(--dark200);
+}
+
+.process-table-action-show:hover .process-table-action-show-link{
+    color: #fff;
+}
+
+.process-table-action-edit {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--orange200);
+    margin-right: 10px;
+}
+
+.process-table-action-edit-link {
+    color: var(--orange200)
+}
+
+.process-table-action-edit:hover {
+    background-color: var(--orange200);
+}
+
+.process-table-action-edit:hover .process-table-action-edit-link {
+    color: #fff;
+}
+
+.process-table-action-delete {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--red100);
+    margin-right: 10px;
+}
+
+.process-table-action-delete-link {
+    color: var(--red100)
+}
+
+.process-table-action-delete:hover {
+    background-color: var(--red100);
+}
+
+.process-table-action-delete:hover .process-table-action-delete-link {
+    color: #fff;
+}
+
+.process-table-action-duplicate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 5px;
+    
+    background-color: var(--red200);
+    margin-left: 50px;
+}
+
+.process-table-action-duplicate-link {
+    color: #fff;
+}
+
+.process-table-action-duplicate:hover {
+    background-color: var(--red300);
+}
+
+.process-table-action-duplicate:hover .process-table-action-duplicate-link {
+    color: #fff;
+}
+
+.ant-table-content {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px;
+}
+
+.ant-table-thead .ant-table-cell {
+    
+    color: var(--blue100) !important;
+   
+    font-weight: 600;
+}
+
+.ant-table-thead .ant-table-cell::before {
+    display: none !important;
+}
+

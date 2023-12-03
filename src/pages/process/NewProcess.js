@@ -14,6 +14,7 @@ import ProcessIcons from "../../components/Process/ProcessIcons";
 import Preview from "../../components/Preview/Preview";
 import { withTranslation } from "react-i18next";
 import Publish from "../../components/Publish/Publish";
+import CircleLoading from "../../components/UI/Loading/LoadingBar";
 
 const steps = [
   {
@@ -31,6 +32,8 @@ const steps = [
 ];
 
 function NewProcess(props) {
+  const [loading, setLoading] = useState(false);
+
   const [processName, setProcessName] = useState();
   const [processType, setProcessType] = useState();
   const [processIcon, setProcessIcon] = useState();
@@ -42,6 +45,7 @@ function NewProcess(props) {
   const [properValueList, setProperValueList] = useState([]);
   const [selectedProper, setSelectedProper] = useState({});
   const [openDesktopPreview, setOpenDesktopPreview] = useState(false);
+  const [duplicate, setDuplicate] = useState(false);
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
     useContext(MainContext);
@@ -50,6 +54,29 @@ function NewProcess(props) {
     key: item.title,
     title: props.t(item.title),
   }));
+
+  useEffect(() => {
+    if (localStorage.getItem("properList")) {
+      const duplicateProperList = JSON.parse(
+        localStorage.getItem("properList") || []
+      );
+      setProperList(duplicateProperList);
+      localStorage.removeItem("properList");
+    }
+    if (localStorage.getItem("properValueList")) {
+      const duplicateProperValueList = JSON.parse(
+        localStorage.getItem("properValueList") || []
+      );
+      setProperValueList(duplicateProperValueList);
+      localStorage.removeItem("properValueList");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("duplicate")) {
+      setDuplicate(true);
+    }
+  }, []);
 
   useEffect(() => {
     setProcessName(
@@ -352,6 +379,10 @@ function NewProcess(props) {
     setOpenProperty(false);
   };
 
+  if (loading) {
+    return <CircleLoading />;
+  }
+
   return (
     <>
       <Navbar />
@@ -402,11 +433,19 @@ function NewProcess(props) {
                 <div>
                   <Publish
                     properList={properList}
+                    setProperList={setProperList}
                     properValueList={properValueList}
+                    setProperValueList={setProperValueList}
                     processName={processName}
+                    setProcessName={setProcessName}
                     processType={processType}
+                    setProcessType={setProcessType}
                     processIcon={processIcon}
+                    setProcessIcon={setProcessIcon}
                     previosStep={prev}
+                    setCurrentStep={setCurrentStep}
+                    setLoading={setLoading}
+                    duplicate={duplicate}
                     t={props.t}
                   />
                 </div>

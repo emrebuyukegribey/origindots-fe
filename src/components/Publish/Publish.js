@@ -1,12 +1,19 @@
-import { Tree } from "antd";
+import { Tree, message, notification } from "antd";
 import "./Publish.css";
 import { PiNoteBlankLight } from "react-icons/pi";
 import ProcessIcons from "../Process/ProcessIcons";
-import { processStore } from "../../services/http";
+import { processDuplicate, processStore } from "../../services/http";
 import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
 import BackButtonBorder from "../UI/Buttons/BackButtonBorder";
+import { useNavigate } from "react-router-dom";
 
 function Publish(props) {
+  const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
+
+  const [notificationApi, notificationContextHolder] =
+    notification.useNotification();
+
   const combineLists = () => {
     const { properList, properValueList } = props;
     const allList = [];
@@ -52,19 +59,6 @@ function Publish(props) {
     }
   }
 
-  /*
-  function removeEmptyChildren(obj) {
-    for (const prop in obj) {
-      if (obj[prop] !== null && typeof obj[prop] === "object") {
-        removeEmptyChildren(obj[prop]);
-        if (Array.isArray(obj[prop]) && obj[prop].length === 0) {
-          delete obj[prop];
-        }
-      }
-    }
-  }
-  */
-
   function removeEmptyChildren(obj) {
     for (const prop in obj) {
       if (
@@ -106,7 +100,25 @@ function Publish(props) {
     return roots;
   }
 
-  const onSubmit = () => {
+  const showMessage = (type, content) => {
+    setTimeout(() => {
+      messageApi.open({
+        type: type,
+        content: content,
+      });
+    }, 300);
+  };
+
+  const openErrorNotification = (type, message, description) => {
+    setTimeout(() => {
+      notificationApi[type]({
+        message: message,
+        description: description,
+      });
+    }, 300);
+  };
+
+  const onSubmit = async () => {
     const process = {
       name: props.processName,
       type: props.processType,
@@ -117,40 +129,89 @@ function Publish(props) {
       properList: props.properList,
       properValueList: props.properValueList,
     };
-    processStore(body);
+    try {
+      props.setCurrentStep(0);
+      props.setLoading(true);
+      let response;
+      if (localStorage.getItem("duplicate")) {
+        response = await processDuplicate(body);
+        localStorage.removeItem("duplicate");
+      } else {
+        response = await processStore(body);
+      }
+
+      if (response.status === 200) {
+        props.setProcessName("");
+        props.setProcessType("STATIC_LOCATION");
+        props.setProcessIcon(1);
+        props.setProperList([]);
+        props.setProperValueList([]);
+        props.setCurrentStep(0);
+        clearProcessInformationOnStorage();
+        navigate("/process-management");
+        showMessage("success", props.t("Created new process"));
+      } else {
+        openErrorNotification(
+          "error",
+          props.t("Creating new process error"),
+          response.data?.message
+        );
+      }
+    } catch (err) {
+      console.log("err : ", err);
+      openErrorNotification(
+        "error",
+        props.t("Creating new process error"),
+        err.response.data?.message
+      );
+    } finally {
+      props.setLoading(false);
+    }
+  };
+
+  const clearProcessInformationOnStorage = () => {
+    localStorage.removeItem("processName");
+    localStorage.removeItem("processType");
+    localStorage.removeItem("processIcon");
   };
 
   const treeData = createTree();
+  console.log("tree data : ", treeData);
+
   return (
-    <div className="publish-container">
-      <h3>{props.t("PUBLISH")}</h3>
-      <div className="publish-divider" />
-      <div className="publish-body">
-        <div className="publish-process-container">
-          <div className="publish-process-icon">
-            {props.processIcon &&
-              ProcessIcons.filter(
-                (icon) => icon.id.toString() === props.processIcon
-              )[0].icon}
+    <>
+      {contextHolder}
+      {notificationContextHolder}
+      <div className="publish-container">
+        <h3>{props.t("PUBLISH")}</h3>
+        <div className="publish-divider" />
+        <div className="publish-body">
+          <div className="publish-process-container">
+            <div className="publish-process-icon">
+              {props.processIcon &&
+                ProcessIcons.filter(
+                  (icon) => icon.id.toString() === props.processIcon
+                )[0].icon}
+            </div>
+            <div className="publish-process-name">
+              {props.processName} -{" "}
+              {props.processType === "STATIC_LOCATION"
+                ? props.t("Static Location")
+                : props.t("Dynamic Location")}
+            </div>
           </div>
-          <div className="publish-process-name">
-            {props.processName} -{" "}
-            {props.processType === "STATIC_LOCATION"
-              ? props.t("Static Location")
-              : props.t("Dynamic Location")}
-          </div>
+          <div className="publish-divider" />
+          <Tree showIcon={true} treeData={treeData} />
         </div>
         <div className="publish-divider" />
-        <Tree showIcon={true} treeData={treeData} />
-      </div>
-      <div className="publish-divider" />
-      <div className="publish-button-container" onClick={props.previosStep}>
-        <BackButtonBorder onClick={props.previosStep} text="Previos" />
-        <div>
-          <DarkButtonBorder onClick={onSubmit} text={props.t("Publish")} />
+        <div className="publish-button-container" onClick={props.previosStep}>
+          <BackButtonBorder onClick={props.previosStep} text="Previos" />
+          <div>
+            <DarkButtonBorder onClick={onSubmit} text={props.t("Publish")} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

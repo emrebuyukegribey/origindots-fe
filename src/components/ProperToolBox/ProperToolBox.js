@@ -20,7 +20,7 @@ function ProperToolBox(props) {
           onClick={() => setOpenProcessBar(true)}
         >
           <div className="pb-open-button-text">{props.t("Add Property")}</div>
-          <AiOutlinePlus size={30} color="#fff" />
+          {/*<AiOutlinePlus size={30} color="#fff" />*/}
         </div>
       ) : (
         <div>

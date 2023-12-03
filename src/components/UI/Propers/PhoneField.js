@@ -1,10 +1,11 @@
 import { InputNumber } from "antd";
 import "./PhoneField.css";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlinePhone } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
 function PhoneField({ proper, deleteProper, editProper, t }) {
+  console.log("proper : ", proper);
   return (
     <div className="phone-field-outer-container">
       <div className="phone-field-drag-icon-container">
@@ -13,7 +14,9 @@ function PhoneField({ proper, deleteProper, editProper, t }) {
       <div className="phone-field-container">
         <div className="phone-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="phone-field-icon">{proper.icon}</div>
+            <div className="phone-field-icon">
+              {proper.icon ? proper.icon : <AiOutlinePhone />}
+            </div>
             <span className="phone-field-title">
               {t(proper.title)}
               {proper.isRequired && (

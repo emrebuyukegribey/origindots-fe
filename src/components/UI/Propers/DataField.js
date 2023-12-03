@@ -3,6 +3,7 @@ import "./DataField.css";
 import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
+import { BsDatabaseAdd } from "react-icons/bs";
 
 function DataField({ proper, deleteProper, editProper, t }) {
   return (
@@ -13,7 +14,9 @@ function DataField({ proper, deleteProper, editProper, t }) {
       <div className="data-field-container">
         <div className="data-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="data-field-icon">{proper.icon}</div>
+            <div className="data-field-icon">
+              {proper.icon ? proper.icon : <BsDatabaseAdd />}
+            </div>
             <span className="data-field-title">
               {t(proper.title)}
               {proper.isRequired && (

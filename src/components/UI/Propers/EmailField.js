@@ -3,6 +3,7 @@ import "./EmailField.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
+import { MdAlternateEmail } from "react-icons/md";
 
 function EmailField({ proper, deleteProper, editProper, t }) {
   return (
@@ -13,7 +14,9 @@ function EmailField({ proper, deleteProper, editProper, t }) {
       <div className="email-field-container">
         <div className="email-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="email-field-icon">{proper.icon}</div>
+            <div className="email-field-icon">
+              {proper.icon ? proper.icon : <MdAlternateEmail />}
+            </div>
             <span className="email-field-title">
               {t(proper.title)}
               {proper.isRequired && (

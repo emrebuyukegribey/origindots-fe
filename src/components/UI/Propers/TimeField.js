@@ -3,6 +3,7 @@ import "./TimeField.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
+import { IoMdTimer } from "react-icons/io";
 
 function TimeField({ proper, deleteProper, editProper, t }) {
   return (
@@ -13,7 +14,9 @@ function TimeField({ proper, deleteProper, editProper, t }) {
       <div className="time-field-container">
         <div className="time-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="time-field-icon">{proper.icon}</div>
+            <div className="time-field-icon">
+              {proper.icon ? proper.icon : <IoMdTimer />}
+            </div>
             <span className="time-field-title">
               {t(proper.title)}
               {proper.isRequired && (

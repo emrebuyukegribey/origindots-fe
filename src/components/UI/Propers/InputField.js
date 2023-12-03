@@ -3,6 +3,7 @@ import "./InputField.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
+import { BsCursorText } from "react-icons/bs";
 
 function InputField({ proper, deleteProper, editProper, t }) {
   return (
@@ -13,7 +14,9 @@ function InputField({ proper, deleteProper, editProper, t }) {
       <div className="input-field-container">
         <div className="input-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="input-field-icon">{proper.icon}</div>
+            <div className="input-field-icon">
+              {proper.icon ? proper.icon : <BsCursorText />}
+            </div>
             <span className="input-field-title">
               {t(proper.title)}
               {proper.isRequired && (

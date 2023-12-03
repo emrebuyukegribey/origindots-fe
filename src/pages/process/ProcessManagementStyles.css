@@ -20,6 +20,12 @@
     justify-content: flex-start;
 }
 
+.process-management-divider {
+    width: 100%;
+    border-bottom: 1px solid var(--grey300);
+    margin: 15px 0px 15px 0px;
+}
+
 .process-management-header-menu-item {
     display: flex;
     flex-direction: row;
@@ -116,11 +122,28 @@ a {
     height: 35px;
     border-radius: 3px;
     padding-left: 10px;
-    
-    
 }
 
 .pm-search-input:focus   {
     outline: none;
     border: 1px solid #ff9b40;
 }
+
+.process-management-show-process-item {
+    margin: 10px
+}
+
+.process-management-show-process-item-label {
+    font-size: 16px;
+    color: var(--dark200);
+    font-weight: 500;
+    font-family: "Nunito", sans-serif;
+}
+
+.process-management-show-process-item-content {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark100);
+    font-family: "Nunito", sans-serif;
+}
+

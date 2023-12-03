@@ -1,7 +1,7 @@
 import { Input } from "antd";
 import "./HeaderField.css";
 import { AiOutlineClose } from "react-icons/ai";
-import { BiEditAlt } from "react-icons/bi";
+import { BiEditAlt, BiHeading } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
 function HeaderField({ proper, deleteProper, editProper, t }) {
@@ -13,7 +13,9 @@ function HeaderField({ proper, deleteProper, editProper, t }) {
       <div className="header-field-container">
         <div className="header-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="header-field-icon">{proper.icon}</div>
+            <div className="header-field-icon">
+              {proper.icon ? proper.icon : <BiHeading />}
+            </div>
             <span className="header-field-title">{t(proper.title)}</span>
           </div>
           <div className="header-field-icons-container">

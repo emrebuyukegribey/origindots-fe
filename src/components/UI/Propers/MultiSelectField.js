@@ -1,7 +1,7 @@
 import { Checkbox } from "antd";
 import "./MultiSelectField.css";
 import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
-import { BiEditAlt } from "react-icons/bi";
+import { BiEditAlt, BiSelectMultiple } from "react-icons/bi";
 import { RiDraggable, RiMenu2Fill } from "react-icons/ri";
 
 function MultiSelectField({
@@ -53,7 +53,9 @@ function MultiSelectField({
       <div className="multi-select-field-container">
         <div className="multi-select-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="multi-select-field-icon">{proper.icon}</div>
+            <div className="multi-select-field-icon">
+              {proper.icon ? proper.icon : <BiSelectMultiple />}
+            </div>
             <span className="multi-select-field-title">
               {t(proper.title)}
               {proper.isRequired && (

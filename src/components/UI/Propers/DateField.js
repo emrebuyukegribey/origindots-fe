@@ -3,6 +3,7 @@ import "./DateField.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
+import { MdOutlineDateRange } from "react-icons/md";
 
 function DateField({ proper, deleteProper, editProper, t }) {
   return (
@@ -13,7 +14,9 @@ function DateField({ proper, deleteProper, editProper, t }) {
       <div className="date-field-container">
         <div className="date-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="date-field-icon">{proper.icon}</div>
+            <div className="date-field-icon">
+              {proper.icon ? proper.icon : <MdOutlineDateRange />}
+            </div>
             <span className="date-field-title">
               {t(proper.title)}
               {proper.isRequired && (

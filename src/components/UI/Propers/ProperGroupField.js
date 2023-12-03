@@ -1,5 +1,5 @@
 import "./InputField.css";
-import { BiEditAlt } from "react-icons/bi";
+import { BiCodeCurly, BiEditAlt } from "react-icons/bi";
 import "./ProperGroupField.css";
 import { RiDraggable } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
@@ -17,7 +17,9 @@ function ProperGroupField({ proper, deleteProper, editProper, properList, t }) {
       <div className="photo-field-container">
         <div className="photo-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="photo-field-icon">{proper.icon}</div>
+            <div className="photo-field-icon">
+              {proper.icon ? proper.icon : <BiCodeCurly />}
+            </div>
             <span className="photo-field-title">
               {t(proper.title)}
               {proper.isRequired && (

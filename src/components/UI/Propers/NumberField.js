@@ -3,6 +3,7 @@ import "./NumberField.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
+import { GoNumber } from "react-icons/go";
 
 function NumberField({ proper, deleteProper, editProper, t }) {
   return (
@@ -13,7 +14,9 @@ function NumberField({ proper, deleteProper, editProper, t }) {
       <div className="number-field-container">
         <div className="number-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="number-field-icon">{proper.icon}</div>
+            <div className="number-field-icon">
+              {proper.icon ? proper.icon : <GoNumber />}
+            </div>
             <span className="number-field-title">
               {t(proper.title)}
               {proper.isRequired && (

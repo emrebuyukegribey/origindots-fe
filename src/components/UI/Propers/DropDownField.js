@@ -5,6 +5,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 import { MainContext, useContext } from "../../../context";
 import { AiOutlineEye } from "react-icons/ai";
+import { GoMultiSelect } from "react-icons/go";
 
 function DropDownField({
   proper,
@@ -55,7 +56,9 @@ function DropDownField({
       <div className="drop-down-field-container">
         <div className="drop-down-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="drop-down-field-icon">{proper.icon}</div>
+            <div className="drop-down-field-icon">
+              {proper.icon ? proper.icon : <GoMultiSelect />}
+            </div>
             <span className="drop-down-field-title">
               {t(proper.title)}
               {proper.isRequired && (

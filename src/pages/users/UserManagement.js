@@ -51,9 +51,7 @@ function UserManagement(props) {
 
   const getAllUsers = async () => {
     setLoading(true);
-    const token = localStorage.getItem("token");
-    const user = jwtDecode(token);
-    const usersByOwner = await getAllUsersByOwnerUser(user.sub);
+    const usersByOwner = await getAllUsersByOwnerUser();
     setUsers(usersByOwner.data);
     setSearchedUsers(usersByOwner.data);
     setLoading(false);
