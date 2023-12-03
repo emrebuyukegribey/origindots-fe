@@ -34,6 +34,7 @@
     border-radius: 50%;
     border: 5px solid #ffffff;
     background: linear-gradient(329deg, var(--dark100) 0%, var(--dark400) 100%);
+    cursor: pointer;
 }
 
 .pb-closed-container:hover {
@@ -47,7 +48,7 @@
     padding: 5px 0px 15px 0px;
     width: 270px;
     margin-left: 0px;
-    transition: width 0.5s;
+    transition: all 0.5s;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px;
     margin-bottom: 50px;
     border-radius: 10px;
