@@ -2,7 +2,11 @@ import { Tree, message, notification } from "antd";
 import "./Publish.css";
 import { PiNoteBlankLight } from "react-icons/pi";
 import ProcessIcons from "../Process/ProcessIcons";
-import { processDuplicate, processStore } from "../../services/http";
+import {
+  processDuplicate,
+  processStore,
+  processUpdate,
+} from "../../services/http";
 import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
 import BackButtonBorder from "../UI/Buttons/BackButtonBorder";
 import { useNavigate } from "react-router-dom";
@@ -120,6 +124,7 @@ function Publish(props) {
 
   const onSubmit = async () => {
     const process = {
+      id: props.processId,
       name: props.processName,
       type: props.processType,
       icon: props.processIcon,
@@ -136,6 +141,9 @@ function Publish(props) {
       if (localStorage.getItem("duplicate")) {
         response = await processDuplicate(body);
         localStorage.removeItem("duplicate");
+      } else if (localStorage.getItem("update")) {
+        response = await processUpdate(body);
+        localStorage.removeItem("update");
       } else {
         response = await processStore(body);
       }

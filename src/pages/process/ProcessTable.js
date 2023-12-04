@@ -72,7 +72,7 @@ function ProcessTable(props) {
               <div className="process-table-action-edit ">
                 <a
                   className="process-table-action-edit-link"
-                  //onClick={() => props.showUserEdit(record)}
+                  onClick={() => props.updateProcess(record)}
                 >
                   {props.t("Edit")}
                 </a>

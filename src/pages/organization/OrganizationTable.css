@@ -1,0 +1,103 @@
+@import "../../variables.css";
+
+.organization-table-container {
+    width: 100%;
+    min-width: 750px;
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+
+.organization-table-action-invite {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--dark200);
+    margin-right: 10px;
+}
+
+.organization-table-action-invite-link {
+    color: var(--dark200)
+}
+
+.organization-table-action-invite:hover {
+    background-color: var(--dark200);
+}
+
+.organization-table-action-invite:hover .organization-table-action-invite-link{
+    color: #fff;
+}
+
+.organization-table-action-edit {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--orange200);
+    margin-right: 10px;
+}
+
+.organization-table-action-edit-link {
+    color: var(--orange200)
+}
+
+.organization-table-action-edit:hover {
+    background-color: var(--orange200);
+}
+
+.organization-table-action-edit:hover .organization-table-action-edit-link {
+    color: #fff;
+}
+
+.organization-table-action-delete {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--red100);
+}
+
+.organization-table-action-delete-link {
+    color: var(--red100)
+}
+
+.organization-table-action-delete:hover {
+    background-color: var(--red100);
+}
+
+.organization-table-action-delete:hover .user-table-action-delete-link {
+    color: #fff;
+}
+
+.organization-table-action-addUser {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 5px;
+    background-color: var(--red200);
+    margin-left: 50px;
+}
+
+.organization-table-action-addUser-link {
+    color: #fff;
+}
+
+.organization-table-action-addUser:hover {
+    background-color: var(--red300);
+}
+
+.organization-table-action-addUser:hover .organization-table-action-addUser-link {
+    color: #fff;
+}
+
+.ant-table-thead .ant-table-cell {
+    
+    color: var(--dark200) !important;
+   
+    font-weight: 600;
+}
+
+.ant-table-thead .ant-table-cell::before {
+    display: none !important;
+}
+
+.user-table-isActive-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

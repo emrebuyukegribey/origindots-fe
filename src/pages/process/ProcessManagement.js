@@ -70,6 +70,15 @@ function ProcessManagement(props) {
     getAllProcess();
   }, []);
 
+  useEffect(() => {
+    if (localStorage.getItem("duplicate")) {
+      localStorage.removeItem("duplicate");
+    }
+    if (localStorage.getItem("update")) {
+      localStorage.removeItem("update");
+    }
+  }, []);
+
   const showProcessInformations = async (process) => {
     setProcess(process);
     try {
@@ -156,6 +165,42 @@ function ProcessManagement(props) {
     return properValueUniqueId;
   };
 
+  const updateProcess = async (process) => {
+    try {
+      setLoading(true);
+      localStorage.setItem("update", "true");
+      localStorage.setItem("processId", process.id);
+      localStorage.setItem("processName", process.name);
+      localStorage.setItem("processType", process.type);
+      localStorage.setItem("processIcon", process.icon);
+      const response = await getProcessWithAllAtributes(process.id);
+      if (response.status === 200) {
+        if (response.data?.properList && response.data?.properList.length > 0) {
+          localStorage.setItem(
+            "properList",
+            JSON.stringify(response.data.properList)
+          );
+        }
+        if (
+          response.data?.properValueList &&
+          response.data?.properValueList.length > 0
+        ) {
+          localStorage.setItem(
+            "properValueList",
+            JSON.stringify(response.data.properValueList)
+          );
+        }
+        setTimeout(() => {
+          openNewProcess();
+        }, 200);
+      }
+    } catch (err) {
+      console.log("err : ", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const duplicateProcess = async (process) => {
     try {
       setLoading(true);
@@ -227,6 +272,7 @@ function ProcessManagement(props) {
               allProcess={allProcess}
               showProcessInformations={showProcessInformations}
               deleteProcess={deleteProcessWarning}
+              updateProcess={updateProcess}
               duplicateProcess={duplicateProcess}
               t={props.t}
             />

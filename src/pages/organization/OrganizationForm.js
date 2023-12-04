@@ -3,6 +3,7 @@ import SubmitButtonBorder from "../../components/UI/Buttons/SubmitButtonBorder";
 import CancelButtonBorder from "../../components/UI/Buttons/CancelButtonBorder";
 
 import "./OrganizationForm.css";
+import { useEffect, useState } from "react";
 
 function OrganizationForm(props) {
   const [form] = Form.useForm();
@@ -17,42 +18,22 @@ function OrganizationForm(props) {
       id: props.organization.id ? props.organization.id : null,
       name: values.name,
       description: values.description,
+      parentId: values.parentId,
       organizationUser: [],
       organizationProcess: [],
     };
     props.submit(body);
   };
 
-  const handleChange = (value: string[]) => {
-    console.log(`selected ${value}`);
-  };
+  const options =
+    props.organizations.map((org) => ({
+      label: org.name,
+      value: org.id,
+    })) || [];
 
-  const options = [
-    {
-      label: "China",
-      value: "china",
-      emoji: "🇨🇳",
-      desc: "China (中国)",
-    },
-    {
-      label: "USA",
-      value: "usa",
-      emoji: "🇺🇸",
-      desc: "USA (美国)",
-    },
-    {
-      label: "Japan",
-      value: "japan",
-      emoji: "🇯🇵",
-      desc: "Japan (日本)",
-    },
-    {
-      label: "Korea",
-      value: "korea",
-      emoji: "🇰🇷",
-      desc: "Korea (韩国)",
-    },
-  ];
+  useEffect(() => {
+    props.setNavbarHeaderText("Organization Management > New Organization");
+  });
 
   return (
     <>
@@ -65,27 +46,19 @@ function OrganizationForm(props) {
       <Form form={form} name="new-organization" onFinish={onFinish}>
         <Form.Item
           label={props.t("Select Parent Organization")}
-          name="Parent Organization"
+          name="parentId"
           value={props.organization.name ? props.organization.name : ""}
           {...formItemLayout}
           className="new-user-label"
         >
           <Select
             size="large"
-            mode="multiple"
+            mode="single"
             style={{ width: "100%" }}
-            placeholder="select one country"
-            onChange={handleChange}
+            placeholder="Please select parent organization"
             optionLabelProp="label"
             options={options}
-            optionRender={(option) => (
-              <Space>
-                <span role="img" aria-label={option.data.label}>
-                  {option.data.emoji}
-                </span>
-                {option.data.desc}
-              </Space>
-            )}
+            optionRender={(option) => <Space>{option.data.desc}</Space>}
           />
         </Form.Item>
         <Form.Item

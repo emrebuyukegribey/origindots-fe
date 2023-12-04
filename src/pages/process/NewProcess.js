@@ -34,6 +34,7 @@ const steps = [
 function NewProcess(props) {
   const [loading, setLoading] = useState(false);
 
+  const [processId, setProcessId] = useState();
   const [processName, setProcessName] = useState();
   const [processType, setProcessType] = useState();
   const [processIcon, setProcessIcon] = useState();
@@ -79,6 +80,12 @@ function NewProcess(props) {
   }, []);
 
   useEffect(() => {
+    setProcessId(
+      localStorage.getItem("processId") ? localStorage.getItem("processId") : ""
+    );
+
+    console.log("processId 1 : ", processId);
+
     setProcessName(
       localStorage.getItem("processName")
         ? localStorage.getItem("processName")
@@ -431,11 +438,13 @@ function NewProcess(props) {
               )}
               {currentStep === 2 && (
                 <div>
+                  {console.log("processId 2 : ", processId)}
                   <Publish
                     properList={properList}
                     setProperList={setProperList}
                     properValueList={properValueList}
                     setProperValueList={setProperValueList}
+                    processId={processId}
                     processName={processName}
                     setProcessName={setProcessName}
                     processType={processType}

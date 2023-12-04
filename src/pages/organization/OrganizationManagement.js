@@ -8,14 +8,17 @@ import { useState } from "react";
 import { Modal, message, notification } from "antd";
 import OrganizationForm from "./OrganizationForm";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
-import { storeOrganization } from "../../services/http";
+import {
+  getAllOrganizationsByOwner,
+  storeOrganization,
+} from "../../services/http";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import OrganizationTable from "./OrganizationTable";
+import { useEffect } from "react";
 
 function OrganizationManagement(props) {
   const { activeLeftBar, loginUser, token } = useContext(MainContext);
-  console.log("token : ", token);
-  console.log("login User : ", loginUser);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -26,6 +29,13 @@ function OrganizationManagement(props) {
   const [showOrganizationForm, setShowOrganizationForm] = useState(false);
   const [organization, setOrganization] = useState({});
   const [organizations, setOrganizations] = useState([]);
+
+  const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [organizationUsers, setOrganizationUsers] = useState([]);
+
+  const cancelShowAddUserModal = () => {
+    setShowAddUserModal(false);
+  };
 
   const newOrganizationCreate = () => {
     setShowOrganizationForm(true);
@@ -55,13 +65,11 @@ function OrganizationManagement(props) {
 
   const getAllOrganizations = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const user = jwtDecode(token);
-      const response = await getAllOrganizations(user.sub);
+      const response = await getAllOrganizationsByOwner();
       if (response.status === 200) {
-        navigate("/organization-management");
-        showMessage("success", props.t("Created new organization"));
+        // navigate("/organization-management");
         setShowOrganizationForm(false);
+        setOrganizations(response.data);
       } else {
         openErrorNotification(
           "error",
@@ -74,6 +82,19 @@ function OrganizationManagement(props) {
     }
   };
 
+  useEffect(() => {
+    getAllOrganizations();
+  }, []);
+
+  const addUserOnOrganizaiton = () => {
+    console.log("organization : ", organization);
+    console.log("addUserOnOrganizaiton");
+  };
+
+  const openAddUserOnOrganization = () => {
+    setShowAddUserModal(true);
+  };
+
   const submitOrganization = async (organization) => {
     setLoading(true);
     setOrganization({});
@@ -83,6 +104,7 @@ function OrganizationManagement(props) {
         navigate("/organization-management");
         showMessage("success", props.t("Created new organization"));
         setShowOrganizationForm(false);
+        getAllOrganizations();
       } else {
         openErrorNotification(
           "error",
@@ -142,17 +164,37 @@ function OrganizationManagement(props) {
               style={{ marginLeft: "50px" }}
             >
               <OrganizationForm
-                t={props.t}
+                setNavbarHeaderText={props.setNavbarHeaderText}
                 submit={submitOrganization}
                 cancel={cancelOrganizationForm}
+                organizations={organizations}
                 organization={organization}
+                t={props.t}
               />
             </div>
           ) : (
-            <></>
+            <div style={{ marginLeft: "50px" }}>
+              <OrganizationTable
+                setNavbarHeaderText={props.setNavbarHeaderText}
+                organizations={organizations}
+                openAddUserOnOrganization={openAddUserOnOrganization}
+                t={props.t}
+              />
+            </div>
           )}
         </div>
       </div>
+      <Modal
+        title={props.t("Add User on Organization")}
+        open={showAddUserModal}
+        onOk={addUserOnOrganizaiton}
+        onCancel={cancelShowAddUserModal}
+      >
+        <div>
+          <div className="user-management-divider" />
+          <div>Add User</div>
+        </div>
+      </Modal>
     </>
   );
 }

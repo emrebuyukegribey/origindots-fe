@@ -34,7 +34,7 @@
     margin-top: 70px;
     border-radius: 50%;
     border: 5px solid #ffffff;
-    background: linear-gradient(135deg, var(--dark100  ) 0%, var(--dark400) 100%);
+    background: linear-gradient(180deg, var(--dark100  ) 0%, var(--dark300) 100%);
     cursor: pointer;
 }
 

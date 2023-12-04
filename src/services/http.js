@@ -21,6 +21,10 @@ export function processStore(body) {
   return axios.post(`${BASE_URL}/process`, body, headerConfig);
 }
 
+export function processUpdate(body) {
+  return axios.put(`${BASE_URL}/process`, body, headerConfig);
+}
+
 export function processDuplicate(body) {
   return axios.post(`${BASE_URL}/process/duplicate`, body, headerConfig);
 }
@@ -63,5 +67,5 @@ export function storeOrganization(body) {
 }
 
 export function getAllOrganizationsByOwner() {
-  return axios.get(`${BASE_URL}/users/owner`, headerConfig);
+  return axios.get(`${BASE_URL}/organizations/owner`, headerConfig);
 }
