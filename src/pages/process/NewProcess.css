@@ -133,8 +133,8 @@ h3 {
 }
 
 .ant-steps .ant-steps-item-finish .ant-steps-item-icon {
-    background-color: var(--red100);
-    border-color: var(--red100);
+    background-color: var(--dark100);
+    border-color: var(--dark100);
 }
 
 .ant-steps-icon {
@@ -142,13 +142,13 @@ h3 {
 }
 
 .ant-steps .ant-steps-item-wait .ant-steps-item-icon {
-    background-color: var(--red400);
-    border-color: var(--red400);
+    background-color: var(--dark400);
+    border-color: var(--dark400);
 }
 
 .ant-steps .ant-steps-item-process .ant-steps-item-icon {
-    background-color: var(--red300);
-    border-color: var(--red300);
+    background-color: var(--dark200);
+    border-color: var(--dark200);
 }
 
 .ant-steps .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {

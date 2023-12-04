@@ -71,6 +71,10 @@ function ProcessManagement(props) {
   }, []);
 
   useEffect(() => {
+    localStorage.removeItem("processId");
+    localStorage.removeItem("processName");
+    localStorage.removeItem("processType");
+    localStorage.removeItem("processIcon");
     if (localStorage.getItem("duplicate")) {
       localStorage.removeItem("duplicate");
     }
