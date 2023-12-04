@@ -147,8 +147,8 @@ h3 {
 }
 
 .ant-steps .ant-steps-item-process .ant-steps-item-icon {
-    background-color: var(--dark200);
-    border-color: var(--dark200);
+    background-color: var(--dark300);
+    border-color: var(--dark300);
 }
 
 .ant-steps .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {

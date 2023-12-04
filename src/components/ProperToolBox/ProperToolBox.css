@@ -39,9 +39,8 @@
 }
 
 .pb-closed-container:hover {
-    background: linear-gradient(270deg, var(--red300) 0%, var(--red300) 100%);
+    background: linear-gradient(0deg, var(--red300) 0%, var(--red100) 100%);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px;
-    
     border: 6px solid #ffffff;
 }
 
