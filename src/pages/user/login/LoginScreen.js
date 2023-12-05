@@ -1,6 +1,5 @@
 import "./LoginScreen.css";
 import Logo from "../../../assets/logo-white.png";
-import { Input } from "antd";
 import DarkButton from "../../../components/UI/Buttons/DarkButton";
 import { withTranslation } from "react-i18next";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -10,7 +9,18 @@ import { useEffect } from "react";
 import { loginUser } from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
 
+import { Button, Col, Row, Form, Input } from 'antd';
+
+
 function LoginScreen(props) {
+
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
   const onChangeLanguage = (language) => {
     const { i18n } = props;
     i18n.changeLanguage(language);
@@ -25,7 +35,7 @@ function LoginScreen(props) {
   const [activeTabSection, setActiveTabSection] = useState("login");
   const navigate = useNavigate();
 
-  useEffect(() => {}, [error, setError]);
+  useEffect(() => { }, [error, setError]);
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -57,30 +67,32 @@ function LoginScreen(props) {
     setLoading(true);
     checkError();
     if (error !== null) {
-      try {
-        const response = await loginUser({
-          email: values.email,
-          password: values.password,
-        });
-        if (response.status === 200) {
-          if (response.data) {
-            localStorage.setItem("token", response.data.token);
-            props.setToken(response.data?.token);
-          }
-        }
-      } catch (e) {
-        if (e.response?.data) {
-          setError(e.response.data.message);
-        }
-        setLoading(false);
-      } finally {
-        setTimeout(() => {
-          if (localStorage.getItem("token")) {
-            window.location.href = "/";
+       
+          try {
+            const response = await loginUser({
+              email: values.email,
+              password: values.password,
+            });
+            if (response.status === 200) {
+              if (response.data) {
+                localStorage.setItem("token", response.data.token);
+                props.setToken(response.data?.token);
+              }
+            }
+          } catch (e) {
+            if (e.response?.data) {
+              setError(e.response.data.message);
+            }
             setLoading(false);
+          } finally {
+            setTimeout(() => {
+              if (localStorage.getItem("token")) {
+                window.location.href = "/";
+                setLoading(false);
+              }
+            }, 100);
           }
-        }, 100);
-      }
+    
     }
   };
 
@@ -132,6 +144,7 @@ function LoginScreen(props) {
           </div>
         </div>
             */}
+        {/*
         <div className="login-screen-body">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div className="login-screen-tab-menu">
@@ -155,47 +168,62 @@ function LoginScreen(props) {
                 {props.t("Sign Up")}
               </div>
             </div>
-            <div className="login-screen-form-container">
+            
+          </div>
+        </div>
+      */}
+        <div className="login-screen-body">
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="login-screen-form-container" style={{ padding:'15px' }}>
               <div className="login-screen-form-header">
                 {props.t("Sign In")}
               </div>
-              <div className="login-screen-form-body">
-                <div className="login-screen-input-container">
-                  <div className="login-screen-input-label">
+              <Row justify="center" align="middle" style={{ padding: '5px' }} >
+                <Col xs={24} sm={24} md={12} lg={12} xl={12} >
+                  <div className="login-screen-input-label"  style={{ textAlign: 'center' }}>
                     {props.t("Your email address or Username")}
                   </div>
-                  <Input
-                    className="login-screen-input"
-                    placeholder="Please enter your email / username"
-                    name="email"
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="login-screen-input-container">
-                  <div className="login-screen-input-label">
+                </Col>
+
+                <Col xs={24} sm={24} md={12} lg={12} xl={12}> <Input
+                  className="login-screen-input"
+                  placeholder="Please enter your email / username"
+                  name="email"
+                  onChange={handleInputChange}
+                /></Col>
+              </Row>
+              <Row justify="center" align="middle" style={{ padding: '5px' }} >
+                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                  <div className="login-screen-input-label" style={{ textAlign: 'center' }}>
                     {props.t("Your password")}
                   </div>
-                  <Input.Password
-                    className="login-screen-input"
-                    placeholder="Please enter your password"
-                    name="password"
-                    onChange={handleInputChange}
-                  />
-                </div>
-                {error && (
-                  <div className="login-screen-error-container">
-                    <div>{error}</div>
-                  </div>
-                )}
-                <div className="login-screen-button-container">
-                  <DarkButton
-                    text={props.t("Sign In")}
-                    onClick={handleSubmit}
-                  />
-                  {props.t("I forgot my password")}
-                </div>
-              </div>
+                </Col>
+                <Col xs={24} sm={24} md={12} lg={12} xl={12} > <Input.Password
+                  className="login-screen-input"
+                  placeholder="Please enter your password"
+                  name="password"
+                  onChange={handleInputChange}
+                /></Col>
+              </Row>
+              <Row justify="center" align="middle" style={{ padding: '5px' }}>
+                <Col span={24}>
+                  {error && (
+                    <div className="login-screen-error-container">
+                      <div>{error}</div>
+                    </div>
+                  )}
+                </Col>
+              </Row>
+              <Row justify="space-between" align="middle" style={{ padding: '5px' }} >
+                <Col flex={2} style={{fontStyle: 'italic',fontFamily: 'monospace'}}><Button type="text" onClick={registerTab} >
+                  {props.t("Sign Up")}
+                </Button></Col>
+                <Col flex={2} style={{ textAlign: 'end' }}><Button type="primary" onClick={handleSubmit}>
+                  {props.t("Sign In")}
+                </Button></Col>
+              </Row>
             </div>
+
           </div>
         </div>
       </div>
