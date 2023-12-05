@@ -163,7 +163,10 @@ function NewProcess(props) {
   };
 
   const addProperOnForm = (proper) => {
+    localStorage.setItem("openingProperty", "true");
+    setLoading(true);
     const shallow = uniqueProper(proper);
+    setSelectedProper(shallow);
     // addProperValue(shallow);
     showMessage("success", `Added new proper : ${proper.text}`);
     if (shallow.parentId) {
@@ -197,6 +200,12 @@ function NewProcess(props) {
         }
       }
     }
+
+    setTimeout(() => {
+      openPropertyDrawer(shallow);
+      setLoading(false);
+      // localStorage.removeItem("openingProperty");
+    }, 100);
     setProperList((oldPropers) => [...oldPropers, shallow]);
   };
 
@@ -330,6 +339,25 @@ function NewProcess(props) {
     });
   };
 
+  const duplicateProperOnForm = (proper) => {
+    console.log("properList : ", properList);
+    console.log("properValueList : ", properValueList);
+    if (proper.childCount > 0) {
+      if (proper.type === "ProperGroupField") {
+        properList.forEach((prp) => {
+          if (prp.parentId === proper.id) {
+            console.log("prp : ", prp);
+          }
+        });
+      } else {
+        properValueList.forEach((value) => {
+          console.log("value : ", value);
+        });
+      }
+    }
+    duplicateProperOnForm();
+  };
+
   const deleteProperOnForm = (proper) => {
     setProperList(
       properList.filter((p) => p.parentId !== proper.id && p.id !== proper.id)
@@ -420,6 +448,7 @@ function NewProcess(props) {
                   properList={properList}
                   setProperList={setProperList}
                   previosStep={prev}
+                  duplicateProper={duplicateProperOnForm}
                   editProper={openPropertyDrawer}
                   deleteProper={deleteProperWarning}
                   cancelAddProperInValue={cancelAddProperInValue}

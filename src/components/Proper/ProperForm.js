@@ -23,6 +23,7 @@ function ProperForm({
   properList,
   properValueList,
   setProperList,
+  duplicateProper,
   editProper,
   deleteProper,
   cancelAddProperInValue,
@@ -205,6 +206,7 @@ function ProperForm({
               >
                 {ProperRender(
                   proper,
+                  duplicateProper,
                   deleteProper,
                   editProper,
                   properValueList,

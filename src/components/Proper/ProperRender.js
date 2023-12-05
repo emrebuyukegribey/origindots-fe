@@ -19,6 +19,7 @@ import TextareaField from "../UI/Propers/TextareaField";
 
 function ProperRender(
   proper,
+  duplicateProper,
   deleteProper,
   editProper,
   properValueList,
@@ -192,6 +193,7 @@ function ProperRender(
     return (
       <ProperGroupField
         proper={proper}
+        duplicateProper={duplicateProper}
         deleteProper={deleteProper}
         editProper={editProper}
         key={proper.id}
