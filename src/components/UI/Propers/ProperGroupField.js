@@ -1,44 +1,60 @@
 import "./InputField.css";
-import { BiCodeCurly, BiEditAlt } from "react-icons/bi";
+import { BiCodeCurly, BiCopy, BiEditAlt } from "react-icons/bi";
 import "./ProperGroupField.css";
 import { RiDraggable } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 import { withTranslation } from "react-i18next";
+import { IoDuplicateOutline } from "react-icons/io5";
+import { GoCopy } from "react-icons/go";
+import { MdCopyAll, MdOutlineContentCopy } from "react-icons/md";
 
-function ProperGroupField({ proper, deleteProper, editProper, properList, t }) {
+function ProperGroupField({
+  proper,
+  duplicateProper,
+  deleteProper,
+  editProper,
+  properList,
+  t,
+}) {
   let subPropers = [];
   subPropers = properList?.filter((element) => element.parentId === proper.id);
 
   return (
-    <div className="photo-field-outer-container">
-      <div className="photo-field-drag-icon-container">
-        <RiDraggable className="photo-field-drag-icon" />
+    <div className="propergroup-field-outer-container">
+      <div className="propergroup-field-drag-icon-container">
+        <RiDraggable className="propergroup-field-drag-icon" />
       </div>
-      <div className="photo-field-container">
-        <div className="photo-field-title-container">
+      <div className="propergroup-field-container">
+        <div className="propergroup-field-title-container">
           <div style={{ display: "flex" }}>
-            <div className="photo-field-icon">
+            <div className="propergroup-field-icon">
               {proper.icon ? proper.icon : <BiCodeCurly />}
             </div>
-            <span className="photo-field-title">
+            <span className="propergroup-field-title">
               {t(proper.title)}
               {proper.isRequired && (
-                <span className="photo-field-required">*</span>
+                <span className="propergroup-field-required">*</span>
               )}
             </span>
           </div>
-          <div className="photo-field-icons-container">
+          <div className="propergroup-field-icons-container">
             <div
-              className="photo-field-edit"
-              onClick={() => editProper(proper)}
+              className="propergroup-field-edit"
+              onClick={() => duplicateProper(proper)}
             >
-              <BiEditAlt className="photo-field-edit-icon" />
+              <IoDuplicateOutline className="propergroup-field-edit-icon" />
             </div>
             <div
-              className="photo-field-delete"
+              className="propergroup-field-edit"
+              onClick={() => editProper(proper)}
+            >
+              <BiEditAlt className="propergroup-field-edit-icon" />
+            </div>
+            <div
+              className="propergroup-field-delete"
               onClick={() => deleteProper(proper)}
             >
-              <AiOutlineClose className="photo-field-delete-icon" />
+              <AiOutlineClose className="propergroup-field-delete-icon" />
             </div>
           </div>
         </div>

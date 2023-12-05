@@ -96,6 +96,27 @@
     margin-right: -12px;
 }
 
+.propergroup-field-duplicate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.propergroup-field-duplicate-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}
+
 .propergroup-field-edit-icon {
     display: flex;
     justify-content: center;
