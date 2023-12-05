@@ -163,7 +163,10 @@ function NewProcess(props) {
   };
 
   const addProperOnForm = (proper) => {
+    localStorage.setItem("openingProperty", "true");
+    setLoading(true);
     const shallow = uniqueProper(proper);
+    setSelectedProper(shallow);
     // addProperValue(shallow);
     showMessage("success", `Added new proper : ${proper.text}`);
     if (shallow.parentId) {
@@ -197,6 +200,12 @@ function NewProcess(props) {
         }
       }
     }
+
+    setTimeout(() => {
+      openPropertyDrawer(shallow);
+      setLoading(false);
+      // localStorage.removeItem("openingProperty");
+    }, 100);
     setProperList((oldPropers) => [...oldPropers, shallow]);
   };
 

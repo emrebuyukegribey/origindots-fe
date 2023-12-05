@@ -4,9 +4,17 @@ import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
 import { withTranslation } from "react-i18next";
 import ProperItem from "./ProperItem";
 import ProperItems from "./ProperItems";
+import { useEffect } from "react";
 
 function ProperToolBox(props) {
-  const [isOpenProcessbar, setOpenProcessBar] = useState(false);
+  const openingProperty = localStorage.getItem("openingProperty");
+  const [isOpenProcessbar, setOpenProcessBar] = useState(
+    openingProperty ? true : false
+  );
+
+  useEffect(() => {
+    localStorage.removeItem("openingProperty");
+  }, []);
 
   return (
     <div
