@@ -233,18 +233,16 @@ function UserManagement(props) {
               />
             </div>
           ) : (
-            <div style={{ marginLeft: "50px" }}>
-              <UserTable
-                setNavbarHeaderText={props.setNavbarHeaderText}
-                users={users}
-                submit={submitNewUser}
-                cancel={cancelNewUser}
-                showUserInformations={showUserInformations}
-                showUserEdit={showUserEdit}
-                deleteUser={deleteUserWarning}
-                t={props.t}
-              />
-            </div>
+            <UserTable
+              setNavbarHeaderText={props.setNavbarHeaderText}
+              users={users}
+              submit={submitNewUser}
+              cancel={cancelNewUser}
+              showUserInformations={showUserInformations}
+              showUserEdit={showUserEdit}
+              deleteUser={deleteUserWarning}
+              t={props.t}
+            />
           )}
         </div>
       </div>

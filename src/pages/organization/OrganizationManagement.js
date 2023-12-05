@@ -170,14 +170,12 @@ function OrganizationManagement(props) {
               />
             </div>
           ) : (
-            <div style={{ marginLeft: "50px" }}>
-              <OrganizationTable
-                setNavbarHeaderText={props.setNavbarHeaderText}
-                organizations={organizations}
-                openAddUserOnOrganization={openAddUserOnOrganization}
-                t={props.t}
-              />
-            </div>
+            <OrganizationTable
+              setNavbarHeaderText={props.setNavbarHeaderText}
+              organizations={organizations}
+              openAddUserOnOrganization={openAddUserOnOrganization}
+              t={props.t}
+            />
           )}
         </div>
       </div>
