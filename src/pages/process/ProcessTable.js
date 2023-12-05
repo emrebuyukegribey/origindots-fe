@@ -1,7 +1,10 @@
-import { Table } from "antd";
+import { Dropdown, Menu, Space, Table } from "antd";
 import "./ProcessTable.css";
 import ProcessIcons from "../../components/Process/ProcessIcons";
 import { LuCopyPlus } from "react-icons/lu";
+import { getProcessMenuItems } from "../../util/TableMenu";
+import { BsThreeDots, BsThreeDotsVertical } from "react-icons/bs";
+import { IoCaretDownOutline } from "react-icons/io5";
 
 interface DataType {
   icon: number;
@@ -11,6 +14,13 @@ interface DataType {
 }
 
 function ProcessTable(props) {
+  const {
+    showProcessInformations,
+    updateProcess,
+    deleteProcess,
+    duplicateProcess,
+    t,
+  } = props;
   const columns: ColumnsType<DataType> = [
     {
       title: props.t(""),
@@ -55,53 +65,36 @@ function ProcessTable(props) {
     {
       title: props.t("Actions"),
       key: "actions",
-      render: (_, record) => (
-        <>
-          {!record.deleted ? (
-            <div style={{ display: "flex" }}>
-              {console.log("record : ", record)}
-
-              <div className="process-table-action-show ">
-                <a
-                  className="process-table-action-show-link"
-                  onClick={() => props.showProcessInformations(record)}
-                >
-                  {props.t("Show User")}
-                </a>
-              </div>
-              <div className="process-table-action-edit ">
-                <a
-                  className="process-table-action-edit-link"
-                  onClick={() => props.updateProcess(record)}
-                >
-                  {props.t("Edit")}
-                </a>
-              </div>
-              <div className="process-table-action-delete ">
-                <a
-                  className="process-table-action-delete-link"
-                  onClick={() => {
-                    props.deleteProcess(record);
-                  }}
-                >
-                  {props.t("Delete")}
-                </a>
-              </div>
-              <div className="process-table-action-duplicate">
-                <a
-                  className="process-table-action-duplicate-link"
-                  onClick={() => {
-                    props.duplicateProcess(record);
-                  }}
-                >
-                  {props.t("Duplicate")}
-                </a>
+      render: (text, record) => (
+        <div style={{ display: "flex" }}>
+          <Dropdown
+            overlay={
+              <Menu key={record.id}>
+                {getProcessMenuItems({
+                  record,
+                  showProcessInformations,
+                  updateProcess,
+                  deleteProcess,
+                  duplicateProcess,
+                  t,
+                })}
+              </Menu>
+            }
+          >
+            <div
+              key={record.id}
+              onClick={(e) => e.preventDefault()}
+              className="process-table-menu"
+            >
+              <div className="process-table-menu-text">
+                {props.t("Actions")}
+              </div>{" "}
+              <div className="process-table-menu-icon">
+                <IoCaretDownOutline />
               </div>
             </div>
-          ) : (
-            <div style={{ color: "red" }}>Deleted</div>
-          )}
-        </>
+          </Dropdown>
+        </div>
       ),
     },
   ];
@@ -109,11 +102,10 @@ function ProcessTable(props) {
   return (
     <div className="process-table-container">
       <div style={{ marginBottom: "15px" }}></div>
-      {console.log("props.allProcess : ", props.allProcess.data)}
       <Table
-        rowKey={(u) => u.id}
+        rowKey={(p) => p.id}
         columns={columns}
-        dataSource={props.allProcess.data || []}
+        dataSource={props.allProcess || []}
         pagination={{ pageSize: 8 }}
       />
     </div>

@@ -139,7 +139,7 @@ function ProcessForm(props) {
             placeholder="Please select a process icon"
             options={icons.map((i) => ({
               label: (
-                <div className="process-form-icon-container">
+                <div className="process-form-icon-container" key={i.id}>
                   <div className="process-form-icon">{i.icon}</div>
                   <div className="process-form-icon-text">{i.name}</div>
                 </div>

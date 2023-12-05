@@ -22,12 +22,14 @@ function SingleSelectField({
       const name =
         element.childCount > 0 ? (
           <div
+            key={element.id}
             style={{
               display: "flex",
             }}
           >
             {element.name}
             <div
+              key={element.id}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -38,7 +40,7 @@ function SingleSelectField({
             </div>
           </div>
         ) : (
-          <div>{element.name}</div>
+          <div key={element.id}>{element.name}</div>
         );
       const obj = {
         label: name,
@@ -82,7 +84,10 @@ function SingleSelectField({
         </div>
         {properValues.map((prop) => {
           return (
-            <Radio.Group value={properValues[0].value}>
+            <Radio.Group
+              key={prop.id + prop.listNo + prop.name}
+              value={properValues[0].value}
+            >
               <Radio size="large" value={prop.value}>
                 {prop.label}
               </Radio>

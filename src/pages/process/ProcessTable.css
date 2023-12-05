@@ -99,6 +99,58 @@
     color: #fff;
 }
 
+.process-table-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 0px;
+    border-radius: 5px ;
+    cursor: pointer;
+
+}
+
+.process-table-menu-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark200);
+    margin-right: 5px;
+}
+
+.process-table-menu-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: var(--dark200);
+}
+
+
+.process-util-menu-item-container {
+    display: flex;
+    align-items: center;
+    padding: 5px 30px 5px 5px;
+}
+
+.process-util-menu-item-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.process-util-menu-item-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.process-util-menu-item-link a {
+    color: var(--dark200);
+}
+
 .ant-table-content {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px;
 }

@@ -4,7 +4,7 @@ import "./SubProperItem.css";
 function SubProperItem({ proper }) {
   return (
     <>
-      <div className="subproper-item-container">
+      <div className="subproper-item-container" key={proper.id}>
         <div className="subproper-item-icon">
           {proper.icon ? proper.icon : getIconFromProper(proper)}
         </div>

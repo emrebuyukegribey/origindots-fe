@@ -1,6 +1,8 @@
-import { Table } from "antd";
+import { Dropdown, Menu, Table } from "antd";
 import "./UserTable.css";
 import { useEffect } from "react";
+import { getProcessMenuItems, getUserMenuItems } from "../../util/TableMenu";
+import { IoCaretDownOutline } from "react-icons/io5";
 
 interface DataType {
   firstName: string;
@@ -12,6 +14,8 @@ interface DataType {
 }
 
 function UserTable(props) {
+  const { showUserInformations, showUserEdit, deleteUser, t } = props;
+
   const columns: ColumnsType<DataType> = [
     {
       title: props.t("First Name"),
@@ -59,7 +63,6 @@ function UserTable(props) {
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
           }}
         >
@@ -71,34 +74,33 @@ function UserTable(props) {
     {
       title: props.t("Actions"),
       key: "actions",
-      render: (_, record) => (
+      render: (text, record) => (
         <div style={{ display: "flex" }}>
-          <div className="user-table-action-invite ">
-            <a
-              className="user-table-action-invite-link"
-              onClick={() => props.showUserInformations(record)}
+          <Dropdown
+            overlay={
+              <Menu>
+                {getUserMenuItems({
+                  record,
+                  showUserInformations,
+                  showUserEdit,
+                  deleteUser,
+                  t,
+                })}
+              </Menu>
+            }
+          >
+            <div
+              onClick={(e) => e.preventDefault()}
+              className="process-table-menu"
             >
-              {props.t("Show User")}
-            </a>
-          </div>
-          <div className="user-table-action-edit ">
-            <a
-              className="user-table-action-edit-link"
-              onClick={() => props.showUserEdit(record)}
-            >
-              {props.t("Edit")}
-            </a>
-          </div>
-          <div className="user-table-action-delete ">
-            <a
-              className="user-table-action-delete-link"
-              onClick={() => {
-                props.deleteUser(record);
-              }}
-            >
-              {props.t("Delete")}
-            </a>
-          </div>
+              <div className="process-table-menu-text">
+                {props.t("Actions")}
+              </div>{" "}
+              <div className="process-table-menu-icon">
+                <IoCaretDownOutline />
+              </div>
+            </div>
+          </Dropdown>
         </div>
       ),
     },

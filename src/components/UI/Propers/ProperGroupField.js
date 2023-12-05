@@ -64,6 +64,7 @@ function ProperGroupField({ proper, deleteProper, editProper, properList, t }) {
                 }}
               >
                 <div
+                  key={p.id}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -73,6 +74,7 @@ function ProperGroupField({ proper, deleteProper, editProper, properList, t }) {
                   {p.icon}
                 </div>
                 <div
+                  key={p.id}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -81,7 +83,10 @@ function ProperGroupField({ proper, deleteProper, editProper, properList, t }) {
                 >
                   {p.title}
                 </div>
-                <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  key={p.id}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
                   ({p.type})
                 </div>
               </div>

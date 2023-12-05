@@ -25,7 +25,6 @@ import {
 import { IoMdQrScanner, IoMdTimer } from "react-icons/io";
 
 function ProcessItemCard(props) {
-  console.log("properValueList : ", props.properValueList);
   const [showTree, setShowTree] = useState(false);
 
   const handleShowTree = () => {
@@ -159,7 +158,6 @@ function ProcessItemCard(props) {
   }
 
   const treeData = createTree();
-  console.log("tree data : ", treeData);
   const icon =
     props.process.icon &&
     ProcessIcons.filter((icon) => icon.id.toString() === props.process.icon)[0]

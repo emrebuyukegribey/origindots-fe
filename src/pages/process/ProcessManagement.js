@@ -26,6 +26,7 @@ function ProcessManagement(props) {
     notification.useNotification();
   const [loading, setLoading] = useState(false);
   const [allProcess, setAllProcess] = useState([]);
+  const [searchedAllProcess, setSearchedAllProcess] = useState([]);
   const [showProcessModal, setShowProcessModal] = useState(false);
   const [process, setProcess] = useState({});
   const [properList, setProperList] = useState([]);
@@ -62,7 +63,8 @@ function ProcessManagement(props) {
   const getAllProcess = async () => {
     setLoading(true);
     const processByOwner = await getAllProcessByOwner();
-    setAllProcess(processByOwner);
+    setAllProcess(processByOwner.data);
+    setSearchedAllProcess(processByOwner.data);
     setLoading(false);
   };
 
@@ -88,7 +90,6 @@ function ProcessManagement(props) {
     try {
       setLoading(true);
       const response = await getProcessWithAllAtributes(process.id);
-      console.log("response : ", response);
       if (response.status === 200) {
         if (response.data?.properList && response.data?.properList.length > 0) {
           setProperList(response.data.properList);
@@ -240,6 +241,16 @@ function ProcessManagement(props) {
     }
   };
 
+  const searchProcess = (e) => {
+    const value = e.target.value;
+    const filteredProcess = searchedAllProcess.filter(
+      (process) =>
+        process.name.toLowerCase().includes(value.toLowerCase()) ||
+        process.type.toLowerCase().includes(value.toLowerCase())
+    );
+    setAllProcess(filteredProcess);
+  };
+
   if (loading) {
     return <CircleLoading />;
   }
@@ -263,7 +274,7 @@ function ProcessManagement(props) {
               <PageHeaderMenu
                 buttonText={props.t("Create Process")}
                 buttonOnClick={openNewProcess}
-                // searchOnChange={searchUsers}
+                searchOnChange={searchProcess}
                 searchPlaceholder={props.t(
                   "Please enter something about the user"
                 )}
@@ -271,16 +282,14 @@ function ProcessManagement(props) {
             </div>
           </div>
           <div className="process-management-divider" />
-          <div style={{ marginLeft: "50px" }}>
-            <ProcessTable
-              allProcess={allProcess}
-              showProcessInformations={showProcessInformations}
-              deleteProcess={deleteProcessWarning}
-              updateProcess={updateProcess}
-              duplicateProcess={duplicateProcess}
-              t={props.t}
-            />
-          </div>
+          <ProcessTable
+            allProcess={allProcess}
+            showProcessInformations={showProcessInformations}
+            deleteProcess={deleteProcessWarning}
+            updateProcess={updateProcess}
+            duplicateProcess={duplicateProcess}
+            t={props.t}
+          />
         </div>
       </div>
       <Modal

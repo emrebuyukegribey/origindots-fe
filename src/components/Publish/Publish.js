@@ -184,7 +184,6 @@ function Publish(props) {
   };
 
   const treeData = createTree();
-  console.log("tree data : ", treeData);
 
   return (
     <>
