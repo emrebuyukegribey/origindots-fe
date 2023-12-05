@@ -86,10 +86,7 @@ function OrganizationManagement(props) {
     getAllOrganizations();
   }, []);
 
-  const addUserOnOrganizaiton = () => {
-    console.log("organization : ", organization);
-    console.log("addUserOnOrganizaiton");
-  };
+  const addUserOnOrganizaiton = () => {};
 
   const openAddUserOnOrganization = () => {
     setShowAddUserModal(true);

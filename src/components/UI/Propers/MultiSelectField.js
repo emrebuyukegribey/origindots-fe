@@ -19,13 +19,14 @@ function MultiSelectField({
       const name =
         element.childCount > 0 ? (
           <div
-            key={element.id}
+            key={element.id + element.listNo + element.name}
             style={{
               display: "flex",
             }}
           >
             {element.name}
             <div
+              key={element.id + element.listNo + element.name}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -36,7 +37,9 @@ function MultiSelectField({
             </div>
           </div>
         ) : (
-          <div key={element.id}>{element.name}</div>
+          <div key={element.id + element.listNo + element.name}>
+            {element.name}
+          </div>
         );
       const obj = {
         label: name,
@@ -83,8 +86,8 @@ function MultiSelectField({
         >
           {properValues.map((p) => {
             return (
-              <div style={{ display: "flex" }} key={p.id}>
-                <Checkbox value={p.value}>{p.label}</Checkbox>
+              <div style={{ display: "flex" }} key={p.id + p.listNo + p.name}>
+                <Checkbox key={p.id + p.listNo + p.name}>{p.label}</Checkbox>
               </div>
             );
           })}

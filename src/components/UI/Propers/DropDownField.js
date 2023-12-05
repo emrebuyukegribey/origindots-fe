@@ -29,6 +29,7 @@ function DropDownField({
           >
             {element.name}
             <div
+              key={element.id}
               style={{
                 display: "flex",
                 alignItems: "center",

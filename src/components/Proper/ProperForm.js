@@ -191,7 +191,7 @@ function ProperForm({
           </div>
         ) : (
           properListForm.map((proper, index) => (
-            <React.Fragment key={index}>
+            <React.Fragment key={proper.id}>
               <div
                 className="proper-form-draggable"
                 style={{ width: "100%", cursor: "move" }}

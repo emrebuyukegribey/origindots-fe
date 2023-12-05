@@ -88,7 +88,6 @@ function ProcessManagement(props) {
     try {
       setLoading(true);
       const response = await getProcessWithAllAtributes(process.id);
-      console.log("response : ", response);
       if (response.status === 200) {
         if (response.data?.properList && response.data?.properList.length > 0) {
           setProperList(response.data.properList);

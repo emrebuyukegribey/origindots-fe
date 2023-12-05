@@ -59,8 +59,6 @@ function ProcessTable(props) {
         <>
           {!record.deleted ? (
             <div style={{ display: "flex" }}>
-              {console.log("record : ", record)}
-
               <div className="process-table-action-show ">
                 <a
                   className="process-table-action-show-link"
@@ -109,7 +107,6 @@ function ProcessTable(props) {
   return (
     <div className="process-table-container">
       <div style={{ marginBottom: "15px" }}></div>
-      {console.log("props.allProcess : ", props.allProcess.data)}
       <Table
         rowKey={(u) => u.id}
         columns={columns}

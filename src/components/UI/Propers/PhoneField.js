@@ -5,7 +5,6 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 
 function PhoneField({ proper, deleteProper, editProper, t }) {
-  console.log("proper : ", proper);
   return (
     <div className="phone-field-outer-container">
       <div className="phone-field-drag-icon-container">

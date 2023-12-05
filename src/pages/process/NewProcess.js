@@ -84,8 +84,6 @@ function NewProcess(props) {
       localStorage.getItem("processId") ? localStorage.getItem("processId") : ""
     );
 
-    console.log("processId 1 : ", processId);
-
     setProcessName(
       localStorage.getItem("processName")
         ? localStorage.getItem("processName")
@@ -438,7 +436,6 @@ function NewProcess(props) {
               )}
               {currentStep === 2 && (
                 <div>
-                  {console.log("processId 2 : ", processId)}
                   <Publish
                     properList={properList}
                     setProperList={setProperList}
