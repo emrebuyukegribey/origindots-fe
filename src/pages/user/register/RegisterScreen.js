@@ -1,8 +1,8 @@
 import "./RegisterScreen.css";
 import Logo from "../../../assets/logo-white.png";
-import { Input } from "antd";
+import { Button,Input, Col, Row } from "antd";
 import { withTranslation } from "react-i18next";
-import DarkButtonLarge from "../../../components/UI/Buttons/DarkButtonLarge";
+import DarkButton from "../../../components/UI/Buttons/DarkButton";
 import { useState } from "react";
 import CircleLoading from "../../../components/UI/Loading/LoadingBar";
 import { registerUser } from "../../../services/http";
@@ -25,7 +25,7 @@ function RegisterScreen(props) {
   const [isSubmitted, setSubmitted] = useState(false);
   const [activeTabSection, setActiveTabSection] = useState("register");
 
-  useEffect(() => {}, [error, setError]);
+  useEffect(() => { }, [error, setError]);
 
   const onChangeLanguage = (language) => {
     const { i18n } = props;
@@ -121,108 +121,81 @@ function RegisterScreen(props) {
           </select>
         </div>
       </div>
-      <div className="register-screen-body">
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div className="login-screen-tab-menu">
-            <div className="login-screen-tab-item" onClick={loginTab}>
-              {props.t("Sign In")}
-            </div>
-            <div className="login-screen-tab-item-active">
-              {props.t("Sign Up")}
-            </div>
-          </div>
-          <form
-            className="register-screen-form-container"
-            onSubmit={handleSubmit}
-          >
-            <div className="register-screen-form-header">
-              {props.t("Sign Up")}
-            </div>
-            <div className="register-screen-form-body">
-              <div className="register-row">
-                <div
-                  className="register-screen-input-container"
-                  style={{ width: "40%" }}
-                >
-                  <div className="register-screen-input-label">
-                    {props.t("First name")}
-                  </div>
-                  <Input
+
+      <Row justify="center" align="middle" style={{ height: "100%" }}>
+        <Col xs={2} sm={4} md={6} lg={8} >
+
+        </Col>
+        <Col xs={20} sm={16} md={12} lg={8} className="register-screen-row-container">
+          <Row justify="center" align="middle" style={{ padding: '5px' }} >
+            <Col flex={1}>
+              <Input
+                className="register-screen-input"
+                placeholder={props.t("First name")}
+                name="firstName"
+                value={values.firstName}
+                onChange={handleInputChange}
+              />
+            </Col>
+          </Row>
+          <Row justify="center" align="middle" style={{ padding: '5px' }} >
+            <Col flex={1}>
+            <Input
                     className="register-screen-input"
-                    placeholder="Please enter your firstname"
-                    name="firstName"
-                    value={values.firstName}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div
-                  className="register-screen-input-container"
-                  style={{ width: "60%" }}
-                >
-                  <div className="register-screen-input-label">
-                    {props.t("Last name")}
-                  </div>
-                  <Input
-                    className="register-screen-input"
-                    placeholder="Please enter your lastname"
+                    placeholder={props.t("Last name")}
                     name="lastName"
                     value={values.lastName}
                     onChange={handleInputChange}
                   />
-                </div>
-              </div>
-              <div className="register-screen-input-container">
-                <div className="register-screen-input-label">
-                  {props.t("Username")}
-                </div>
-                <Input
+            </Col>
+          </Row>
+          <Row justify="center" align="middle" style={{ padding: '5px' }} >
+            <Col flex={1}>
+            <Input
                   className="register-screen-input"
-                  placeholder="Please enter your username"
+                  placeholder={props.t("Username")}
                   name="username"
                   value={values.username}
                   onChange={handleInputChange}
                 />
-              </div>
-              <div className="register-screen-input-container">
-                <div className="register-screen-input-label">
-                  {props.t("Email address")}
-                </div>
-                <Input
+            </Col>
+          </Row>
+          <Row justify="center" align="middle" style={{ padding: '5px' }} >
+            <Col flex={1}>
+            <Input
                   className="register-screen-input"
-                  placeholder="Please enter your email address"
+                  placeholder={props.t("Email address")}
                   name="email"
                   value={values.email}
                   onChange={handleInputChange}
                 />
-              </div>
-              <div className="register-row">
-                <div className="register-screen-input-container">
-                  <div className="register-screen-input-label">
-                    {props.t("Your password")}
-                  </div>
-                  <Input.Password
+            </Col>
+          </Row>
+          <Row justify="center" align="middle" style={{ padding: '5px' }} >
+            <Col flex={1}>
+            <Input.Password
                     className="register-screen-input"
-                    placeholder="Please enter your email address"
+                    placeholder= {props.t("Your password")}
                     name="password"
                     value={values.password}
                     onChange={handleInputChange}
                   />
-                </div>
-
-                <div className="register-screen-input-container">
-                  <div className="register-screen-input-label">
-                    {props.t("Your password repeat")}
-                  </div>
-                  <Input.Password
+            </Col>
+          </Row>
+          <Row justify="center" align="middle" style={{ padding: '5px' }} >
+            <Col flex={1}>
+            <Input.Password
                     className="register-screen-input"
-                    placeholder="Please enter your email address"
+                    placeholder= {props.t("Your password repeat")}
                     name="passwordRepeat"
                     value={values.passwordRepeat}
                     onChange={handleInputChange}
                   />
-                </div>
-              </div>
-              {error && (
+            </Col>
+          </Row>
+          <Row justify="center" align="middle" style={{ padding: '5px' }} >
+            <Col flex={1}>
+            {error && (
                 <div className="register-screen-error-container">
                   <div>{error}</div>
                 </div>
@@ -232,16 +205,25 @@ function RegisterScreen(props) {
                   <div>{successMessage}</div>
                 </div>
               )}
-              <div className="register-screen-button-container">
-                <DarkButtonLarge
-                  text={props.t("Sign Up")}
-                  onClick={handleSubmit}
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+            </Col>
+          </Row>
+          <Row justify="space-between" align="middle" style={{ padding: '5px' }} >
+              <Col flex={2} >
+              <Button type="text" className="sign-up" onClick={loginTab} >
+                {props.t("Back")}
+              </Button>
+              </Col>
+              <Col flex={2} style={{ textAlign: 'end' }}>
+                <DarkButton type="primary" text={props.t("Go on")} onClick={handleSubmit}>
+              </DarkButton>
+              </Col>
+            </Row>
+        </Col>
+        <Col xs={2} sm={4} md={6} lg={8}>
+
+        </Col>
+      </Row>
+
     </div>
   );
 }
