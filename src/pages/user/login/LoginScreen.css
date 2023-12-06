@@ -29,22 +29,13 @@
 .logo-screen-language-selector {
     border: 0;
     padding: 3px;
-    font-weight: 600; 
+    font-weight: 600;
     background-color: var(--dark100);
     color: #fff;
 }
 
-.login-screen-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    margin-top: -50px;
-}
-
 .login-screen-tab-menu {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
     border-radius: 5px;
@@ -115,7 +106,7 @@
 
 .login-screen-input {
     height: 50px;
-    border: 1px solid var(--grey300)
+    border: 1px solid var(--grey300);
 }
 
 .login-screen-button-container {
@@ -155,5 +146,23 @@
     font-weight: 500;
     padding: 8px;
     border-radius: 3px;
-    border: 1px solid var(--red300)
+    border: 1px solid var(--red300);
 }
+
+
+.login-screen-row-container {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 50px;
+    height: 35vh;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px;
+    background-color: #fff;
+}
+
+.sign-up{
+    font-family: 'Nunito', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+
+} 
