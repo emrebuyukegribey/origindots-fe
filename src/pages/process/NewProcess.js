@@ -47,6 +47,8 @@ function NewProcess(props) {
   const [selectedProper, setSelectedProper] = useState({});
   const [openDesktopPreview, setOpenDesktopPreview] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
+  const [duplicatedProperList, setDuplicatedProperList] = useState([]);
+  const [duplicatedValueList, setDuplicatedValueList] = useState([]);
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
     useContext(MainContext);
@@ -339,23 +341,75 @@ function NewProcess(props) {
     });
   };
 
-  const duplicateProperOnForm = (proper) => {
-    console.log("properList : ", properList);
-    console.log("properValueList : ", properValueList);
-    if (proper.childCount > 0) {
-      if (proper.type === "ProperGroupField") {
-        properList.forEach((prp) => {
-          if (prp.parentId === proper.id) {
-            console.log("prp : ", prp);
-          }
+  const duplicateProperOnForm = (baseItem) => {
+    const tempList = [];
+    tempList.push(Object.assign({}, baseItem));
+    function findRelatedItemsRecursively(currentItem) {
+      if (
+        currentItem.id.includes("ProperGroupField") ||
+        currentItem.id.includes("value")
+      ) {
+        const childPropers = properList.filter(
+          (proper) => proper.parentId === currentItem.id
+        );
+        childPropers.forEach((element) => {
+          tempList.push(Object.assign({}, element));
         });
       } else {
-        properValueList.forEach((value) => {
-          console.log("value : ", value);
+        const childValues = properValueList.filter(
+          (value) => value.properId === currentItem.id
+        );
+        childValues.forEach((element) => {
+          tempList.push(Object.assign({}, element));
         });
       }
     }
-    duplicateProperOnForm();
+
+    for (var i = 0; i < tempList.length; i++) {
+      if (tempList[i].childCount > 0) {
+        findRelatedItemsRecursively(tempList[i]);
+      }
+    }
+    const updatedList = updateIdsOfDuplicatedProper(tempList);
+    copyProperAndValueOfList(updatedList);
+  };
+
+  function updateIdsOfDuplicatedProper(list) {
+    const newList = [];
+    const random = Date.now() - Math.floor(Math.random() * 100000);
+    list.forEach((element) => {
+      element.id = element.id + "-" + random;
+      if (element.parentId) {
+        element.parentId = element.parentId + "-" + random;
+      }
+      if (element.properId) {
+        element.properId = element.properId + "-" + random;
+      }
+      newList.push(element);
+    });
+    return newList;
+  }
+
+  const copyProperAndValueOfList = (relatedItems) => {
+    setLoading(true);
+    const pList = properList;
+    const vList = properValueList;
+    relatedItems.forEach((element) => {
+      if (element.id.includes("value")) {
+        vList.push(element);
+      } else {
+        pList.push(element);
+      }
+    });
+    setTimeout(() => {
+      setProperList(pList);
+      setProperValueList(vList);
+      setLoading(false);
+    }, 100);
+
+    setTimeout(() => {
+      showMessage("success", `Duplicated proper group `);
+    }, 300);
   };
 
   const deleteProperOnForm = (proper) => {
