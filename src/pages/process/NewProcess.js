@@ -47,8 +47,6 @@ function NewProcess(props) {
   const [selectedProper, setSelectedProper] = useState({});
   const [openDesktopPreview, setOpenDesktopPreview] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
-  const [duplicatedProperList, setDuplicatedProperList] = useState([]);
-  const [duplicatedValueList, setDuplicatedValueList] = useState([]);
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
     useContext(MainContext);
@@ -370,23 +368,47 @@ function NewProcess(props) {
         findRelatedItemsRecursively(tempList[i]);
       }
     }
+
     const updatedList = updateIdsOfDuplicatedProper(tempList);
     copyProperAndValueOfList(updatedList);
   };
 
+  const generateIdForCopiedItem = (random, oldId) => {
+    return oldId.includes("-C")
+      ? oldId.substring(0, oldId.indexOf("-C")) + "-" + random
+      : oldId + "-" + random;
+  };
+
   function updateIdsOfDuplicatedProper(list) {
     const newList = [];
-    const random = Date.now() - Math.floor(Math.random() * 100000);
+    const random = "C" + Math.floor(Math.random() * 100000);
+
+    for (var i = 0; i < list.length; i++) {
+      list[i].id = generateIdForCopiedItem(random, list[i].id);
+      if (list[i].parentId && i !== 0) {
+        list[i].parentId = generateIdForCopiedItem(random, list[i].parentId);
+      }
+      if (list[i].properId) {
+        list[i].properId = generateIdForCopiedItem(random, list[i].properId);
+      }
+      newList.push(list[i]);
+    }
+    /*
     list.forEach((element) => {
-      element.id = element.id + "-" + random;
-      if (element.parentId) {
-        element.parentId = element.parentId + "-" + random;
+      element.id = generateIdForCopiedItem(random, element.id);
+      if (
+        element.parentId &&
+        !element.parentId.includes("ProperGroupField") &&
+        element.type !== "ProperGroupField"
+      ) {
+        element.parentId = generateIdForCopiedItem(random, element.parentId);
       }
       if (element.properId) {
-        element.properId = element.properId + "-" + random;
+        element.properId = generateIdForCopiedItem(random, element.properId);
       }
       newList.push(element);
     });
+    */
     return newList;
   }
 
@@ -401,10 +423,14 @@ function NewProcess(props) {
         pList.push(element);
       }
     });
+    setProperList(pList);
+    setProperValueList(vList);
     setTimeout(() => {
-      setProperList(pList);
-      setProperValueList(vList);
       setLoading(false);
+      const selectedProper = relatedItems.filter(
+        (p) => p.type === "ProperGroupField"
+      )[0];
+      openPropertyDrawer(selectedProper);
     }, 100);
 
     setTimeout(() => {
