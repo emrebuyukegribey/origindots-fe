@@ -339,23 +339,103 @@ function NewProcess(props) {
     });
   };
 
-  const duplicateProperOnForm = (proper) => {
-    console.log("properList : ", properList);
-    console.log("properValueList : ", properValueList);
-    if (proper.childCount > 0) {
-      if (proper.type === "ProperGroupField") {
-        properList.forEach((prp) => {
-          if (prp.parentId === proper.id) {
-            console.log("prp : ", prp);
-          }
+  const duplicateProperOnForm = (baseItem) => {
+    const tempList = [];
+    tempList.push(Object.assign({}, baseItem));
+    function findRelatedItemsRecursively(currentItem) {
+      if (
+        currentItem.id.includes("ProperGroupField") ||
+        currentItem.id.includes("value")
+      ) {
+        const childPropers = properList.filter(
+          (proper) => proper.parentId === currentItem.id
+        );
+        childPropers.forEach((element) => {
+          tempList.push(Object.assign({}, element));
         });
       } else {
-        properValueList.forEach((value) => {
-          console.log("value : ", value);
+        const childValues = properValueList.filter(
+          (value) => value.properId === currentItem.id
+        );
+        childValues.forEach((element) => {
+          tempList.push(Object.assign({}, element));
         });
       }
     }
-    duplicateProperOnForm();
+
+    for (var i = 0; i < tempList.length; i++) {
+      if (tempList[i].childCount > 0) {
+        findRelatedItemsRecursively(tempList[i]);
+      }
+    }
+
+    const updatedList = updateIdsOfDuplicatedProper(tempList);
+    copyProperAndValueOfList(updatedList);
+  };
+
+  const generateIdForCopiedItem = (random, oldId) => {
+    return oldId.includes("-C")
+      ? oldId.substring(0, oldId.indexOf("-C")) + "-" + random
+      : oldId + "-" + random;
+  };
+
+  function updateIdsOfDuplicatedProper(list) {
+    const newList = [];
+    const random = "C" + Math.floor(Math.random() * 100000);
+
+    for (var i = 0; i < list.length; i++) {
+      list[i].id = generateIdForCopiedItem(random, list[i].id);
+      if (list[i].parentId && i !== 0) {
+        list[i].parentId = generateIdForCopiedItem(random, list[i].parentId);
+      }
+      if (list[i].properId) {
+        list[i].properId = generateIdForCopiedItem(random, list[i].properId);
+      }
+      newList.push(list[i]);
+    }
+    /*
+    list.forEach((element) => {
+      element.id = generateIdForCopiedItem(random, element.id);
+      if (
+        element.parentId &&
+        !element.parentId.includes("ProperGroupField") &&
+        element.type !== "ProperGroupField"
+      ) {
+        element.parentId = generateIdForCopiedItem(random, element.parentId);
+      }
+      if (element.properId) {
+        element.properId = generateIdForCopiedItem(random, element.properId);
+      }
+      newList.push(element);
+    });
+    */
+    return newList;
+  }
+
+  const copyProperAndValueOfList = (relatedItems) => {
+    setLoading(true);
+    const pList = properList;
+    const vList = properValueList;
+    relatedItems.forEach((element) => {
+      if (element.id.includes("value")) {
+        vList.push(element);
+      } else {
+        pList.push(element);
+      }
+    });
+    setProperList(pList);
+    setProperValueList(vList);
+    setTimeout(() => {
+      setLoading(false);
+      const selectedProper = relatedItems.filter(
+        (p) => p.type === "ProperGroupField"
+      )[0];
+      openPropertyDrawer(selectedProper);
+    }, 100);
+
+    setTimeout(() => {
+      showMessage("success", `Duplicated proper group `);
+    }, 300);
   };
 
   const deleteProperOnForm = (proper) => {
