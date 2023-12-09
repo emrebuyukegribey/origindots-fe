@@ -86,9 +86,29 @@ function OrganizationTable(props) {
     },
   ];
 
+  function assignKeys(nodes, key) {
+    let counter = 0;
+    for (let i = 0; i < nodes.length; i++) {
+      if (nodes[i].parentId === null) {
+        nodes[i].key = `${counter}`;
+        counter++;
+      } else {
+        nodes[i].key = `${key}-${counter}`;
+        counter++;
+      }
+      if (nodes[i].children && nodes[i].children.length > 0) {
+        assignKeys(nodes[i].children, nodes[i].key);
+      }
+    }
+  }
+
+  useEffect(() => {
+    assignKeys(props.organizations, null);
+  }, []);
+
   useEffect(() => {
     props.setNavbarHeaderText("Organization Management > Organizations");
-  });
+  }, []);
 
   return (
     <div className="organization-table-container">

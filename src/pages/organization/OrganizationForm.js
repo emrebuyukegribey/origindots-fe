@@ -25,8 +25,19 @@ function OrganizationForm(props) {
     props.submit(body);
   };
 
+  function flattenOrganizations(orgs) {
+    let flatList = [];
+    orgs.forEach((org) => {
+      flatList.push({ id: org.id, name: org.name });
+      if (org.children) {
+        flatList = flatList.concat(flattenOrganizations(org.children));
+      }
+    });
+    return flatList;
+  }
+
   const options =
-    props.organizations.map((org) => ({
+    flattenOrganizations(props.organizations).map((org) => ({
       label: org.name,
       value: org.id,
     })) || [];

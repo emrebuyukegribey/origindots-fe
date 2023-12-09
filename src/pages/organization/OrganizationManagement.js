@@ -29,9 +29,14 @@ function OrganizationManagement(props) {
   const [showOrganizationForm, setShowOrganizationForm] = useState(false);
   const [organization, setOrganization] = useState({});
   const [organizations, setOrganizations] = useState([]);
+  const [organizationsTemp, setOrganizationsTemp] = useState([]);
 
   const [showAddUserModal, setShowAddUserModal] = useState(false);
   const [organizationUsers, setOrganizationUsers] = useState([]);
+  const [searchedOrganizations, setSearchedOrganizations] = useState([]);
+  const [tableExpandedKeys, setTableExpandedKeys] = useState();
+  const [searchValue, setSearchValue] = useState("");
+  const [autoExpandParent, setAutoExpandParent] = useState(true);
 
   const cancelShowAddUserModal = () => {
     setShowAddUserModal(false);
@@ -63,6 +68,26 @@ function OrganizationManagement(props) {
     }, 300);
   };
 
+  function flattenOrganizations(orgs) {
+    let flatList = [];
+    orgs.forEach((org) => {
+      flatList.push({
+        id: org.id,
+        name: org.name,
+        description: org.description,
+      });
+      if (org.children) {
+        flatList = flatList.concat(flattenOrganizations(org.children));
+      }
+    });
+    return flatList;
+  }
+
+  useEffect(() => {
+    const flatOrganizations = flattenOrganizations(organizations);
+    setSearchedOrganizations(flatOrganizations);
+  }, []);
+
   const getAllOrganizations = async () => {
     try {
       const response = await getAllOrganizationsByOwner();
@@ -70,6 +95,9 @@ function OrganizationManagement(props) {
         // navigate("/organization-management");
         setShowOrganizationForm(false);
         setOrganizations(response.data);
+        setOrganizationsTemp(response.data);
+        const flatOrganizations = flattenOrganizations(response.data);
+        setSearchedOrganizations(flatOrganizations);
       } else {
         openErrorNotification(
           "error",
@@ -79,6 +107,20 @@ function OrganizationManagement(props) {
       }
     } catch (err) {
     } finally {
+    }
+  };
+
+  const searchOrganization = (e) => {
+    const value = e.target ? e.target.value : e;
+    if (value && value.length > 0) {
+      const filteredOrganizations = searchedOrganizations.filter(
+        (organization) =>
+          organization.name.toLowerCase().includes(value.toLowerCase()) ||
+          organization.description.toLowerCase().includes(value.toLowerCase())
+      );
+      setOrganizations(filteredOrganizations);
+    } else {
+      setOrganizations(organizationsTemp);
     }
   };
 
@@ -145,7 +187,7 @@ function OrganizationManagement(props) {
               <PageHeaderMenu
                 buttonText={props.t("Create Organization")}
                 buttonOnClick={newOrganizationCreate}
-                // searchOnChange={searchUsers}
+                searchOnChange={searchOrganization}
                 searchPlaceholder={props.t(
                   "Please enter something about the user"
                 )}
@@ -175,6 +217,9 @@ function OrganizationManagement(props) {
               organizations={organizations}
               openAddUserOnOrganization={openAddUserOnOrganization}
               t={props.t}
+              expandedKeys={tableExpandedKeys}
+              searchValue={searchValue}
+              autoExpandParent={autoExpandParent}
             />
           )}
         </div>
