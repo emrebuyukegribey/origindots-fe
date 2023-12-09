@@ -1,6 +1,8 @@
-import { Table } from "antd";
+import { Dropdown, Menu, Table } from "antd";
 import "./OrganizationTable.css";
 import { useEffect } from "react";
+import { getOrganizationMenuItems } from "../../util/TableMenu";
+import { IoCaretDownOutline } from "react-icons/io5";
 
 interface DataType {
   firstName: string;
@@ -12,6 +14,15 @@ interface DataType {
 }
 
 function OrganizationTable(props) {
+  const {
+    showOrganizationInformations,
+    editOrganizaton,
+    deleteOrganization,
+    openAddUserOnOrganization,
+    addUser,
+    addProcess,
+    t,
+  } = props;
   const columns: ColumnsType<DataType> = [
     {
       title: props.t("Name"),
@@ -28,59 +39,42 @@ function OrganizationTable(props) {
       dataIndex: "createdDate",
       key: "createdDate",
       render: (text, record) => (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {new Date(record.createdDate).toLocaleString()}
-        </div>
+        <div>{new Date(record.createdDate).toLocaleString()}</div>
       ),
     },
 
     {
       title: props.t("Actions"),
       key: "actions",
-      render: (_, record) => (
+      render: (text, record) => (
         <div style={{ display: "flex" }}>
-          <div className="user-table-action-invite ">
-            <a
-              className="user-table-action-invite-link"
-              // onClick={() => props.showUserInformations(record)}
+          <Dropdown
+            overlay={
+              <Menu>
+                {getOrganizationMenuItems({
+                  record,
+                  showOrganizationInformations,
+                  editOrganizaton,
+                  deleteOrganization,
+                  openAddUserOnOrganization,
+                  addProcess,
+                  t,
+                })}
+              </Menu>
+            }
+          >
+            <div
+              onClick={(e) => e.preventDefault()}
+              className="process-table-menu"
             >
-              {props.t("Show User")}
-            </a>
-          </div>
-          <div className="user-table-action-edit ">
-            <a
-              className="user-table-action-edit-link"
-              // onClick={() => props.showUserEdit(record)}
-            >
-              {props.t("Edit")}
-            </a>
-          </div>
-          <div className="organization-table-action-delete ">
-            <a
-              className="organization-table-action-delete-link"
-              onClick={() => {
-                // props.deleteUser(record);
-              }}
-            >
-              {props.t("Delete")}
-            </a>
-          </div>
-          <div className="organization-table-action-addUser ">
-            <a
-              className="organization-table-action-addUser-link"
-              onClick={() => {
-                props.openAddUserOnOrganization(record);
-              }}
-            >
-              {props.t("Add User")}
-            </a>
-          </div>
+              <div className="process-table-menu-text">
+                {props.t("Actions")}
+              </div>{" "}
+              <div className="process-table-menu-icon">
+                <IoCaretDownOutline />
+              </div>
+            </div>
+          </Dropdown>
         </div>
       ),
     },

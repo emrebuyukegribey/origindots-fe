@@ -69,3 +69,18 @@ export function storeOrganization(body) {
 export function getAllOrganizationsByOwner() {
   return axios.get(`${BASE_URL}/organizations/owner`, headerConfig);
 }
+
+export function addUser(id, body) {
+  return axios.post(
+    `${BASE_URL}/organizations/organization${id}/addUser`,
+    body,
+    headerConfig
+  );
+}
+
+export function getOrganizationUsers(organizationId) {
+  return axios.get(
+    `${BASE_URL}/organizations/organization/${organizationId}`,
+    headerConfig
+  );
+}
