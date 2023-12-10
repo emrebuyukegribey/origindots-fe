@@ -5,7 +5,15 @@ import PageHeaderMenu from "../../components/UI/PageHeaderMenu";
 import { MainContext, useContext } from "../../context";
 import "./OrganizationManagementStyles.css";
 import { useState } from "react";
-import { Modal, Select, Transfer, message, notification } from "antd";
+import {
+  Modal,
+  Select,
+  Table,
+  Tabs,
+  Transfer,
+  message,
+  notification,
+} from "antd";
 import OrganizationForm from "./OrganizationForm";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import {
@@ -22,6 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import OrganizationTable from "./OrganizationTable";
 import { useEffect } from "react";
+import OrganizationItemCard from "./OrganizationItemCard";
 
 const { Option } = Select;
 
@@ -45,6 +54,7 @@ function OrganizationManagement(props) {
   const [showAddUserModal, setShowAddUserModal] = useState(false);
   const [showAddProcessModal, setShowAddProcessModal] = useState(false);
   const [showOrganizationModal, setShowOrganizationModal] = useState(false);
+  const [showOrganizationTabItems, setShowOrganizationTabItems] = useState([]);
 
   const [searchedOrganizations, setSearchedOrganizations] = useState([]);
   const [tableExpandedKeys, setTableExpandedKeys] = useState();
@@ -329,8 +339,102 @@ function OrganizationManagement(props) {
     }
   };
 
-  const showOrganizationInformations = (organization) => {
-    console.log("organization : ", organization);
+  const showOrganizationInformations = async (organization) => {
+    setLoading(true);
+    setOrganization(organization);
+    // setSelectedOrganization(organization);
+
+    try {
+      const usersResponse = await getOrganizationUsers(organization.id);
+      if (usersResponse.status === 200) {
+        try {
+          const processiesResponse = await getOrganizationProcessies(
+            organization.id
+          );
+
+          const userTableColumns = [
+            {
+              title: "Username",
+              dataIndex: "username",
+            },
+            {
+              title: "First Name",
+              dataIndex: "firstName",
+            },
+            {
+              title: "Last Name",
+              dataIndex: "lastName",
+            },
+            {
+              title: "Email",
+              dataIndex: "email",
+            },
+            {
+              title: "Created Date",
+              dataIndex: "createdDate",
+              render: (text, record) => (
+                <div>{new Date(record.createdDate).toLocaleString()}</div>
+              ),
+            },
+          ];
+
+          const processTableColumns = [
+            {
+              title: "Name",
+              dataIndex: "processName",
+            },
+
+            {
+              title: "Created Date",
+              dataIndex: "createdDate",
+              render: (text, record) => (
+                <div>{new Date(record.createdDate).toLocaleString()}</div>
+              ),
+            },
+          ];
+
+          if (processiesResponse.status === 200) {
+            const tabItems = [
+              {
+                key: "1",
+                label: "Show Organization Users",
+                children: (
+                  <Table
+                    columns={userTableColumns}
+                    dataSource={usersResponse.data}
+                    size="small"
+                  />
+                ),
+              },
+              {
+                key: "2",
+                label: "Show Organization Processies",
+                children: (
+                  <Table
+                    columns={processTableColumns}
+                    dataSource={processiesResponse.data}
+                    size="small"
+                  />
+                ),
+              },
+            ];
+            setShowOrganizationTabItems(tabItems);
+          }
+        } catch (err) {
+          console.log(
+            "Getting processies for organization (show) error : ",
+            err
+          );
+        } finally {
+        }
+      }
+    } catch (err) {
+      console.log("Getting users for organization (show) error : ", err);
+    } finally {
+      setLoading(false);
+    }
+
+    setShowOrganizationModal(true);
   };
 
   const editOrganizaton = () => {
@@ -339,10 +443,6 @@ function OrganizationManagement(props) {
 
   const deleteOrganization = () => {
     console.log("deleteOrganization");
-  };
-
-  const addProcess = () => {
-    console.log("addProcess");
   };
 
   const handleChangeUsers = (value) => {
@@ -413,7 +513,6 @@ function OrganizationManagement(props) {
               showOrganizationInformations={showOrganizationInformations}
               editOrganizaton={editOrganizaton}
               deleteOrganization={deleteOrganization}
-              addProcess={addProcess}
             />
           )}
         </div>
@@ -473,9 +572,14 @@ function OrganizationManagement(props) {
         open={showOrganizationModal}
         onOk={cancelShowOrganizationModal}
         onCancel={cancelShowOrganizationModal}
+        width={700}
       >
         <div>
           <div className="user-management-divider" />
+          <OrganizationItemCard organization={organization} />
+          <div style={{ margin: "20px 10px" }}>
+            <Tabs defaultActiveKey="1" items={showOrganizationTabItems} />
+          </div>
         </div>
       </Modal>
     </>

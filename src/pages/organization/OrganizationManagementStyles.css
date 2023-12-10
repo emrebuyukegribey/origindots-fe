@@ -25,3 +25,41 @@
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
 }
+
+
+.organization-management-show-user-item {
+    margin: 10px
+}
+
+.organization-management-show-user-item-label {
+    font-size: 16px;
+    color: var(--dark200);
+    font-weight: 500;
+    font-family: "Nunito", sans-serif;
+}
+
+.organization-management-show-user-item-content {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark100);
+    font-family: "Nunito", sans-serif;
+}
+
+.organization-management-show-tab-content-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.organization-management-show-tab-content-item-container {
+    margin-right: 30px;
+    width: 100px;
+}
+
+.organization-management-show-tab-content-item-label {
+
+}
+
+.organization-management-show-tab-content-item-content {
+
+}
