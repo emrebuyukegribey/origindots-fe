@@ -108,7 +108,7 @@ function OrganizationTable(props) {
     <div className="organization-table-container">
       <div style={{ marginBottom: "15px" }}></div>
       <Table
-        rowKey={(u) => u.id}
+        rowKey={(o) => o.id}
         columns={columns}
         dataSource={props.organizations || []}
         pagination={{ pageSize: 8 }}

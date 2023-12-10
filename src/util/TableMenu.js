@@ -161,7 +161,7 @@ export const getOrganizationMenuItems = ({
   const items = [];
 
   items.push(
-    <Menu.Item key="show">
+    <Menu.Item key="showOrganization">
       <div className="menu-item-container">
         <div className="menu-item-icon">
           <AiOutlineEye />
@@ -176,7 +176,7 @@ export const getOrganizationMenuItems = ({
   );
 
   items.push(
-    <Menu.Item key="edit">
+    <Menu.Item key="editOrganization">
       <div className="menu-item-container">
         <div className="menu-item-icon">
           <BiSolidEdit />
@@ -189,7 +189,7 @@ export const getOrganizationMenuItems = ({
   );
 
   items.push(
-    <Menu.Item key="delete">
+    <Menu.Item key="deleteOrganization">
       <div className="menu-item-container">
         <div className="menu-item-icon">
           <AiOutlineDelete />
@@ -210,7 +210,7 @@ export const getOrganizationMenuItems = ({
   items.push(<div style={{ borderBottom: "1px solid #dddde3" }}></div>);
 
   items.push(
-    <Menu.Item key="addUser">
+    <Menu.Item key="addUserOrganization">
       <div className="menu-item-container">
         <div className="menu-item-icon">
           <FiUserPlus />
@@ -229,7 +229,7 @@ export const getOrganizationMenuItems = ({
   );
 
   items.push(
-    <Menu.Item key="addProcess">
+    <Menu.Item key="addProcessOrganization">
       <div className="menu-item-container">
         <div className="menu-item-icon">
           <MdPostAdd />

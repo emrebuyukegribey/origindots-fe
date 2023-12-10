@@ -22,13 +22,7 @@ import { useEffect } from "react";
 
 const { Option } = Select;
 
-const availableUsers = [];
-const usedUsers = [];
 let selectedUsersForOrganization = [];
-
-let userTransferData = [];
-let initialUserTransferData = [];
-const mockData = [];
 
 function OrganizationManagement(props) {
   const { activeLeftBar, loginUser, token } = useContext(MainContext);
@@ -52,6 +46,7 @@ function OrganizationManagement(props) {
   const [autoExpandParent, setAutoExpandParent] = useState(true);
   const [users, setUsers] = useState([]);
   const [organizationUsers, setOrganizationUsers] = useState([]);
+  const [availableUsers, setAvailableUsers] = useState([]);
 
   const [selectedOrganization, setSelectedOrganization] = useState();
 
@@ -178,6 +173,7 @@ function OrganizationManagement(props) {
       if (response.status === 200) {
         showMessage("success", "Added user on organization");
         setLoading(false);
+        setShowAddUserModal(false);
       } else {
         openErrorNotification(
           "error",
@@ -199,19 +195,20 @@ function OrganizationManagement(props) {
         organization.id
       );
       if (organizationUsersResponse.status === 200) {
-        /*
-        availableUsers = users.filter(
+        console.log(
+          "organizationUsersResponse.data : ",
+          organizationUsersResponse.data
+        );
+        const notSavedUsers = users.filter(
           (user1) =>
             !organizationUsersResponse.data.some(
-              (user2) => user2.id === user1.id
+              (user2) => user2.userId === user1.id
             )
         );
-        
-        usedUsers = organizationUsersResponse.data;
-        */
+        console.log("notSavedUsers : ", notSavedUsers);
+        setSelectedOrganization(organization);
+        setAvailableUsers(notSavedUsers);
         setOrganizationUsers(organizationUsersResponse.data);
-        createUserTransferData(users);
-        createInitialTransferData();
         setShowAddUserModal(true);
       }
     } catch (err) {
@@ -219,34 +216,6 @@ function OrganizationManagement(props) {
     } finally {
       setLoading(false);
     }
-  };
-
-  const createUserTransferData = () => {
-    users.forEach((user) => {
-      console.log("user : ", user);
-      const data = {
-        key: user.id,
-        title: user.username,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-      };
-      userTransferData.push(data);
-    });
-    console.log("userTransferData : ", userTransferData);
-  };
-
-  const createInitialTransferData = () => {
-    organizationUsers.forEach((user) => {
-      const data = {
-        key: user.userId,
-        title: user.username,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-      };
-      initialUserTransferData.push(data);
-    });
   };
 
   const submitOrganization = async (organization) => {
@@ -378,38 +347,18 @@ function OrganizationManagement(props) {
       >
         <div>
           <div className="user-management-divider" />
-          {/*
           <div>
             <Select
               mode="multiple"
               style={{ width: "100%" }}
               placeholder="Please select"
-              defaultValue={usedUsers}
               onChange={handleChangeUsers}
             >
-              {availableUsers.map((user) => (
-                <Option key={user.id}>{user.username}</Option>
+              {availableUsers.map((user, index) => (
+                <Option key={index}>{user.username}</Option>
               ))}
             </Select>
           </div>
-              */}
-          {console.log("userTransferData : ", userTransferData)}
-          {console.log("initialUserTransferData : ", initialUserTransferData)}
-          <Transfer
-            oneWay={true}
-            dataSource={userTransferData}
-            titles={["Available Users", "Organization Users"]}
-            targetKeys={initialUserTransferData}
-            selectedKeys={initialUserTransferData}
-            // onChange={onChange}
-            // onSelectChange={onSelectChange}
-            // onScroll={onScroll}
-            render={(item) => item.title}
-            listStyle={{
-              width: 250,
-              height: 300,
-            }}
-          />
         </div>
       </Modal>
     </>
