@@ -5,10 +5,11 @@ import PageHeaderMenu from "../../components/UI/PageHeaderMenu";
 import { MainContext, useContext } from "../../context";
 import "./OrganizationManagementStyles.css";
 import { useState } from "react";
-import { Modal, Select, message, notification } from "antd";
+import { Modal, Select, Transfer, message, notification } from "antd";
 import OrganizationForm from "./OrganizationForm";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import {
+  addUserForOrganization,
   getAllOrganizationsByOwner,
   getAllUsersByOwnerUser,
   getOrganizationUsers,
@@ -20,6 +21,14 @@ import OrganizationTable from "./OrganizationTable";
 import { useEffect } from "react";
 
 const { Option } = Select;
+
+const availableUsers = [];
+const usedUsers = [];
+let selectedUsersForOrganization = [];
+
+let userTransferData = [];
+let initialUserTransferData = [];
+const mockData = [];
 
 function OrganizationManagement(props) {
   const { activeLeftBar, loginUser, token } = useContext(MainContext);
@@ -36,12 +45,15 @@ function OrganizationManagement(props) {
   const [organizationsTemp, setOrganizationsTemp] = useState([]);
 
   const [showAddUserModal, setShowAddUserModal] = useState(false);
-  const [organizationUsers, setOrganizationUsers] = useState([]);
+
   const [searchedOrganizations, setSearchedOrganizations] = useState([]);
   const [tableExpandedKeys, setTableExpandedKeys] = useState();
   const [searchValue, setSearchValue] = useState("");
   const [autoExpandParent, setAutoExpandParent] = useState(true);
   const [users, setUsers] = useState([]);
+  const [organizationUsers, setOrganizationUsers] = useState([]);
+
+  const [selectedOrganization, setSelectedOrganization] = useState();
 
   const cancelShowAddUserModal = () => {
     setShowAddUserModal(false);
@@ -122,7 +134,6 @@ function OrganizationManagement(props) {
     setLoading(true);
     try {
       const response = await getAllUsersByOwnerUser();
-      console.log("response : ", response);
       if (response.status === 200) {
         setUsers(response.data);
       } else {
@@ -157,47 +168,85 @@ function OrganizationManagement(props) {
     getAllUsers();
   }, []);
 
-  const addUserOnOrganization = (organization, users) => {};
-
-  const openAddUserOnOrganization = (organizationId) => {
-    console.log("openAddUserOnOrganization");
+  const addUserOnOrganization = async () => {
+    setLoading(true);
     try {
-      const organizationUsersResponse = getOrganizationUsers(organizationId);
-      if (organizationUsersResponse.status === 200) {
-        try {
-          const allUsersResponse = getAllUsers();
-          if (allUsersResponse.status === 200) {
-            const availableUsers = [];
-            allUsersResponse.data.forEach((user) => {
-              organizationUsersResponse.data.forEach((organizationUser) => {
-                if (user.id === organizationUser.id) {
-                  availableUsers.push(user);
-                }
-              });
-            });
-          } else {
-            openErrorNotification(
-              "error",
-              props.t("Getting owner users error"),
-              allUsersResponse.data.message
-            );
-          }
-        } catch (err) {
-          console.log("Getting owner users error : ", err);
-        }
+      const response = await addUserForOrganization(
+        selectedOrganization.id,
+        selectedUsersForOrganization
+      );
+      if (response.status === 200) {
+        showMessage("success", "Added user on organization");
+        setLoading(false);
       } else {
         openErrorNotification(
           "error",
-          props.t("Getting organization users error"),
-          organizationUsersResponse.data.message
+          props.t("Adding user on organization error"),
+          response.data.message
         );
       }
     } catch (err) {
-      console.log("Getting organizaiton users error : ", err);
+      console.log("Adding user on organization error : ", err);
     } finally {
     }
-    const organizationUsers = getOrganizationUsers(organizationId);
-    setShowAddUserModal(true);
+  };
+
+  const openAddUserOnOrganization = async (organization) => {
+    setLoading(true);
+
+    try {
+      const organizationUsersResponse = await getOrganizationUsers(
+        organization.id
+      );
+      if (organizationUsersResponse.status === 200) {
+        /*
+        availableUsers = users.filter(
+          (user1) =>
+            !organizationUsersResponse.data.some(
+              (user2) => user2.id === user1.id
+            )
+        );
+        
+        usedUsers = organizationUsersResponse.data;
+        */
+        setOrganizationUsers(organizationUsersResponse.data);
+        createUserTransferData(users);
+        createInitialTransferData();
+        setShowAddUserModal(true);
+      }
+    } catch (err) {
+      console.log("Getting organization users error : ", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createUserTransferData = () => {
+    users.forEach((user) => {
+      console.log("user : ", user);
+      const data = {
+        key: user.id,
+        title: user.username,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      };
+      userTransferData.push(data);
+    });
+    console.log("userTransferData : ", userTransferData);
+  };
+
+  const createInitialTransferData = () => {
+    organizationUsers.forEach((user) => {
+      const data = {
+        key: user.userId,
+        title: user.username,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      };
+      initialUserTransferData.push(data);
+    });
   };
 
   const submitOrganization = async (organization) => {
@@ -242,12 +291,18 @@ function OrganizationManagement(props) {
     console.log("deleteOrganization");
   };
 
-  const addUser = () => {
-    console.log("addUser");
+  const addUser = async (organization) => {
+    console.log("addUser organization : ", organization);
+    const response = await addUserForOrganization();
   };
 
   const addProcess = () => {
     console.log("addProcess");
+  };
+
+  const handleChangeUsers = (value) => {
+    console.log("value : ", value);
+    selectedUsersForOrganization = value;
   };
 
   if (loading) {
@@ -323,23 +378,38 @@ function OrganizationManagement(props) {
       >
         <div>
           <div className="user-management-divider" />
-          {console.log("users : ", users)}
+          {/*
           <div>
             <Select
               mode="multiple"
               style={{ width: "100%" }}
               placeholder="Please select"
-              defaultValue={[users[0]]}
-              // onChange={handleChange}
+              defaultValue={usedUsers}
+              onChange={handleChangeUsers}
             >
-              {users.map((user) => (
-                <Option key={user.id}>
-                  {user.firstName} {user.lastName} - ({user.email} -{" "}
-                  {user.username})
-                </Option>
+              {availableUsers.map((user) => (
+                <Option key={user.id}>{user.username}</Option>
               ))}
             </Select>
           </div>
+              */}
+          {console.log("userTransferData : ", userTransferData)}
+          {console.log("initialUserTransferData : ", initialUserTransferData)}
+          <Transfer
+            oneWay={true}
+            dataSource={userTransferData}
+            titles={["Available Users", "Organization Users"]}
+            targetKeys={initialUserTransferData}
+            selectedKeys={initialUserTransferData}
+            // onChange={onChange}
+            // onSelectChange={onSelectChange}
+            // onScroll={onScroll}
+            render={(item) => item.title}
+            listStyle={{
+              width: 250,
+              height: 300,
+            }}
+          />
         </div>
       </Modal>
     </>

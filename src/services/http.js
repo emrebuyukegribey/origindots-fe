@@ -70,9 +70,9 @@ export function getAllOrganizationsByOwner() {
   return axios.get(`${BASE_URL}/organizations/owner`, headerConfig);
 }
 
-export function addUser(id, body) {
+export function addUserForOrganization(organizationId, body) {
   return axios.post(
-    `${BASE_URL}/organizations/organization${id}/addUser`,
+    `${BASE_URL}/organizations/organization/${organizationId}/addUser`,
     body,
     headerConfig
   );
@@ -80,7 +80,7 @@ export function addUser(id, body) {
 
 export function getOrganizationUsers(organizationId) {
   return axios.get(
-    `${BASE_URL}/organizations/organization/${organizationId}`,
+    `${BASE_URL}/organizations/organization/${organizationId}/organizationUsers`,
     headerConfig
   );
 }
