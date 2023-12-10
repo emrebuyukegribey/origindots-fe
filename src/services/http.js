@@ -84,3 +84,18 @@ export function getOrganizationUsers(organizationId) {
     headerConfig
   );
 }
+
+export function getOrganizationProcessies(organizationId) {
+  return axios.get(
+    `${BASE_URL}/organizations/organization/${organizationId}/organizationProcessies`,
+    headerConfig
+  );
+}
+
+export function addProcessForOrganization(organizationId, body) {
+  return axios.post(
+    `${BASE_URL}/organizations/organization/${organizationId}/addProcessies`,
+    body,
+    headerConfig
+  );
+}

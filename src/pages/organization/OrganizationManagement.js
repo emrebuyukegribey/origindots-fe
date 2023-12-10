@@ -9,9 +9,12 @@ import { Modal, Select, Transfer, message, notification } from "antd";
 import OrganizationForm from "./OrganizationForm";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import {
+  addProcessForOrganization,
   addUserForOrganization,
   getAllOrganizationsByOwner,
+  getAllProcessByOwner,
   getAllUsersByOwnerUser,
+  getOrganizationProcessies,
   getOrganizationUsers,
   storeOrganization,
 } from "../../services/http";
@@ -23,6 +26,7 @@ import { useEffect } from "react";
 const { Option } = Select;
 
 let selectedUsersForOrganization = [];
+let selectedProcessiesForOrganization = [];
 
 function OrganizationManagement(props) {
   const { activeLeftBar, loginUser, token } = useContext(MainContext);
@@ -39,19 +43,31 @@ function OrganizationManagement(props) {
   const [organizationsTemp, setOrganizationsTemp] = useState([]);
 
   const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [showAddProcessModal, setShowAddProcessModal] = useState(false);
+  const [showOrganizationModal, setShowOrganizationModal] = useState(false);
 
   const [searchedOrganizations, setSearchedOrganizations] = useState([]);
   const [tableExpandedKeys, setTableExpandedKeys] = useState();
   const [searchValue, setSearchValue] = useState("");
   const [autoExpandParent, setAutoExpandParent] = useState(true);
   const [users, setUsers] = useState([]);
-  const [organizationUsers, setOrganizationUsers] = useState([]);
   const [availableUsers, setAvailableUsers] = useState([]);
+
+  const [processies, setProcessies] = useState([]);
+  const [availableProcessies, setAvailableProcessies] = useState([]);
 
   const [selectedOrganization, setSelectedOrganization] = useState();
 
   const cancelShowAddUserModal = () => {
     setShowAddUserModal(false);
+  };
+
+  const cancelShowAddProcessModal = () => {
+    setShowAddProcessModal(false);
+  };
+
+  const cancelShowOrganizationModal = () => {
+    setShowOrganizationModal(false);
   };
 
   const newOrganizationCreate = () => {
@@ -134,11 +150,31 @@ function OrganizationManagement(props) {
       } else {
         openErrorNotification(
           "error",
-          props.t("Getting Userserror"),
+          props.t("Getting Users error"),
           response.data.message
         );
       }
     } catch (err) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getAllProcess = async () => {
+    setLoading(true);
+    try {
+      const response = await getAllProcessByOwner();
+      if (response.status === 200) {
+        setProcessies(response.data);
+      } else {
+        openErrorNotification(
+          "error",
+          props.t("Getting Processies error"),
+          response.data.message
+        );
+      }
+    } catch (err) {
+      console.log("Getting Processies error : ", err);
     } finally {
       setLoading(false);
     }
@@ -161,7 +197,33 @@ function OrganizationManagement(props) {
   useEffect(() => {
     getAllOrganizations();
     getAllUsers();
+    getAllProcess();
   }, []);
+
+  const addProcessOnOrganization = async () => {
+    setLoading(true);
+    try {
+      const response = await addProcessForOrganization(
+        selectedOrganization.id,
+        selectedProcessiesForOrganization
+      );
+      if (response.status === 200) {
+        showMessage("success", "Added process/s on organization");
+        setLoading(false);
+        setShowAddProcessModal(false);
+      } else {
+        openErrorNotification(
+          "error",
+          props.t("Adding process on organization error"),
+          response.data.message
+        );
+      }
+    } catch (err) {
+      console.log("Adding process on organization error : ", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const addUserOnOrganization = async () => {
     setLoading(true);
@@ -171,7 +233,7 @@ function OrganizationManagement(props) {
         selectedUsersForOrganization
       );
       if (response.status === 200) {
-        showMessage("success", "Added user on organization");
+        showMessage("success", "Added user/s on organization");
         setLoading(false);
         setShowAddUserModal(false);
       } else {
@@ -184,6 +246,31 @@ function OrganizationManagement(props) {
     } catch (err) {
       console.log("Adding user on organization error : ", err);
     } finally {
+      setLoading(false);
+    }
+  };
+
+  const openAddProcessOnOrganization = async (organization) => {
+    try {
+      const organizationProcessiesResponse = await getOrganizationProcessies(
+        organization.id
+      );
+      if (organizationProcessiesResponse.status === 200) {
+        const notSavedProcessies = processies.filter(
+          (process1) =>
+            !organizationProcessiesResponse.data.some(
+              (process2) => process2.processId === process1.id
+            )
+        );
+
+        setSelectedOrganization(organization);
+        setAvailableProcessies(notSavedProcessies);
+        setShowAddProcessModal(true);
+      }
+    } catch (err) {
+      console.log("Getting organization processies error : ", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -195,20 +282,14 @@ function OrganizationManagement(props) {
         organization.id
       );
       if (organizationUsersResponse.status === 200) {
-        console.log(
-          "organizationUsersResponse.data : ",
-          organizationUsersResponse.data
-        );
         const notSavedUsers = users.filter(
           (user1) =>
             !organizationUsersResponse.data.some(
               (user2) => user2.userId === user1.id
             )
         );
-        console.log("notSavedUsers : ", notSavedUsers);
         setSelectedOrganization(organization);
         setAvailableUsers(notSavedUsers);
-        setOrganizationUsers(organizationUsersResponse.data);
         setShowAddUserModal(true);
       }
     } catch (err) {
@@ -248,8 +329,8 @@ function OrganizationManagement(props) {
     }
   };
 
-  const showOrganizationInformations = () => {
-    console.log("showOrganizationInformations");
+  const showOrganizationInformations = (organization) => {
+    console.log("organization : ", organization);
   };
 
   const editOrganizaton = () => {
@@ -260,18 +341,16 @@ function OrganizationManagement(props) {
     console.log("deleteOrganization");
   };
 
-  const addUser = async (organization) => {
-    console.log("addUser organization : ", organization);
-    const response = await addUserForOrganization();
-  };
-
   const addProcess = () => {
     console.log("addProcess");
   };
 
   const handleChangeUsers = (value) => {
-    console.log("value : ", value);
     selectedUsersForOrganization = value;
+  };
+
+  const handleChangeProcessies = (value) => {
+    selectedProcessiesForOrganization = value;
   };
 
   if (loading) {
@@ -326,6 +405,7 @@ function OrganizationManagement(props) {
               setNavbarHeaderText={props.setNavbarHeaderText}
               organizations={organizations}
               openAddUserOnOrganization={openAddUserOnOrganization}
+              openAddProcessOnOrganization={openAddProcessOnOrganization}
               t={props.t}
               expandedKeys={tableExpandedKeys}
               searchValue={searchValue}
@@ -333,7 +413,6 @@ function OrganizationManagement(props) {
               showOrganizationInformations={showOrganizationInformations}
               editOrganizaton={editOrganizaton}
               deleteOrganization={deleteOrganization}
-              addUser={addUser}
               addProcess={addProcess}
             />
           )}
@@ -355,10 +434,48 @@ function OrganizationManagement(props) {
               onChange={handleChangeUsers}
             >
               {availableUsers.map((user, index) => (
-                <Option key={index}>{user.username}</Option>
+                <Option key={user.id} value={user.id}>
+                  {user.username}
+                </Option>
               ))}
             </Select>
           </div>
+        </div>
+      </Modal>
+
+      <Modal
+        title={props.t("Add Process on Organization")}
+        open={showAddProcessModal}
+        onOk={addProcessOnOrganization}
+        onCancel={cancelShowAddProcessModal}
+      >
+        <div>
+          <div className="user-management-divider" />
+          <div>
+            <Select
+              mode="multiple"
+              style={{ width: "100%" }}
+              placeholder="Please select"
+              onChange={handleChangeProcessies}
+            >
+              {availableProcessies.map((process, index) => (
+                <Option key={process.id} value={process.id}>
+                  {process.name}
+                </Option>
+              ))}
+            </Select>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        title={props.t("Organization Information")}
+        open={showOrganizationModal}
+        onOk={cancelShowOrganizationModal}
+        onCancel={cancelShowOrganizationModal}
+      >
+        <div>
+          <div className="user-management-divider" />
         </div>
       </Modal>
     </>

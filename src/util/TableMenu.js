@@ -154,8 +154,7 @@ export const getOrganizationMenuItems = ({
   updateOrganization,
   deleteOrganization,
   openAddUserOnOrganization,
-  addUser,
-  addProcess,
+  openAddProcessOnOrganization,
   t,
 }) => {
   const items = [];
@@ -237,7 +236,7 @@ export const getOrganizationMenuItems = ({
         <div className="menu-item-link">
           <a
             onClick={() => {
-              addProcess(record);
+              openAddProcessOnOrganization(record);
             }}
           >
             {t("Add Process")}

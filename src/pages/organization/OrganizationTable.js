@@ -19,7 +19,7 @@ function OrganizationTable(props) {
     editOrganizaton,
     deleteOrganization,
     openAddUserOnOrganization,
-    addUser,
+    openAddProcessOnOrganization,
     addProcess,
     t,
   } = props;
@@ -57,6 +57,7 @@ function OrganizationTable(props) {
                   editOrganizaton,
                   deleteOrganization,
                   openAddUserOnOrganization,
+                  openAddProcessOnOrganization,
                   addProcess,
                   t,
                 })}
