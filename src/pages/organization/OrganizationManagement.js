@@ -19,6 +19,8 @@ import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import {
   addProcessForOrganization,
   addUserForOrganization,
+  deleteProcessFromOrganization,
+  deleteUserFromOrganization,
   getAllOrganizationsByOwner,
   getAllProcessByOwner,
   getAllUsersByOwnerUser,
@@ -31,6 +33,7 @@ import { jwtDecode } from "jwt-decode";
 import OrganizationTable from "./OrganizationTable";
 import { useEffect } from "react";
 import OrganizationItemCard from "./OrganizationItemCard";
+import { CiCircleAlert } from "react-icons/ci";
 
 const { Option } = Select;
 
@@ -376,6 +379,13 @@ function OrganizationManagement(props) {
                 <div>{new Date(record.createdDate).toLocaleString()}</div>
               ),
             },
+            {
+              title: "Actions",
+              dataIndex: "actions",
+              render: (text, record) => (
+                <div onClick={() => deleteUserWarning(record)}>Delete</div>
+              ),
+            },
           ];
 
           const processTableColumns = [
@@ -389,6 +399,13 @@ function OrganizationManagement(props) {
               dataIndex: "createdDate",
               render: (text, record) => (
                 <div>{new Date(record.createdDate).toLocaleString()}</div>
+              ),
+            },
+            {
+              title: "Actions",
+              dataIndex: "actions",
+              render: (text, record) => (
+                <div onClick={() => deleteProcessWarning(record)}>Delete</div>
               ),
             },
           ];
@@ -435,6 +452,81 @@ function OrganizationManagement(props) {
     }
 
     setShowOrganizationModal(true);
+  };
+
+  const deleteUserWarning = (organizationUser) => {
+    Modal.confirm({
+      title: props.t("Are you sure delete the user from organization"),
+      icon: <CiCircleAlert size={20} color="red" />,
+      content: "",
+      onOk() {
+        deleteUser(organizationUser);
+      },
+
+      onCancel() {},
+      okType: "danger",
+    });
+  };
+
+  const deleteProcessWarning = (organizationProcess) => {
+    Modal.confirm({
+      title: props.t("Are you sure delete the process from organization"),
+      icon: <CiCircleAlert size={20} color="red" />,
+      content: "",
+      onOk() {
+        deleteProcess(organizationProcess);
+      },
+      onCancel() {},
+      okType: "danger",
+    });
+  };
+
+  const deleteUser = async (organizationUser) => {
+    setLoading(true);
+    try {
+      const response = await deleteUserFromOrganization(
+        organizationUser.organizationId,
+        organizationUser.userId
+      );
+      if (response.status === 200) {
+        showMessage("success", "Deleted user from organization");
+        setShowOrganizationModal(false);
+      } else {
+        openErrorNotification(
+          "error",
+          props.t("Deleting user from organization error"),
+          response.data.message
+        );
+      }
+    } catch (err) {
+      console.log("Deleting user from organization error : ", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteProcess = async (organizationProcess) => {
+    setLoading(true);
+    try {
+      const response = await deleteProcessFromOrganization(
+        organizationProcess.organizationId,
+        organizationProcess.processId
+      );
+      if (response.status === 200) {
+        showMessage("success", "Delete process from organization");
+        setShowOrganizationModal(false);
+      } else {
+        openErrorNotification(
+          "error",
+          props.t("Deleting process from organization error"),
+          response.data.message
+        );
+      }
+    } catch (err) {
+      console.log("Deleting process from organization error : ", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const editOrganizaton = () => {
@@ -572,7 +664,7 @@ function OrganizationManagement(props) {
         open={showOrganizationModal}
         onOk={cancelShowOrganizationModal}
         onCancel={cancelShowOrganizationModal}
-        width={700}
+        width={850}
       >
         <div>
           <div className="user-management-divider" />

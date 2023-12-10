@@ -99,3 +99,24 @@ export function addProcessForOrganization(organizationId, body) {
     headerConfig
   );
 }
+
+export function deleteOrganization(organizationId) {
+  return axios.delete(
+    `${BASE_URL}/organizations/${organizationId}`,
+    headerConfig
+  );
+}
+
+export function deleteUserFromOrganization(organizationId, userId) {
+  return axios.delete(
+    `${BASE_URL}/organizations/organization/${organizationId}/user/${userId}`,
+    headerConfig
+  );
+}
+
+export function deleteProcessFromOrganization(organizationId, processId) {
+  return axios.delete(
+    `${BASE_URL}/organizations/organization/${organizationId}/process/${processId}`,
+    headerConfig
+  );
+}
