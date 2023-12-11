@@ -19,6 +19,7 @@ import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import {
   addProcessForOrganization,
   addUserForOrganization,
+  deleteOrganization,
   deleteProcessFromOrganization,
   deleteUserFromOrganization,
   getAllOrganizationsByOwner,
@@ -383,7 +384,12 @@ function OrganizationManagement(props) {
               title: "Actions",
               dataIndex: "actions",
               render: (text, record) => (
-                <div onClick={() => deleteUserWarning(record)}>Delete</div>
+                <div
+                  onClick={() => deleteUserWarning(record)}
+                  style={{ color: "#EF4136", cursor: "pointer" }}
+                >
+                  Delete
+                </div>
               ),
             },
           ];
@@ -405,7 +411,12 @@ function OrganizationManagement(props) {
               title: "Actions",
               dataIndex: "actions",
               render: (text, record) => (
-                <div onClick={() => deleteProcessWarning(record)}>Delete</div>
+                <div
+                  onClick={() => deleteProcessWarning(record)}
+                  style={{ color: "#EF4136", cursor: "pointer" }}
+                >
+                  Delete
+                </div>
               ),
             },
           ];
@@ -454,9 +465,52 @@ function OrganizationManagement(props) {
     setShowOrganizationModal(true);
   };
 
+  const deleteOrganizationWarning = (organization) => {
+    Modal.confirm({
+      title: props.t(
+        "Are you sure delete the organization and its all sub organizations"
+      ),
+      icon: <CiCircleAlert size={20} color="red" />,
+      content: "",
+      onOk() {
+        deleteOrganizationAndChilds(organization);
+      },
+
+      onCancel() {},
+      okType: "danger",
+    });
+  };
+
+  const deleteOrganizationAndChilds = async (organization) => {
+    console.log("organization : ", organization.id);
+    setLoading(true);
+    try {
+      const response = await deleteOrganization(organization.id);
+      if (response.status === 200) {
+        showMessage(
+          "success",
+          "Deleted organization and its all sub organizations"
+        );
+        getAllOrganizations();
+      } else {
+        openErrorNotification(
+          "error",
+          props.t("Deleting organization error"),
+          response.data.message
+        );
+      }
+    } catch (err) {
+      console.log("Deleting organization error : ", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const deleteUserWarning = (organizationUser) => {
     Modal.confirm({
-      title: props.t("Are you sure delete the user from organization"),
+      title: props.t(
+        "Are you sure delete the organization and  from organization"
+      ),
       icon: <CiCircleAlert size={20} color="red" />,
       content: "",
       onOk() {
@@ -533,10 +587,6 @@ function OrganizationManagement(props) {
     console.log("editOrganization");
   };
 
-  const deleteOrganization = () => {
-    console.log("deleteOrganization");
-  };
-
   const handleChangeUsers = (value) => {
     selectedUsersForOrganization = value;
   };
@@ -604,7 +654,7 @@ function OrganizationManagement(props) {
               autoExpandParent={autoExpandParent}
               showOrganizationInformations={showOrganizationInformations}
               editOrganizaton={editOrganizaton}
-              deleteOrganization={deleteOrganization}
+              deleteOrganization={deleteOrganizationWarning}
             />
           )}
         </div>
