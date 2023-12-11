@@ -85,6 +85,7 @@ function OrganizationManagement(props) {
   };
 
   const newOrganizationCreate = () => {
+    setOrganization({});
     setShowOrganizationForm(true);
   };
 

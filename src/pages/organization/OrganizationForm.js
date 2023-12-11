@@ -3,7 +3,7 @@ import SubmitButtonBorder from "../../components/UI/Buttons/SubmitButtonBorder";
 import CancelButtonBorder from "../../components/UI/Buttons/CancelButtonBorder";
 
 import "./OrganizationForm.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function OrganizationForm(props) {
   console.log("props : ", props);
@@ -46,10 +46,12 @@ function OrganizationForm(props) {
   }
 
   const options =
-    flattenOrganizations(props.organizations).map((org) => ({
-      label: org.name,
-      value: org.id,
-    })) || [];
+    flattenOrganizations(props.organizations)
+      .filter((org) => org.id !== props.organization.id)
+      .map((org) => ({
+        label: org.name,
+        value: org.id,
+      })) || [];
 
   useEffect(() => {
     props.setNavbarHeaderText("Organization Management > New Organization");
