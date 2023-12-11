@@ -72,6 +72,8 @@ function OrganizationManagement(props) {
 
   const [selectedOrganization, setSelectedOrganization] = useState();
 
+  const [defaultTabKey, setDefaultTabKey] = useState("1");
+
   const cancelShowAddUserModal = () => {
     setShowAddUserModal(false);
   };
@@ -347,6 +349,7 @@ function OrganizationManagement(props) {
   const showOrganizationInformations = async (organization) => {
     setLoading(true);
     setOrganization(organization);
+    setDefaultTabKey("1");
     // setSelectedOrganization(organization);
 
     try {
@@ -551,6 +554,8 @@ function OrganizationManagement(props) {
       if (response.status === 200) {
         showMessage("success", "Deleted user from organization");
         setShowOrganizationModal(false);
+        setDefaultTabKey("1");
+        await showOrganizationInformations(organization);
       } else {
         openErrorNotification(
           "error",
@@ -575,6 +580,8 @@ function OrganizationManagement(props) {
       if (response.status === 200) {
         showMessage("success", "Delete process from organization");
         setShowOrganizationModal(false);
+        await showOrganizationInformations(organization);
+        setDefaultTabKey("2");
       } else {
         openErrorNotification(
           "error",
@@ -727,7 +734,10 @@ function OrganizationManagement(props) {
           <div className="user-management-divider" />
           <OrganizationItemCard organization={organization} />
           <div style={{ margin: "20px 10px" }}>
-            <Tabs defaultActiveKey="1" items={showOrganizationTabItems} />
+            <Tabs
+              defaultActiveKey={defaultTabKey}
+              items={showOrganizationTabItems}
+            />
           </div>
         </div>
       </Modal>
