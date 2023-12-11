@@ -151,10 +151,10 @@ export const getUserMenuItems = ({
 export const getOrganizationMenuItems = ({
   record,
   showOrganizationInformations,
-  updateOrganization,
   deleteOrganization,
   openAddUserOnOrganization,
   openAddProcessOnOrganization,
+  showOrganizationEdit,
   t,
 }) => {
   const items = [];
@@ -181,7 +181,7 @@ export const getOrganizationMenuItems = ({
           <BiSolidEdit />
         </div>
         <div className="menu-item-link">
-          <a onClick={() => updateOrganization(record)}>{t("Edit")}</a>
+          <a onClick={() => showOrganizationEdit(record)}>{t("Edit")}</a>
         </div>
       </div>
     </Menu.Item>

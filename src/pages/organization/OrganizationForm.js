@@ -6,12 +6,21 @@ import "./OrganizationForm.css";
 import { useEffect, useState } from "react";
 
 function OrganizationForm(props) {
+  console.log("props : ", props);
   const [form] = Form.useForm();
 
   const formItemLayout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 15 },
   };
+
+  useEffect(() => {
+    const defaultValues = {
+      name: props.organization.name,
+      description: props.organization.description,
+    };
+    form.setFieldsValue(defaultValues);
+  }, []);
 
   const onFinish = async (values) => {
     const body = {

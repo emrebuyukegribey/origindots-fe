@@ -20,6 +20,7 @@ function OrganizationTable(props) {
     deleteOrganization,
     openAddUserOnOrganization,
     openAddProcessOnOrganization,
+    showOrganizationEdit,
     t,
   } = props;
   const columns: ColumnsType<DataType> = [
@@ -57,6 +58,7 @@ function OrganizationTable(props) {
                   deleteOrganization,
                   openAddUserOnOrganization,
                   openAddProcessOnOrganization,
+                  showOrganizationEdit,
                   t,
                 })}
               </Menu>

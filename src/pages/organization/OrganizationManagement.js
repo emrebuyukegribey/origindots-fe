@@ -465,6 +465,11 @@ function OrganizationManagement(props) {
     setShowOrganizationModal(true);
   };
 
+  const showOrganizationEdit = (organization) => {
+    setOrganization(organization);
+    setShowOrganizationForm(true);
+  };
+
   const deleteOrganizationWarning = (organization) => {
     Modal.confirm({
       title: props.t(
@@ -655,6 +660,7 @@ function OrganizationManagement(props) {
               showOrganizationInformations={showOrganizationInformations}
               editOrganizaton={editOrganizaton}
               deleteOrganization={deleteOrganizationWarning}
+              showOrganizationEdit={showOrganizationEdit}
             />
           )}
         </div>
