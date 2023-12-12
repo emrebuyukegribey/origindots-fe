@@ -69,3 +69,54 @@ export function storeOrganization(body) {
 export function getAllOrganizationsByOwner() {
   return axios.get(`${BASE_URL}/organizations/owner`, headerConfig);
 }
+
+export function addUserForOrganization(organizationId, body) {
+  return axios.post(
+    `${BASE_URL}/organizations/organization/${organizationId}/addUser`,
+    body,
+    headerConfig
+  );
+}
+
+export function getOrganizationUsers(organizationId) {
+  return axios.get(
+    `${BASE_URL}/organizations/organization/${organizationId}/organizationUsers`,
+    headerConfig
+  );
+}
+
+export function getOrganizationProcessies(organizationId) {
+  return axios.get(
+    `${BASE_URL}/organizations/organization/${organizationId}/organizationProcessies`,
+    headerConfig
+  );
+}
+
+export function addProcessForOrganization(organizationId, body) {
+  return axios.post(
+    `${BASE_URL}/organizations/organization/${organizationId}/addProcessies`,
+    body,
+    headerConfig
+  );
+}
+
+export function deleteOrganization(organizationId) {
+  return axios.delete(
+    `${BASE_URL}/organizations/${organizationId}`,
+    headerConfig
+  );
+}
+
+export function deleteUserFromOrganization(organizationId, userId) {
+  return axios.delete(
+    `${BASE_URL}/organizations/organization/${organizationId}/user/${userId}`,
+    headerConfig
+  );
+}
+
+export function deleteProcessFromOrganization(organizationId, processId) {
+  return axios.delete(
+    `${BASE_URL}/organizations/organization/${organizationId}/process/${processId}`,
+    headerConfig
+  );
+}

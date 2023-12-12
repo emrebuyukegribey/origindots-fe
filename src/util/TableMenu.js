@@ -1,8 +1,14 @@
 import { Menu } from "antd";
-import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
+import {
+  AiOutlineDelete,
+  AiOutlineEye,
+  AiOutlineUserAdd,
+} from "react-icons/ai";
 import { BiSolidEdit } from "react-icons/bi";
 import { IoDuplicateOutline } from "react-icons/io5";
 import "./TableMenu.css";
+import { MdPostAdd } from "react-icons/md";
+import { FiUserPlus } from "react-icons/fi";
 
 export const getProcessMenuItems = ({
   record,
@@ -144,22 +150,23 @@ export const getUserMenuItems = ({
 
 export const getOrganizationMenuItems = ({
   record,
-  showProcessInformations,
-  updateProcess,
-  deleteProcess,
-  duplicateProcess,
+  showOrganizationInformations,
+  deleteOrganization,
+  openAddUserOnOrganization,
+  openAddProcessOnOrganization,
+  showOrganizationEdit,
   t,
 }) => {
   const items = [];
 
   items.push(
-    <Menu.Item key="show">
+    <Menu.Item key="showOrganization">
       <div className="menu-item-container">
         <div className="menu-item-icon">
           <AiOutlineEye />
         </div>
         <div className="menu-item-link">
-          <a onClick={() => showProcessInformations(record)}>
+          <a onClick={() => showOrganizationInformations(record)}>
             {t("Show User")}
           </a>
         </div>
@@ -168,20 +175,20 @@ export const getOrganizationMenuItems = ({
   );
 
   items.push(
-    <Menu.Item key="edit">
+    <Menu.Item key="editOrganization">
       <div className="menu-item-container">
         <div className="menu-item-icon">
           <BiSolidEdit />
         </div>
         <div className="menu-item-link">
-          <a onClick={() => updateProcess(record)}>{t("Edit")}</a>
+          <a onClick={() => showOrganizationEdit(record)}>{t("Edit")}</a>
         </div>
       </div>
     </Menu.Item>
   );
 
   items.push(
-    <Menu.Item key="delete">
+    <Menu.Item key="deleteOrganization">
       <div className="menu-item-container">
         <div className="menu-item-icon">
           <AiOutlineDelete />
@@ -189,7 +196,7 @@ export const getOrganizationMenuItems = ({
         <div className="menu-item-link">
           <a
             onClick={() => {
-              deleteProcess(record);
+              deleteOrganization(record);
             }}
           >
             {t("Delete")}
@@ -202,18 +209,37 @@ export const getOrganizationMenuItems = ({
   items.push(<div style={{ borderBottom: "1px solid #dddde3" }}></div>);
 
   items.push(
-    <Menu.Item key="duplicate">
+    <Menu.Item key="addUserOrganization">
       <div className="menu-item-container">
         <div className="menu-item-icon">
-          <IoDuplicateOutline />
+          <FiUserPlus />
         </div>
         <div className="menu-item-link">
           <a
             onClick={() => {
-              duplicateProcess(record);
+              openAddUserOnOrganization(record);
             }}
           >
-            {t("Duplicate")}
+            {t("Add User")}
+          </a>
+        </div>
+      </div>
+    </Menu.Item>
+  );
+
+  items.push(
+    <Menu.Item key="addProcessOrganization">
+      <div className="menu-item-container">
+        <div className="menu-item-icon">
+          <MdPostAdd />
+        </div>
+        <div className="menu-item-link">
+          <a
+            onClick={() => {
+              openAddProcessOnOrganization(record);
+            }}
+          >
+            {t("Add Process")}
           </a>
         </div>
       </div>

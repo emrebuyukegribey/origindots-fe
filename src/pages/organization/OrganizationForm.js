@@ -3,15 +3,24 @@ import SubmitButtonBorder from "../../components/UI/Buttons/SubmitButtonBorder";
 import CancelButtonBorder from "../../components/UI/Buttons/CancelButtonBorder";
 
 import "./OrganizationForm.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function OrganizationForm(props) {
+  console.log("props : ", props);
   const [form] = Form.useForm();
 
   const formItemLayout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 15 },
   };
+
+  useEffect(() => {
+    const defaultValues = {
+      name: props.organization.name,
+      description: props.organization.description,
+    };
+    form.setFieldsValue(defaultValues);
+  }, []);
 
   const onFinish = async (values) => {
     const body = {
@@ -25,11 +34,24 @@ function OrganizationForm(props) {
     props.submit(body);
   };
 
+  function flattenOrganizations(orgs) {
+    let flatList = [];
+    orgs.forEach((org) => {
+      flatList.push({ id: org.id, name: org.name });
+      if (org.children) {
+        flatList = flatList.concat(flattenOrganizations(org.children));
+      }
+    });
+    return flatList;
+  }
+
   const options =
-    props.organizations.map((org) => ({
-      label: org.name,
-      value: org.id,
-    })) || [];
+    flattenOrganizations(props.organizations)
+      .filter((org) => org.id !== props.organization.id)
+      .map((org) => ({
+        label: org.name,
+        value: org.id,
+      })) || [];
 
   useEffect(() => {
     props.setNavbarHeaderText("Organization Management > New Organization");
