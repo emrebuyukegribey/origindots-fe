@@ -182,7 +182,7 @@ function Property({
           }}
         >
           <DarkButtonBorder
-            text={t("Edit Base Settings")}
+            text={t("Go on")}
             onClick={edit}
             style={{ width: "100%" }}
           />

@@ -6,10 +6,14 @@ import DarkButton from "../UI/Buttons/DarkButton";
 import { CiCircleAlert } from "react-icons/ci";
 import { withTranslation } from "react-i18next";
 import DarkButtonBorder from "../UI/Buttons/DarkButtonBorder";
+import { useNavigate } from 'react-router-dom';
 
 const icons = ProcessIcons;
 
 function ProcessForm(props) {
+
+  const navigate = useNavigate();
+
   const [processName, setProcessName] = useState(
     localStorage.getItem("processName")
       ? localStorage.getItem("processName")
@@ -54,13 +58,20 @@ function ProcessForm(props) {
       processType,
       processIcon,
     };
+
     saveFieldsInLocalStorage();
+
     if (!processName || !processType || !processIcon) {
       showCreatingProcessErrorModal();
       return;
     }
+
     props.onClick(process);
   };
+
+  const back = ()=>{
+    navigate(-1);
+  }
 
   const showCreatingProcessErrorModal = () => {
     Modal.warning({
@@ -151,9 +162,15 @@ function ProcessForm(props) {
       </div>
       <div className="process-form-divider" />
       <div className="process-form-button-container">
+      <div style={{ width: "10%",marginRight:"7px" }}>
+          <DarkButtonBorder
+            text={props.t("Back")}
+            onClick={back}
+          />
+        </div>
         <div style={{ width: "30%" }}>
           <DarkButtonBorder
-            text={props.t("Create Process")}
+            text={props.t("Go on")}
             onClick={handleProcess}
           />
         </div>

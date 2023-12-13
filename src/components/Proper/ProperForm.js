@@ -244,7 +244,7 @@ function ProperForm({
                 text={
                   selectedValueForAddProper
                     ? t("Create Proper In Selected Value")
-                    : t("Create Propers")
+                    : t("Go on")
                 }
               />
             </div>

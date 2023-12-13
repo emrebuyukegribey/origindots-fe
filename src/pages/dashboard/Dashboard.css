@@ -1,6 +1,7 @@
 
 .dashboard-container {
     position: absolute;
+    width: 100%;
 }
 .dashboard-widget-container {
     display: flex;
@@ -14,4 +15,13 @@
     justify-content: space-around;
     align-items: center;
     margin-top: 32px;
+}
+
+.dashboard-tab-container{
+    width: 98%;
+}
+
+.dashboard-toolbar{
+    width: 80%;
+    margin-bottom: 5px;
 }

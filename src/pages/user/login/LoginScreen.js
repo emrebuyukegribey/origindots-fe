@@ -122,10 +122,10 @@ function LoginScreen(props) {
 
 
         <Row justify="center" align="middle" style={{ height: "100%" }}>
-          <Col xs={2} sm={4} md={6} lg={8} >
+          <Col xs={2} sm={4} md={6} lg={10} >
 
           </Col>
-          <Col xs={20} sm={16} md={12} lg={8} className="login-screen-row-container">
+          <Col xs={20} sm={16} md={12} lg={4} className="login-screen-row-container">
             <Row justify="center" align="middle" style={{ padding: '5px' }} >
               <Col flex={1}> <Input
                 className="login-screen-input"
@@ -160,7 +160,7 @@ function LoginScreen(props) {
               </DarkButton></Col>
             </Row>
           </Col>
-          <Col xs={2} sm={4} md={6} lg={8}>
+          <Col xs={2} sm={4} md={6} lg={10}>
 
           </Col>
         </Row>
