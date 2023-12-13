@@ -4,7 +4,41 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: #f1f1f1;
+    background-color: var(--dark500);
+    padding:50px;
+}
+
+.login-screen-left-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #272735;
+    height: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .login-screen-left-container  {
+        display: none;
+    }
+}
+
+.login-screen-right-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    height: 100%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .login-screen-right-container  {
+        border-radius: 20px;
+    }
 }
 
 .login-screen-logo-container {
@@ -67,7 +101,7 @@
     width: 550px;
     height: auto;
     border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px;
+    /*box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px;*/
     background-color: #fff;
 }
 
@@ -105,8 +139,11 @@
 }
 
 .login-screen-input {
-    height: 50px;
-    border: 1px solid var(--grey300);
+    height: 40px;
+    border: 0px;
+    border-radius: 0px;
+    border-bottom: 1px solid var(--dark500);
+    margin-bottom: 10px;
 }
 
 .login-screen-button-container {
@@ -151,12 +188,9 @@
 
 
 .login-screen-row-container {
-    padding-left: 15px;
-    padding-right: 15px;
     padding-top: 50px;
     height: auto;
     border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px;
     background-color: #fff;
 }
 
@@ -166,3 +200,40 @@
     font-weight: bold;
 
 } 
+
+.login-screen-row {
+    width: 100%;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-screen-row-container {
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: 15px;
+    background-color: #fff;
+}
+
+.login-screen-signUp:hover {
+    cursor: pointer;
+    color:var(--dark400)
+}
+
+h1 {
+    color:var(--dark200)
+}
+
+h2 {
+    color:var(--dark200)
+}
+
+h4 {
+    color:var(--dark200)
+}
+    
+  
+  
