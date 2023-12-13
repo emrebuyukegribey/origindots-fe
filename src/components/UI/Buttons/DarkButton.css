@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px;
+    padding: 10px;
     background-color: var(--dark200);
     border-radius: 5px;
     margin: 10px 0px;
@@ -22,5 +22,5 @@
 .dark-button-text {
     color: #fff;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 14px;
 }

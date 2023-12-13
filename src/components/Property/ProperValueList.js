@@ -67,7 +67,6 @@ function ProperValueList({
 
   return (
     <>
-      <h3>Proper Values Settings</h3>
       <div className="proper-value-list-divider" />
       {values?.map((element) => {
         return (

@@ -3,7 +3,7 @@ import "./CancelButtonBorder.css";
 
 function CancelButtonBorder(props) {
   return (
-    <Button danger onClick={props.onClick}>
+    <Button danger size="small" onClick={props.onClick}>
       {props.text}
     </Button>
   );

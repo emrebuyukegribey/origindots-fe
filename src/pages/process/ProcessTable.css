@@ -91,13 +91,7 @@
     color: #fff;
 }
 
-.process-table-action-duplicate:hover {
-    background-color: var(--red300);
-}
 
-.process-table-action-duplicate:hover .process-table-action-duplicate-link {
-    color: #fff;
-}
 
 .process-table-menu {
     display: flex;

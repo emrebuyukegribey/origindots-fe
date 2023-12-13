@@ -189,11 +189,11 @@ function ProcessItemCard(props) {
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
           {showTree ? (
             <div className="process-card-close-tree" onClick={handleCancelTree}>
-              Close Tree
+              {props.t("Hide")}
             </div>
           ) : (
             <div className="process-card-open-tree" onClick={handleShowTree}>
-              Show Tree
+              {props.t("Preview")}
             </div>
           )}
         </div>

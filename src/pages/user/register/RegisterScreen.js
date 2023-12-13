@@ -1,13 +1,14 @@
-import "./RegisterScreen.css";
-import Logo from "../../../assets/logo-white.png";
-import { Button,Input, Col, Row } from "antd";
+import { Col, Input, Row } from "antd";
+import { useEffect, useState } from "react";
 import { withTranslation } from "react-i18next";
+import Logo from "../../../assets/logo-white.png";
 import DarkButton from "../../../components/UI/Buttons/DarkButton";
-import { useState } from "react";
+import BackButton from "../../../components/UI/Buttons/BackButton";
+
 import CircleLoading from "../../../components/UI/Loading/LoadingBar";
 import { registerUser } from "../../../services/http";
-import { useEffect } from "react";
 import LoginScreen from "../login/LoginScreen";
+import "./RegisterScreen.css";
 
 function RegisterScreen(props) {
   const [loading, setLoading] = useState(false);
@@ -122,107 +123,112 @@ function RegisterScreen(props) {
         </div>
       </div>
 
-      <Row justify="center" align="middle" style={{ height: "100%" }}>
-        <Col xs={2} sm={4} md={6} lg={8} >
-
-        </Col>
-        <Col xs={20} sm={16} md={12} lg={8} className="register-screen-row-container">
-          <Row justify="center" align="middle" style={{ padding: '5px' }} >
-            <Col flex={1}>
-              <Input
-                className="register-screen-input"
-                placeholder={props.t("First name")}
-                name="firstName"
-                value={values.firstName}
-                onChange={handleInputChange}
-              />
-            </Col>
-          </Row>
-          <Row justify="center" align="middle" style={{ padding: '5px' }} >
-            <Col flex={1}>
-            <Input
+      <Row align="middle" style={{ height: '100%', width: '100%' }} >
+        <Col span={24}>
+          <Row justify="center" >
+            <Col xs={20} sm={16} md={12} lg={4} className="register-screen-row-container">
+              <Row justify="center" align="middle" style={{ padding: '5px' }} >
+                <Col flex={1}>
+                  <Input
+                    className="register-screen-input"
+                    placeholder={props.t("First name")}
+                    name="firstName"
+                    value={values.firstName}
+                    onChange={handleInputChange}
+                  />
+                </Col>
+              </Row>
+              <Row justify="center" align="middle" style={{ padding: '5px' }} >
+                <Col flex={1}>
+                  <Input
                     className="register-screen-input"
                     placeholder={props.t("Last name")}
                     name="lastName"
                     value={values.lastName}
                     onChange={handleInputChange}
                   />
-            </Col>
-          </Row>
-          <Row justify="center" align="middle" style={{ padding: '5px' }} >
-            <Col flex={1}>
-            <Input
-                  className="register-screen-input"
-                  placeholder={props.t("Username")}
-                  name="username"
-                  value={values.username}
-                  onChange={handleInputChange}
-                />
-            </Col>
-          </Row>
-          <Row justify="center" align="middle" style={{ padding: '5px' }} >
-            <Col flex={1}>
-            <Input
-                  className="register-screen-input"
-                  placeholder={props.t("Email address")}
-                  name="email"
-                  value={values.email}
-                  onChange={handleInputChange}
-                />
-            </Col>
-          </Row>
-          <Row justify="center" align="middle" style={{ padding: '5px' }} >
-            <Col flex={1}>
-            <Input.Password
+                </Col>
+              </Row>
+              <Row justify="center" align="middle" style={{ padding: '5px' }} >
+                <Col flex={1}>
+                  <Input
                     className="register-screen-input"
-                    placeholder= {props.t("Your password")}
+                    placeholder={props.t("Username")}
+                    name="username"
+                    value={values.username}
+                    onChange={handleInputChange}
+                  />
+                </Col>
+              </Row>
+              <Row justify="center" align="middle" style={{ padding: '5px' }} >
+                <Col flex={1}>
+                  <Input
+                    className="register-screen-input"
+                    placeholder={props.t("Email address")}
+                    name="email"
+                    value={values.email}
+                    onChange={handleInputChange}
+                  />
+                </Col>
+              </Row>
+              <Row justify="center" align="middle" style={{ padding: '5px' }} >
+                <Col flex={1}>
+                  <Input.Password
+                    className="register-screen-input"
+                    placeholder={props.t("Your password")}
                     name="password"
                     value={values.password}
                     onChange={handleInputChange}
                   />
-            </Col>
-          </Row>
-          <Row justify="center" align="middle" style={{ padding: '5px' }} >
-            <Col flex={1}>
-            <Input.Password
+                </Col>
+              </Row>
+              <Row justify="center" align="middle" style={{ padding: '5px' }} >
+                <Col flex={1}>
+                  <Input.Password
                     className="register-screen-input"
-                    placeholder= {props.t("Your password repeat")}
+                    placeholder={props.t("Your password repeat")}
                     name="passwordRepeat"
                     value={values.passwordRepeat}
                     onChange={handleInputChange}
                   />
+                </Col>
+              </Row>
+              <Row justify="center" align="middle" style={{ padding: '5px' }} >
+                <Col flex={1}>
+                  {error && (
+                    <div className="register-screen-error-container">
+                      <div>{error}</div>
+                    </div>
+                  )}
+                  {successMessage && (
+                    <div className="register-screen-success-message-container">
+                      <div>{successMessage}</div>
+                    </div>
+                  )}
+                </Col>
+              </Row>
             </Col>
           </Row>
-          <Row justify="center" align="middle" style={{ padding: '5px' }} >
-            <Col flex={1}>
-            {error && (
-                <div className="register-screen-error-container">
-                  <div>{error}</div>
-                </div>
-              )}
-              {successMessage && (
-                <div className="register-screen-success-message-container">
-                  <div>{successMessage}</div>
-                </div>
-              )}
+
+          <Row justify="center"  >
+            <Col xs={20} sm={16} md={12} lg={4}  >
+              <Row>
+                <Col span={18} push={6}>
+                  <DarkButton type="primary" text={props.t("Go on")} size="small" onClick={handleSubmit}>
+                  </DarkButton>
+                </Col>
+                <Col span={6} pull={18}>
+                  <BackButton type="danger" text={props.t("Back")} size="small" onClick={loginTab}>
+                  </BackButton>
+                </Col>
+              </Row>
             </Col>
           </Row>
-          <Row justify="space-between" align="middle" style={{ padding: '5px' }} >
-              <Col flex={2} >
-              <Button type="text" className="sign-up" onClick={loginTab} >
-                {props.t("Back")}
-              </Button>
-              </Col>
-              <Col flex={2} style={{ textAlign: 'end' }}>
-                <DarkButton type="primary" text={props.t("Go on")} onClick={handleSubmit}>
-              </DarkButton>
-              </Col>
-            </Row>
-        </Col>
-        <Col xs={2} sm={4} md={6} lg={8}>
 
         </Col>
       </Row>
+
+
 
     </div>
   );
