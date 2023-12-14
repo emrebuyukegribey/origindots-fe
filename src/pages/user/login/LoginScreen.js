@@ -149,6 +149,19 @@ function LoginScreen(props) {
                     </Col>
                   </Row>
 
+                  <Row style={{ margin: "20px 10px 10px 10px" }}>
+                    <Col
+                      span={24}
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignContent: "center",
+                      }}
+                    >
+                      <h3>Şifremi unuttum</h3>
+                    </Col>
+                  </Row>
+
                   <Row
                     justify="center"
                     align="middle"
