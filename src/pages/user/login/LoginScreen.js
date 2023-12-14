@@ -105,10 +105,8 @@ function LoginScreen(props) {
     return (
       <div className="login-screen-container">
         <Row align="middle" style={{ height: "100%", width: "100%" }}>
-          <Col span={14} className="login-screen-left-container">
-            1
-          </Col>
-          <Col span={10} className="login-screen-right-container">
+          <div className="login-screen-left-container">1</div>
+          <div className="login-screen-right-container">
             <Col span={24}>
               <Row
                 style={{
@@ -120,13 +118,7 @@ function LoginScreen(props) {
                 <h1>Sign In</h1>
               </Row>
               <Row justify="center">
-                <Col
-                  xs={24}
-                  sm={20}
-                  md={16}
-                  lg={16}
-                  className="login-screen-row-container"
-                >
+                <Col span={24} className="login-screen-row-container">
                   <Row justify="center" align="middle">
                     <Col flex={1}>
                       <Input
@@ -150,7 +142,7 @@ function LoginScreen(props) {
                   <Row justify="center" align="middle">
                     <Col span={24}>
                       {error && (
-                        <div className="register-screen-error-container">
+                        <div className="login-screen-error-container">
                           <div>{error}</div>
                         </div>
                       )}
@@ -162,7 +154,7 @@ function LoginScreen(props) {
                     align="middle"
                     style={{ marginTop: "20px" }}
                   >
-                    <Col xs={20} sm={16} md={12} lg={24}>
+                    <Col span={24}>
                       <Row className="login-screen-row">
                         <Col span={8}>
                           <h2
@@ -205,7 +197,7 @@ function LoginScreen(props) {
                 </Col>
               </Row>
             </Col>
-          </Col>
+          </div>
         </Row>
       </div>
     );
