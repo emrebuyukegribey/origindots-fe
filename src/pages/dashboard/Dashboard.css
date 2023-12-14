@@ -1,3 +1,5 @@
+@import "../../variables.css";
+
 
 .dashboard-container {
     position: absolute;
@@ -18,10 +20,32 @@
 }
 
 .dashboard-tab-container{
-    width: 98%;
+    width: 95%;
+    height: auto;
+    background-color: #fff;
+    margin-right: 20px;
+    border-radius: 10px;
+    margin-bottom: 70px;
 }
 
 .dashboard-toolbar{
-    width: 80%;
+    width: 95%;
     margin-bottom: 5px;
+    border-bottom: 1px solid var(--grey300);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+
+.ant-switch-checked {
+    height: 22px !important;
+    background-color: var(--dark200) !important;
+}
+
+.ant-switch-disabled {
+    height: 22px !important;
+}
+
+:where(.css-dev-only-do-not-override-18iikkb).ant-switch {
+    background-color: var(--red200);
 }

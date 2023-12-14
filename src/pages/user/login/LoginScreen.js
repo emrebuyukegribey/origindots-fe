@@ -9,16 +9,19 @@ import { useEffect } from "react";
 import { loginUser } from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
 
-import { Button, Col, Row, Form, Input } from 'antd';
+import { Button, Col, Row, Form, Input } from "antd";
 
+import GoogleIcon from "../../../assets/icons/google.svg";
+import FacebookIcon from "../../../assets/icons/facebook.svg";
+import TwitterXIcon from "../../../assets/icons/twitterx.svg";
+import DarkButtonBorder from "../../../components/UI/Buttons/DarkButtonBorder";
 
 function LoginScreen(props) {
-
   const onFinish = (values) => {
-    console.log('Success:', values);
+    console.log("Success:", values);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   const onChangeLanguage = (language) => {
@@ -35,7 +38,7 @@ function LoginScreen(props) {
   const [activeTabSection, setActiveTabSection] = useState("login");
   const navigate = useNavigate();
 
-  useEffect(() => { }, [error, setError]);
+  useEffect(() => {}, [error, setError]);
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -67,7 +70,6 @@ function LoginScreen(props) {
     setLoading(true);
     checkError();
     if (error !== null) {
-
       try {
         const response = await loginUser({
           email: values.email,
@@ -92,7 +94,6 @@ function LoginScreen(props) {
           }
         }, 100);
       }
-
     }
   };
 
@@ -103,68 +104,114 @@ function LoginScreen(props) {
   if (activeTabSection === "login") {
     return (
       <div className="login-screen-container">
-        <div className="login-screen-logo-container">
-          <img src={Logo} />
-          <div className="logo-screen-language-container">
-            <select
-              onChange={(e) => onChangeLanguage(e.target.value)}
-              className="logo-screen-language-selector"
-            >
-              <option value="tr" onClick={() => onChangeLanguage("tr")}>
-                TR
-              </option>
-              <option value="en" onClick={() => onChangeLanguage("en")}>
-                EN
-              </option>
-            </select>
+        <Row align="middle" style={{ height: "100%", width: "100%" }}>
+          <div className="login-screen-left-container">1</div>
+          <div className="login-screen-right-container">
+            <Col span={24}>
+              <Row
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "30px",
+                }}
+              >
+                <h1>Sign In</h1>
+              </Row>
+              <Row justify="center">
+                <Col span={24} className="login-screen-row-container">
+                  <Row justify="center" align="middle">
+                    <Col flex={1}>
+                      <Input
+                        className="login-screen-input"
+                        placeholder={props.t("Your email address or Username")}
+                        name="email"
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                  </Row>
+                  <Row justify="center" align="middle">
+                    <Col flex={1}>
+                      <Input.Password
+                        className="login-screen-input"
+                        placeholder={props.t("Your password")}
+                        name="password"
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                  </Row>
+                  <Row justify="center" align="middle">
+                    <Col span={24}>
+                      {error && (
+                        <div className="login-screen-error-container">
+                          <div>{error}</div>
+                        </div>
+                      )}
+                    </Col>
+                  </Row>
+
+                  <Row style={{ margin: "20px 10px 10px 10px" }}>
+                    <Col
+                      span={24}
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignContent: "center",
+                      }}
+                    >
+                      <h3>Şifremi unuttum</h3>
+                    </Col>
+                  </Row>
+
+                  <Row
+                    justify="center"
+                    align="middle"
+                    style={{ marginTop: "20px" }}
+                  >
+                    <Col span={24}>
+                      <Row className="login-screen-row">
+                        <Col span={8}>
+                          <h2
+                            onClick={registerTab}
+                            className="login-screen-signUp"
+                          >
+                            Sign Up
+                          </h2>
+                        </Col>
+                        <Col span={16}>
+                          <DarkButtonBorder
+                            type="primary"
+                            text={props.t("Go on")}
+                            size="small"
+                            onClick={handleSubmit}
+                          />
+                        </Col>
+                      </Row>
+                      <Row
+                        className="login-screen-row"
+                        style={{ marginTop: "30px" }}
+                      >
+                        <div className="register-screen-divider" />
+                        <h3>OR</h3>
+                        <div className="register-screen-divider" />
+                      </Row>
+                      <Row
+                        className="register-screen-row"
+                        style={{
+                          marginTop: "40px",
+                          justifyContent: "space-around",
+                        }}
+                      >
+                        <img src={GoogleIcon} alt="google" />
+                        <img src={FacebookIcon} alt="facebook" />
+                        <img src={TwitterXIcon} alt="twitterX" />
+                      </Row>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
           </div>
-        </div>
-
-
-        <Row justify="center" align="middle" style={{ height: "100%" }}>
-          <Col xs={2} sm={4} md={6} lg={10} >
-
-          </Col>
-          <Col xs={20} sm={16} md={12} lg={4} className="login-screen-row-container">
-            <Row justify="center" align="middle" style={{ padding: '5px' }} >
-              <Col flex={1}> <Input
-                className="login-screen-input"
-                placeholder={props.t("Your email address or Username")}
-                name="email"
-                onChange={handleInputChange}
-              /></Col>
-            </Row>
-            <Row justify="center" align="middle" style={{ padding: '5px' }} >
-              <Col flex={1} > <Input.Password
-                className="login-screen-input"
-                placeholder={props.t("Your password")}
-                name="password"
-                onChange={handleInputChange}
-              /></Col>
-            </Row>
-            <Row justify="center" align="middle" style={{ padding: '5px' }}>
-              <Col span={24}>
-                {error && (
-                  <div className="login-screen-error-container">
-                    <div>{error}</div>
-                  </div>
-                )}
-              </Col>
-            </Row>
-            <Row justify="space-between" align="middle" style={{ padding: '5px' }} >
-              <Col flex={2} ><Button type="text" className="sign-up" onClick={registerTab} >
-                {props.t("Sign Up")}
-              </Button></Col>
-              <Col flex={2} style={{ textAlign: 'end' }}><DarkButton type="primary" text={props.t("Go on")} onClick={handleSubmit}>
-                
-              </DarkButton></Col>
-            </Row>
-          </Col>
-          <Col xs={2} sm={4} md={6} lg={10}>
-
-          </Col>
         </Row>
-
       </div>
     );
   } else {
