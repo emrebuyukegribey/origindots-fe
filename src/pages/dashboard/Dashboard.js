@@ -108,18 +108,18 @@ function Dashboard(props) {
                 >
                   <Switch
                     style={{ marginLeft: "5px" }}
-                    checkedChildren="Mobil Kullanıcıları Gizle"
-                    unCheckedChildren="Mobil Kullanıcıları Göster"
+                    checkedChildren="Mobil Kullanıcılar"
+                    unCheckedChildren="Mobil Kullanıcılar"
                   />
                   <Switch
                     style={{ marginLeft: "5px" }}
-                    checkedChildren="Süreçleri Gizle"
-                    unCheckedChildren="Süreçleri Göster"
+                    checkedChildren="Süreçler"
+                    unCheckedChildren="Süreçler"
                   />
                   <Switch
                     style={{ marginLeft: "5px" }}
-                    checkedChildren="Paylaşımları Gizle"
-                    unCheckedChildren="Paylaşımları Göster"
+                    checkedChildren="Paylaşımlar"
+                    unCheckedChildren="Paylaşımlar"
                   />
                 </Col>
               </div>
