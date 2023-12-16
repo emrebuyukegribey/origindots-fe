@@ -1,7 +1,7 @@
 import { Form, Input } from "antd";
 import "./FormItem.css";
 
-function FormInput({ proper }) {
+function FormEmail({ proper }) {
   return (
     <>
       <Form.Item
@@ -10,7 +10,14 @@ function FormInput({ proper }) {
         extra={proper.description}
         name={proper.id}
         rules={[
-          { required: proper.required, message: proper.title + " is required" },
+          {
+            type: "email",
+            message: "The input is not valid E-mail!",
+          },
+          {
+            required: proper.required,
+            message: proper.title + " is required",
+          },
         ]}
       >
         <Input placeholder={proper.placeholder} />
@@ -19,4 +26,4 @@ function FormInput({ proper }) {
   );
 }
 
-export default FormInput;
+export default FormEmail;

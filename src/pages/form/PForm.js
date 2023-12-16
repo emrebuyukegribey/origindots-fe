@@ -36,6 +36,10 @@ function PForm() {
     getProcess();
   }, []);
 
+  const onFinish = (values) => {
+    console.log("values : ", values);
+  };
+
   return (
     <div className="pf-container">
       <div className="pf-process-container">
@@ -43,22 +47,26 @@ function PForm() {
         <div className="pf-process-name">{process.name}</div>
       </div>
       <div className="pf-divider" />
-      <div className="pf-body-container">
-        <div>
-          <Form layout="vertical">
+      <Form layout="vertical" onFinish={onFinish}>
+        <div className="pf-body-container">
+          <div>
             {properList.map((p) => (
-              <FormRender proper={p} />
+              <FormRender proper={p} key={p.id} />
             ))}
-          </Form>
+          </div>
         </div>
-        <div>{properValueList.map((v) => v.name)}</div>
-      </div>
-      <div className="pf-divider" />
-      <div className="pf-button-container">
-        <Button type="primary" danger size="large">
-          KAYDET
-        </Button>
-      </div>
+        <div className="pf-divider" />
+        <div className="pf-button-container">
+          <Button
+            type="primary"
+            size="large"
+            htmlType="submit"
+            className="pf-submit-button"
+          >
+            KAYDET
+          </Button>
+        </div>
+      </Form>
     </div>
   );
 }
