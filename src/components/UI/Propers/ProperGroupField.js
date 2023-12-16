@@ -32,7 +32,7 @@ function ProperGroupField({
             </div>
             <span className="propergroup-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="propergroup-field-required">*</span>
               )}
             </span>

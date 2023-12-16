@@ -19,7 +19,7 @@ function EmailField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="email-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="email-field-required">*</span>
               )}
             </span>

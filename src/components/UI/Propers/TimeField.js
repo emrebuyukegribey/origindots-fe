@@ -19,7 +19,7 @@ function TimeField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="time-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="time-field-required">*</span>
               )}
             </span>

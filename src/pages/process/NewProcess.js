@@ -15,7 +15,7 @@ import Preview from "../../components/Preview/Preview";
 import { withTranslation } from "react-i18next";
 import Publish from "../../components/Publish/Publish";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const steps = [
   {
@@ -33,7 +33,6 @@ const steps = [
 ];
 
 function NewProcess(props) {
-
   const [loading, setLoading] = useState(false);
 
   const [processId, setProcessId] = useState();
@@ -137,9 +136,9 @@ function NewProcess(props) {
     )}`;
     shallow.id = uniqueId;
     shallow.isDrag = false;
-    shallow.isRequired = false;
-    shallow.isContentInfo = false;
-    shallow.hasMask = false;
+    shallow.required = false;
+    shallow.contentInfo = false;
+    shallow.mask = false;
 
     shallow.childCount = 0;
     shallow.parentId = selectedValueForAddProper
@@ -212,10 +211,11 @@ function NewProcess(props) {
   };
 
   const createProperValue = (proper, valueName) => {
-    const properValueUniqueId = `prp-v-${Date.now()}-${proper.type
-      }-${Math.floor(Math.random() * 1000)}-value-${valueName}-${Math.floor(
-        Math.random() * 1000
-      )}`;
+    const properValueUniqueId = `prp-v-${Date.now()}-${
+      proper.type
+    }-${Math.floor(Math.random() * 1000)}-value-${valueName}-${Math.floor(
+      Math.random() * 1000
+    )}`;
 
     const properValue = {
       id: properValueUniqueId,
@@ -223,8 +223,8 @@ function NewProcess(props) {
       properId: proper.id,
       listNo: selectedValueForAddProper
         ? properValueList.filter(
-          (value) => value.properId === selectedValueForAddProper.id
-        ).length
+            (value) => value.properId === selectedValueForAddProper.id
+          ).length
         : properValueList.length,
       childCount: 0,
     };
@@ -335,12 +335,10 @@ function NewProcess(props) {
       onOk() {
         deleteProperOnForm(proper);
       },
-      onCancel() { },
+      onCancel() {},
       okType: "danger",
     });
   };
-
-
 
   function createDataID(prefix, properType) {
     const timestamp = new Date().getTime();
@@ -361,10 +359,9 @@ function NewProcess(props) {
     return payload.split("-");
   }
 
-
   const duplicateProperOnForm = (baseItem) => {
     const tempList = [];
-    baseItem['datatype'] = 'proper';
+    baseItem["datatype"] = "proper";
     tempList.push(Object.assign({}, baseItem));
     function findRelatedItemsRecursively(currentItem) {
       if (
@@ -375,7 +372,7 @@ function NewProcess(props) {
           (proper) => proper.parentId === currentItem.id
         );
         childPropers.forEach((element) => {
-          element['datatype'] = 'proper';
+          element["datatype"] = "proper";
           tempList.push(Object.assign({}, element));
         });
       } else {
@@ -383,7 +380,7 @@ function NewProcess(props) {
           (value) => value.properId === currentItem.id
         );
         childValues.forEach((element) => {
-          element['datatype'] = 'value';
+          element["datatype"] = "value";
           tempList.push(Object.assign({}, element));
         });
       }
@@ -399,18 +396,16 @@ function NewProcess(props) {
     copyProperAndValueOfList(newList);
   };
 
- 
   function changeID(payload) {
     const idMap = {};
-    payload.forEach(p => {
-      if (p['datatype'] == 'proper') {
+    payload.forEach((p) => {
+      if (p["datatype"] == "proper") {
         const [prefix, , properType] = splitID(p.id);
         idMap[p.id] = createDataID(prefix, properType);
       } else {
         const [properType, , prefix] = splitID(p.id);
         idMap[p.id] = createDataID(prefix, properType);
       }
-
     });
     return idMap;
   }
@@ -418,21 +413,18 @@ function NewProcess(props) {
   function createNewCopyList(coppiedItem, keyList) {
     var newList = [];
     var i = 0;
-    coppiedItem.forEach(c => {
+    coppiedItem.forEach((c) => {
       newList.push(Object.assign({}, c));
-      newList[i].id=keyList[c.id];
-      
-      if(c.parentId!=null)
-      newList[i].parentId=keyList[c.parentId];
+      newList[i].id = keyList[c.id];
 
-      if(c.properId!=null)
-      newList[i].properId=keyList[c.properId];
+      if (c.parentId != null) newList[i].parentId = keyList[c.parentId];
+
+      if (c.properId != null) newList[i].properId = keyList[c.properId];
 
       i++;
-    })
+    });
     return newList;
   }
-
 
   const copyProperAndValueOfList = (relatedItems) => {
     setLoading(true);
@@ -501,6 +493,7 @@ function NewProcess(props) {
   };
 
   const editProperOnForm = (proper) => {
+    console.log("PROPER : ", proper);
     setSelectedProper(proper);
     const updatingProperList = properList.indexOf(proper);
     const updatedList = [...properList];
@@ -588,6 +581,7 @@ function NewProcess(props) {
                 </div>
               )}
             </div>
+            {console.log("selectedProper : ", selectedProper)}
             <div>
               <Property
                 open={openProperty}

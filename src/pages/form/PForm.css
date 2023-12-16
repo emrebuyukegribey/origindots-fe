@@ -4,14 +4,22 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     width: auto;
-    padding: 20px;
+    padding: 30px;
 }
 
 .pf-process-container {
     display: flex;
     align-items: center;
+    padding: 0px 30px;
+}
+
+.pf-body-container {
+    padding: 10px 30px;
+}
+
+.pf-button-container {
+    padding: 10px 30px;
 }
 
 .pf-process-icon {

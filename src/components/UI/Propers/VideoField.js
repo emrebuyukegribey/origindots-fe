@@ -18,7 +18,7 @@ function VideoField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="photo-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="video-field-required">*</span>
               )}
             </span>

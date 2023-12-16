@@ -22,9 +22,7 @@ function QRField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="qr-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
-                <span className="qr-field-required">*</span>
-              )}
+              {proper.required && <span className="qr-field-required">*</span>}
             </span>
           </div>
           <div className="qr-field-icons-container">

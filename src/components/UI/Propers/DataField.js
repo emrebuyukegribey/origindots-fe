@@ -19,7 +19,7 @@ function DataField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="data-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="data-field-required">*</span>
               )}
             </span>

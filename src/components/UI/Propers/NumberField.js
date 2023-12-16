@@ -19,7 +19,7 @@ function NumberField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="number-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="number-field-required">*</span>
               )}
             </span>

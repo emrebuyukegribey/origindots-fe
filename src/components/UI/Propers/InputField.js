@@ -19,7 +19,7 @@ function InputField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="input-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="input-field-required">*</span>
               )}
             </span>

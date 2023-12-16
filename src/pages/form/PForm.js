@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import "./PForm.css";
 import { useParams } from "react-router-dom";
 
-import { Button } from "antd";
+import { Button, Form } from "antd";
 import { getProcessWithAllAtributes } from "../../services/http";
 import ProcessIcons from "../../components/Process/ProcessIcons";
+import { FormRender } from "./FormRender";
 
 function PForm() {
   const { id } = useParams();
@@ -42,14 +43,18 @@ function PForm() {
         <div className="pf-process-name">{process.name}</div>
       </div>
       <div className="pf-divider" />
-      <div>
-        {properList.map((p) => (
-          <div>{p.title}</div>
-        ))}
+      <div className="pf-body-container">
+        <div>
+          <Form layout="vertical">
+            {properList.map((p) => (
+              <FormRender proper={p} />
+            ))}
+          </Form>
+        </div>
+        <div>{properValueList.map((v) => v.name)}</div>
       </div>
-      <div>{properValueList.map((v) => v.name)}</div>
       <div className="pf-divider" />
-      <div>
+      <div className="pf-button-container">
         <Button type="primary" danger size="large">
           KAYDET
         </Button>

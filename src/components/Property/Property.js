@@ -29,11 +29,12 @@ function Property({
   const [title, setTitle] = useState(
     selectedProper ? selectedProper.title : ""
   );
+
   const [placeholder, setPlaceholder] = useState();
   const [description, setDescription] = useState();
-  const [isRequired, setRequired] = useState(false);
-  const [isContentInfo, setContentInfo] = useState(false);
-  const [hasMask, setMask] = useState(false);
+  const [required, setRequired] = useState(false);
+  const [contentInfo, setContentInfo] = useState(false);
+  const [mask, setMask] = useState(false);
   const [updatedField, setUpdatedFields] = useState(false);
   const [values, setValues] = useState();
 
@@ -43,9 +44,9 @@ function Property({
       setTitle(selectedProper.title);
       setPlaceholder(selectedProper.placeholder);
       setDescription(selectedProper.description);
-      setRequired(selectedProper.isRequired);
-      setContentInfo(selectedProper.isContentInfo);
-      setMask(selectedProper.hasMask);
+      setRequired(selectedProper.required);
+      setContentInfo(selectedProper.contentInfo);
+      setMask(selectedProper.mask);
       if (selectedProper.type === "ProperGroupField") {
         setValues(
           properList
@@ -95,13 +96,14 @@ function Property({
 
   const edit = () => {
     let updatedProper = selectedProper;
-    updatedProper.isRequired = isRequired;
-    updatedProper.isContentInfo = isContentInfo;
-    updatedProper.hasMask = hasMask;
+    updatedProper.required = required;
+    updatedProper.contentInfo = contentInfo;
+    updatedProper.mask = mask;
     updatedProper.title = title;
     updatedProper.placeholder = placeholder;
     updatedProper.description = description;
-    editProper(selectedProper);
+    console.log("updatedProper : ", updatedProper);
+    editProper(updatedProper);
     setUpdatedFields(false);
     onClose();
   };
@@ -123,8 +125,8 @@ function Property({
                 <div className="property-field-label">
                   {t("Is required")}:
                   <Checkbox
-                    checked={isRequired}
-                    value={isRequired}
+                    checked={required}
+                    value={required}
                     onChange={onChangeRequired}
                     style={{ marginLeft: "10px" }}
                   />
@@ -134,8 +136,8 @@ function Property({
                 <div className="property-field-label">
                   {t("Is content info")}:
                   <Checkbox
-                    checked={isContentInfo}
-                    value={isContentInfo}
+                    checked={contentInfo}
+                    value={contentInfo}
                     onChange={onChangeContentInfo}
                     style={{ marginLeft: "10px" }}
                   />
@@ -145,8 +147,8 @@ function Property({
                 <div className="property-field-label">
                   {t("Has mask")}:
                   <Checkbox
-                    checked={hasMask}
-                    value={hasMask}
+                    checked={mask}
+                    value={mask}
                     onChange={onChangeMask}
                     style={{ marginLeft: "10px" }}
                   />

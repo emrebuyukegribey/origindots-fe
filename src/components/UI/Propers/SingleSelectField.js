@@ -62,7 +62,7 @@ function SingleSelectField({
             </div>
             <span className="single-select-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="single-select-field-required">*</span>
               )}
             </span>

@@ -18,9 +18,7 @@ function OCRField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="ocr-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
-                <span className="ocr-field-required">*</span>
-              )}
+              {proper.required && <span className="ocr-field-required">*</span>}
             </span>
           </div>
           <div className="ocr-field-icons-container">
