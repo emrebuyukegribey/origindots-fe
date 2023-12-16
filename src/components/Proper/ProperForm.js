@@ -38,6 +38,9 @@ function ProperForm({
   const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
   let dragOver = useRef();
+
+
+
   const properListForm = properList.filter((proper) =>
     selectedValueForAddProper
       ? proper.parentId === selectedValueForAddProper.id
@@ -238,7 +241,15 @@ function ProperForm({
         )}
         {!selectedValueForAddProper && (
           <div style={{ display: "flex" }}>
-            <div style={{ marginRight: "20px" }}>
+             <div>
+              <RedButtonBorder
+                text={t("Clear All Propers")}
+                onClick={() =>
+                  properList.length > 0 ? deleteProperWarning() : ""
+                }
+              />
+            </div>
+            <div style={{ marginLeft: "20px" }}>
               <DarkButtonBorder
                 onClick={handlePropers}
                 text={
@@ -248,14 +259,7 @@ function ProperForm({
                 }
               />
             </div>
-            <div>
-              <RedButtonBorder
-                text={t("Clear All Propers")}
-                onClick={() =>
-                  properList.length > 0 ? deleteProperWarning() : ""
-                }
-              />
-            </div>
+           
           </div>
         )}
       </div>

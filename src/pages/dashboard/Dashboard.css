@@ -22,7 +22,7 @@
 .dashboard-tab-container{
     width: 95%;
     height: auto;
-    background-color: #fff;
+    background-color:transparent;
     margin-right: 20px;
     border-radius: 10px;
     margin-bottom: 70px;

@@ -15,6 +15,7 @@ import Preview from "../../components/Preview/Preview";
 import { withTranslation } from "react-i18next";
 import Publish from "../../components/Publish/Publish";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
+import { v4 as uuidv4 } from 'uuid';
 
 const steps = [
   {
@@ -32,6 +33,7 @@ const steps = [
 ];
 
 function NewProcess(props) {
+
   const [loading, setLoading] = useState(false);
 
   const [processId, setProcessId] = useState();
@@ -210,11 +212,10 @@ function NewProcess(props) {
   };
 
   const createProperValue = (proper, valueName) => {
-    const properValueUniqueId = `prp-v-${Date.now()}-${
-      proper.type
-    }-${Math.floor(Math.random() * 1000)}-value-${valueName}-${Math.floor(
-      Math.random() * 1000
-    )}`;
+    const properValueUniqueId = `prp-v-${Date.now()}-${proper.type
+      }-${Math.floor(Math.random() * 1000)}-value-${valueName}-${Math.floor(
+        Math.random() * 1000
+      )}`;
 
     const properValue = {
       id: properValueUniqueId,
@@ -222,8 +223,8 @@ function NewProcess(props) {
       properId: proper.id,
       listNo: selectedValueForAddProper
         ? properValueList.filter(
-            (value) => value.properId === selectedValueForAddProper.id
-          ).length
+          (value) => value.properId === selectedValueForAddProper.id
+        ).length
         : properValueList.length,
       childCount: 0,
     };
@@ -334,13 +335,36 @@ function NewProcess(props) {
       onOk() {
         deleteProperOnForm(proper);
       },
-      onCancel() {},
+      onCancel() { },
       okType: "danger",
     });
   };
 
+
+
+  function createDataID(prefix, properType) {
+    const timestamp = new Date().getTime();
+    const randomPart = Math.floor(Math.random() * 100);
+
+    if (prefix === "prp") {
+      return `${prefix}-${timestamp}-${properType}-${randomPart}`;
+    } else {
+      return `${properType}-${timestamp}-${prefix}-${randomPart}`;
+    }
+  }
+
+  function createUUID() {
+    return uuidv4();
+  }
+
+  function splitID(payload) {
+    return payload.split("-");
+  }
+
+
   const duplicateProperOnForm = (baseItem) => {
     const tempList = [];
+    baseItem['datatype'] = 'proper';
     tempList.push(Object.assign({}, baseItem));
     function findRelatedItemsRecursively(currentItem) {
       if (
@@ -351,6 +375,7 @@ function NewProcess(props) {
           (proper) => proper.parentId === currentItem.id
         );
         childPropers.forEach((element) => {
+          element['datatype'] = 'proper';
           tempList.push(Object.assign({}, element));
         });
       } else {
@@ -358,6 +383,7 @@ function NewProcess(props) {
           (value) => value.properId === currentItem.id
         );
         childValues.forEach((element) => {
+          element['datatype'] = 'value';
           tempList.push(Object.assign({}, element));
         });
       }
@@ -368,49 +394,45 @@ function NewProcess(props) {
         findRelatedItemsRecursively(tempList[i]);
       }
     }
-
-    const updatedList = updateIdsOfDuplicatedProper(tempList);
-    copyProperAndValueOfList(updatedList);
+    const updatedList = changeID(tempList);
+    const newList = createNewCopyList(tempList, updatedList);
+    copyProperAndValueOfList(newList);
   };
 
-  const generateIdForCopiedItem = (random, oldId) => {
-    return oldId.includes("-C")
-      ? oldId.substring(0, oldId.indexOf("-C")) + "-" + random
-      : oldId + "-" + random;
-  };
+ 
+  function changeID(payload) {
+    const idMap = {};
+    payload.forEach(p => {
+      if (p['datatype'] == 'proper') {
+        const [prefix, , properType] = splitID(p.id);
+        idMap[p.id] = createDataID(prefix, properType);
+      } else {
+        const [properType, , prefix] = splitID(p.id);
+        idMap[p.id] = createDataID(prefix, properType);
+      }
 
-  function updateIdsOfDuplicatedProper(list) {
-    const newList = [];
-    const random = "C" + Math.floor(Math.random() * 100000);
-
-    for (var i = 0; i < list.length; i++) {
-      list[i].id = generateIdForCopiedItem(random, list[i].id);
-      if (list[i].parentId && i !== 0) {
-        list[i].parentId = generateIdForCopiedItem(random, list[i].parentId);
-      }
-      if (list[i].properId) {
-        list[i].properId = generateIdForCopiedItem(random, list[i].properId);
-      }
-      newList.push(list[i]);
-    }
-    /*
-    list.forEach((element) => {
-      element.id = generateIdForCopiedItem(random, element.id);
-      if (
-        element.parentId &&
-        !element.parentId.includes("ProperGroupField") &&
-        element.type !== "ProperGroupField"
-      ) {
-        element.parentId = generateIdForCopiedItem(random, element.parentId);
-      }
-      if (element.properId) {
-        element.properId = generateIdForCopiedItem(random, element.properId);
-      }
-      newList.push(element);
     });
-    */
+    return idMap;
+  }
+
+  function createNewCopyList(coppiedItem, keyList) {
+    var newList = [];
+    var i = 0;
+    coppiedItem.forEach(c => {
+      newList.push(Object.assign({}, c));
+      newList[i].id=keyList[c.id];
+      
+      if(c.parentId!=null)
+      newList[i].parentId=keyList[c.parentId];
+
+      if(c.properId!=null)
+      newList[i].properId=keyList[c.properId];
+
+      i++;
+    })
     return newList;
   }
+
 
   const copyProperAndValueOfList = (relatedItems) => {
     setLoading(true);
