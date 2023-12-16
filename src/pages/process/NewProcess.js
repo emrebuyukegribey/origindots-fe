@@ -394,23 +394,12 @@ function NewProcess(props) {
         findRelatedItemsRecursively(tempList[i]);
       }
     }
-    console.log(tempList);
     const updatedList = changeID(tempList);
-    console.log(updatedList);
     const newList = createNewCopyList(tempList, updatedList);
-    console.log(newList);
-
-    
     copyProperAndValueOfList(newList);
   };
 
-  const generateIdForCopiedItem = (random, oldId) => {
-    return oldId.includes("-C")
-      ? oldId.substring(0, oldId.indexOf("-C")) + "-" + random
-      : oldId + "-" + random;
-  };
-
-
+ 
   function changeID(payload) {
     const idMap = {};
     payload.forEach(p => {
