@@ -11,6 +11,8 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import UserManagement from "./pages/users/UserManagement";
 import OrganizationManagement from "./pages/organization/OrganizationManagement";
 
+import PForm from "./pages/form/PForm";
+
 function App() {
   const [activeLeftBar, setActiveLeftBar] = useState(true);
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -77,6 +79,10 @@ function App() {
         <Route
           path="/process-management/new-process"
           element={<NewProcess setNavbarHeaderText={setNavbarHeaderText} />}
+        />
+        <Route
+          path="/process/:id"
+          element={<PForm setNavbarHeaderText={setNavbarHeaderText} />}
         />
       </Routes>
     </MainContext.Provider>

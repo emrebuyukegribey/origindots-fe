@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { loginUser } from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
 
-import { Button, Col, Row, Form, Input } from "antd";
+import { Button, Col, Row, Form, Input, Carousel } from "antd";
 
 import GoogleIcon from "../../../assets/icons/google.svg";
 import FacebookIcon from "../../../assets/icons/facebook.svg";
@@ -97,6 +97,14 @@ function LoginScreen(props) {
     }
   };
 
+  const contentStyle = {
+    height: "500px",
+    color: "#fff",
+    lineHeight: "500px",
+    textAlign: "center",
+    background: "#364d79",
+  };
+
   if (loading) {
     return <CircleLoading />;
   }
@@ -105,7 +113,22 @@ function LoginScreen(props) {
     return (
       <div className="login-screen-container">
         <Row align="middle" style={{ height: "100%", width: "100%" }}>
-          <div className="login-screen-left-container">1</div>
+          <div className="login-screen-left-container">
+            <Carousel autoplay>
+              <div>
+                <h3>1</h3>
+              </div>
+              <div>
+                <h3>2</h3>
+              </div>
+              <div>
+                <h3>3</h3>
+              </div>
+              <div>
+                <h3>4</h3>
+              </div>
+            </Carousel>
+          </div>
           <div className="login-screen-right-container">
             <Col span={24}>
               <Row
