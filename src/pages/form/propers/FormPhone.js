@@ -1,7 +1,16 @@
 import { Form, InputNumber } from "antd";
+import PhoneInput from "antd-phone-input";
 import "./FormItem.css";
 
 function FormPhone({ proper }) {
+  const validator = (_, { valid }) => {
+    console.log("_ : ", _);
+    console.log("valid : ", valid);
+
+    // if (valid(true)) return Promise.resolve(); // strict validation
+    if (valid()) return Promise.resolve(); // non-strict validation
+    return Promise.reject("Invalid phone number");
+  };
   return (
     <>
       <Form.Item
@@ -10,15 +19,13 @@ function FormPhone({ proper }) {
         extra={proper.description}
         name={proper.id}
         rules={[
-          { type: "number", message: "emre" },
           {
             required: proper.required,
-
             message: proper.title + " is required",
           },
         ]}
       >
-        <InputNumber placeholder={proper.placeholder} />
+        <PhoneInput enableSearch />
       </Form.Item>
     </>
   );

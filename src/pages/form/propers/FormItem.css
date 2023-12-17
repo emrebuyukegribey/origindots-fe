@@ -2,3 +2,9 @@
 .form-input-container {
     margin-bottom: 30px;
 }
+
+.form-photo-container {
+    padding: 20px 75px;
+    border: 1px solid var(--dark400);
+    border-radius: 10px;
+}
