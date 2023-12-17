@@ -2,6 +2,7 @@ import { Form, Upload, message } from "antd";
 import { HiOutlinePhoto } from "react-icons/hi2";
 import "./FormItem.css";
 import { useState } from "react";
+import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -21,7 +22,7 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-function FormPhoto({ proper }) {
+function FormVideo({ proper }) {
   const [imageUrl, setImageUrl] = useState();
   const handleChange = (info) => {
     if (info.file.status === "uploading") {
@@ -55,7 +56,7 @@ function FormPhoto({ proper }) {
           size="large"
         >
           <div className="form-photo-container ">
-            <HiOutlinePhoto className="photo-field-upload-icon" />
+            <AiOutlineVideoCameraAdd className="photo-field-upload-icon" />
             <div>{proper.placeholder}</div>
           </div>
         </Upload>
@@ -64,4 +65,4 @@ function FormPhoto({ proper }) {
   );
 }
 
-export default FormPhoto;
+export default FormVideo;

@@ -51,7 +51,13 @@ function PForm() {
         <div className="pf-body-container">
           <div>
             {properList.map((p) => (
-              <FormRender proper={p} key={p.id} />
+              <FormRender
+                proper={p}
+                properValueList={properValueList.filter(
+                  (v) => v.properId === p.id
+                )}
+                key={p.id}
+              />
             ))}
           </div>
         </div>
