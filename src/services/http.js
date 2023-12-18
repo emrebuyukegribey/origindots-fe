@@ -22,7 +22,6 @@ export function processStore(body) {
 }
 
 export function processUpdate(body) {
-  console.log("body : ", body);
   return axios.put(`${BASE_URL}/process`, body, headerConfig);
 }
 

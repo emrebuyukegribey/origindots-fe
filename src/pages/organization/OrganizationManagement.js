@@ -491,7 +491,6 @@ function OrganizationManagement(props) {
   };
 
   const deleteOrganizationAndChilds = async (organization) => {
-    console.log("organization : ", organization.id);
     setLoading(true);
     try {
       const response = await deleteOrganization(organization.id);

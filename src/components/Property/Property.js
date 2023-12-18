@@ -102,7 +102,6 @@ function Property({
     updatedProper.title = title;
     updatedProper.placeholder = placeholder;
     updatedProper.description = description;
-    console.log("updatedProper : ", updatedProper);
     editProper(updatedProper);
     setUpdatedFields(false);
     onClose();

@@ -493,7 +493,6 @@ function NewProcess(props) {
   };
 
   const editProperOnForm = (proper) => {
-    console.log("PROPER : ", proper);
     setSelectedProper(proper);
     const updatingProperList = properList.indexOf(proper);
     const updatedList = [...properList];
@@ -581,7 +580,6 @@ function NewProcess(props) {
                 </div>
               )}
             </div>
-            {console.log("selectedProper : ", selectedProper)}
             <div>
               <Property
                 open={openProperty}

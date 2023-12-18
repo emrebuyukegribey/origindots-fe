@@ -7,11 +7,18 @@ import FormInput from "./propers/FormInput";
 import FormNumber from "./propers/FormNumber";
 import FormPhone from "./propers/FormPhone";
 import FormPhoto from "./propers/FormPhoto";
+import FormPropergroup from "./propers/FormPropergroup";
+import FormSingleselect from "./propers/FormSingleselect";
 import FormTextarea from "./propers/FormTextarea";
 import FormTime from "./propers/FormTime";
 import FormVideo from "./propers/FormVideo";
 
-export function FormRender({ proper, properValueList }) {
+export function FormRender({
+  proper,
+  properList,
+  properValueList,
+  onChangeForParent,
+}) {
   if (proper.type === "HeaderField") {
     return <FormHeader proper={proper} />;
   }
@@ -57,7 +64,30 @@ export function FormRender({ proper, properValueList }) {
   }
 
   if (proper.type === "DropDownField") {
-    console.log("properValueList : ", properValueList);
-    return <FormDropdown proper={proper} properValueList={properValueList} />;
+    return (
+      <FormDropdown
+        proper={proper}
+        properValueList={properValueList}
+        onChangeForParent={onChangeForParent}
+      />
+    );
+  }
+  if (proper.type === "ProperGroupField") {
+    return (
+      <FormPropergroup
+        proper={proper}
+        properList={properList}
+        onChangeForParent={onChangeForParent}
+      />
+    );
+  }
+
+  console.log("proper : ", proper);
+  if (proper.type === "SingleSelectField") {
+    <FormSingleselect
+      proper={proper}
+      properList={properList}
+      onChangeForParent={onChangeForParent}
+    />;
   }
 }

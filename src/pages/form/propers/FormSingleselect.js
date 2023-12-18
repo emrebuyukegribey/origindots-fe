@@ -1,7 +1,7 @@
-import { Form, Select } from "antd";
+import { Form, Radio, Select } from "antd";
 import { AiOutlineEye } from "react-icons/ai";
 
-function FormDropdown({ proper, properValueList, onChangeForParent }) {
+function FormSingleselect({ proper, properValueList, onChangeForParent }) {
   let properValues = [];
   properValueList
     .map((value) => value)
@@ -58,14 +58,21 @@ function FormDropdown({ proper, properValueList, onChangeForParent }) {
           { required: proper.required, message: proper.title + " is required" },
         ]}
       >
-        <Select
-          options={properValues}
-          placeholder={proper.placeholder}
-          onChange={onChange}
-        ></Select>
+        {properValues.map((prop) => {
+          return (
+            <Radio.Group
+              key={prop.id + prop.listNo + prop.name}
+              value={properValues[0].value}
+            >
+              <Radio size="large" value={prop.value}>
+                {prop.label}
+              </Radio>
+            </Radio.Group>
+          );
+        })}
       </Form.Item>
     </>
   );
 }
 
-export default FormDropdown;
+export default FormSingleselect;

@@ -4,9 +4,6 @@ import "./FormItem.css";
 
 function FormPhone({ proper }) {
   const validator = (_, { valid }) => {
-    console.log("_ : ", _);
-    console.log("valid : ", valid);
-
     // if (valid(true)) return Promise.resolve(); // strict validation
     if (valid()) return Promise.resolve(); // non-strict validation
     return Promise.reject("Invalid phone number");

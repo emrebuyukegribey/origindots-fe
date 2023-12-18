@@ -20,7 +20,8 @@
 
 .pf-button-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 30px;
 }
 
@@ -60,4 +61,10 @@
     margin: 20px 20px;
     width: 100%;
     border-bottom: 1px solid var(--grey300);
+}
+
+.pf-back-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

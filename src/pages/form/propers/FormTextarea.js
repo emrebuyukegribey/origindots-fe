@@ -16,9 +16,8 @@ function FormTextarea({ proper }) {
       >
         <TextArea
           row={4}
-          maxLength={6}
+          maxLength={250}
           placeholder={proper.placeholder}
-          disabled
           size="large"
         />
       </Form.Item>

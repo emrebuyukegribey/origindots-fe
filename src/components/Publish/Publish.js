@@ -12,7 +12,6 @@ import BackButtonBorder from "../UI/Buttons/BackButtonBorder";
 import { useNavigate } from "react-router-dom";
 
 function Publish(props) {
-  console.log("props : ", props);
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
 

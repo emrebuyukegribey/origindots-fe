@@ -180,7 +180,6 @@ function ProcessManagement(props) {
       localStorage.setItem("processIcon", process.icon);
       const response = await getProcessWithAllAtributes(process.id);
       if (response.status === 200) {
-        console.log("response : ", response.data);
         if (response.data?.properList && response.data?.properList.length > 0) {
           localStorage.setItem(
             "properList",
