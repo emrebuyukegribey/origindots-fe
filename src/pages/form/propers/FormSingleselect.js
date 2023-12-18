@@ -1,4 +1,5 @@
 import { Form, Radio, Select } from "antd";
+import { useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 
 function FormSingleselect({ proper, properValueList, onChangeForParent }) {
@@ -40,8 +41,13 @@ function FormSingleselect({ proper, properValueList, onChangeForParent }) {
       properValues.push(obj);
     });
 
+  const [value, setValue] = useState(
+    properValueList.filter((pv) => pv.childCount === 0)[0].name
+  );
+
   const onChange = (val) => {
-    const value = properValueList.filter((v) => v.name === val)[0];
+    setValue(val.target.value);
+    const value = properValueList.filter((v) => v.name === val.target.value)[0];
     if (value.childCount > 0) {
       onChangeForParent(value);
     }
@@ -54,22 +60,19 @@ function FormSingleselect({ proper, properValueList, onChangeForParent }) {
         label={proper.title}
         extra={proper.description}
         name={proper.id}
+        initialValue={value}
+        value={value}
         rules={[
           { required: proper.required, message: proper.title + " is required" },
         ]}
       >
-        {properValues.map((prop) => {
-          return (
-            <Radio.Group
-              key={prop.id + prop.listNo + prop.name}
-              value={properValues[0].value}
-            >
-              <Radio size="large" value={prop.value}>
-                {prop.label}
-              </Radio>
-            </Radio.Group>
-          );
-        })}
+        <Radio.Group onChange={onChange} value={value}>
+          {properValues.map((prop, index) => (
+            <Radio size="large" key={index} value={prop.value}>
+              {prop.label}
+            </Radio>
+          ))}
+        </Radio.Group>
       </Form.Item>
     </>
   );

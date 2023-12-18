@@ -82,12 +82,14 @@ export function FormRender({
     );
   }
 
-  console.log("proper : ", proper);
   if (proper.type === "SingleSelectField") {
-    <FormSingleselect
-      proper={proper}
-      properList={properList}
-      onChangeForParent={onChangeForParent}
-    />;
+    return (
+      <FormSingleselect
+        proper={proper}
+        properList={properList}
+        properValueList={properValueList}
+        onChangeForParent={onChangeForParent}
+      />
+    );
   }
 }

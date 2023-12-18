@@ -110,13 +110,9 @@ function PForm() {
     setProperValueList(tempProperValueList);
   };
 
-  console.log("PROPER LIST : ", properList);
-  console.log("SELECTED : ", selected);
   const properListForm = properList.filter((proper) =>
     selected ? proper.parentId === selected.id : proper.parentId === null
   );
-
-  console.log("properListForm : ", properListForm);
 
   return (
     <div className="pf-container">
