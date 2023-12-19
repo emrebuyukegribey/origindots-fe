@@ -43,3 +43,27 @@
 .form-properGroup-text {
     padding-top: 5px;
 }
+
+.form-photo-image-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+.form-photo-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+}
+
+.form-photo-close-icon {
+    font-size: 18px;
+    padding: 2px;
+    background-color: var(--red200);
+    border-radius: 100%;
+    color: #fff;
+    margin-left: 5px;
+}
+
+.form-photo-close-icon:hover {
+    background-color: var(--red300);
+}
