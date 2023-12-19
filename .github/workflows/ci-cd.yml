@@ -20,4 +20,4 @@ jobs:
       run: |
         docker ps -a -q --filter "name=origindots-web" | xargs -r docker stop
         docker ps -a -q --filter "name=origindots-web" | xargs -r docker rm
-        docker run --name origindots-web -p 3030:3000   -d origindots-web 
+        docker run --name origindots-web -p 3000:3000   -d origindots-web 
