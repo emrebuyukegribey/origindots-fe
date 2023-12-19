@@ -4,6 +4,7 @@ import FormDropdown from "./propers/FormDropdown";
 import FormEmail from "./propers/FormEmail";
 import FormHeader from "./propers/FormHeader";
 import FormInput from "./propers/FormInput";
+import FormMultiselect from "./propers/FormMultiselect";
 import FormNumber from "./propers/FormNumber";
 import FormPhone from "./propers/FormPhone";
 import FormPhoto from "./propers/FormPhoto";
@@ -86,7 +87,16 @@ export function FormRender({
     return (
       <FormSingleselect
         proper={proper}
-        properList={properList}
+        properValueList={properValueList}
+        onChangeForParent={onChangeForParent}
+      />
+    );
+  }
+
+  if (proper.type === "MultiSelectField") {
+    return (
+      <FormMultiselect
+        proper={proper}
         properValueList={properValueList}
         onChangeForParent={onChangeForParent}
       />

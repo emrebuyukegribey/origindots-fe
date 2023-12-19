@@ -1,7 +1,7 @@
 import { Form, Upload, message } from "antd";
 import { HiOutlinePhoto } from "react-icons/hi2";
 import "./FormItem.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -9,6 +9,17 @@ const getBase64 = (img, callback) => {
   reader.readAsDataURL(img);
 };
 const beforeUpload = (file) => {
+  if (file) {
+    localStorage.setItem("file", JSON.stringify(file));
+  }
+
+  if (!file && localStorage.getItem("file")) {
+    file = JSON.parse(localStorage.getItem("file"));
+    console.log("file : ", file);
+  }
+
+  console.log("file : ", file);
+
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
   if (!isJpgOrPng) {
     message.error("You can only upload JPG/PNG file!");
@@ -21,7 +32,7 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-function FormPhoto({ proper }) {
+function FormPhoto(props) {
   const [imageUrl, setImageUrl] = useState();
   const handleChange = (info) => {
     if (info.file.status === "uploading") {
@@ -30,19 +41,27 @@ function FormPhoto({ proper }) {
     if (info.file.status === "done") {
       getBase64(info.file.originFileObj, (url) => {
         setImageUrl(url);
+        localStorage.setItem("imageUrl", imageUrl);
       });
     }
   };
+
+  useEffect(() => {
+    beforeUpload();
+  }, []);
 
   return (
     <>
       <Form.Item
         className="form-input-container"
-        label={proper.title}
-        extra={proper.description}
-        name={proper.id}
+        label={props.proper.title}
+        extra={props.proper.description}
+        name={props.proper.id}
         rules={[
-          { required: proper.required, message: proper.title + " is required" },
+          {
+            required: props.proper.required,
+            message: props.proper.title + " is required",
+          },
         ]}
       >
         <Upload
@@ -51,12 +70,12 @@ function FormPhoto({ proper }) {
           showUploadList={true}
           beforeUpload={beforeUpload}
           onChange={handleChange}
-          // action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+          action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
           size="large"
         >
           <div className="form-photo-container ">
             <HiOutlinePhoto className="photo-field-upload-icon" />
-            <div>{proper.placeholder}</div>
+            <div>{props.proper.placeholder}</div>
           </div>
         </Upload>
       </Form.Item>
