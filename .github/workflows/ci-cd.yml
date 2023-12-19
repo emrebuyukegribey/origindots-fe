@@ -3,7 +3,7 @@ name: Deploy Origindots WEB Api in Container
 on:
   push:
     branches:
-      - main
+      - kemal
 
 jobs:
   deploy:
@@ -14,10 +14,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      run: docker build -t origindots-web-test .
+      run: docker build -t origindots-web .
 
     - name: Run origindots in container
       run: |
-        docker ps -a -q --filter "name=origindots-web-test" | xargs -r docker stop
-        docker ps -a -q --filter "name=origindots-web-test" | xargs -r docker rm
-        docker run --name origindots-web-test -p 3030:3000   -d origindots-web-test 
+        docker ps -a -q --filter "name=origindots-web" | xargs -r docker stop
+        docker ps -a -q --filter "name=origindots-web" | xargs -r docker rm
+        docker run --name origindots-web -p 3030:3000   -d origindots-web 
