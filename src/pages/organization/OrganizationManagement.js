@@ -627,6 +627,7 @@ function OrganizationManagement(props) {
     }
   };
 
+  
   const editOrganizaton = () => {
     console.log("editOrganization");
   };

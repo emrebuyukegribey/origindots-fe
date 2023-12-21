@@ -7,7 +7,11 @@ class UserRoleComponent extends Component {
 
     constructor(props) {
         super(props);
-      
+        this.state = {
+            userPolicy: '',
+            userPolicyArray: props.user.userPolicies != null ? props.user.userPolicies.split(',') : ''
+        };
+
         this.handleSwitchChange = this.handleSwitchChange.bind(this);
     }
 
@@ -42,6 +46,7 @@ class UserRoleComponent extends Component {
     
 
     render() {
+   
         return (
             <>
                 <Row style={{ width: "75%" }}>
@@ -50,7 +55,7 @@ class UserRoleComponent extends Component {
 
                         <Col span={7}><h5>SÜREÇ YÖNETİMİ</h5></Col>
                         <Col span={5}>
-                            <Switch checkedChildren=" İnceleyebilir" unCheckedChildren=" İnceleyebilir" onChange={(checked) => this.handleSwitchChange(checked, 'processRead')}/>
+                            <Switch checkedChildren=" İnceleyebilir" unCheckedChildren=" İnceleyebilir"  onChange={(checked) => this.handleSwitchChange(checked, 'processRead')}/>
                         </Col>
                         <Col span={5}>
                             <Switch checkedChildren=" Değiştirebilir" unCheckedChildren=" Değiştirebilir" onChange={(checked) => this.handleSwitchChange(checked, 'processWrite')}/>
