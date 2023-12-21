@@ -9,11 +9,10 @@ import { useEffect } from "react";
 import { loginUser } from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
 
-import { Button, Col, Row, Form, Input } from "antd";
+import { Button, Col, Row, Form, Input,Carousel } from "antd";
 
 import GoogleIcon from "../../../assets/icons/google.svg";
-import FacebookIcon from "../../../assets/icons/facebook.svg";
-import TwitterXIcon from "../../../assets/icons/twitterx.svg";
+import AppleIcon from "../../../assets/icons/apple-logo.svg";
 import DarkButtonBorder from "../../../components/UI/Buttons/DarkButtonBorder";
 
 function LoginScreen(props) {
@@ -75,9 +74,16 @@ function LoginScreen(props) {
           email: values.email,
           password: values.password,
         });
+
         if (response.status === 200) {
           if (response.data) {
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("email", response.data.email);
+            localStorage.setItem("id", response.data.id);
+            localStorage.setItem("firstName", response.data.firstName);
+            localStorage.setItem("lastName", response.data.lastName);
+            localStorage.setItem("userName", response.data.userName);
+
             props.setToken(response.data?.token);
           }
         }
@@ -105,7 +111,22 @@ function LoginScreen(props) {
     return (
       <div className="login-screen-container">
         <Row align="middle" style={{ height: "100%", width: "100%" }}>
-          <div className="login-screen-left-container">1</div>
+          <div className="login-screen-left-container">
+          <Carousel autoplay>
+              <div>
+                <h3>1</h3>
+              </div>
+              <div>
+                <h3>2</h3>
+              </div>
+              <div>
+                <h3>3</h3>
+              </div>
+              <div>
+                <h3>4</h3>
+              </div>
+            </Carousel>
+          </div>
           <div className="login-screen-right-container">
             <Col span={24}>
               <Row
@@ -202,8 +223,8 @@ function LoginScreen(props) {
                         }}
                       >
                         <img src={GoogleIcon} alt="google" />
-                        <img src={FacebookIcon} alt="facebook" />
-                        <img src={TwitterXIcon} alt="twitterX" />
+                        <img src={AppleIcon} width={'36px'} height={'36px'} alt="apple" />
+                        
                       </Row>
                     </Col>
                   </Row>

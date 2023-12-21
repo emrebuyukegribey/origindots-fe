@@ -120,3 +120,7 @@ export function deleteProcessFromOrganization(organizationId, processId) {
     headerConfig
   );
 }
+
+export function getRelation(userId){
+  return axios.get(`${BASE_URL}/organizations/relations/user/${userId}`,headerConfig);
+}
