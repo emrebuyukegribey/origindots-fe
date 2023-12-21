@@ -10,10 +10,13 @@ import {
   Select,
   Table,
   Tabs,
-  Transfer,
+  Row,
+  Col,
   message,
-  notification,
+  notification, Switch, Space
 } from "antd";
+
+
 import OrganizationForm from "./OrganizationForm";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import {
@@ -35,6 +38,7 @@ import OrganizationTable from "./OrganizationTable";
 import { useEffect } from "react";
 import OrganizationItemCard from "./OrganizationItemCard";
 import { CiCircleAlert } from "react-icons/ci";
+import UserRoleComponent from "./UserRoleComponent";
 
 const { Option } = Select;
 
@@ -58,6 +62,8 @@ function OrganizationManagement(props) {
   const [showAddUserModal, setShowAddUserModal] = useState(false);
   const [showAddProcessModal, setShowAddProcessModal] = useState(false);
   const [showOrganizationModal, setShowOrganizationModal] = useState(false);
+  const [showRoleModal, setShowRoleModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState({})
   const [showOrganizationTabItems, setShowOrganizationTabItems] = useState([]);
 
   const [searchedOrganizations, setSearchedOrganizations] = useState([]);
@@ -388,12 +394,20 @@ function OrganizationManagement(props) {
               title: "Actions",
               dataIndex: "actions",
               render: (text, record) => (
-                <div
-                  onClick={() => deleteUserWarning(record)}
-                  style={{ color: "#EF4136", cursor: "pointer" }}
-                >
-                  Delete
-                </div>
+                <Row>
+                  <Col flex={1}
+                    onClick={() => deleteUserWarning(record)}
+                    style={{ color: "#EF4136", cursor: "pointer" }}
+                  >
+                    Kaldır
+                  </Col>
+                  <Col flex={1}
+                    onClick={() => setRole(record)}
+                    style={{ color: "#2196F3", cursor: "pointer" }}
+                  >
+                    Yetki Ver
+                  </Col>
+                </Row>
               ),
             },
           ];
@@ -485,7 +499,7 @@ function OrganizationManagement(props) {
         deleteOrganizationAndChilds(organization);
       },
 
-      onCancel() {},
+      onCancel() { },
       okType: "danger",
     });
   };
@@ -526,10 +540,27 @@ function OrganizationManagement(props) {
         deleteUser(organizationUser);
       },
 
-      onCancel() {},
+      onCancel() { },
       okType: "danger",
     });
   };
+
+  const setRole = (organizationUser) => {
+    setSelectedUser(organizationUser);
+    setShowRoleModal(true);
+  }
+
+  const closeRoleModal = () => {
+    setShowRoleModal(false);
+  }
+
+  const saveRole = () => {
+  console.log(selectedUser);
+    setShowRoleModal(false);
+    
+  }
+
+
 
   const deleteProcessWarning = (organizationProcess) => {
     Modal.confirm({
@@ -539,7 +570,7 @@ function OrganizationManagement(props) {
       onOk() {
         deleteProcess(organizationProcess);
       },
-      onCancel() {},
+      onCancel() { },
       okType: "danger",
     });
   };
@@ -739,6 +770,19 @@ function OrganizationManagement(props) {
               items={showOrganizationTabItems}
             />
           </div>
+        </div>
+      </Modal>
+
+      <Modal
+        title={selectedUser.firstName+" "+selectedUser.lastName+ " | " + props.t("UserRoleInformation")}
+        open={showRoleModal}
+        width={850}
+        onOk={saveRole}
+        onCancel={closeRoleModal}
+      >
+        <div>
+          <div className="user-management-divider" />
+          <UserRoleComponent user={selectedUser} organization={organization}/>
         </div>
       </Modal>
     </>

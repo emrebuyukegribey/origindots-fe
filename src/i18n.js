@@ -141,10 +141,12 @@ i18n.use(initReactI18next).init({
         "User Informations": "User Informations",
         "Process Informations":"Process Information",
         "Duplicate":"Duplicate",
+        "UserRoleInformation":"Role Management"
       },
     },
     tr: {
       translations: {
+        "UserRoleInformation":"Yetkilendirme",
         Dashboard: "Gösterge Paneli",
         "Organization Management": "Organizasyon Yönetimi",
         "User Management": "Kullanıcı Yönetimi",
