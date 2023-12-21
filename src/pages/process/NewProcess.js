@@ -365,8 +365,10 @@ function NewProcess(props) {
   const duplicateProperOnForm = (baseItem) => {
     const tempList = [];
     baseItem['datatype'] = 'proper';
+    const parentId= baseItem.parentId;
     tempList.push(Object.assign({}, baseItem));
     function findRelatedItemsRecursively(currentItem) {
+
       if (
         currentItem.id.includes("ProperGroupField") ||
         currentItem.id.includes("value")
@@ -396,6 +398,8 @@ function NewProcess(props) {
     }
     const updatedList = changeID(tempList);
     const newList = createNewCopyList(tempList, updatedList);
+    
+    newList.length > 0 ? newList[0].parentId=parentId : newList[0].parentId=null;
     copyProperAndValueOfList(newList);
   };
 
