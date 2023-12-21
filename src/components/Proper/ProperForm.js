@@ -39,8 +39,6 @@ function ProperForm({
   let dragStart = useRef();
   let dragOver = useRef();
 
-
-
   const properListForm = properList.filter((proper) =>
     selectedValueForAddProper
       ? proper.parentId === selectedValueForAddProper.id
@@ -241,7 +239,7 @@ function ProperForm({
         )}
         {!selectedValueForAddProper && (
           <div style={{ display: "flex" }}>
-             <div>
+            <div>
               <RedButtonBorder
                 text={t("Clear All Propers")}
                 onClick={() =>
@@ -259,7 +257,6 @@ function ProperForm({
                 }
               />
             </div>
-           
           </div>
         )}
       </div>

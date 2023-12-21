@@ -1,7 +1,6 @@
 import { Tree } from "antd";
 import ProcessItem from "./ProcessItem";
 import { PiNoteBlankLight } from "react-icons/pi";
-import ProcessIcons from "../../components/Process/ProcessIcons";
 import { useState } from "react";
 import "./ProcessItemCard.css";
 import {
@@ -17,15 +16,10 @@ import {
   MdOutlineDateRange,
   MdOutlineRadioButtonChecked,
 } from "react-icons/md";
-import {
-  AiOutlinePhone,
-  AiOutlineQrcode,
-  AiOutlineVideoCameraAdd,
-} from "react-icons/ai";
+import { AiOutlineQrcode, AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { IoMdQrScanner, IoMdTimer } from "react-icons/io";
 
 function ProcessItemCard(props) {
-
   const [showTree, setShowTree] = useState(false);
 
   const handleShowTree = () => {
@@ -152,18 +146,12 @@ function ProcessItemCard(props) {
         roots.push(node);
       }
     }
-
     assignKeys(roots, null);
     removeEmptyChildren(roots);
     return roots;
   }
 
   const treeData = createTree();
-  const icon =
-    props.process.icon &&
-    ProcessIcons.filter((icon) => icon.id.toString() === props.process.icon)[0]
-      .icon;
-
   return (
     <>
       <div className="process-card-container">

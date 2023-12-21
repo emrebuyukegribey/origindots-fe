@@ -2,8 +2,31 @@ import { Form } from "antd";
 import "./FormItem.css";
 import { AiOutlineEye } from "react-icons/ai";
 import { CiWarning } from "react-icons/ci";
+import { useState } from "react";
 
-function FormPropergroup({ proper, properList, onChangeForParent }) {
+function FormPropergroup({
+  formValues,
+  proper,
+  properList,
+  onChangeForParent,
+}) {
+  const [childPropers, setChildPropers] = useState(
+    properList.filter((p) => p.parentId === proper.id)
+  );
+  console.log("formValues : ", formValues);
+  console.log("childPropers : ", childPropers);
+
+  const isComplatedRelatedProps = () => {
+    formValues.foreach((fv) => {
+      childPropers.foreach((cp) => {
+        if (Object.keys(cp) === fv) {
+          return true;
+        }
+      });
+    });
+    return false;
+  };
+
   const onClick = () => {
     onChangeForParent(proper);
   };

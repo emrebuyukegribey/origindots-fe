@@ -15,6 +15,7 @@ import FormTime from "./propers/FormTime";
 import FormVideo from "./propers/FormVideo";
 
 export function FormRender({
+  formValues,
   proper,
   properList,
   properValueList,
@@ -67,6 +68,7 @@ export function FormRender({
   if (proper.type === "DropDownField") {
     return (
       <FormDropdown
+        formValues={formValues}
         proper={proper}
         properValueList={properValueList}
         onChangeForParent={onChangeForParent}
@@ -76,6 +78,7 @@ export function FormRender({
   if (proper.type === "ProperGroupField") {
     return (
       <FormPropergroup
+        formValues={formValues}
         proper={proper}
         properList={properList}
         onChangeForParent={onChangeForParent}
@@ -86,6 +89,7 @@ export function FormRender({
   if (proper.type === "SingleSelectField") {
     return (
       <FormSingleselect
+        formValues={formValues}
         proper={proper}
         properValueList={properValueList}
         onChangeForParent={onChangeForParent}
@@ -96,6 +100,7 @@ export function FormRender({
   if (proper.type === "MultiSelectField") {
     return (
       <FormMultiselect
+        formValues={formValues}
         proper={proper}
         properValueList={properValueList}
         onChangeForParent={onChangeForParent}

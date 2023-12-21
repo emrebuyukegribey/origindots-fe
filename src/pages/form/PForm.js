@@ -19,6 +19,8 @@ function PForm() {
   const [tempProperList, setTempProperList] = useState([]);
   const [tempProperValueList, setTempProperValueList] = useState([]);
 
+  const [formValues, setFormValues] = useState([]);
+
   const [selected, setSelected] = useState();
 
   const getProcess = async () => {
@@ -49,7 +51,23 @@ function PForm() {
     if (selected) {
       goBack();
     }
-    console.log("values : ", values);
+    console.log("selected  : ", selected);
+    let newArr = [...formValues];
+    if (values) {
+      const objectKeys = Object.keys(values);
+      objectKeys.map((key) => {
+        const value = { [key]: values[key] };
+        const valueIndex = newArr.findIndex((v) => Object.keys(v)[0] === key);
+        if (valueIndex >= 0) {
+          newArr[valueIndex] = value;
+        } else {
+          newArr.push(value);
+        }
+      });
+      setFormValues(newArr);
+    }
+
+    console.log("formValues : ", formValues);
   };
 
   const onChangeForParent = (val) => {
@@ -125,6 +143,7 @@ function PForm() {
         <div className="pf-body-container">
           {properListForm.map((p) => (
             <FormRender
+              formValues={formValues}
               proper={p}
               properList={properList.filter((v) => v.parentId === p.id)}
               properValueList={properValueList.filter(
