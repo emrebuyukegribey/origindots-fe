@@ -2,7 +2,14 @@ import { Form } from "antd";
 import "./FormItem.css";
 import { AiOutlineEye } from "react-icons/ai";
 import { CiWarning } from "react-icons/ci";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  MdCheck,
+  MdFactCheck,
+  MdOutlineCheckCircleOutline,
+  MdPlaylistAddCheck,
+} from "react-icons/md";
+import { IoIosCheckboxOutline, IoMdCheckmark } from "react-icons/io";
 
 function FormPropergroup({
   formValues,
@@ -10,26 +17,39 @@ function FormPropergroup({
   properList,
   onChangeForParent,
 }) {
-  const [childPropers, setChildPropers] = useState(
-    properList.filter((p) => p.parentId === proper.id)
-  );
-  console.log("formValues : ", formValues);
-  console.log("childPropers : ", childPropers);
-
-  const isComplatedRelatedProps = () => {
-    formValues.foreach((fv) => {
-      childPropers.foreach((cp) => {
-        if (Object.keys(cp) === fv) {
-          return true;
-        }
-      });
-    });
-    return false;
-  };
+  const [childPropers, setChildPropers] = useState([]);
+  const [touchedRelated, setTouchedRelated] = useState(false);
 
   const onClick = () => {
     onChangeForParent(proper);
   };
+
+  useEffect(() => {
+    const childs = [];
+    properList.filter((p) => {
+      childs.push(p);
+    });
+
+    setChildPropers(childs);
+  }, [touchedRelated]);
+
+  const isTouchedRelatedForm = () => {
+    for (let i = 0; i < childPropers.length; i++) {
+      formValues.forEach((element) => {
+        if (
+          Object.keys(element)[0] === childPropers[i].id &&
+          Object.values(element)[0] &&
+          Object.values(element)[0].length > 0
+        ) {
+          setTouchedRelated(true);
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    isTouchedRelatedForm();
+  }, [isTouchedRelatedForm]);
 
   return (
     <>
@@ -47,11 +67,26 @@ function FormPropergroup({
       >
         <div className="form-properGroup-container">
           <div onClick={onClick} className="form-properGroup-inner-container">
-            <CiWarning className="form-properGroup-icon" />
-            <div className="form-properGroup-text">
-              {proper.title} alanı ile ile bilgiler bulunmaktadır. Görmek için
-              lütfen tıklayınız.
-            </div>
+            {touchedRelated ? (
+              <div style={{ display: "flex" }}>
+                <IoMdCheckmark
+                  className="form-properGroup-icon"
+                  color="#18bd5b"
+                />
+                <div className="form-properGroup-text">
+                  {proper.title} alanı ile ilgili bilgiler kaydedildi. Tekrar
+                  düzenlemek için tıklayınız.
+                </div>
+              </div>
+            ) : (
+              <div style={{ display: "flex" }}>
+                <CiWarning className="form-properGroup-icon" />
+                <div className="form-properGroup-text">
+                  {proper.title} alanı ile ile bilgiler bulunmaktadır. Görmek
+                  için lütfen tıklayınız.
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </Form.Item>

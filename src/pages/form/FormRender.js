@@ -18,6 +18,7 @@ export function FormRender({
   formValues,
   proper,
   properList,
+  allProperList,
   properValueList,
   onChangeForParent,
 }) {
@@ -91,6 +92,8 @@ export function FormRender({
       <FormSingleselect
         formValues={formValues}
         proper={proper}
+        properList={properList}
+        allProperList={allProperList}
         properValueList={properValueList}
         onChangeForParent={onChangeForParent}
       />

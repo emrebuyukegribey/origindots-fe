@@ -9,13 +9,7 @@ function FormMultiselect({ proper, properValueList, onChangeForParent }) {
     .forEach((element) => {
       const name =
         element.childCount > 0 ? (
-          <div
-            key={element.name}
-            value={element.name}
-            style={{
-              display: "flex",
-            }}
-          >
+          <div key={element.name} value={element.name}>
             {element.name}
             <div
               key={element.name}
@@ -46,13 +40,10 @@ function FormMultiselect({ proper, properValueList, onChangeForParent }) {
   );
 
   const onChange = (val) => {
-    console.log("val : ", val);
     setValue(val);
     const valueWithChilds = properValueList.filter((value) => {
-      console.log("value : ", value);
       return value.childCount > 0;
     })[0];
-    console.log("valueWithChilds : ", valueWithChilds);
 
     if (valueWithChilds) {
       onChangeForParent(value);

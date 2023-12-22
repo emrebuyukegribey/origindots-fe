@@ -9,7 +9,6 @@ function FormData({ proper }) {
   const [fileUrl, setFileUrl] = useState();
 
   const getBase64 = (img, callback) => {
-    console.log("img : ", img);
     const reader = new FileReader();
     reader.addEventListener("load", () => callback(reader.result));
     reader.readdAsText(img);
@@ -20,7 +19,6 @@ function FormData({ proper }) {
       file.type === "application/xls" ||
       file.type === "application/xlsx";
 
-    console.log("isAvailableFile : ", isAvailableFile);
     if (!isAvailableFile) {
       message.error("You can only upload PDF/XLS/XLSX file!");
       return;

@@ -51,7 +51,6 @@ function PForm() {
     if (selected) {
       goBack();
     }
-    console.log("selected  : ", selected);
     let newArr = [...formValues];
     if (values) {
       const objectKeys = Object.keys(values);
@@ -66,8 +65,6 @@ function PForm() {
       });
       setFormValues(newArr);
     }
-
-    console.log("formValues : ", formValues);
   };
 
   const onChangeForParent = (val) => {
@@ -146,6 +143,7 @@ function PForm() {
               formValues={formValues}
               proper={p}
               properList={properList.filter((v) => v.parentId === p.id)}
+              allProperList={properList}
               properValueList={properValueList.filter(
                 (v) => v.properId === p.id
               )}
