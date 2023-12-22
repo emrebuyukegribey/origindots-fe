@@ -52,7 +52,6 @@ function ProcessTable(props) {
         </div>
       ),
     },
-
     {
       title: props.t("Created Date"),
       dataIndex: "createdDate",
@@ -61,40 +60,49 @@ function ProcessTable(props) {
         <div>{new Date(record.createdDate).toLocaleString()}</div>
       ),
     },
-
     {
       title: props.t("Actions"),
       key: "actions",
       render: (text, record) => (
-        <div style={{ display: "flex" }}>
-          <Dropdown
-            overlay={
-              <Menu key={record.id}>
-                {getProcessMenuItems({
-                  record,
-                  showProcessInformations,
-                  updateProcess,
-                  deleteProcess,
-                  duplicateProcess,
-                  t,
-                })}
-              </Menu>
-            }
-          >
-            <div
-              key={record.id}
-              onClick={(e) => e.preventDefault()}
-              className="process-table-menu"
-            >
-              <div className="process-table-menu-text">
-                {props.t("Actions")}
-              </div>{" "}
-              <div className="process-table-menu-icon">
-                <IoCaretDownOutline />
+        <div>
+          {record.deleted === false ?
+            (<div style={{ display: "flex" }}>
+              <Dropdown
+                overlay={
+                  <Menu key={record.id}>
+                    {getProcessMenuItems({
+                      record,
+                      showProcessInformations,
+                      updateProcess,
+                      deleteProcess,
+                      duplicateProcess,
+                      t,
+                    })}
+                  </Menu>
+                }
+              >
+                <div
+                  key={record.id}
+                  onClick={(e) => e.preventDefault()}
+                  className="process-table-menu"
+                >
+                  <div className="process-table-menu-text">
+                    {props.t("Actions")}
+                  </div>{" "}
+                  <div className="process-table-menu-icon">
+                    <IoCaretDownOutline />
+                  </div>
+                </div>
+              </Dropdown>
+            </div>) : 
+            (
+              <div style={{ display: "flex" }}>
+                <label style={{color:"red",fontWeight:"bold",fontStyle:"italic"}}>Silme Sırasında</label>
               </div>
-            </div>
-          </Dropdown>
+            )
+          }
         </div>
+
       ),
     },
   ];
