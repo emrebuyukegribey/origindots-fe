@@ -67,3 +67,7 @@
 .form-photo-close-icon:hover {
     background-color: var(--red300);
 }
+
+.ant-checkbox-wrapper {
+    margin-bottom: 7px;
+}

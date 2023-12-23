@@ -17,6 +17,11 @@ function FormSingleselect({
   const [touchedRelated, setTouchedRelated] = useState([]);
 
   useEffect(() => {
+    // isTouchedRelated();
+  }, []);
+
+  /*
+  const isTouchedRelated = () => {
     const childs = [];
     const childsOfValues = findChildsProperValues();
 
@@ -32,7 +37,8 @@ function FormSingleselect({
       });
     }
     setTouchedRelated(childs);
-  }, []);
+  };
+  */
 
   const findChildsProperValues = () => {
     const childs = [];
@@ -50,10 +56,35 @@ function FormSingleselect({
   const onChange = (val) => {
     localStorage.removeItem("singSelectSelectedValue");
     setValue(val.target.value);
-    const value = properValueList.filter((v) => v.name === val.target.value)[0];
+    const properValue = properValueList.filter(
+      (v) => v.name === val.target.value
+    )[0];
 
-    if (value.childCount > 0) {
-      onChangeForParent(value);
+    if (properValue.childCount > 0) {
+      const childs = [];
+      const childsOfValues = findChildsProperValues();
+
+      console.log("properValue : ", properValue);
+      const childOfProperValue = allProperList.filter(
+        (p) => p.parentId === properValue.id
+      );
+
+      console.log("childOfProperValue  : ", childOfProperValue);
+
+      if (childsOfValues && childsOfValues.length > 0) {
+        formValues.forEach((fv) => {
+          const key = Object.keys(fv)[0];
+          const value = Object.values(fv)[0];
+          childOfProperValue.forEach((p) => {
+            if (p.id === key && value && value.length > 0) {
+              childs.push(p.parentId);
+            }
+          });
+        });
+      }
+      setTouchedRelated(childs);
+      console.log("properValue : ", properValue);
+      onChangeForParent(properValue);
       localStorage.setItem("singSelectSelectedValue", value.id);
     }
   };

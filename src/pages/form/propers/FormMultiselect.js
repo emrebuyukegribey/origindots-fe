@@ -1,4 +1,4 @@
-import { Checkbox, Form, Radio, Select } from "antd";
+import { Checkbox, Col, Form, Radio, Select } from "antd";
 import { useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 
@@ -9,18 +9,23 @@ function FormMultiselect({ proper, properValueList, onChangeForParent }) {
     .forEach((element) => {
       const name =
         element.childCount > 0 ? (
-          <div key={element.name} value={element.name}>
+          <div
+            key={element.name}
+            value={element.name}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             {element.name}
-            <div
-              key={element.name}
-              value={element.name}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginLeft: "10px",
-              }}
-            >
-              <AiOutlineEye />
+            <div key={element.name} value={element.name}>
+              <AiOutlineEye
+                color="#EF4136"
+                size={16}
+                style={{ margin: "0px 10px" }}
+                onClick={() => openRelatedForm(element)}
+              />
             </div>
           </div>
         ) : (
@@ -28,6 +33,7 @@ function FormMultiselect({ proper, properValueList, onChangeForParent }) {
             {element.name}
           </div>
         );
+
       const obj = {
         label: name,
         value: element.name,
@@ -41,13 +47,23 @@ function FormMultiselect({ proper, properValueList, onChangeForParent }) {
 
   const onChange = (val) => {
     setValue(val);
+    console.log("val : ", val);
+    /*
     const valueWithChilds = properValueList.filter((value) => {
       return value.childCount > 0;
     })[0];
 
-    if (valueWithChilds) {
-      onChangeForParent(value);
+    console.log("valueWithChilds : ", valueWithChilds);
+
+    if (val.includes(valueWithChilds.name)) {
+      onChangeForParent(valueWithChilds);
     }
+    */
+  };
+
+  const openRelatedForm = (value) => {
+    console.log("value : ", value);
+    onChangeForParent(value);
   };
 
   return (
@@ -57,13 +73,17 @@ function FormMultiselect({ proper, properValueList, onChangeForParent }) {
         label={proper.title}
         extra={proper.description}
         name={proper.id}
-        initialValue={value}
+        // initialValue={value}
         value={value}
         rules={[
           { required: proper.required, message: proper.title + " is required" },
         ]}
       >
-        <Checkbox.Group options={properValues} onChange={onChange} />
+        <Checkbox.Group
+          options={properValues}
+          onChange={onChange}
+          style={{ display: "flex", flexDirection: "column" }}
+        />
       </Form.Item>
     </>
   );
