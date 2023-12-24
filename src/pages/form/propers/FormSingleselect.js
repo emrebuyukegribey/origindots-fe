@@ -19,34 +19,75 @@ function FormSingleselect({
   );
 
   const onChange = (val) => {
+    setTouchedRelatedForm(null);
     localStorage.removeItem(proper.id);
     setValue(val.target.value);
-    const properValue = properValueList.filter(
-      (v) => v.name === val.target.value
-    )[0];
+    const selectedValue = setSelectedValueInStorage(val);
 
-    if (properValue.childCount > 0) {
-      const childs = [];
-      const childOfProperValue = allProperList.filter(
-        (p) => p.parentId === properValue.id
-      );
-
-      if (childOfProperValue && childOfProperValue.length > 0) {
-        formValues.forEach((fv) => {
-          const key = Object.keys(fv)[0];
-          const value = Object.values(fv)[0];
-          childOfProperValue.forEach((p) => {
-            if (p.id === key && value && value.length > 0) {
-              childs.push(p.parentId);
-            }
-          });
-        });
-      }
-      localStorage.setItem(proper.id, properValue.id);
-      setTouchedRelatedForm(properValue.id);
-      onChangeForParent(properValue);
+    if (selectedValue.childCount > 0) {
+      const childsOfProperValue = findChildsOfSelectedValue(selectedValue);
+      findTouchedValue(selectedValue, childsOfProperValue);
+      onChangeForParent(selectedValue);
     }
   };
+
+  const setSelectedValueInStorage = (val) => {
+    const properValue = properValueList.filter(
+      (v) => v.name === val.target.value && v.properId === proper.id
+    )[0];
+    if (properValue) {
+      localStorage.setItem(
+        proper.id + "selectedValue",
+        JSON.stringify(properValue)
+      );
+    }
+
+    return properValue;
+  };
+
+  const findChildsOfSelectedValue = (selectedValue) => {
+    const childsOfProperValue = allProperList.filter(
+      (p) => p.parentId === selectedValue.id
+    );
+
+    return childsOfProperValue;
+  };
+
+  const findTouchedValue = (selectedValue, childsOfProperValue) => {
+    if (childsOfProperValue && childsOfProperValue.length > 0) {
+      formValues.forEach((fv) => {
+        console.log("Object.keys(fv) : ", Object.keys(fv));
+        console.log("Object.keys(fv)[0] : ", Object.keys(fv)[0]);
+        const key = Object.keys(fv)[0];
+        const value = Object.values(fv)[0];
+        console.log("value : ", value);
+        childsOfProperValue.forEach((p) => {
+          if (p.id === key && value && value.length > 0) {
+            localStorage.setItem(proper.id, selectedValue.id);
+            setTouchedRelatedForm(selectedValue.id);
+          } else {
+            localStorage.removeItem(proper.id);
+            setTouchedRelatedForm(null);
+          }
+        });
+      });
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (localStorage.getItem(proper.id + "selectedValue")) {
+        const selectedValue = JSON.parse(
+          localStorage.getItem(proper.id + "selectedValue")
+        );
+        console.log("selectedValue : ", selectedValue);
+        const childsOfProperValue = findChildsOfSelectedValue(selectedValue);
+        findTouchedValue(selectedValue, childsOfProperValue);
+      } else {
+        setTouchedRelatedForm(null);
+      }
+    }, 200);
+  }, []);
 
   return (
     <>

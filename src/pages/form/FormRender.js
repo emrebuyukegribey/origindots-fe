@@ -105,6 +105,8 @@ export function FormRender({
       <FormMultiselect
         formValues={formValues}
         proper={proper}
+        properList={properList}
+        allProperList={allProperList}
         properValueList={properValueList}
         onChangeForParent={onChangeForParent}
       />

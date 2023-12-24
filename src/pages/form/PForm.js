@@ -48,9 +48,6 @@ function PForm() {
   }, []);
 
   const onFinish = (values) => {
-    if (selected) {
-      goBack();
-    }
     let newArr = [...formValues];
     if (values) {
       const objectKeys = Object.keys(values);
@@ -64,6 +61,9 @@ function PForm() {
         }
       });
       setFormValues(newArr);
+    }
+    if (selected) {
+      goBack();
     }
   };
 
