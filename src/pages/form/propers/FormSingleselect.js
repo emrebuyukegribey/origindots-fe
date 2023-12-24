@@ -14,47 +14,12 @@ function FormSingleselect({
     properValueList.filter((pv) => pv.childCount === 0)[0].name
   );
 
-  const [touchedRelated, setTouchedRelated] = useState([]);
-
-  useEffect(() => {
-    // isTouchedRelated();
-  }, []);
-
-  /*
-  const isTouchedRelated = () => {
-    const childs = [];
-    const childsOfValues = findChildsProperValues();
-
-    if (childsOfValues && childsOfValues.length > 0) {
-      formValues.forEach((fv) => {
-        const key = Object.keys(fv)[0];
-        const value = Object.values(fv)[0];
-        childsOfValues.forEach((p) => {
-          if (p.id === key && value && value.length > 0) {
-            childs.push(p.parentId);
-          }
-        });
-      });
-    }
-    setTouchedRelated(childs);
-  };
-  */
-
-  const findChildsProperValues = () => {
-    const childs = [];
-    allProperList.forEach((proper) => {
-      properValueList.forEach((value) => {
-        if (proper.parentId === value.id) {
-          childs.push(proper);
-        }
-      });
-    });
-
-    return childs;
-  };
+  const [touchedRelatedForm, setTouchedRelatedForm] = useState(
+    localStorage.getItem(proper.id)
+  );
 
   const onChange = (val) => {
-    localStorage.removeItem("singSelectSelectedValue");
+    localStorage.removeItem(proper.id);
     setValue(val.target.value);
     const properValue = properValueList.filter(
       (v) => v.name === val.target.value
@@ -62,16 +27,11 @@ function FormSingleselect({
 
     if (properValue.childCount > 0) {
       const childs = [];
-      const childsOfValues = findChildsProperValues();
-
-      console.log("properValue : ", properValue);
       const childOfProperValue = allProperList.filter(
         (p) => p.parentId === properValue.id
       );
 
-      console.log("childOfProperValue  : ", childOfProperValue);
-
-      if (childsOfValues && childsOfValues.length > 0) {
+      if (childOfProperValue && childOfProperValue.length > 0) {
         formValues.forEach((fv) => {
           const key = Object.keys(fv)[0];
           const value = Object.values(fv)[0];
@@ -82,10 +42,9 @@ function FormSingleselect({
           });
         });
       }
-      setTouchedRelated(childs);
-      console.log("properValue : ", properValue);
+      localStorage.setItem(proper.id, properValue.id);
+      setTouchedRelatedForm(properValue.id);
       onChangeForParent(properValue);
-      localStorage.setItem("singSelectSelectedValue", value.id);
     }
   };
 
@@ -123,11 +82,10 @@ function FormSingleselect({
                           size={16}
                           style={{ margin: "0px 10px" }}
                         />
-                        {touchedRelated.includes(prop.id) &&
-                          localStorage.getItem("singSelectSelectedValue") ===
-                            prop.id && (
-                            <IoMdCheckmark size={20} color="#18bd5b" />
-                          )}
+
+                        {touchedRelatedForm === prop.id && (
+                          <IoMdCheckmark size={20} color="#18bd5b" />
+                        )}
                       </div>
                     )}
                   </div>
