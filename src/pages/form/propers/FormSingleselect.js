@@ -53,23 +53,44 @@ function FormSingleselect({
     return childsOfProperValue;
   };
 
+  const findKeyInFormValues = (childsOfProperValue) => {
+    let foundKey;
+    formValues.forEach((fv) => {
+      childsOfProperValue.forEach((c) => {
+        if (Object.keys(fv)[0] === c.id) {
+          foundKey = c.id;
+          return;
+        }
+      });
+    });
+    return foundKey;
+  };
+
+  const findValueInFormValues = (childsOfProperValue) => {
+    let foundValue;
+    formValues.forEach((fv) => {
+      childsOfProperValue.forEach((c) => {
+        if (Object.keys(fv)[0] === c.id) {
+          foundValue = Object.values(fv)[0];
+          return;
+        }
+      });
+    });
+    return foundValue;
+  };
+
   const findTouchedValue = (selectedValue, childsOfProperValue) => {
     if (childsOfProperValue && childsOfProperValue.length > 0) {
-      formValues.forEach((fv) => {
-        console.log("Object.keys(fv) : ", Object.keys(fv));
-        console.log("Object.keys(fv)[0] : ", Object.keys(fv)[0]);
-        const key = Object.keys(fv)[0];
-        const value = Object.values(fv)[0];
-        console.log("value : ", value);
-        childsOfProperValue.forEach((p) => {
-          if (p.id === key && value && value.length > 0) {
-            localStorage.setItem(proper.id, selectedValue.id);
-            setTouchedRelatedForm(selectedValue.id);
-          } else {
-            localStorage.removeItem(proper.id);
-            setTouchedRelatedForm(null);
-          }
-        });
+      const key = findKeyInFormValues(childsOfProperValue);
+      const value = findValueInFormValues(childsOfProperValue);
+      childsOfProperValue.forEach((p) => {
+        if (p.id === key && value && value.length > 0) {
+          localStorage.setItem(proper.id, selectedValue.id);
+          setTouchedRelatedForm(selectedValue.id);
+        } else {
+          localStorage.removeItem(proper.id);
+          setTouchedRelatedForm(null);
+        }
       });
     }
   };
@@ -80,7 +101,6 @@ function FormSingleselect({
         const selectedValue = JSON.parse(
           localStorage.getItem(proper.id + "selectedValue")
         );
-        console.log("selectedValue : ", selectedValue);
         const childsOfProperValue = findChildsOfSelectedValue(selectedValue);
         findTouchedValue(selectedValue, childsOfProperValue);
       } else {
