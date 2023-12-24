@@ -1,5 +1,5 @@
 import { Checkbox, Col, Form, Radio, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { IoMdCheckmark } from "react-icons/io";
 
@@ -18,45 +18,116 @@ function FormMultiselect({
     localStorage.getItem(proper.id)
   );
 
-  const onChange = (val) => {
-    console.log("val : ", val);
-    localStorage.removeItem(proper.id);
-    setValue(val);
-    const properValue = properValueList.filter((v) => v.name === val)[0];
-    console.log("properValue : ", properValue);
+  const findKeyInFormValues = (childsOfProperValue) => {
+    let foundKey;
+    formValues.forEach((fv) => {
+      childsOfProperValue.forEach((c) => {
+        if (
+          Object.keys(fv)[0] === c.childId &&
+          Object.values(fv)[0] &&
+          Object.values(fv)[0].length > 0
+        ) {
+          foundKey = c.childId;
+          return;
+        }
+      });
+    });
+    console.log("foundedKey : ", foundKey);
+    return foundKey;
+  };
 
-    if (properValue.childCount > 0) {
-      const childs = [];
-      const childOfProperValue = allProperList.filter(
-        (p) => p.parentId === properValue.id
+  const findValueInFormValues = (childsOfProperValue) => {
+    let foundValue;
+    formValues.forEach((fv) => {
+      childsOfProperValue.forEach((c) => {
+        if (Object.keys(fv)[0] === c.childId) {
+          foundValue = Object.values(fv)[0];
+          return;
+        }
+      });
+    });
+    return foundValue;
+  };
+
+  const findValuesHavingChilds = (values) => {
+    const valueWithChilds = [];
+    values.forEach((v) => {
+      const valueWithChild = properValueList.find(
+        (pv) => pv.name === v && pv.properId === proper.id && pv.childCount > 0
       );
-
-      if (childOfProperValue && childOfProperValue.length > 0) {
-        formValues.forEach((fv) => {
-          const key = Object.keys(fv)[0];
-          const value = Object.values(fv)[0];
-          childOfProperValue.forEach((p) => {
-            if (p.id === key && value && value.length > 0) {
-              childs.push(p.parentId);
-            }
-          });
-        });
+      if (valueWithChild) {
+        valueWithChilds.push(valueWithChild);
       }
-      localStorage.setItem(proper.id, properValue.id);
-      setTouchedRelatedForm(properValue.id);
-      onChangeForParent(properValue);
-    }
-    /*
-    const valueWithChilds = properValueList.filter((value) => {
-      return value.childCount > 0;
-    })[0];
+    });
+    return valueWithChilds;
+  };
 
-    console.log("valueWithChilds : ", valueWithChilds);
+  const findChildsSelectedValues = (valueWithChilds) => {
+    const childs = [];
+    valueWithChilds.forEach((value) => {
+      allProperList
+        .filter((p) => p.parentId === value.id)
+        .map((cv) => {
+          const object = { parentId: value.id, childId: cv.id };
+          //localStorage.setItem(proper.id + cv.id + "selectedValue", cv.id);
+          childs.push(object);
+        });
+    });
+    return childs;
+  };
 
-    if (val.includes(valueWithChilds.name)) {
-      onChangeForParent(valueWithChilds);
+  const findTouchedValue = (childs) => {
+    if (childs && childs.length > 0) {
+      const key = findKeyInFormValues(childs);
+      // const value = findValueInFormValues(childs);
+      childs.forEach((p) => {
+        if (p.childId === key) {
+          localStorage.setItem(p.parentId, key);
+          setTouchedRelatedForm(p.parentId);
+          console.log("touchedRelated : ", touchedRelatedForm);
+        } else {
+          // localStorage.removeItem(p.parentId);
+          // setTouchedRelatedForm(null);
+        }
+      });
     }
-    */
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      const selectedValues = localStorage
+        .getItem(proper.id + "selectedValues")
+        .split(",");
+      if (selectedValues && selectedValues.length > 0) {
+        const valueWithChilds = findValuesHavingChilds(selectedValues);
+        if (valueWithChilds && valueWithChilds.length > 0) {
+          const childs = findChildsSelectedValues(valueWithChilds);
+          findTouchedValue(childs);
+        } else {
+          setTouchedRelatedForm(null);
+          localStorage.removeItem(proper.id);
+        }
+      } else {
+        setTouchedRelatedForm(null);
+        localStorage.removeItem(proper.id);
+      }
+    }, 200);
+  });
+
+  const onChange = (val) => {
+    console.log("onChange");
+    localStorage.removeItem(proper.id);
+    setTouchedRelatedForm(null);
+    if (val) {
+      localStorage.setItem(proper.id + "selectedValues", val);
+    }
+
+    setValue(val);
+    const valueWithChilds = findValuesHavingChilds(val);
+    if (valueWithChilds && valueWithChilds.length > 0) {
+      const childs = findChildsSelectedValues(valueWithChilds);
+      findTouchedValue(childs);
+    }
   };
 
   const openRelatedForm = (value) => {

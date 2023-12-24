@@ -14,6 +14,8 @@ function FormSingleselect({
     properValueList.filter((pv) => pv.childCount === 0)[0].name
   );
 
+  console.log("value : ", value);
+
   const [touchedRelatedForm, setTouchedRelatedForm] = useState(
     localStorage.getItem(proper.id)
   );
