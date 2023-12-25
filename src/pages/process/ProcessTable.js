@@ -19,6 +19,7 @@ function ProcessTable(props) {
     updateProcess,
     deleteProcess,
     duplicateProcess,
+    shareProcess,
     t,
   } = props;
   const columns: ColumnsType<DataType> = [
@@ -76,6 +77,7 @@ function ProcessTable(props) {
                   updateProcess,
                   deleteProcess,
                   duplicateProcess,
+                  shareProcess,
                   t,
                 })}
               </Menu>

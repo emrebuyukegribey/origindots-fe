@@ -15,7 +15,7 @@ import {
 } from "../../services/http";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import ProcessTable from "./ProcessTable";
-import { Modal, message, notification } from "antd";
+import { Col, Modal, Switch, message, notification } from "antd";
 import ProcessItemCard from "./ProcessItemCard";
 import { CiCircleAlert } from "react-icons/ci";
 
@@ -28,6 +28,7 @@ function ProcessManagement(props) {
   const [allProcess, setAllProcess] = useState([]);
   const [searchedAllProcess, setSearchedAllProcess] = useState([]);
   const [showProcessModal, setShowProcessModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [process, setProcess] = useState({});
   const [properList, setProperList] = useState([]);
   const [properValuesList, setProperValueList] = useState([]);
@@ -154,6 +155,10 @@ function ProcessManagement(props) {
     setShowProcessModal(false);
   };
 
+  const cancelShowShareInformations = () => {
+    setShowShareModal(false);
+  };
+
   const uniqueProperId = (proper) => {
     const uniqueId = `prp-${Date.now()}-${proper.type}-${Math.floor(
       Math.random() * 1000
@@ -241,6 +246,12 @@ function ProcessManagement(props) {
     }
   };
 
+  const shareProcess = (process) => {
+    console.log("process : ", process);
+    setProcess(process);
+    setShowShareModal(true);
+  };
+
   const searchProcess = (e) => {
     const value = e.target.value;
     const filteredProcess = searchedAllProcess.filter(
@@ -288,6 +299,7 @@ function ProcessManagement(props) {
             deleteProcess={deleteProcessWarning}
             updateProcess={updateProcess}
             duplicateProcess={duplicateProcess}
+            shareProcess={shareProcess}
             t={props.t}
           />
         </div>
@@ -307,6 +319,60 @@ function ProcessManagement(props) {
             properValueList={properValuesList}
             t={props.t}
           />
+        </div>
+      </Modal>
+
+      <Modal
+        title={props.t("Share Informations")}
+        width={800}
+        open={showShareModal}
+        onOk={cancelShowShareInformations}
+        onCancel={cancelShowShareInformations}
+      >
+        <div>
+          <div className="user-management-divider" />
+          <div style={{ display: "flex", marginTop: "20px" }}>
+            <Col span={12}>
+              <div style={{ fontSize: "16px", fontWeight: "600" }}>
+                Authentication bilgileri
+              </div>
+            </Col>
+            <Col span={8}>
+              <Switch
+                style={{ marginLeft: "5px" }}
+                checkedChildren="Evet"
+                unCheckedChildren="Hayır"
+              />
+            </Col>
+          </div>
+          <div style={{ display: "flex", marginTop: "20px" }}>
+            <Col span={12}>
+              <div style={{ fontSize: "16px", fontWeight: "600" }}>
+                Lokasyon Bilgileri
+              </div>
+            </Col>
+            <Col span={8}>
+              <Switch
+                style={{ marginLeft: "5px" }}
+                checkedChildren="Evet"
+                unCheckedChildren="Hayır"
+              />
+            </Col>
+          </div>
+          <div style={{ display: "flex", marginTop: "20px" }}>
+            <Col span={12}>
+              <div style={{ fontSize: "16px", fontWeight: "600" }}>
+                Lokasyon Bilgileri isteniyor mu?
+              </div>
+            </Col>
+            <Col span={8}>
+              <Switch
+                style={{ marginLeft: "5px" }}
+                checkedChildren="Evet"
+                unCheckedChildren="Hayır"
+              />
+            </Col>
+          </div>
         </div>
       </Modal>
     </>
