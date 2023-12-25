@@ -93,9 +93,16 @@ function FormMultiselect({
 
   useEffect(() => {
     setTimeout(() => {
-      const selectedValues = localStorage
-        .getItem(proper.id + "selectedValues")
-        .split(",");
+      let selectedValues;
+      if (
+        localStorage.getItem(proper.id + "selectedValues") &&
+        localStorage.getItem(proper.id + "selectedValues").includes(",")
+      ) {
+        selectedValues = localStorage
+          .getItem(proper.id + "selectedValues")
+          .split(",");
+      }
+
       if (selectedValues && selectedValues.length > 0) {
         const valueWithChilds = findValuesHavingChilds(selectedValues);
         if (valueWithChilds && valueWithChilds.length > 0) {

@@ -47,6 +47,15 @@ function PForm() {
     getProcess();
   }, []);
 
+  const removeProperValuesInStorage = () => {
+    for (let [key, value] of Object.entries(localStorage)) {
+      console.log(`${key}: ${value}`);
+      if (key.includes("prp-") || key.toLocaleLowerCase().includes("value")) {
+        localStorage.removeItem(key);
+      }
+    }
+  };
+
   const onFinish = (values) => {
     let newArr = [...formValues];
     if (values) {
@@ -64,6 +73,8 @@ function PForm() {
     }
     if (selected) {
       goBack();
+    } else {
+      removeProperValuesInStorage();
     }
   };
 
