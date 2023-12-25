@@ -30,13 +30,11 @@ function FormData({ proper }) {
     return isAvailableFile && isLt2M;
   };
   const handleChange = (info) => {
-    console.log("info : ", info);
     if (info.file.status === "uploading") {
       return;
     }
     if (info.file.status === "done") {
       getBase64(info.file.originFileObj, (url) => {
-        console.log("url : ", url);
         localStorage.setItem(proper.id, url);
         setFileUrl(url);
       });

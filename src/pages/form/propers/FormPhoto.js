@@ -45,7 +45,6 @@ function FormPhoto(props) {
     localStorage.removeItem(props.proper.id);
     setFile(null);
     setImageUrl(null);
-    console.log("onRemove ");
   };
 
   useEffect(() => {

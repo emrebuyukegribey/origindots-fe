@@ -32,7 +32,6 @@ function FormMultiselect({
         }
       });
     });
-    console.log("foundedKey : ", foundKey);
     return foundKey;
   };
 
@@ -84,7 +83,6 @@ function FormMultiselect({
         if (p.childId === key) {
           localStorage.setItem(p.parentId, key);
           setTouchedRelatedForm(p.parentId);
-          console.log("touchedRelated : ", touchedRelatedForm);
         } else {
           // localStorage.removeItem(p.parentId);
           // setTouchedRelatedForm(null);
@@ -115,7 +113,6 @@ function FormMultiselect({
   });
 
   const onChange = (val) => {
-    console.log("onChange");
     localStorage.removeItem(proper.id);
     setTouchedRelatedForm(null);
     if (val) {

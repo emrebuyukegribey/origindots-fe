@@ -71,6 +71,8 @@ export function FormRender({
       <FormDropdown
         formValues={formValues}
         proper={proper}
+        properList={properList}
+        allProperList={allProperList}
         properValueList={properValueList}
         onChangeForParent={onChangeForParent}
       />
