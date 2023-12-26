@@ -3,7 +3,7 @@ name: Deploy Origindots WEB Api in Container
 on:
   push:
     branches:
-      - main
+      - kemal
 
 jobs:
   deploy:
