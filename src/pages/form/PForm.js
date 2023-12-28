@@ -57,6 +57,8 @@ function PForm() {
   };
 
   const onFinish = (values) => {
+    console.log("values : ", values);
+    console.log("formValues : ", formValues);
     let newArr = [...formValues];
     if (values) {
       const objectKeys = Object.keys(values);

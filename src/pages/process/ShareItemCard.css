@@ -1,0 +1,11 @@
+@import "../../variables.css";
+
+.share-date-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:1px solid var(--grey400);
+    border-radius: 5px;
+    margin: 30px 0px;
+    padding: 20px;
+}

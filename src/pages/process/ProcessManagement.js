@@ -18,6 +18,7 @@ import ProcessTable from "./ProcessTable";
 import { Col, Modal, Switch, message, notification } from "antd";
 import ProcessItemCard from "./ProcessItemCard";
 import { CiCircleAlert } from "react-icons/ci";
+import ShareItemCard from "./ShareItemCard";
 
 function ProcessManagement(props) {
   const { activeLeftBar } = useContext(MainContext);
@@ -32,7 +33,10 @@ function ProcessManagement(props) {
   const [process, setProcess] = useState({});
   const [properList, setProperList] = useState([]);
   const [properValuesList, setProperValueList] = useState([]);
-  const [oldNewProperIdList, setOldNewProperIdList] = useState([]);
+  const [shareAuthentication, setShareAuthentication] = useState(false);
+  const [shareLocation, setShareLocation] = useState(false);
+  const [shareDate, setShareDate] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -331,48 +335,14 @@ function ProcessManagement(props) {
       >
         <div>
           <div className="user-management-divider" />
-          <div style={{ display: "flex", marginTop: "20px" }}>
-            <Col span={12}>
-              <div style={{ fontSize: "16px", fontWeight: "600" }}>
-                Authentication bilgileri
-              </div>
-            </Col>
-            <Col span={8}>
-              <Switch
-                style={{ marginLeft: "5px" }}
-                checkedChildren="Evet"
-                unCheckedChildren="Hayır"
-              />
-            </Col>
-          </div>
-          <div style={{ display: "flex", marginTop: "20px" }}>
-            <Col span={12}>
-              <div style={{ fontSize: "16px", fontWeight: "600" }}>
-                Lokasyon Bilgileri
-              </div>
-            </Col>
-            <Col span={8}>
-              <Switch
-                style={{ marginLeft: "5px" }}
-                checkedChildren="Evet"
-                unCheckedChildren="Hayır"
-              />
-            </Col>
-          </div>
-          <div style={{ display: "flex", marginTop: "20px" }}>
-            <Col span={12}>
-              <div style={{ fontSize: "16px", fontWeight: "600" }}>
-                Lokasyon Bilgileri isteniyor mu?
-              </div>
-            </Col>
-            <Col span={8}>
-              <Switch
-                style={{ marginLeft: "5px" }}
-                checkedChildren="Evet"
-                unCheckedChildren="Hayır"
-              />
-            </Col>
-          </div>
+          <ShareItemCard
+            shareAuthentication={shareAuthentication}
+            setShareAuthentication={setShareAuthentication}
+            shareLocation={shareLocation}
+            setShareLocation={setShareLocation}
+            shareDate={shareDate}
+            setShareDate={setShareDate}
+          />
         </div>
       </Modal>
     </>
