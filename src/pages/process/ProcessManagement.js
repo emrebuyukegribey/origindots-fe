@@ -35,7 +35,11 @@ function ProcessManagement(props) {
   const [properValuesList, setProperValueList] = useState([]);
   const [shareAuthentication, setShareAuthentication] = useState(false);
   const [shareLocation, setShareLocation] = useState(false);
+  const [shareLocationType, setShareLocationType] = useState();
+  const [shareLocationPoints, setShareLocationPoints] = useState();
   const [shareDate, setShareDate] = useState(false);
+  const [shareStartDate, setShareStartDate] = useState();
+  const [shareEndDate, setShareEndDate] = useState();
 
   const navigate = useNavigate();
 
@@ -328,7 +332,7 @@ function ProcessManagement(props) {
 
       <Modal
         title={props.t("Share Informations")}
-        width={800}
+        width={1200}
         open={showShareModal}
         onOk={cancelShowShareInformations}
         onCancel={cancelShowShareInformations}
@@ -340,8 +344,16 @@ function ProcessManagement(props) {
             setShareAuthentication={setShareAuthentication}
             shareLocation={shareLocation}
             setShareLocation={setShareLocation}
+            shareLocationType={shareLocationType}
+            setShareLocationType={setShareLocationType}
+            shareLocationPoints={shareLocationPoints}
+            setShareLocationPoints={setShareLocationPoints}
             shareDate={shareDate}
             setShareDate={setShareDate}
+            shareStartDate={shareStartDate}
+            setShareStartDate={setShareStartDate}
+            shareEndDate={shareEndDate}
+            setShareEndDate={setShareEndDate}
           />
         </div>
       </Modal>
