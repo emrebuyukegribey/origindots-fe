@@ -56,6 +56,21 @@ function PForm() {
     }
   };
 
+  const addValueOnFormValues = (properObject) => {
+    const formValuesTemp = [...formValues];
+    const properIndex = formValuesTemp.findIndex((p) => {
+      return p.properId === properObject.properId;
+    });
+
+    if (properIndex >= 0) {
+      formValuesTemp[properIndex] = properObject;
+    } else {
+      formValuesTemp.push(properObject);
+    }
+    setFormValues(formValuesTemp);
+    console.log("formValues : ", formValues);
+  };
+
   const onFinish = (values) => {
     console.log("values : ", values);
     console.log("formValues : ", formValues);
@@ -71,7 +86,7 @@ function PForm() {
           newArr.push(value);
         }
       });
-      setFormValues(newArr);
+      // setFormValues(newArr);
     }
     if (selected) {
       goBack();
@@ -153,6 +168,7 @@ function PForm() {
         <div className="pf-body-container">
           {properListForm.map((p) => (
             <FormRender
+              addValueOnFormValues={addValueOnFormValues}
               formValues={formValues}
               proper={p}
               properList={properList.filter((v) => v.parentId === p.id)}

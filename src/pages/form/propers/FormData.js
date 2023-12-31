@@ -1,9 +1,9 @@
 import { Button, Form, Upload, message } from "antd";
-import { HiOutlinePhoto } from "react-icons/hi2";
 import "./FormItem.css";
 import { useState } from "react";
-import { AiOutlineUpload, AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
+import { HiOutlinePhoto } from "react-icons/hi2";
+import { AiOutlineUpload } from "react-icons/ai";
 
 function FormData({ proper }) {
   const [fileUrl, setFileUrl] = useState();
@@ -50,6 +50,7 @@ function FormData({ proper }) {
 
   const uploadChanged = (event) => {
     setFiles(event.fileList);
+    console.log("files : ", files);
   };
 
   const fileRemoved = (event) => {
@@ -76,7 +77,10 @@ function FormData({ proper }) {
           onChange={(e) => uploadChanged(e)}
           onRemove={(e) => fileRemoved(e)}
         >
-          <Button icon={<MdClose />}>Click to Upload</Button>
+          <div className="form-photo-container ">
+            <AiOutlineUpload className="photo-field-upload-icon" />
+            <div>{proper.placeholder}</div>
+          </div>
         </Upload>
         {fileUrl && <div>file</div>}
       </Form.Item>

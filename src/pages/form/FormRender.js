@@ -15,6 +15,7 @@ import FormTime from "./propers/FormTime";
 import FormVideo from "./propers/FormVideo";
 
 export function FormRender({
+  addValueOnFormValues,
   formValues,
   proper,
   properList,
@@ -27,49 +28,72 @@ export function FormRender({
   }
 
   if (proper.type === "InputField") {
-    return <FormInput proper={proper} />;
+    return (
+      <FormInput proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
   }
 
   if (proper.type === "EmailField") {
-    return <FormEmail proper={proper} />;
+    return (
+      <FormEmail proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
   }
 
   if (proper.type === "NumberField") {
-    return <FormNumber proper={proper} />;
+    return (
+      <FormNumber proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
   }
 
   if (proper.type === "PhoneField") {
-    return <FormPhone proper={proper} />;
+    return (
+      <FormPhone proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
   }
 
   if (proper.type === "DateField") {
-    return <FormDate proper={proper} />;
+    return (
+      <FormDate proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
   }
 
   if (proper.type === "TimeField") {
-    return <FormTime proper={proper} />;
+    return (
+      <FormTime proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
   }
 
   if (proper.type === "PhotoField") {
-    return <FormPhoto proper={proper} />;
+    return (
+      <FormPhoto proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
   }
 
   if (proper.type === "VideoField") {
-    return <FormVideo proper={proper} />;
+    return (
+      <FormVideo proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
   }
 
   if (proper.type === "TextareaField") {
-    return <FormTextarea proper={proper} />;
+    return (
+      <FormTextarea
+        proper={proper}
+        addValueOnFormValues={addValueOnFormValues}
+      />
+    );
   }
 
   if (proper.type === "DataField") {
-    return <FormData proper={proper} />;
+    return (
+      <FormData proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
   }
 
   if (proper.type === "DropDownField") {
     return (
       <FormDropdown
-        formValues={formValues}
+        addValueOnFormValues={addValueOnFormValues}
         proper={proper}
         properList={properList}
         allProperList={allProperList}
@@ -81,6 +105,7 @@ export function FormRender({
   if (proper.type === "ProperGroupField") {
     return (
       <FormPropergroup
+        addValueOnFormValues
         formValues={formValues}
         proper={proper}
         properList={properList}
@@ -92,7 +117,7 @@ export function FormRender({
   if (proper.type === "SingleSelectField") {
     return (
       <FormSingleselect
-        formValues={formValues}
+        addValueOnFormValues
         proper={proper}
         properList={properList}
         allProperList={allProperList}
@@ -106,6 +131,7 @@ export function FormRender({
     return (
       <FormMultiselect
         formValues={formValues}
+        addValueOnFormValues
         proper={proper}
         properList={properList}
         allProperList={allProperList}

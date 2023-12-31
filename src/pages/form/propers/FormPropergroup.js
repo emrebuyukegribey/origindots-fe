@@ -1,15 +1,8 @@
 import { Form } from "antd";
 import "./FormItem.css";
-import { AiOutlineEye } from "react-icons/ai";
 import { CiWarning } from "react-icons/ci";
 import { useEffect, useState } from "react";
-import {
-  MdCheck,
-  MdFactCheck,
-  MdOutlineCheckCircleOutline,
-  MdPlaylistAddCheck,
-} from "react-icons/md";
-import { IoIosCheckboxOutline, IoMdCheckmark } from "react-icons/io";
+import { IoMdCheckmark } from "react-icons/io";
 
 function FormPropergroup({
   formValues,
@@ -34,6 +27,7 @@ function FormPropergroup({
   }, [touchedRelated]);
 
   const isTouchedRelatedForm = () => {
+    console.log("formValues : ", formValues);
     for (let i = 0; i < childPropers.length; i++) {
       formValues.forEach((element) => {
         if (

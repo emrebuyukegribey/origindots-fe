@@ -11,7 +11,9 @@ function FormSingleselect({
   onChangeForParent,
 }) {
   const [value, setValue] = useState(
-    properValueList.filter((pv) => pv.childCount === 0)[0].name
+    properValueList && properValueList.length > 0
+      ? properValueList.filter((pv) => pv.childCount === 0)[0].name
+      : ""
   );
 
   const [touchedRelatedForm, setTouchedRelatedForm] = useState(
