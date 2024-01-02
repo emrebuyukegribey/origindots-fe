@@ -1,7 +1,22 @@
 import { Form, TimePicker } from "antd";
 import "./FormItem.css";
+import { getCurrentDate } from "../PFormUtil";
 
-function FormTime({ proper }) {
+function FormTime({ proper, addValueOnFormValues }) {
+  const onChange = (time, timeString) => {
+    console.log("timeString : ", timeString);
+    const value = timeString;
+    const properObject = {
+      properId: proper.id,
+      properParenId: proper.parentId,
+      properName: proper.title,
+      properValue: value,
+      properType: proper.type,
+      createdDate: getCurrentDate(),
+    };
+
+    addValueOnFormValues(properObject);
+  };
   return (
     <>
       <Form.Item
@@ -13,7 +28,7 @@ function FormTime({ proper }) {
           { required: proper.required, message: proper.title + " is required" },
         ]}
       >
-        <TimePicker placeholder={proper.placeholder} />
+        <TimePicker placeholder={proper.placeholder} onChange={onChange} />
       </Form.Item>
     </>
   );

@@ -2,8 +2,10 @@ import { Form, Radio, Space } from "antd";
 import { useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { IoMdCheckmark } from "react-icons/io";
+import { getCurrentDate } from "../PFormUtil";
 
 function FormSingleselect({
+  addValueOnFormValues,
   formValues,
   proper,
   allProperList,
@@ -31,6 +33,19 @@ function FormSingleselect({
       findTouchedValue(selectedValue, childsOfProperValue);
       onChangeForParent(selectedValue);
     }
+
+    const properObject = {
+      properId: proper.id,
+      properParenId: proper.parentId,
+      properName: proper.title,
+      properValue: val.target.value,
+      properValueId: JSON.parse(
+        localStorage.getItem(proper.id + "selectedValue")
+      ).id,
+      properType: proper.type,
+      createdDate: getCurrentDate(),
+    };
+    addValueOnFormValues(properObject);
   };
 
   const setSelectedValueInStorage = (val) => {
@@ -57,27 +72,33 @@ function FormSingleselect({
 
   const findKeyInFormValues = (childsOfProperValue) => {
     let foundKey;
-    formValues.forEach((fv) => {
-      childsOfProperValue.forEach((c) => {
-        if (Object.keys(fv)[0] === c.id) {
-          foundKey = c.id;
-          return;
-        }
+    if (formValues && formValues.length > 0) {
+      formValues.forEach((fv) => {
+        childsOfProperValue.forEach((c) => {
+          if (Object.keys(fv)[0] === c.id) {
+            foundKey = c.id;
+            return;
+          }
+        });
       });
-    });
+    }
+
     return foundKey;
   };
 
   const findValueInFormValues = (childsOfProperValue) => {
     let foundValue;
-    formValues.forEach((fv) => {
-      childsOfProperValue.forEach((c) => {
-        if (Object.keys(fv)[0] === c.id) {
-          foundValue = Object.values(fv)[0];
-          return;
-        }
+    if (formValues && formValues.length > 0) {
+      formValues.forEach((fv) => {
+        childsOfProperValue.forEach((c) => {
+          if (Object.keys(fv)[0] === c.id) {
+            foundValue = Object.values(fv)[0];
+            return;
+          }
+        });
       });
-    });
+    }
+
     return foundValue;
   };
 

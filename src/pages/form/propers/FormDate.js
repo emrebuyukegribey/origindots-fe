@@ -7,6 +7,7 @@ function FormDate({ proper, addValueOnFormValues }) {
   const onChange = (date, dateString) => {
     const properObject = {
       properId: proper.id,
+      properParenId: proper.parentId,
       properName: proper.title,
       properValue: dateString,
       properType: proper.type,

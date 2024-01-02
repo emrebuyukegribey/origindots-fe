@@ -2,8 +2,10 @@ import { Form, Select } from "antd";
 import { useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { IoMdCheckmark } from "react-icons/io";
+import { getCurrentDate } from "../PFormUtil";
 
 function FormDropdown({
+  addValueOnFormValues,
   formValues,
   proper,
   allProperList,
@@ -64,6 +66,18 @@ function FormDropdown({
       findTouchedValue(selectedValue, childsOfProperValue);
       onChangeForParent(selectedValue);
     }
+    const properObject = {
+      properId: proper.id,
+      properParenId: proper.parentId,
+      properName: proper.title,
+      properValue: val,
+      properValueId: JSON.parse(
+        localStorage.getItem(proper.id + "selectedValue")
+      ).id,
+      properType: proper.type,
+      createdDate: getCurrentDate(),
+    };
+    addValueOnFormValues(properObject);
   };
 
   const setSelectedValueInStorage = (val) => {
@@ -90,18 +104,21 @@ function FormDropdown({
 
   const findKeyInFormValues = (childsOfProperValue) => {
     let foundKey;
-    formValues.forEach((fv) => {
-      childsOfProperValue.forEach((c) => {
-        if (
-          Object.keys(fv)[0] === c.id &&
-          Object.values(fv)[0] &&
-          Object.values(fv)[0].length > 0
-        ) {
-          foundKey = c.id;
-          return;
-        }
+    if (formValues && formValues.length > 0) {
+      formValues.forEach((fv) => {
+        childsOfProperValue.forEach((c) => {
+          if (
+            Object.keys(fv)[0] === c.id &&
+            Object.values(fv)[0] &&
+            Object.values(fv)[0].length > 0
+          ) {
+            foundKey = c.id;
+            return;
+          }
+        });
       });
-    });
+    }
+
     return foundKey;
   };
 

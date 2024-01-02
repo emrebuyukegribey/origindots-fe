@@ -3,10 +3,12 @@ import { HiOutlinePhoto } from "react-icons/hi2";
 import "./FormItem.css";
 import { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
+import { getCurrentDate } from "../PFormUtil";
 
 function FormPhoto(props) {
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState([]);
   const [file, setFile] = useState();
+  const [files, setFiles] = useState([]);
 
   const handleChange = (info) => {
     if (info.file.status === "uploading") {
@@ -51,6 +53,36 @@ function FormPhoto(props) {
     setFile(JSON.parse(localStorage.getItem("file")));
     setImageUrl(localStorage.getItem(props.proper.id));
   }, []);
+
+  const onChange = (e) => {
+    setFiles(e.fileList);
+    const properObject = {
+      properId: props.proper.id,
+      properParenId: props.proper.parentId,
+      properName: props.proper.title,
+      properValue: e.fileList,
+      properType: props.proper.type,
+      createdDate: getCurrentDate(),
+    };
+
+    /*
+    const imageUrls = [];
+    e.fileList.forEach((element) => {
+      getBase64(element.originFileObj, (url) => {
+        imageUrls.push(url);
+      });
+    });
+    setImageUrl(imageUrls);
+    */
+
+    props.addValueOnFormValues(properObject);
+  };
+
+  const fileRemoved = (event) => {
+    const filteredFiles = files.filter((file) => file !== event);
+    setFiles(filteredFiles);
+  };
+
   return (
     <>
       <Form.Item
@@ -66,14 +98,12 @@ function FormPhoto(props) {
         ]}
       >
         <Upload
-          maxCount={1}
-          listType="picture"
-          showUploadList={false}
-          beforeUpload={beforeUpload}
-          onChange={handleChange}
-          action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-          size="large"
-          onRemove={onRemove}
+          name="file"
+          showUploadList={{ showRemoveIcon: true }}
+          accept=".png, .jpg, .jpeg"
+          beforeUpload={() => false}
+          onChange={(e) => onChange(e)}
+          onRemove={(e) => fileRemoved(e)}
         >
           <div className="form-photo-container ">
             <HiOutlinePhoto className="photo-field-upload-icon" />

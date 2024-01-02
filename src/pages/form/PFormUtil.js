@@ -3,7 +3,7 @@ export const getCurrentDate = () => {
   const createdDateString =
     createdDate.getFullYear() +
     "-" +
-    createdDate.getMonth() +
+    (createdDate.getMonth() + 1) +
     "-" +
     createdDate.getDate() +
     " " +

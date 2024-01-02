@@ -2,8 +2,10 @@ import { Checkbox, Col, Form, Radio, Select } from "antd";
 import { useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { IoMdCheckmark } from "react-icons/io";
+import { getCurrentDate } from "../PFormUtil";
 
 function FormMultiselect({
+  addValueOnFormValues,
   formValues,
   proper,
   allProperList,
@@ -37,19 +39,6 @@ function FormMultiselect({
     return foundKey;
   };
 
-  const findValueInFormValues = (childsOfProperValue) => {
-    let foundValue;
-    formValues.forEach((fv) => {
-      childsOfProperValue.forEach((c) => {
-        if (Object.keys(fv)[0] === c.childId) {
-          foundValue = Object.values(fv)[0];
-          return;
-        }
-      });
-    });
-    return foundValue;
-  };
-
   const findValuesHavingChilds = (values) => {
     const valueWithChilds = [];
     values.forEach((v) => {
@@ -74,6 +63,7 @@ function FormMultiselect({
           childs.push(object);
         });
     });
+    console.log("childs : ", childs);
     return childs;
   };
 
@@ -122,6 +112,7 @@ function FormMultiselect({
   });
 
   const onChange = (val) => {
+    const properValues = getSelectedProperValues(val);
     localStorage.removeItem(proper.id);
     setTouchedRelatedForm(null);
     if (val) {
@@ -134,6 +125,29 @@ function FormMultiselect({
       const childs = findChildsSelectedValues(valueWithChilds);
       findTouchedValue(childs);
     }
+    const properObject = {
+      properId: proper.id,
+      properParenId: proper.parentId,
+      properName: proper.title,
+      properValue: val,
+      properValueId: properValues,
+      properType: proper.type,
+      createdDate: getCurrentDate(),
+    };
+    addValueOnFormValues(properObject);
+  };
+
+  const getSelectedProperValues = (val) => {
+    const selectedValues = [];
+    val.forEach((properValue) => {
+      const value = properValueList.filter(
+        (v) => v.name === properValue && v.properId === proper.id
+      )[0];
+      if (value) {
+        selectedValues.push(value.id);
+      }
+    });
+    return selectedValues;
   };
 
   const openRelatedForm = (value) => {

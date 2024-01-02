@@ -117,7 +117,7 @@ export function FormRender({
   if (proper.type === "SingleSelectField") {
     return (
       <FormSingleselect
-        addValueOnFormValues
+        addValueOnFormValues={addValueOnFormValues}
         proper={proper}
         properList={properList}
         allProperList={allProperList}
@@ -130,8 +130,8 @@ export function FormRender({
   if (proper.type === "MultiSelectField") {
     return (
       <FormMultiselect
+        addValueOnFormValues={addValueOnFormValues}
         formValues={formValues}
-        addValueOnFormValues
         proper={proper}
         properList={properList}
         allProperList={allProperList}

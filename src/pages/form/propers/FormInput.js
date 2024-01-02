@@ -7,6 +7,7 @@ function FormInput({ proper, addValueOnFormValues }) {
     const value = e.target.value;
     const properObject = {
       properId: proper.id,
+      properParenId: proper.parentId,
       properName: proper.title,
       properValue: value,
       properType: proper.type,

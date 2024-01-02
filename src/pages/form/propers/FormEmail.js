@@ -1,7 +1,22 @@
 import { Form, Input } from "antd";
 import "./FormItem.css";
+import { getCurrentDate } from "../PFormUtil";
 
-function FormEmail({ proper }) {
+function FormEmail({ proper, addValueOnFormValues }) {
+  const onChange = (e) => {
+    const value = e.target.value;
+    const properObject = {
+      properId: proper.id,
+      properParenId: proper.parentId,
+      properName: proper.title,
+      properValue: value,
+      properType: proper.type,
+      createdDate: getCurrentDate(),
+    };
+
+    addValueOnFormValues(properObject);
+  };
+
   return (
     <>
       <Form.Item
@@ -20,7 +35,7 @@ function FormEmail({ proper }) {
           },
         ]}
       >
-        <Input placeholder={proper.placeholder} />
+        <Input placeholder={proper.placeholder} onChange={onChange} />
       </Form.Item>
     </>
   );
