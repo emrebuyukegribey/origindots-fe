@@ -5,13 +5,21 @@
     flex-direction: column;
     justify-content: center;
     width: auto;
-    padding: 30px;
+    padding: 20px;
+}
+
+.pf-step-container {
+    padding: 10px 20px;
+    margin-bottom: 40px;
+    background-color: #f5f5f5;
+    border: 1px solid var(--grey300);
+    border-radius: 50px;
 }
 
 .pf-process-container {
     display: flex;
     align-items: center;
-    padding: 0px 30px;
+    padding: 0px 10px;
 }
 
 .pf-body-container {
@@ -38,14 +46,11 @@
     background-color: var(--dark300) !important;
 }
 
-
-
 .pf-process-icon {
     display: flex;
-    font-size: 36px;
+    font-size: 26px;
     margin-right: 12px;
-    background: var(--dark200);
-    color: #fff;
+    color: var(--dark200);
     border-radius: 5px;
     padding: 5px;
 }
@@ -54,11 +59,12 @@
     display: flex;
     color: var(--dark200);
     font-weight: 600;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .pf-divider {
-    margin: 20px 20px;
+    padding: 5px;
+    margin-bottom: 10px;
     width: 100%;
     border-bottom: 1px solid var(--grey300);
 }
@@ -67,4 +73,76 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.ant-steps .ant-steps-item-finish .ant-steps-item-icon {
+    background-color: var(--dark100);
+    border-color: var(--dark100);
+}
+
+.ant-steps-icon {
+    color: #fff !important;
+}
+
+.ant-steps .ant-steps-item-wait .ant-steps-item-icon {
+    background-color: var(--dark400);
+    border-color: var(--dark400);
+}
+
+.ant-steps .ant-steps-item-process .ant-steps-item-icon {
+    background-color: var(--dark300);
+    border-color: var(--dark300);
+}
+
+.ant-steps .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {
+    background-color: var(--dark100) !important;
+    opacity: 0.2;
+}
+
+.ant-steps .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {
+    background-color: var(--dark100);
+}
+
+.pf-auth-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.pf-auth-icon {
+    display: flex;
+    font-size: 26px;
+    margin-right: 12px;
+    color: var(--dark200);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.pf-auth-header {
+    display: flex;
+    color: var(--dark200);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.pf-auth-body {
+    margin-top: 50px;
+    
+    width: 100%;
+    max-width: 500px;
+}
+
+.pf-auth-email-input {
+    height: 45px;
+    border-radius: 100px;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+
+.divider {
+    margin: 30px 0px !important;
+    border-color: var(--dark100) !important;
+    color: var(--dark100) !important;
+
 }

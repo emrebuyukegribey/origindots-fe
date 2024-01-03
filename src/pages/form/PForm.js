@@ -2,12 +2,19 @@ import { useEffect, useState } from "react";
 import "./PForm.css";
 import { useParams } from "react-router-dom";
 
-import { Button, Form } from "antd";
+import { Button, Divider, Form, Input, Steps } from "antd";
 import { getProcessWithAllAtributes } from "../../services/http";
 import ProcessIcons from "../../components/Process/ProcessIcons";
 import { FormRender } from "./FormRender";
 import BackButtonBorder from "../../components/UI/Buttons/BackButtonBorder";
 import ReturnButtonBorder from "../../components/UI/Buttons/ReturnButtonBorder";
+import { FaUserCheck } from "react-icons/fa";
+import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
+import GoogleButtonBorder from "../../components/UI/Buttons/GoogleButtonBorder";
+import AppleButtonBorder from "../../components/UI/Buttons/AppleButtonBorder";
+import { useGoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
 function PForm() {
   const { id } = useParams();
@@ -18,11 +25,16 @@ function PForm() {
   const [properValueList, setProperValueList] = useState([]);
   const [tempProperList, setTempProperList] = useState([]);
   const [tempProperValueList, setTempProperValueList] = useState([]);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const [formValues, setFormValues] = useState([]);
 
   const [selected, setSelected] = useState();
 
+  const [authEmail, setAuthEmail] = useState();
+  const [authEmailError, setAuthEmailError] = useState();
+
+  const [authUser, setAuthUser] = useState();
   const getProcess = async () => {
     try {
       const response = await getProcessWithAllAtributes(id);
@@ -153,57 +165,168 @@ function PForm() {
     setProperValueList(tempProperValueList);
   };
 
+  const validateAuthEmail = (email) => {
+    const pattern =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const result = pattern.test(email);
+    console.log("result : ", result);
+    return result;
+  };
+
+  const onChangeAuthEmail = (e) => {
+    const value = e.target.value;
+    setAuthEmail(value);
+  };
+
+  const onSubmitAuthEmail = () => {
+    if (!validateAuthEmail(authEmail)) {
+      setAuthEmailError("Please enter valid email address");
+    } else if (!authEmail) {
+      setAuthEmailError("Please enter your email address");
+    } else {
+      console.log("submit");
+    }
+  };
+
   const properListForm = properList.filter((proper) =>
     selected ? proper.parentId === selected.id : proper.parentId === null
   );
 
+  const steps = [
+    {
+      title: "Authentication",
+      content: "Authentication",
+    },
+    {
+      title: "Location",
+      content: "Location",
+    },
+    {
+      title: "Form",
+      content: "Form",
+    },
+  ];
+
+  const items = steps.map((item) => ({
+    key: item.title,
+    title: item.title,
+  }));
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (response) => {
+      const res = await axios.get(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: `Bearer ${response.access_token}`,
+          },
+        }
+      );
+      const loggedUser = {
+        name: res.data.name,
+        email: res.data.email,
+        picture: res.data.picture,
+      };
+      console.log("loggedUser : ", loggedUser);
+      setAuthUser(loggedUser);
+    },
+  });
+
   return (
     <div className="pf-container">
-      <div className="pf-process-container">
-        <div className="pf-process-icon">{processIcon}</div>
-        <div className="pf-process-name">{process.name}</div>
+      <div className="pf-step-container">
+        <Steps current={currentStep} items={items} />
       </div>
-      <div className="pf-divider" />
-      <Form layout="vertical" onFinish={onFinish}>
-        <div className="pf-body-container">
-          {properListForm.map((p) => (
-            <FormRender
-              addValueOnFormValues={addValueOnFormValues}
-              formValues={formValues}
-              proper={p}
-              properList={properList.filter((v) => v.parentId === p.id)}
-              allProperList={properList}
-              properValueList={properValueList.filter(
-                (v) => v.properId === p.id
-              )}
-              key={p.id}
-              onChangeForParent={onChangeForParent}
-            />
-          ))}
-        </div>
-        <div className="pf-divider" />
-        <div
-          className="pf-button-container"
-          style={{ justifyContent: selected ? "" : "flex-end" }}
-        >
-          {selected && (
-            <div className="pf-back-buttons">
-              <BackButtonBorder onClick={goBack} />
-              <ReturnButtonBorder onClick={goReturn} />
+      {currentStep === 0 && (
+        <div>
+          <div className="pf-auth-container">
+            <div className="pf-auth-icon">
+              <FaUserCheck />
             </div>
-          )}
-          <div className="pg-submit-button">
-            <Button
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="pf-submit-button"
-            >
-              KAYDET
-            </Button>
+            <div className="pf-auth-header">AUTHENTICATION</div>
+          </div>
+          <div className="pf-divider" />
+          <div
+            style={{ display: "flex", justifyContent: "center", width: "100%" }}
+          >
+            <div className="pf-auth-body">
+              <div className="pf-auth-email-container">
+                <Input
+                  className="pf-auth-email-input"
+                  size="large"
+                  placeholder="Please enter your email"
+                  value={authEmail}
+                  onChange={onChangeAuthEmail}
+                />
+                <div>{authEmailError}</div>
+
+                <DarkButtonBorder
+                  text="Continue with email"
+                  style={{ height: "80px" }}
+                  onClick={onSubmitAuthEmail}
+                />
+              </div>
+              <Divider className="divider">OR</Divider>
+
+              <GoogleButtonBorder
+                text="Continue with google"
+                onClick={() => loginWithGoogle()}
+              />
+              <AppleButtonBorder text="Continue with apple" />
+            </div>
           </div>
         </div>
-      </Form>
+      )}
+      {currentStep === 1 && <div>Step2</div>}
+      {currentStep === 2 && (
+        <div>
+          <div className="pf-process-container">
+            <div className="pf-process-icon">{processIcon}</div>
+            <div className="pf-process-name">{process.name}</div>
+          </div>
+          <div className="pf-divider" />
+          <Form layout="vertical" onFinish={onFinish}>
+            <div className="pf-body-container">
+              {properListForm.map((p) => (
+                <FormRender
+                  addValueOnFormValues={addValueOnFormValues}
+                  formValues={formValues}
+                  proper={p}
+                  properList={properList.filter((v) => v.parentId === p.id)}
+                  allProperList={properList}
+                  properValueList={properValueList.filter(
+                    (v) => v.properId === p.id
+                  )}
+                  key={p.id}
+                  onChangeForParent={onChangeForParent}
+                />
+              ))}
+            </div>
+            <div className="pf-divider" />
+            <div
+              className="pf-button-container"
+              style={{ justifyContent: selected ? "" : "flex-end" }}
+            >
+              {selected && (
+                <div className="pf-back-buttons">
+                  <BackButtonBorder onClick={goBack} />
+                  <ReturnButtonBorder onClick={goReturn} />
+                </div>
+              )}
+              <div className="pg-submit-button">
+                <Button
+                  type="primary"
+                  size="large"
+                  htmlType="submit"
+                  className="pf-submit-button"
+                >
+                  KAYDET
+                </Button>
+              </div>
+            </div>
+          </Form>
+        </div>
+      )}
     </div>
   );
 }
