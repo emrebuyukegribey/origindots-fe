@@ -15,6 +15,7 @@ import AppleButtonBorder from "../../components/UI/Buttons/AppleButtonBorder";
 import { useGoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import InstagramButtonBorder from "../../components/UI/Buttons/InstagramButtonBorder";
 
 function PForm() {
   const { id } = useParams();
@@ -250,6 +251,7 @@ function PForm() {
             style={{ display: "flex", justifyContent: "center", width: "100%" }}
           >
             <div className="pf-auth-body">
+              {/*
               <div className="pf-auth-email-container">
                 <Input
                   className="pf-auth-email-input"
@@ -267,9 +269,14 @@ function PForm() {
                 />
               </div>
               <Divider className="divider">OR</Divider>
+      */}
 
               <GoogleButtonBorder
                 text="Continue with google"
+                onClick={() => loginWithGoogle()}
+              />
+              <InstagramButtonBorder
+                text="Continue with instagram"
                 onClick={() => loginWithGoogle()}
               />
               <AppleButtonBorder text="Continue with apple" />
