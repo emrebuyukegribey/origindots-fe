@@ -13,11 +13,10 @@ import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
 import GoogleButtonBorder from "../../components/UI/Buttons/GoogleButtonBorder";
 import AppleButtonBorder from "../../components/UI/Buttons/AppleButtonBorder";
 import { useGoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import InstagramButtonBorder from "../../components/UI/Buttons/InstagramButtonBorder";
 import ReactFacebookLogin from "react-facebook-login";
-import { CiFacebook } from "react-icons/ci";
+import { InstagramLogin } from "@amraneze/react-instagram-login";
 
 function PForm() {
   const { id } = useParams();
@@ -245,6 +244,10 @@ function PForm() {
     setAuthUser(loggedUser);
   };
 
+  const loginWithInstagram = (response) => {
+    console.log("response : ", response);
+  };
+
   return (
     <div className="pf-container">
       <div className="pf-step-container">
@@ -287,10 +290,12 @@ function PForm() {
                 text="Continue With Google"
                 onClick={() => loginWithGoogle()}
               />
+              {/*
               <InstagramButtonBorder
                 text="Continue With Instagram"
                 onClick={() => loginWithGoogle()}
               />
+    */}
               <div style={{ marginLeft: "80px", width: "100%" }}>
                 <ReactFacebookLogin
                   appId="3148320675410866"
@@ -324,6 +329,18 @@ function PForm() {
                   )}
                 />
               </div>
+              <InstagramLogin
+                clientId="176752001538012"
+                redirectUri="https://www.google.com"
+                onSuccess={loginWithInstagram}
+                onFailure={loginWithInstagram}
+                cssClass="ins-button-border-container"
+              >
+                <InstagramButtonBorder
+                  text="Continue With Instagram"
+                  onClick={() => loginWithInstagram()}
+                />
+              </InstagramLogin>
               <AppleButtonBorder text="Continue With Apple" />
             </div>
           </div>

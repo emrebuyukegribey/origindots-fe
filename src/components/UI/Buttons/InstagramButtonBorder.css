@@ -9,7 +9,7 @@
     background-color: #fff;
     border: 1px solid var(--dark300);
     border-radius: 50px;
-    margin: 20px 0px;
+    /*margin: 20px 0px;*/
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }

@@ -160,7 +160,6 @@
     margin: 20px 0px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-
 }
 
 .facebook-button-border-container:hover {
@@ -181,4 +180,16 @@
 
 .facebook-button-border-container:hover .facebook-button-border-text{
     color: #fff;
+}
+
+.ins-button-border-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #fff;
+    border: 0px solid var(--dark300);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
