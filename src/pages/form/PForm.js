@@ -8,7 +8,7 @@ import ProcessIcons from "../../components/Process/ProcessIcons";
 import { FormRender } from "./FormRender";
 import BackButtonBorder from "../../components/UI/Buttons/BackButtonBorder";
 import ReturnButtonBorder from "../../components/UI/Buttons/ReturnButtonBorder";
-import { FaUserCheck } from "react-icons/fa";
+import { FaFacebook, FaUserCheck } from "react-icons/fa";
 import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
 import GoogleButtonBorder from "../../components/UI/Buttons/GoogleButtonBorder";
 import AppleButtonBorder from "../../components/UI/Buttons/AppleButtonBorder";
@@ -16,6 +16,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import InstagramButtonBorder from "../../components/UI/Buttons/InstagramButtonBorder";
+import ReactFacebookLogin from "react-facebook-login";
+import { CiFacebook } from "react-icons/ci";
 
 function PForm() {
   const { id } = useParams();
@@ -233,6 +235,16 @@ function PForm() {
     },
   });
 
+  const loginWithFacebook = (response) => {
+    const loggedUser = {
+      name: response.name,
+      email: response.email,
+      picture: response.picture.data.url,
+    };
+    console.log("loggedUser : ", loggedUser);
+    setAuthUser(loggedUser);
+  };
+
   return (
     <div className="pf-container">
       <div className="pf-step-container">
@@ -272,14 +284,47 @@ function PForm() {
       */}
 
               <GoogleButtonBorder
-                text="Continue with google"
+                text="Continue With Google"
                 onClick={() => loginWithGoogle()}
               />
               <InstagramButtonBorder
-                text="Continue with instagram"
+                text="Continue With Instagram"
                 onClick={() => loginWithGoogle()}
               />
-              <AppleButtonBorder text="Continue with apple" />
+              <div style={{ marginLeft: "80px", width: "100%" }}>
+                <ReactFacebookLogin
+                  appId="3148320675410866"
+                  autoLoad
+                  fields="name,email,picture"
+                  callback={loginWithFacebook}
+                  icon={
+                    <FaFacebook
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        width: "30px",
+                        height: "30px",
+                        color: "#0866ff",
+                        marginRight: "80px",
+                        marginLeft: "0px !important",
+                        backgroundColor: "white",
+                        borderRadius: "50%",
+                        padding: "3px",
+                      }}
+                    />
+                  }
+                  cssClass="facebook-button-border-container facebook-button-border-text"
+                  textButton="Continue With Facebook"
+                  render={(renderProps) => (
+                    <button
+                      onClick={renderProps.onClick}
+                      className="facebook-button-border-text"
+                    ></button>
+                  )}
+                />
+              </div>
+              <AppleButtonBorder text="Continue With Apple" />
             </div>
           </div>
         </div>

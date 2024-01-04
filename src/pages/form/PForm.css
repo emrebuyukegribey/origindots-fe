@@ -146,3 +146,39 @@
     color: var(--dark100) !important;
 
 }
+
+
+.facebook-button-border-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 7px 0px 7px 50px;
+    background-color: #fff;
+    border: 1px solid var(--dark300);
+    border-radius: 50px;
+    margin: 20px 0px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.facebook-button-border-container:hover {
+    background-color: var(--dark300); 
+    transition: all 0.3s ease-in-out;
+}
+
+.facebook-button-border-text {
+    color: var(--dark300);
+    font-weight: 500;
+    font-size: 17px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-left: -80px;
+}
+
+.facebook-button-border-container:hover .facebook-button-border-text{
+    color: #fff;
+}
