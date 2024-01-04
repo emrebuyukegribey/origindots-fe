@@ -231,6 +231,9 @@ function PForm() {
       };
       console.log("loggedUser : ", loggedUser);
       setAuthUser(loggedUser);
+      if (loggedUser && loggedUser.name) {
+        setCurrentStep(1);
+      }
     },
   });
 
@@ -242,6 +245,9 @@ function PForm() {
     };
     console.log("loggedUser : ", loggedUser);
     setAuthUser(loggedUser);
+    if (loggedUser && loggedUser.name) {
+      setCurrentStep(1);
+    }
   };
 
   const loginWithInstagram = (response) => {
@@ -341,12 +347,14 @@ function PForm() {
                   onClick={() => loginWithInstagram()}
                 />
               </InstagramLogin>
+              {/*
               <AppleButtonBorder text="Continue With Apple" />
+                  */}
             </div>
           </div>
         </div>
       )}
-      {currentStep === 1 && <div>Step2</div>}
+      {currentStep === 1 && <div>Step2 AuthUser: {authUser.name}</div>}
       {currentStep === 2 && (
         <div>
           <div className="pf-process-container">
