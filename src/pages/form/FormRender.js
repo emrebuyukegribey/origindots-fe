@@ -94,6 +94,7 @@ export function FormRender({
     return (
       <FormDropdown
         addValueOnFormValues={addValueOnFormValues}
+        formValues={formValues}
         proper={proper}
         properList={properList}
         allProperList={allProperList}
@@ -118,6 +119,7 @@ export function FormRender({
     return (
       <FormSingleselect
         addValueOnFormValues={addValueOnFormValues}
+        formValues={formValues}
         proper={proper}
         properList={properList}
         allProperList={allProperList}

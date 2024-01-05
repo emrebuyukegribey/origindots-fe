@@ -63,7 +63,6 @@ function FormMultiselect({
           childs.push(object);
         });
     });
-    console.log("childs : ", childs);
     return childs;
   };
 
@@ -85,28 +84,30 @@ function FormMultiselect({
 
   useEffect(() => {
     setTimeout(() => {
-      let selectedValues;
-      if (
-        localStorage.getItem(proper.id + "selectedValues") &&
-        localStorage.getItem(proper.id + "selectedValues").includes(",")
-      ) {
-        selectedValues = localStorage
-          .getItem(proper.id + "selectedValues")
-          .split(",");
+      let selectedValues = [];
+      if (localStorage.getItem(proper.id + "selectedValues")) {
+        if (localStorage.getItem(proper.id + "selectedValues").includes(",")) {
+          selectedValues = localStorage
+            .getItem(proper.id + "selectedValues")
+            .split(",");
+        } else {
+          selectedValues.push(
+            localStorage.getItem(proper.id + "selectedValues")
+          );
+        }
       }
-
       if (selectedValues && selectedValues.length > 0) {
         const valueWithChilds = findValuesHavingChilds(selectedValues);
         if (valueWithChilds && valueWithChilds.length > 0) {
           const childs = findChildsSelectedValues(valueWithChilds);
           findTouchedValue(childs);
         } else {
-          setTouchedRelatedForm(null);
-          localStorage.removeItem(proper.id);
+          // setTouchedRelatedForm(null);
+          // localStorage.removeItem(proper.id);
         }
       } else {
-        setTouchedRelatedForm(null);
-        localStorage.removeItem(proper.id);
+        // setTouchedRelatedForm(null);
+        // localStorage.removeItem(proper.id);
       }
     }, 200);
   });

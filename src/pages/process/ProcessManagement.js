@@ -255,7 +255,6 @@ function ProcessManagement(props) {
   };
 
   const shareProcess = (process) => {
-    console.log("process : ", process);
     setProcess(process);
     setShowShareModal(true);
   };

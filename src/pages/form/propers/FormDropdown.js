@@ -137,7 +137,7 @@ function FormDropdown({
     }
     if (!isFoundedRelatedElement) {
       localStorage.removeItem(proper.id);
-      setTouchedRelatedForm(null);
+      // setTouchedRelatedForm(null);
     }
   };
 
@@ -150,7 +150,7 @@ function FormDropdown({
         const childsOfProperValue = findChildsOfSelectedValue(selectedValue);
         findTouchedValue(selectedValue, childsOfProperValue);
       } else {
-        setTouchedRelatedForm(null);
+        // setTouchedRelatedForm(null);
       }
     }, 200);
   }, []);

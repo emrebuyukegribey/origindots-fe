@@ -59,11 +59,11 @@ function PForm() {
   useEffect(() => {
     setProperList(tempProperList);
     getProcess();
+    removeProperValuesInStorage();
   }, []);
 
   const removeProperValuesInStorage = () => {
     for (let [key, value] of Object.entries(localStorage)) {
-      console.log(`${key}: ${value}`);
       if (key.includes("prp-") || key.toLocaleLowerCase().includes("value")) {
         localStorage.removeItem(key);
       }
@@ -130,7 +130,11 @@ function PForm() {
           newArr.push(value);
         }
       });
-      // setFormValues(newArr);
+      setFormValues(
+        newArr.filter((v) => {
+          return Object.values(v)[0] !== undefined;
+        })
+      );
     }
     if (selected) {
       goBack();
@@ -201,7 +205,6 @@ function PForm() {
     const pattern =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     const result = pattern.test(email);
-    console.log("result : ", result);
     return result;
   };
 

@@ -4,7 +4,6 @@ import { getCurrentDate } from "../PFormUtil";
 
 function FormTime({ proper, addValueOnFormValues }) {
   const onChange = (time, timeString) => {
-    console.log("timeString : ", timeString);
     const value = timeString;
     const properObject = {
       properId: proper.id,

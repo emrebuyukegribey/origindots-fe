@@ -75,17 +75,21 @@ function FormSingleselect({
     if (formValues && formValues.length > 0) {
       formValues.forEach((fv) => {
         childsOfProperValue.forEach((c) => {
-          if (fv.properId === c.id && fv.properValue) {
+          if (
+            Object.keys(fv)[0] === c.id &&
+            Object.values(fv)[0] &&
+            Object.values(fv)[0].length > 0
+          ) {
             foundKey = c.id;
             return;
           }
         });
       });
     }
-
     return foundKey;
   };
 
+  /*
   const findValueInFormValues = (childsOfProperValue) => {
     let foundValue;
     if (formValues && formValues.length > 0) {
@@ -101,35 +105,19 @@ function FormSingleselect({
 
     return foundValue;
   };
-
-  const findProperInFormValues = (childsOfProperValue) => {
-    let foundFormValue;
-    if (formValues && formValues.length > 0) {
-      console.log("emre");
-      formValues.forEach((fv) => {
-        console.log("fv : ", fv);
-        childsOfProperValue.forEach((c) => {
-          if (fv.properId === c.id && fv.properValue) {
-            foundFormValue = fv;
-            return;
-          }
-        });
-      });
-    }
-    return foundFormValue;
-  };
+  */
 
   const findTouchedValue = (selectedValue, childsOfProperValue) => {
     if (childsOfProperValue && childsOfProperValue.length > 0) {
       const key = findKeyInFormValues(childsOfProperValue);
-      const value = findValueInFormValues(childsOfProperValue);
+      // const value = findValueInFormValues(childsOfProperValue);
       childsOfProperValue.forEach((p) => {
-        if (p.id === key && value && value.length > 0) {
+        if (p.id === key) {
           localStorage.setItem(proper.id, selectedValue.id);
           setTouchedRelatedForm(selectedValue.id);
         } else {
-          localStorage.removeItem(proper.id);
-          setTouchedRelatedForm(null);
+          //localStorage.removeItem(proper.id);
+          // setTouchedRelatedForm(null);
         }
       });
     }
@@ -183,7 +171,6 @@ function FormSingleselect({
                           size={16}
                           style={{ margin: "0px 10px" }}
                         />
-
                         {touchedRelatedForm === prop.id && (
                           <IoMdCheckmark size={20} color="#18bd5b" />
                         )}
