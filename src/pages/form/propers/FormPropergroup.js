@@ -27,14 +27,9 @@ function FormPropergroup({
   }, [touchedRelated]);
 
   const isTouchedRelatedForm = () => {
-    console.log("formValues : ", formValues);
     for (let i = 0; i < childPropers.length; i++) {
       formValues.forEach((element) => {
-        if (
-          Object.keys(element)[0] === childPropers[i].id &&
-          Object.values(element)[0] &&
-          Object.values(element)[0].length > 0
-        ) {
+        if (element.properId === childPropers[i].id && element.properValue) {
           setTouchedRelated(true);
         }
       });

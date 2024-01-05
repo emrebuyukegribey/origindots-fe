@@ -75,7 +75,7 @@ function FormSingleselect({
     if (formValues && formValues.length > 0) {
       formValues.forEach((fv) => {
         childsOfProperValue.forEach((c) => {
-          if (Object.keys(fv)[0] === c.id) {
+          if (fv.properId === c.id && fv.properValue) {
             foundKey = c.id;
             return;
           }
@@ -100,6 +100,23 @@ function FormSingleselect({
     }
 
     return foundValue;
+  };
+
+  const findProperInFormValues = (childsOfProperValue) => {
+    let foundFormValue;
+    if (formValues && formValues.length > 0) {
+      console.log("emre");
+      formValues.forEach((fv) => {
+        console.log("fv : ", fv);
+        childsOfProperValue.forEach((c) => {
+          if (fv.properId === c.id && fv.properValue) {
+            foundFormValue = fv;
+            return;
+          }
+        });
+      });
+    }
+    return foundFormValue;
   };
 
   const findTouchedValue = (selectedValue, childsOfProperValue) => {

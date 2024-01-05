@@ -27,7 +27,7 @@ function PForm() {
   const [properValueList, setProperValueList] = useState([]);
   const [tempProperList, setTempProperList] = useState([]);
   const [tempProperValueList, setTempProperValueList] = useState([]);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(2);
 
   const [formValues, setFormValues] = useState([]);
 
@@ -82,10 +82,40 @@ function PForm() {
       formValuesTemp.push(properObject);
     }
     setFormValues(formValuesTemp);
-    console.log("formValues : ", formValues);
+  };
+
+  const checkRequiredPropers = () => {
+    const requiredFields = [];
+    const requiredPropers = properList.filter(
+      (proper) => proper.required === true
+    );
+    requiredPropers.forEach((proper) => {
+      const requiredField = formValues.find(
+        (formValue) => formValue.properId === proper.id
+      );
+      if (!proper.parentId && !requiredField) {
+        requiredFields.push(proper);
+      }
+      if (!proper.parentId && requiredField && !requiredField.properValue) {
+        requiredFields.push(proper);
+      }
+      if (proper.parentId && requiredField && requiredField.properValue) {
+        const parentProper = formValues.find(
+          (formValue) => formValue.properId === proper.parentId
+        );
+        if (parentProper && parentProper.properValue) {
+          requiredFields.push(proper);
+        }
+      }
+    });
+
+    if (requiredFields && requiredFields.length > 0) {
+      console.log("requiredFields : ", requiredFields);
+    }
   };
 
   const onFinish = (values) => {
+    // checkRequiredPropers();
     console.log("values : ", values);
     console.log("formValues : ", formValues);
     let newArr = [...formValues];
