@@ -1,20 +1,24 @@
 import "./LoginScreen.css";
-import Logo from "../../../assets/logo-white.png";
-import DarkButton from "../../../components/UI/Buttons/DarkButton";
+
 import { withTranslation } from "react-i18next";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useReducer, useState } from "react";
 import CircleLoading from "../../../components/UI/Loading/LoadingBar";
 import { useEffect } from "react";
 import { loginUser } from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
 
-import { Button, Col, Row, Form, Input, Carousel } from "antd";
+import { Col, Row, Input, Divider } from "antd";
 
 import GoogleIcon from "../../../assets/icons/google.svg";
 import FacebookIcon from "../../../assets/icons/facebook.svg";
 import TwitterXIcon from "../../../assets/icons/twitterx.svg";
+import RedButtonBorder from "../../../components/UI/Buttons/RedButtonBorder";
 import DarkButtonBorder from "../../../components/UI/Buttons/DarkButtonBorder";
+import { BsFacebook, BsGoogle, BsInstagram } from "react-icons/bs";
+import { RiFacebookCircleLine, RiFacebookFill } from "react-icons/ri";
+import { FiFacebook } from "react-icons/fi";
+import LoginButton from "../../../components/UI/Buttons/LoginButton";
 
 function LoginScreen(props) {
   const onFinish = (values) => {
@@ -34,13 +38,14 @@ function LoginScreen(props) {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState();
   const [activeTabSection, setActiveTabSection] = useState("login");
   const navigate = useNavigate();
 
   useEffect(() => {}, [error, setError]);
 
   const handleInputChange = (e) => {
+    setError(null);
     e.preventDefault();
     const { name, value } = e.target;
     setValues((values) => ({
@@ -50,14 +55,12 @@ function LoginScreen(props) {
   };
 
   const checkError = () => {
-    if (!values.email) {
+    if (!values.email || !values.email.length <= 0) {
       setError(props.t("Email field is required"));
-    } else if (!values.password) {
-      setError(props.t("Password field is required"));
-    } else {
-      setError("");
       return;
     }
+
+    setError("");
     return;
   };
 
@@ -68,8 +71,22 @@ function LoginScreen(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    checkError();
-    if (error !== null) {
+    // checkError();
+    if (!values.email) {
+      setError(props.t("Email field is required"));
+      setLoading(false);
+      return;
+    }
+    if (
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+        values.email
+      ) === false
+    ) {
+      setError(props.t("Please enter a valid email address"));
+      setLoading(false);
+      return;
+    }
+    if (values.email && !error) {
       try {
         const response = await loginUser({
           email: values.email,
@@ -97,14 +114,6 @@ function LoginScreen(props) {
     }
   };
 
-  const contentStyle = {
-    height: "500px",
-    color: "#fff",
-    lineHeight: "500px",
-    textAlign: "center",
-    background: "#364d79",
-  };
-
   if (loading) {
     return <CircleLoading />;
   }
@@ -114,9 +123,99 @@ function LoginScreen(props) {
       <div className="login-screen-container">
         <Row align="middle" style={{ height: "100%", width: "100%" }}>
           <div className="login-screen-left-container">
+            <Col span={20} style={{ borderRadius: "30px" }}></Col>
+          </div>
+          <div className="login-screen-right-container">
+            <div className="login-screen-right-header-container">
+              <div className="login-screen-right-welcome-header">
+                {props.t("Welcome")}
+              </div>
+              <div className="login-screen-welcome-text">
+                {props.t("We are glad to see you back with us")}
+              </div>
+            </div>
+            <Row justify="center" style={{ width: "85%" }}>
+              <Col span={24} className="login-screen-row-container">
+                <Input
+                  className="login-screen-input"
+                  placeholder={props.t("Your email address")}
+                  name="email"
+                  onChange={handleInputChange}
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <div style={{ width: "100%" }}>
+                    {error && (
+                      <div className="login-screen-error-container">
+                        <div>{error}</div>
+                      </div>
+                    )}
+                    <LoginButton
+                      type="primary"
+                      text={props.t("Go on")}
+                      size="small"
+                      onClick={handleSubmit}
+                    />
+                  </div>
+                </div>
+                <Divider style={{ borderColor: "#000", margin: "40px 0px" }}>
+                  <span
+                    style={{
+                      color: "#000",
+                      fontSize: "17px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Login with others
+                  </span>
+                </Divider>
+                <Row
+                  className="register-screen-row"
+                  style={{
+                    marginTop: "20px",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div className="login-screen-social-button-container">
+                    <BsGoogle
+                      className="login-screen-login-button"
+                      color="#fff"
+                    />
+                  </div>
+                  <div className="login-screen-social-button-container">
+                    <BsFacebook
+                      size={28}
+                      className="login-screen-login-button"
+                      color="#fff"
+                    />
+                  </div>
+                  <div className="login-screen-social-button-container">
+                    <BsInstagram
+                      size={28}
+                      className="login-screen-login-button"
+                      color="#fff"
+                    />
+                  </div>
+                </Row>
+              </Col>
+            </Row>
+          </div>
+        </Row>
+      </div>
+    );
+    /*
+    return (
+      <div className="login-screen-container">
+        <Row align="middle" style={{ height: "100%", width: "100%" }}>
+          <div className="login-screen-left-container">
             <Carousel autoplay>
               <div>
-                <h3>1</h3>
+                <h3>1asdasd</h3>
               </div>
               <div>
                 <h3>2</h3>
@@ -181,9 +280,10 @@ function LoginScreen(props) {
                         alignContent: "center",
                       }}
                     >
-                      <h3>Şifremi unuttum</h3>
+                      <h3>Şifremi unuttum</h3>  
                     </Col>
                   </Row>
+                  
 
                   <Row
                     justify="center"
@@ -192,6 +292,7 @@ function LoginScreen(props) {
                   >
                     <Col span={24}>
                       <Row className="login-screen-row">
+                        
                         <Col span={8}>
                           <h2
                             onClick={registerTab}
@@ -200,13 +301,23 @@ function LoginScreen(props) {
                             Sign Up
                           </h2>
                         </Col>
-                        <Col span={16}>
+                        
+                        <Col
+                          span={24}
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                          }}
+                        >
+                          
                           <DarkButtonBorder
                             type="primary"
                             text={props.t("Go on")}
                             size="small"
                             onClick={handleSubmit}
                           />
+                      
+                          <LoginButton />
                         </Col>
                       </Row>
                       <Row
@@ -237,6 +348,7 @@ function LoginScreen(props) {
         </Row>
       </div>
     );
+    */
   } else {
     return <RegisterScreen />;
   }

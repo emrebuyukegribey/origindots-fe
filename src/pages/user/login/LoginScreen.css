@@ -4,7 +4,8 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: var(--dark500);
+    background-color: var(--dark100);
+    padding: 100px;
 }
 
 .login-screen-left-container {
@@ -13,22 +14,50 @@
     justify-content: center;
     align-items: center;
     color: #fff;
-    background-color: #272735;
-    width: 65%;
+    background-color: var(--grey500);
+    width: 70%;
     height: 100%;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-right: 1px solid var(--dark500);
 }
 
 .login-screen-right-container {
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #fff;
-    width: 35%;
+    width: 30%;
     height: 100%;
     padding: 30px;
     overflow-y: auto;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
+
+.login-screen-right-header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.login-screen-right-welcome-header {
+    font-size: 7vh;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--dark100);
+}
+
+.login-screen-welcome-text {
+    font-size: 2vh;
+    font-weight: 500;
+    color: var(--dark200);
+}
+
 
 @media screen and (width < 900px) {
     .login-screen-right-container {
@@ -37,8 +66,9 @@
     }
 }
 
-@media screen and (width < 750px) {
+@media screen and (width < 1000px) {
     .login-screen-left-container  {
+        display:none;
         width: 0%;
     }
     .login-screen-right-container {
@@ -146,10 +176,6 @@
     justify-content: center;
 }
 
-.login-screen-input-container {
-    padding: 15px 30px;
-}
-
 .login-screen-input-label {
     margin-bottom: 10px;
     color: var(--dark300);
@@ -158,11 +184,13 @@
 }
 
 .login-screen-input {
-    height: 40px;
+    height: 45px;
     border: 0px;
     border-radius: 0px;
-    border-bottom: 1px solid var(--dark500);
+    border: 1px solid var(--dark500);
+    border-radius: 30px;
     margin-bottom: 10px;
+    padding-left: 20px;
 }
 
 .login-screen-button-container {
@@ -193,13 +221,10 @@
 }
 
 .login-screen-error-container {
-    margin-top: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
     color: var(--red100);
     font-size: 16px;
     font-weight: 500;
-    padding: 8px;
+    padding: 0px 8px 12px 16px;
     border-radius: 3px;
 }
 
@@ -209,6 +234,7 @@
     height: auto;
     border-radius: 15px;
     background-color: #fff;
+    width:100%;
 }
 
 .sign-up{
@@ -220,7 +246,6 @@
 
 .login-screen-row {
     width: 100%;
-    padding: 0px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -238,6 +263,28 @@
 .login-screen-signUp:hover {
     cursor: pointer;
     color:var(--dark400)
+}
+
+.login-screen-social-button-container {
+    width: 48px;
+    height: 48px;
+    background-color: var(--dark200);
+    border-radius: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.login-screen-social-button-container:hover {
+    background-color: var(--red100);
+    transition: all 0.3s ease-in-out;
+    margin-top: -15px;
+}
+
+.login-screen-login-button {
+    font-size: 24px;
 }
 
 h1 {
