@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useReducer, useState } from "react";
 import CircleLoading from "../../../components/UI/Loading/LoadingBar";
 import { useEffect } from "react";
-import { loginUser } from "../../../services/http";
+import { loginUser, verifyUser } from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
 
 import { Col, Row, Input, Divider } from "antd";
@@ -33,10 +33,12 @@ function LoginScreen(props) {
     i18n.changeLanguage(language);
   };
 
+  const [fastLogin, setFastLogin] = useState();
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     email: "",
     password: "",
+    code: "",
   });
   const [error, setError] = useState();
   const [activeTabSection, setActiveTabSection] = useState("login");
@@ -52,6 +54,7 @@ function LoginScreen(props) {
       ...values,
       [name]: value,
     }));
+    console.log("values : ", values);
   };
 
   const checkError = () => {
@@ -66,6 +69,41 @@ function LoginScreen(props) {
 
   const registerTab = () => {
     setActiveTabSection("register");
+  };
+
+  const loginVerify = async () => {
+    if (!values.email) {
+      setError(props.t("Email field is required"));
+      setLoading(false);
+      return;
+    }
+    if (
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+        values.email
+      ) === false
+    ) {
+      setError(props.t("Please enter a valid email address"));
+      setLoading(false);
+      return;
+    }
+
+    if (values.email && !error) {
+      try {
+        const response = await verifyUser({
+          email: values.email,
+          code: values.code,
+        });
+        if (response.status === 200) {
+          if (response.data === false) {
+            setFastLogin("code");
+          } else {
+            setFastLogin("password");
+          }
+        }
+      } catch (e) {
+        console.log("Error verifying email : ", e);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -91,6 +129,7 @@ function LoginScreen(props) {
         const response = await loginUser({
           email: values.email,
           password: values.password,
+          code: values.code,
         });
         if (response.status === 200) {
           if (response.data) {
@@ -142,6 +181,25 @@ function LoginScreen(props) {
                   name="email"
                   onChange={handleInputChange}
                 />
+                {console.log("fastLogin : ", fastLogin)}
+                {fastLogin === "code" && (
+                  <Input
+                    className="login-screen-input"
+                    placeholder={props.t("Please enter login code")}
+                    name="code"
+                    onChange={handleInputChange}
+                  />
+                )}
+
+                {fastLogin === "password" && (
+                  <Input.Password
+                    className="login-screen-input"
+                    placeholder={props.t("Your password")}
+                    name="password"
+                    onChange={handleInputChange}
+                  />
+                )}
+
                 <div
                   style={{
                     display: "flex",
@@ -159,7 +217,7 @@ function LoginScreen(props) {
                       type="primary"
                       text={props.t("Go on")}
                       size="small"
-                      onClick={handleSubmit}
+                      onClick={fastLogin ? handleSubmit : loginVerify}
                     />
                   </div>
                 </div>

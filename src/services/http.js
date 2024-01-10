@@ -12,6 +12,10 @@ export function registerUser(body) {
   return axios.post(`${BASE_URL}/auth/register`, body);
 }
 
+export function verifyUser(body) {
+  return axios.post(`${BASE_URL}/auth/isFastLogin`, body);
+}
+
 export function loginUser(body) {
   return axios.post(`${BASE_URL}/auth/authenticate`, body);
 }
