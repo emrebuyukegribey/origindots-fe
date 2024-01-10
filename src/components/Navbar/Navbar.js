@@ -1,8 +1,14 @@
 import "./Navbar.css";
 import { BiMessageAltDetail, BiSearch } from "react-icons/bi";
-import { MdOutlineNotifications } from "react-icons/md";
+import {
+  MdKeyboardArrowDown,
+  MdOutlineArrowDropDown,
+  MdOutlineKeyboardArrowDown,
+  MdOutlineNotifications,
+} from "react-icons/md";
 import { useContext, MainContext } from "../../context";
 import { withTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
 
 function Navbar(props) {
   const { activeLeftBar, navbarHeaderText } = useContext(MainContext);
@@ -39,14 +45,31 @@ function Navbar(props) {
             <li className="nb-right-menu-item">
               <BiMessageAltDetail size={22} style={{ marginTop: "2px" }} />
             </li>
-
-            <li className="nb-right-menu-profile">
-              <img
-                alt="profile-pic"
-                className="nb-right-menu-profile-pic"
-                src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-              />
-            </li>
+            <NavLink to="/profile">
+              <li className="nb-right-menu-profile">
+                <img
+                  alt="profile-pic"
+                  className="nb-right-menu-profile-pic"
+                  src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                />
+                <div className="nb-right-menu-profile-text-container">
+                  <div className="nb-right-menu-profile-text">
+                    Emre Büyükeğribey
+                  </div>
+                  <div
+                    className="nb-right-menu-profile-text"
+                    style={{
+                      fontSize: "14px",
+                      marginTop: "-3px",
+                      color: "#7a7a8f",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Edit Profile
+                  </div>
+                </div>
+              </li>
+            </NavLink>
 
             <li>
               <div className="nb-language-container">

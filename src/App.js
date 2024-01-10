@@ -12,6 +12,7 @@ import UserManagement from "./pages/users/UserManagement";
 import OrganizationManagement from "./pages/organization/OrganizationManagement";
 
 import PForm from "./pages/form/PForm";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   const [activeLeftBar, setActiveLeftBar] = useState(true);
@@ -79,6 +80,10 @@ function App() {
         <Route
           path="/process-management/new-process"
           element={<NewProcess setNavbarHeaderText={setNavbarHeaderText} />}
+        />
+        <Route
+          path="/profile"
+          element={<Profile setNavbarHeaderText={setNavbarHeaderText} />}
         />
         <Route
           path="/process/:id"
