@@ -27,7 +27,7 @@ function PForm() {
   const [properValueList, setProperValueList] = useState([]);
   const [tempProperList, setTempProperList] = useState([]);
   const [tempProperValueList, setTempProperValueList] = useState([]);
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const [formValues, setFormValues] = useState([]);
 

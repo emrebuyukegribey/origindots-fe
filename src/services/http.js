@@ -53,6 +53,10 @@ export function storeUser(body) {
   return axios.post(`${BASE_URL}/users`, body, headerConfig);
 }
 
+export function updateUser(body) {
+  return axios.put(`${BASE_URL}/users`, body, headerConfig);
+}
+
 export function inviteUser(body) {
   return axios.post(`${BASE_URL}/users/add`, body, headerConfig);
 }
@@ -63,6 +67,25 @@ export function getAllUsersByOwnerUser() {
 
 export function deleteUser(id) {
   return axios.delete(`${BASE_URL}/users/${id}`, headerConfig);
+}
+
+export function getUser() {
+  return axios.get(`${BASE_URL}/users`, headerConfig);
+}
+
+export function getProfilePhoto(id) {
+  return axios.get(`${BASE_URL}/users/profilePhoto/${id}`, headerConfig);
+}
+
+export function uploadProfilePhoto(body) {
+  let headerConfigUpload = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "multipart/form-data",
+    },
+  };
+
+  return axios.post(`${BASE_URL}/users/profilePhoto`, body, headerConfigUpload);
 }
 
 /* ORGANIZATION */

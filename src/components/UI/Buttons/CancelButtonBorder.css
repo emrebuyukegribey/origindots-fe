@@ -1,4 +1,4 @@
-/*
+
 .ant-btn-dangerous {
     background-color: #ffffff;
     border-color: var(--red200);
@@ -16,6 +16,5 @@
 .ant-btn-dangerous:hover {
     background-color: var(--red200) !important;
     color: #fff !important;
-    border: none
+    border-color: var(--red200) !important;
 }
-*/

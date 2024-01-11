@@ -1,5 +1,5 @@
 
-/*
+
 .ant-btn-default {
     background-color: #ffffff;
     border-color: var(--dark300);
@@ -17,7 +17,6 @@
 .ant-btn-default:hover {
     background-color: var(--dark300) !important;
     color: #fff !important;
-    border:none
+    border-color: var(--dark300) !important;
 }
 
-*/
