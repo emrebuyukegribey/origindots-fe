@@ -4,7 +4,7 @@ const BASE_URL = "/api/v1";
 
 const token = localStorage.getItem("token");
 let headerConfig = {
-  headers: { Authorization: `Bearer ${token}` },
+  headers: { Authorization: `Bearer ${token}`, responseType: "blob" },
 };
 
 /* USER */
@@ -53,8 +53,18 @@ export function storeUser(body) {
   return axios.post(`${BASE_URL}/users`, body, headerConfig);
 }
 
-export function updateUser(body) {
-  return axios.put(`${BASE_URL}/users`, body, headerConfig);
+export function updateUserProfile(body) {
+  let headerConfigUpload = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "multipart/form-data",
+    },
+  };
+  return axios.post(
+    `${BASE_URL}/users/updateProfile`,
+    body,
+    headerConfigUpload
+  );
 }
 
 export function inviteUser(body) {
@@ -74,7 +84,13 @@ export function getUser() {
 }
 
 export function getProfilePhoto(id) {
-  return axios.get(`${BASE_URL}/users/profilePhoto/${id}`, headerConfig);
+  let headerConfigUpload = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      responseType: "blob",
+    },
+  };
+  return axios.get(`${BASE_URL}/users/profilePhoto/${id}`, headerConfigUpload);
 }
 
 export function uploadProfilePhoto(body) {

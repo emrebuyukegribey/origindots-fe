@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LeftBar from "../../components/LeftBar/LeftBar";
 import Navbar from "../../components/Navbar/Navbar";
 import { MainContext, useContext } from "../../context";
-import { Form, Input, Switch, Upload } from "antd";
+import { Form, Image, Input, Switch, Upload } from "antd";
 import { withTranslation } from "react-i18next";
 import "./Profile.css";
 import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
@@ -12,6 +12,7 @@ import {
   getUser,
   storeUser,
   updateUser,
+  updateUserProfile,
   uploadProfilePhoto,
 } from "../../services/http";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
@@ -55,7 +56,6 @@ function Profile(props) {
     try {
       setLoading(true);
       const response = await getUser();
-      console.log("response1 : ", response);
       if (response.status === 200) {
         setId(response.data.id);
         setEmail(response.data.email);
@@ -80,32 +80,29 @@ function Profile(props) {
     try {
       setLoading(true);
       const response = await getProfilePhoto(profilePhoto);
+      console.log("response : ", response);
       if (response.status === 200) {
-        console.log("response.blob : ", response.blob());
-        var imgsrc =
-          "data:image/jpeg; base64," +
-          btoa(unescape(encodeURIComponent(response.data)));
-        console.log("imgsrc : ", imgsrc);
-        setPicturePreview(imgsrc);
+        setPicturePreview("data:image/jpeg;base64, " + response.data.file);
+        setProfilePhoto(response.data);
       }
     } catch (e) {
       console.log("Getting profile photo error : ", e);
     } finally {
       setLoading(false);
     }
-
-    console.log("picturePreview : ", picturePreview);
   };
 
   const onChangePicture = (info) => {
     setTimeout(() => {
       let file = info.fileList[0];
       setPicture(file);
+      setPicturePreview(file.thumbUrl);
     }, 100);
   };
 
   const onRemovePicture = () => {
     setPicture(null);
+    setPicturePreview(null);
   };
 
   const onChangeFastLogin = (e) => {
@@ -113,38 +110,29 @@ function Profile(props) {
   };
 
   const onFinish = async (values) => {
-    // setLoading(true);
+    setLoading(true);
     console.log("values : ", values);
-    const formData = new FormData();
-    formData.append("profilePhoto", picture.originFileObj);
+
+    const user = {
+      id: id,
+      email: email,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      username: values.username,
+      password: values.password,
+    };
+
     try {
-      setLoading(true);
-      const profilePhotoResponse = await uploadProfilePhoto(formData);
-      let profilePhotoId;
-      if (profilePhotoResponse.status === 200) {
-        profilePhotoId = profilePhotoResponse.data.id;
-
-        const user = {
-          id: id,
-          email: email,
-          profilePhoto: profilePhotoId ? profilePhotoId : null,
-          firstName: values.firstName,
-          lastName: values.lastName,
-          username: values.username,
-          password: values.password,
-        };
-
-        try {
-          const response = await updateUser(user);
-          console.log("response : ", response);
-        } catch (e) {
-          console.log("Storing user error : ", e);
-        } finally {
-          setLoading(false);
-        }
-      }
+      console.log("picture.originFileObj : ", picture.originFileObj);
+      const formData = new FormData();
+      formData.append("profilePhoto", picture.originFileObj);
+      const blob = new Blob([JSON.stringify(user)], {
+        type: "application/json",
+      });
+      formData.append("user", blob);
+      const response = await updateUserProfile(formData);
     } catch (e) {
-      console.log("Uploading profile photo : ", e);
+      console.log("Storing user error : ", e);
     } finally {
       setLoading(false);
     }
@@ -170,8 +158,6 @@ function Profile(props) {
           marginLeft: activeLeftBar ? "275px" : "70px",
         }}
       >
-        {console.log("picturePreview  : ", picturePreview)}
-        <img src={picturePreview} />
         <div className="profile-body">
           <div className="profile-header-container">
             <div className="profile-header">Edit Profile</div>
@@ -183,7 +169,7 @@ function Profile(props) {
               name="profilePicture"
               {...formItemLayout}
             >
-              {!picture && (
+              {!picturePreview && (
                 <Upload
                   maxCount={1}
                   listType="picture-card"
@@ -197,7 +183,8 @@ function Profile(props) {
                   </div>
                 </Upload>
               )}
-              {picture && (
+              {console.log("picturePreview : ", picturePreview)}
+              {picturePreview && (
                 <div
                   style={{
                     width: "100%",
@@ -206,7 +193,7 @@ function Profile(props) {
                   }}
                 >
                   <img
-                    src={picture.thumbUrl ? picture.thumbUrl : picture}
+                    src={picturePreview ? picturePreview : picture}
                     className="profile-image"
                   />
                   <div
