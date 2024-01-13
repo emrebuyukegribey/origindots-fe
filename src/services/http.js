@@ -54,17 +54,7 @@ export function storeUser(body) {
 }
 
 export function updateUserProfile(body) {
-  let headerConfigUpload = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "content-type": "multipart/form-data",
-    },
-  };
-  return axios.post(
-    `${BASE_URL}/users/updateProfile`,
-    body,
-    headerConfigUpload
-  );
+  return axios.post(`${BASE_URL}/users/updateProfile`, body, headerConfig);
 }
 
 export function inviteUser(body) {

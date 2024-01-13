@@ -45,8 +45,11 @@ function Profile(props) {
   useEffect(() => {
     async function loggedUser() {
       await handleLoggedUser();
+      console.log("profilePhoto : ", profilePhoto);
       if (profilePhoto) {
-        await handleProfilePhoto();
+        //await handleProfilePhoto();
+        setPicturePreview("data:image/png;base64, " + profilePhoto);
+        console.log("profilePireview : ", picturePreview);
       }
     }
     loggedUser();
@@ -56,19 +59,21 @@ function Profile(props) {
     try {
       setLoading(true);
       const response = await getUser();
+      console.log("response : ", response);
       if (response.status === 200) {
         setId(response.data.id);
         setEmail(response.data.email);
         setFirstName(response.data.firstName);
         setLastName(response.data.lastName);
         setUsername(response.data.username);
-        setProfilePhoto(response.data.profilePhoto);
+        setProfilePhoto(response.data.profilePhotoFile);
         if (response.data.password) {
           setFastLogin(true);
           setPassword(response.data.password);
           setFastLoginPassive(true);
         }
       }
+      console.log("profilePhoto : ", profilePhoto);
     } catch (e) {
       console.log("Error getting logged user : ", e);
     } finally {
@@ -76,6 +81,7 @@ function Profile(props) {
     }
   };
 
+  /*
   const handleProfilePhoto = async () => {
     try {
       setLoading(true);
@@ -91,6 +97,7 @@ function Profile(props) {
       setLoading(false);
     }
   };
+  */
 
   const onChangePicture = (info) => {
     setTimeout(() => {
@@ -112,25 +119,35 @@ function Profile(props) {
   const onFinish = async (values) => {
     setLoading(true);
     console.log("values : ", values);
+    let profilePhotoId;
+    try {
+      if (picture && picture.originFileObj) {
+        const formData = new FormData();
+        formData.append("profilePhoto", picture.originFileObj);
+        const uploadResponse = await uploadProfilePhoto(formData);
+        if (uploadResponse.status === 200) {
+          console.log("uploadResponse data : ", uploadResponse.data);
+          profilePhotoId = uploadResponse.data.id;
+          setPicturePreview(
+            "data:image/png;base64, " + uploadResponse.data.file
+          );
+        }
+      }
+    } catch (e) {
+      console.log("Uploading profile photo error : ", e);
+    }
 
     const user = {
       id: id,
+      profilePhotoId: profilePhotoId,
       email: email,
       firstName: values.firstName,
       lastName: values.lastName,
       username: values.username,
       password: values.password,
     };
-
     try {
-      console.log("picture.originFileObj : ", picture.originFileObj);
-      const formData = new FormData();
-      formData.append("profilePhoto", picture.originFileObj);
-      const blob = new Blob([JSON.stringify(user)], {
-        type: "application/json",
-      });
-      formData.append("user", blob);
-      const response = await updateUserProfile(formData);
+      const response = await updateUserProfile(user);
     } catch (e) {
       console.log("Storing user error : ", e);
     } finally {
