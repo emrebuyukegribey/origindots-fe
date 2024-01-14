@@ -56,7 +56,6 @@ function Navbar(props) {
             </li>
             <NavLink to="/profile">
               <li className="nb-right-menu-profile">
-                {console.log("auth.authUser : ", auth.authUser)}
                 {auth.authUser && auth.authUser.profilePhotoFile ? (
                   <img
                     className="nb-right-menu-profile-pic"

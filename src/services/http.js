@@ -7,11 +7,21 @@ let headerConfig = {
   headers: { Authorization: `Bearer ${token}` },
 };
 
+axios.interceptors.request.use((request) => {
+  return request;
+});
+
+axios.interceptors.response.use((response) => {
+  if (response.status == 403) {
+    localStorage.clear();
+    window.location.reload();
+  }
+  return response;
+});
+
 const getHeaderConfig = () => {
   const token = localStorage.getItem("token");
-  console.log("TOKENNN : ", token);
   if (!token || token === undefined || token === "undefined") {
-    console.log("ali");
     localStorage.clear();
     window.location.href = "/user/login";
   }

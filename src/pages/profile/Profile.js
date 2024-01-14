@@ -189,7 +189,6 @@ function Profile(props) {
                     </div>
                   </Upload>
                 )}
-                {console.log("picturePreview : ", picturePreview)}
                 {picturePreview && (
                   <div
                     style={{

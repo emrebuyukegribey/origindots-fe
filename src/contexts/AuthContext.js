@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("auth provider");
     if (!authUser) {
       if (localStorage.getItem("token")) {
         setLoginUser();
@@ -23,19 +22,16 @@ export const AuthProvider = ({ children }) => {
   const setLoginUser = async () => {
     const response = await getUser();
     if (response.status === 200) {
-      console.log("RESPONSE DATA : ", response.data);
       setAuthUser(response.data);
     }
   };
 
   const login = (user) => {
-    console.log("LOGIN user : ", user);
     setAuthUser(user);
     localStorage.setItem("token", user.token);
   };
 
   const logout = () => {
-    console.log("veli");
     setAuthUser(null);
     localStorage.clear();
     localStorage.removeItem("token");
@@ -44,7 +40,6 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ authUser, login, logout }}>
-      {console.log("children : ", children)}
       {children}
     </AuthContext.Provider>
   );
