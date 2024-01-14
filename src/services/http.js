@@ -4,7 +4,21 @@ const BASE_URL = "/api/v1";
 
 const token = localStorage.getItem("token");
 let headerConfig = {
-  headers: { Authorization: `Bearer ${token}`, responseType: "blob" },
+  headers: { Authorization: `Bearer ${token}` },
+};
+
+const getHeaderConfig = () => {
+  const token = localStorage.getItem("token");
+  console.log("TOKENNN : ", token);
+  if (!token || token === undefined || token === "undefined") {
+    console.log("ali");
+    localStorage.clear();
+    window.location.href = "/user/login";
+  }
+  let headerConfig = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  return headerConfig;
 };
 
 /* USER */
@@ -22,23 +36,23 @@ export function loginUser(body) {
 
 /* PROCESS */
 export function processStore(body) {
-  return axios.post(`${BASE_URL}/process`, body, headerConfig);
+  return axios.post(`${BASE_URL}/process`, body, getHeaderConfig());
 }
 
 export function processUpdate(body) {
-  return axios.put(`${BASE_URL}/process`, body, headerConfig);
+  return axios.put(`${BASE_URL}/process`, body, getHeaderConfig());
 }
 
 export function processDuplicate(body) {
-  return axios.post(`${BASE_URL}/process/duplicate`, body, headerConfig);
+  return axios.post(`${BASE_URL}/process/duplicate`, body, getHeaderConfig());
 }
 
 export function getAllProcessByOwner() {
-  return axios.get(`${BASE_URL}/process/owner`, headerConfig);
+  return axios.get(`${BASE_URL}/process/owner`, getHeaderConfig());
 }
 
 export function getProcessWithAllAtributes(processId) {
-  return axios.get(`${BASE_URL}/process/${processId}`, headerConfig);
+  return axios.get(`${BASE_URL}/process/${processId}`, getHeaderConfig());
 }
 
 export function deleteProcess(body) {
@@ -50,27 +64,27 @@ export function deleteProcess(body) {
 
 /* USERS */
 export function storeUser(body) {
-  return axios.post(`${BASE_URL}/users`, body, headerConfig);
+  return axios.post(`${BASE_URL}/users`, body, getHeaderConfig());
 }
 
 export function updateUserProfile(body) {
-  return axios.post(`${BASE_URL}/users/updateProfile`, body, headerConfig);
+  return axios.post(`${BASE_URL}/users/updateProfile`, body, getHeaderConfig());
 }
 
 export function inviteUser(body) {
-  return axios.post(`${BASE_URL}/users/add`, body, headerConfig);
+  return axios.post(`${BASE_URL}/users/add`, body, getHeaderConfig());
 }
 
 export function getAllUsersByOwnerUser() {
-  return axios.get(`${BASE_URL}/users/owner`, headerConfig);
+  return axios.get(`${BASE_URL}/users/owner`, getHeaderConfig());
 }
 
 export function deleteUser(id) {
-  return axios.delete(`${BASE_URL}/users/${id}`, headerConfig);
+  return axios.delete(`${BASE_URL}/users/${id}`, getHeaderConfig());
 }
 
 export function getUser() {
-  return axios.get(`${BASE_URL}/users`, headerConfig);
+  return axios.get(`${BASE_URL}/users`, getHeaderConfig());
 }
 
 export function getProfilePhoto(id) {
@@ -96,11 +110,11 @@ export function uploadProfilePhoto(body) {
 
 /* ORGANIZATION */
 export function storeOrganization(body) {
-  return axios.post(`${BASE_URL}/organizations`, body, headerConfig);
+  return axios.post(`${BASE_URL}/organizations`, body, getHeaderConfig());
 }
 
 export function getAllOrganizationsByOwner() {
-  return axios.get(`${BASE_URL}/organizations/owner`, headerConfig);
+  return axios.get(`${BASE_URL}/organizations/owner`, getHeaderConfig());
 }
 
 export function addUserForOrganization(organizationId, body) {
@@ -114,14 +128,14 @@ export function addUserForOrganization(organizationId, body) {
 export function getOrganizationUsers(organizationId) {
   return axios.get(
     `${BASE_URL}/organizations/organization/${organizationId}/organizationUsers`,
-    headerConfig
+    getHeaderConfig()
   );
 }
 
 export function getOrganizationProcessies(organizationId) {
   return axios.get(
     `${BASE_URL}/organizations/organization/${organizationId}/organizationProcessies`,
-    headerConfig
+    getHeaderConfig()
   );
 }
 
@@ -129,27 +143,27 @@ export function addProcessForOrganization(organizationId, body) {
   return axios.post(
     `${BASE_URL}/organizations/organization/${organizationId}/addProcessies`,
     body,
-    headerConfig
+    getHeaderConfig()
   );
 }
 
 export function deleteOrganization(organizationId) {
   return axios.delete(
     `${BASE_URL}/organizations/${organizationId}`,
-    headerConfig
+    getHeaderConfig()
   );
 }
 
 export function deleteUserFromOrganization(organizationId, userId) {
   return axios.delete(
     `${BASE_URL}/organizations/organization/${organizationId}/user/${userId}`,
-    headerConfig
+    getHeaderConfig()
   );
 }
 
 export function deleteProcessFromOrganization(organizationId, processId) {
   return axios.delete(
     `${BASE_URL}/organizations/organization/${organizationId}/process/${processId}`,
-    headerConfig
+    getHeaderConfig()
   );
 }

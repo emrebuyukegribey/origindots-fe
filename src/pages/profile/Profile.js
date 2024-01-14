@@ -18,6 +18,7 @@ import {
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import { MdClose } from "react-icons/md";
 import SubmitButtonBorder from "../../components/UI/Buttons/SubmitButtonBorder";
+import { useAuth } from "../../contexts/AuthContext";
 
 function Profile(props) {
   const { activeLeftBar } = useContext(MainContext);
@@ -28,15 +29,18 @@ function Profile(props) {
   const [picture, setPicture] = useState();
   const [picturePreview, setPicturePreview] = useState();
   const [profilePhoto, setProfilePhoto] = useState();
+  const [profilePhotoId, setProfilePhotoId] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [username, setUsername] = useState();
   const [fastLogin, setFastLogin] = useState();
   const [fastLoginPassive, setFastLoginPassive] = useState(false);
   const [password, setPassword] = useState();
-  const [repeatPassword, setRepeatPassword] = useState();
+  const [showPassword, setShowPassword] = useState(true);
 
   const [form] = Form.useForm();
+
+  const auth = useAuth();
 
   useEffect(() => {
     props.setNavbarHeaderText("Profile");
@@ -45,11 +49,9 @@ function Profile(props) {
   useEffect(() => {
     async function loggedUser() {
       await handleLoggedUser();
-      console.log("profilePhoto : ", profilePhoto);
+
       if (profilePhoto) {
-        //await handleProfilePhoto();
         setPicturePreview("data:image/png;base64, " + profilePhoto);
-        console.log("profilePireview : ", picturePreview);
       }
     }
     loggedUser();
@@ -59,7 +61,6 @@ function Profile(props) {
     try {
       setLoading(true);
       const response = await getUser();
-      console.log("response : ", response);
       if (response.status === 200) {
         setId(response.data.id);
         setEmail(response.data.email);
@@ -67,37 +68,20 @@ function Profile(props) {
         setLastName(response.data.lastName);
         setUsername(response.data.username);
         setProfilePhoto(response.data.profilePhotoFile);
+        setProfilePhotoId(response.data.profilePhotoId);
         if (response.data.password) {
           setFastLogin(true);
           setPassword(response.data.password);
           setFastLoginPassive(true);
+          setShowPassword(false);
         }
       }
-      console.log("profilePhoto : ", profilePhoto);
     } catch (e) {
       console.log("Error getting logged user : ", e);
     } finally {
       setLoading(false);
     }
   };
-
-  /*
-  const handleProfilePhoto = async () => {
-    try {
-      setLoading(true);
-      const response = await getProfilePhoto(profilePhoto);
-      console.log("response : ", response);
-      if (response.status === 200) {
-        setPicturePreview("data:image/jpeg;base64, " + response.data.file);
-        setProfilePhoto(response.data);
-      }
-    } catch (e) {
-      console.log("Getting profile photo error : ", e);
-    } finally {
-      setLoading(false);
-    }
-  };
-  */
 
   const onChangePicture = (info) => {
     setTimeout(() => {
@@ -110,6 +94,7 @@ function Profile(props) {
   const onRemovePicture = () => {
     setPicture(null);
     setPicturePreview(null);
+    setProfilePhotoId(null);
   };
 
   const onChangeFastLogin = (e) => {
@@ -118,16 +103,14 @@ function Profile(props) {
 
   const onFinish = async (values) => {
     setLoading(true);
-    console.log("values : ", values);
-    let profilePhotoId;
+    let uploadedProfilePhotoId;
     try {
       if (picture && picture.originFileObj) {
         const formData = new FormData();
         formData.append("profilePhoto", picture.originFileObj);
         const uploadResponse = await uploadProfilePhoto(formData);
         if (uploadResponse.status === 200) {
-          console.log("uploadResponse data : ", uploadResponse.data);
-          profilePhotoId = uploadResponse.data.id;
+          uploadedProfilePhotoId = uploadResponse.data.id;
           setPicturePreview(
             "data:image/png;base64, " + uploadResponse.data.file
           );
@@ -139,7 +122,9 @@ function Profile(props) {
 
     const user = {
       id: id,
-      profilePhotoId: profilePhotoId,
+      profilePhotoId: uploadedProfilePhotoId
+        ? uploadedProfilePhotoId
+        : profilePhotoId,
       email: email,
       firstName: values.firstName,
       lastName: values.lastName,
@@ -148,6 +133,9 @@ function Profile(props) {
     };
     try {
       const response = await updateUserProfile(user);
+      if (response.status === 200) {
+        window.location.reload();
+      }
     } catch (e) {
       console.log("Storing user error : ", e);
     } finally {
@@ -175,110 +163,128 @@ function Profile(props) {
           marginLeft: activeLeftBar ? "275px" : "70px",
         }}
       >
+        <div className="profile-header-container">
+          <div className="profile-header">Edit Profile</div>
+        </div>
         <div className="profile-body">
-          <div className="profile-header-container">
-            <div className="profile-header">Edit Profile</div>
-          </div>
-          <Form form={form} onFinish={onFinish} className="profile-form">
-            <Form.Item
-              style={{ width: "100%" }}
-              label={props.t("Profile Picture")}
-              name="profilePicture"
-              {...formItemLayout}
-            >
-              {!picturePreview && (
-                <Upload
-                  maxCount={1}
-                  listType="picture-card"
-                  name="file"
-                  showUploadList={{ showRemoveIcon: true }}
-                  accept=".png, .jpg, .jpeg"
-                  onChange={(e) => onChangePicture(e)}
-                >
-                  <div className="profile-image-icon-container">
-                    <HiOutlinePhoto className="photo-field-upload-icon" />
-                  </div>
-                </Upload>
-              )}
-              {console.log("picturePreview : ", picturePreview)}
-              {picturePreview && (
-                <div
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <img
-                    src={picturePreview ? picturePreview : picture}
-                    className="profile-image"
-                  />
-                  <div
-                    className="profile-remove-icon-container"
-                    onClick={() => onRemovePicture()}
+          <div style={{ maxWidth: "1000px" }}>
+            <Form form={form} onFinish={onFinish} className="profile-form">
+              <Form.Item
+                style={{ width: "100%" }}
+                label={props.t("Profile Picture")}
+                name="profilePicture"
+                {...formItemLayout}
+              >
+                {!picturePreview && (
+                  <Upload
+                    maxCount={1}
+                    listType="picture-card"
+                    name="file"
+                    showUploadList={{ showRemoveIcon: true }}
+                    accept=".png, .jpg, .jpeg"
+                    onChange={(e) => onChangePicture(e)}
                   >
-                    <MdClose className="profile-remove-icon" />
+                    <div className="profile-image-icon-container">
+                      <HiOutlinePhoto className="photo-field-upload-icon" />
+                    </div>
+                  </Upload>
+                )}
+                {console.log("picturePreview : ", picturePreview)}
+                {picturePreview && (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <img
+                      src={picturePreview ? picturePreview : picture}
+                      className="profile-image"
+                    />
+                    <div
+                      className="profile-remove-icon-container"
+                      onClick={() => onRemovePicture()}
+                    >
+                      <MdClose className="profile-remove-icon" />
+                    </div>
                   </div>
+                )}
+              </Form.Item>
+              <Form.Item
+                initialValue={firstName}
+                style={{ width: "100%" }}
+                label={props.t("First name")}
+                name="firstName"
+                {...formItemLayout}
+                rules={[{ required: true, message: "First Name is required" }]}
+              >
+                <Input size="large" />
+              </Form.Item>
+              <Form.Item
+                initialValue={lastName}
+                style={{ width: "100%" }}
+                label={props.t("Last name")}
+                name="lastName"
+                {...formItemLayout}
+                rules={[{ required: true, message: "Last Name is required" }]}
+              >
+                <Input size="large" />
+              </Form.Item>
+              <Form.Item
+                initialValue={username}
+                style={{ width: "100%" }}
+                label={props.t("Username")}
+                name="username"
+                {...formItemLayout}
+                rules={[{ required: true, message: "Username is required" }]}
+              >
+                <Input size="large" />
+              </Form.Item>
+              <Form.Item
+                style={{ width: "100%" }}
+                label={props.t("Fast Login")}
+                name="fastLogin"
+                {...formItemLayout}
+              >
+                <Switch
+                  style={{ marginLeft: "5px" }}
+                  checkedChildren="Evet"
+                  unCheckedChildren="Hayır"
+                  checked={fastLogin}
+                  onChange={onChangeFastLogin}
+                  disabled={fastLoginPassive}
+                />
+              </Form.Item>
+              {fastLogin && showPassword && (
+                <Form.Item
+                  // initialValue={password}
+                  style={{ width: "100%" }}
+                  label={props.t("Password")}
+                  name="password"
+                  {...formItemLayout}
+                  rules={[{ required: true, message: "Password is required" }]}
+                >
+                  <Input.Password size="large" />
+                </Form.Item>
+              )}
+              {fastLogin && showPassword && (
+                <div
+                  onClick={() => setShowPassword(false)}
+                  className="profile-close-password"
+                >
+                  Close password
                 </div>
               )}
-            </Form.Item>
-            <Form.Item
-              initialValue={firstName}
-              style={{ width: "100%" }}
-              label={props.t("First name")}
-              name="firstName"
-              {...formItemLayout}
-              rules={[{ required: true, message: "First Name is required" }]}
-            >
-              <Input size="large" />
-            </Form.Item>
-            <Form.Item
-              initialValue={lastName}
-              style={{ width: "100%" }}
-              label={props.t("Last name")}
-              name="lastName"
-              {...formItemLayout}
-              rules={[{ required: true, message: "Last Name is required" }]}
-            >
-              <Input size="large" />
-            </Form.Item>
-            <Form.Item
-              initialValue={username}
-              style={{ width: "100%" }}
-              label={props.t("Username")}
-              name="username"
-              {...formItemLayout}
-              rules={[{ required: true, message: "Username is required" }]}
-            >
-              <Input size="large" />
-            </Form.Item>
-            <Form.Item
-              style={{ width: "100%" }}
-              label={props.t("Fast Login")}
-              name="fastLogin"
-              {...formItemLayout}
-            >
-              <Switch
-                style={{ marginLeft: "5px" }}
-                checkedChildren="Evet"
-                unCheckedChildren="Hayır"
-                checked={fastLogin}
-                onChange={onChangeFastLogin}
-                disabled={fastLoginPassive}
-              />
-            </Form.Item>
-            {fastLogin && (
-              <Form.Item
-                initialValue={password}
-                style={{ width: "100%" }}
-                label={props.t("Password")}
-                name="password"
-                {...formItemLayout}
-                rules={[{ required: true, message: "Password is required" }]}
-              >
-                <Input.Password size="large" />
-              </Form.Item>
-            )}
+              {fastLogin && !showPassword && (
+                <div
+                  onClick={() => setShowPassword(true)}
+                  className="profile-create-password"
+                >
+                  Create new password
+                </div>
+              )}
+              {/*
             {fastLogin && (
               <Form.Item
                 style={{ width: "100%" }}
@@ -292,18 +298,20 @@ function Profile(props) {
                 <Input.Password size="large" />
               </Form.Item>
             )}
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              <div style={{}}>
-                <SubmitButtonBorder text={props.t("Save")} />
+            */}
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <div style={{}}>
+                  <SubmitButtonBorder text={props.t("Save")} />
+                </div>
               </div>
-            </div>
-          </Form>
+            </Form>
+          </div>
         </div>
       </div>
     </>

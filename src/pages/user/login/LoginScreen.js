@@ -1,33 +1,18 @@
 import "./LoginScreen.css";
 
 import { withTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { useReducer, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import CircleLoading from "../../../components/UI/Loading/LoadingBar";
 import { useEffect } from "react";
 import { loginUser, verifyUser } from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
-
 import { Col, Row, Input, Divider } from "antd";
-
-import GoogleIcon from "../../../assets/icons/google.svg";
-import FacebookIcon from "../../../assets/icons/facebook.svg";
-import TwitterXIcon from "../../../assets/icons/twitterx.svg";
-import RedButtonBorder from "../../../components/UI/Buttons/RedButtonBorder";
-import DarkButtonBorder from "../../../components/UI/Buttons/DarkButtonBorder";
 import { BsFacebook, BsGoogle, BsInstagram } from "react-icons/bs";
-import { RiFacebookCircleLine, RiFacebookFill } from "react-icons/ri";
-import { FiFacebook } from "react-icons/fi";
 import LoginButton from "../../../components/UI/Buttons/LoginButton";
+import { useAuth } from "../../../contexts/AuthContext";
 
 function LoginScreen(props) {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
   const onChangeLanguage = (language) => {
     const { i18n } = props;
     i18n.changeLanguage(language);
@@ -42,6 +27,7 @@ function LoginScreen(props) {
   });
   const [error, setError] = useState();
   const [activeTabSection, setActiveTabSection] = useState("login");
+  const auth = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {}, [error, setError]);
@@ -54,7 +40,6 @@ function LoginScreen(props) {
       ...values,
       [name]: value,
     }));
-    console.log("values : ", values);
   };
 
   const checkError = () => {
@@ -115,6 +100,11 @@ function LoginScreen(props) {
       setLoading(false);
       return;
     }
+    if (!values.code && !values.password) {
+      setError(props.t("The login code / password is required"));
+      setLoading(false);
+      return;
+    }
     if (
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
         values.email
@@ -133,19 +123,27 @@ function LoginScreen(props) {
         });
         if (response.status === 200) {
           if (response.data) {
+            const { token, user } = response.data;
+            user.token = token;
             localStorage.setItem("token", response.data.token);
-            props.setToken(response.data?.token);
+            //  props.setToken(response.data?.token);
+            auth.login(user);
+            navigate("/");
           }
         }
       } catch (e) {
         if (e.response?.data) {
-          setError(e.response.data.message);
+          {
+            setTimeout(() => {
+              setError(e.response.data.message);
+            }, 300);
+          }
         }
-        setLoading(false);
       } finally {
+        setLoading(false);
         setTimeout(() => {
           if (localStorage.getItem("token")) {
-            window.location.href = "/";
+            // window.location.href = "/";
             setLoading(false);
           }
         }, 100);
@@ -156,6 +154,12 @@ function LoginScreen(props) {
   if (loading) {
     return <CircleLoading />;
   }
+
+  /*
+  if (localStorage.getItem("token")) {
+    return <Navigate replace to="/" />;
+  }
+  */
 
   if (activeTabSection === "login") {
     return (
@@ -181,7 +185,6 @@ function LoginScreen(props) {
                   name="email"
                   onChange={handleInputChange}
                 />
-                {console.log("fastLogin : ", fastLogin)}
                 {fastLogin === "code" && (
                   <Input
                     className="login-screen-input"

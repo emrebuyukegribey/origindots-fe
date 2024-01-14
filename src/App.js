@@ -13,6 +13,7 @@ import OrganizationManagement from "./pages/organization/OrganizationManagement"
 
 import PForm from "./pages/form/PForm";
 import Profile from "./pages/profile/Profile";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   const [activeLeftBar, setActiveLeftBar] = useState(true);
@@ -53,44 +54,50 @@ function App() {
   }, []);
 
   return (
-    <MainContext.Provider value={data} className="App">
-      <Routes>
-        <Route
-          path="/"
-          element={<Dashboard setNavbarHeaderText={setNavbarHeaderText} />}
-        />
-        <Route path="/about" element={<About />} />
-        <Route path="/user/login" element={<LoginScreen setToken />} />
-        <Route
-          path="/process-management"
-          element={
-            <ProcessManagement setNavbarHeaderText={setNavbarHeaderText} />
-          }
-        />
-        <Route
-          path="/user-management"
-          element={<UserManagement setNavbarHeaderText={setNavbarHeaderText} />}
-        />
-        <Route
-          path="/organization-management"
-          element={
-            <OrganizationManagement setNavbarHeaderText={setNavbarHeaderText} />
-          }
-        />
-        <Route
-          path="/process-management/new-process"
-          element={<NewProcess setNavbarHeaderText={setNavbarHeaderText} />}
-        />
-        <Route
-          path="/profile"
-          element={<Profile setNavbarHeaderText={setNavbarHeaderText} />}
-        />
-        <Route
-          path="/process/:id"
-          element={<PForm setNavbarHeaderText={setNavbarHeaderText} />}
-        />
-      </Routes>
-    </MainContext.Provider>
+    <AuthProvider>
+      <MainContext.Provider value={data} className="App">
+        <Routes>
+          <Route
+            path="/"
+            element={<Dashboard setNavbarHeaderText={setNavbarHeaderText} />}
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="/user/login" element={<LoginScreen setToken />} />
+          <Route
+            path="/process-management"
+            element={
+              <ProcessManagement setNavbarHeaderText={setNavbarHeaderText} />
+            }
+          />
+          <Route
+            path="/user-management"
+            element={
+              <UserManagement setNavbarHeaderText={setNavbarHeaderText} />
+            }
+          />
+          <Route
+            path="/organization-management"
+            element={
+              <OrganizationManagement
+                setNavbarHeaderText={setNavbarHeaderText}
+              />
+            }
+          />
+          <Route
+            path="/process-management/new-process"
+            element={<NewProcess setNavbarHeaderText={setNavbarHeaderText} />}
+          />
+          <Route
+            path="/profile"
+            element={<Profile setNavbarHeaderText={setNavbarHeaderText} />}
+          />
+          <Route
+            path="/process/:id"
+            element={<PForm setNavbarHeaderText={setNavbarHeaderText} />}
+          />
+        </Routes>
+      </MainContext.Provider>
+    </AuthProvider>
   );
 }
 

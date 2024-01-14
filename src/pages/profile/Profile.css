@@ -5,7 +5,10 @@
     display: flex;
     flex-direction: column;
     padding-top: 30px;
-   
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px;
+    border-radius: 10px;
+    padding: 30px;
 }
 
 .profile-form {
@@ -13,11 +16,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 60%;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 5px;
+    width: 100%;
 }
 
 .profile-header-container{
@@ -67,5 +66,35 @@
 }
 
 .profile-remove-icon {
+    color: #fff;
+}
+
+.profile-create-password {
+    font-size: 17px;
+    font-weight: 600;
+    color:var(--green100);
+    border: 1px solid var(--green100);
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-create-password:hover {
+    background-color: var(--green100);
+    color: #fff;
+}
+
+.profile-close-password {
+    font-size: 17px;
+    font-weight: 600;
+    color:var(--red200);
+    border: 1px solid var(--red200);
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-close-password:hover {
+    background-color: var(--red200);
     color: #fff;
 }

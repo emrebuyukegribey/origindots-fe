@@ -9,9 +9,18 @@ import {
 import { useContext, MainContext } from "../../context";
 import { withTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { ProfilePhotoDefault } from "../../assets/profile-default.jpg";
+import { FaRegUser, FaUser } from "react-icons/fa";
+import { FiUser } from "react-icons/fi";
+import { CiUser } from "react-icons/ci";
+import { HiOutlineUser } from "react-icons/hi2";
+import { LuUser } from "react-icons/lu";
+import { AiOutlineUsb, AiOutlineUser } from "react-icons/ai";
 
 function Navbar(props) {
   const { activeLeftBar, navbarHeaderText } = useContext(MainContext);
+  const auth = useAuth();
 
   const headerText = String(navbarHeaderText);
 
@@ -47,14 +56,21 @@ function Navbar(props) {
             </li>
             <NavLink to="/profile">
               <li className="nb-right-menu-profile">
-                <img
-                  alt="profile-pic"
-                  className="nb-right-menu-profile-pic"
-                  src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                />
+                {console.log("auth.authUser : ", auth.authUser)}
+                {auth.authUser && auth.authUser.profilePhotoFile ? (
+                  <img
+                    className="nb-right-menu-profile-pic"
+                    src={
+                      "data:image/png;base64, " + auth.authUser.profilePhotoFile
+                    }
+                  />
+                ) : (
+                  <AiOutlineUser className="nb-right-menu-profile--no-pic" />
+                )}
                 <div className="nb-right-menu-profile-text-container">
                   <div className="nb-right-menu-profile-text">
-                    Emre Büyükeğribey
+                    {auth.authUser ? auth.authUser.firstName : ""}{" "}
+                    {auth.authUser ? auth.authUser.lastName : ""}{" "}
                   </div>
                   <div
                     className="nb-right-menu-profile-text"
