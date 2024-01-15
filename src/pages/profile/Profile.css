@@ -70,17 +70,19 @@
 }
 
 .profile-create-password {
+    text-align: center;
     font-size: 17px;
     font-weight: 600;
-    color:var(--green100);
-    border: 1px solid var(--green100);
+    color:var(--blue100);
+    border: 1px solid var(--blue100);
     padding: 5px 20px;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
+    width: 250px;
 }
 
 .profile-create-password:hover {
-    background-color: var(--green100);
+    background-color: var(--blue100);
     color: #fff;
 }
 
@@ -92,6 +94,9 @@
     padding: 5px 20px;
     border-radius: 5px;
     cursor: pointer;
+    width: 250px;
+    border-radius: 30px;
+    text-align: center;
 }
 
 .profile-close-password:hover {

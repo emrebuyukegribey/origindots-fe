@@ -5,7 +5,11 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CircleLoading from "../../../components/UI/Loading/LoadingBar";
 import { useEffect } from "react";
-import { loginUser, verifyUser } from "../../../services/http";
+import {
+  loginUser,
+  sendUserLoginCode,
+  verifyUser,
+} from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
 import { Col, Row, Input, Divider } from "antd";
 import { BsFacebook, BsGoogle, BsInstagram } from "react-icons/bs";
@@ -19,6 +23,7 @@ function LoginScreen(props) {
   };
 
   const [fastLogin, setFastLogin] = useState();
+  const [resendCode, setResendCode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     email: "",
@@ -81,6 +86,9 @@ function LoginScreen(props) {
         if (response.status === 200) {
           if (response.data === false) {
             setFastLogin("code");
+            setTimeout(() => {
+              setResendCode(true);
+            }, 10000);
           } else {
             setFastLogin("password");
           }
@@ -155,6 +163,27 @@ function LoginScreen(props) {
     return <CircleLoading />;
   }
 
+  const sendLoginCode = async (e) => {
+    e.preventDefault();
+    try {
+      //setLoading(true);
+      const response = await sendUserLoginCode(values.email);
+      if (response.status === 200) {
+        setResendCode(false);
+        setTimeout(() => {
+          setResendCode(true);
+        }, 10000);
+      }
+    } catch (e) {
+      console.log("Sending user login code error : ", e);
+      setTimeout(() => {
+        setResendCode(true);
+      }, 1000);
+    } finally {
+      //setLoading(false);
+    }
+  };
+
   /*
   if (localStorage.getItem("token")) {
     return <Navigate replace to="/" />;
@@ -186,12 +215,22 @@ function LoginScreen(props) {
                   onChange={handleInputChange}
                 />
                 {fastLogin === "code" && (
-                  <Input
-                    className="login-screen-input"
-                    placeholder={props.t("Please enter login code")}
-                    name="code"
-                    onChange={handleInputChange}
-                  />
+                  <div>
+                    <Input
+                      className="login-screen-input"
+                      placeholder={props.t("Please enter login code")}
+                      name="code"
+                      onChange={handleInputChange}
+                    />
+                    {resendCode && (
+                      <div
+                        className="login-screen-resend-container"
+                        onClick={(e) => sendLoginCode(e)}
+                      >
+                        {props.t("Re-send login code")}
+                      </div>
+                    )}
+                  </div>
                 )}
 
                 {fastLogin === "password" && (

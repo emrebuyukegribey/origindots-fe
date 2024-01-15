@@ -311,6 +311,25 @@
     font-size: 24px;
 }
 
+.login-screen-resend-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 11px 0px;
+    border: 1px solid var(--red100);
+    color: var(--red100);
+    width: 100%;
+    border-radius: 30px;
+    margin: 20px 0px 5px 0px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-screen-resend-container:hover {
+    background-color: var(--red100);
+    color: #fff;
+}
+
 h1 {
     color:var(--dark200)
 }

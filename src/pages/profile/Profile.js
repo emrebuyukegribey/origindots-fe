@@ -267,22 +267,24 @@ function Profile(props) {
                   <Input.Password size="large" />
                 </Form.Item>
               )}
-              {fastLogin && showPassword && (
-                <div
-                  onClick={() => setShowPassword(false)}
-                  className="profile-close-password"
-                >
-                  Close password
-                </div>
-              )}
-              {fastLogin && !showPassword && (
-                <div
-                  onClick={() => setShowPassword(true)}
-                  className="profile-create-password"
-                >
-                  Create new password
-                </div>
-              )}
+              <div style={{ width: "100%", marginLeft: "335px" }}>
+                {fastLogin && showPassword && (
+                  <div
+                    onClick={() => setShowPassword(false)}
+                    className="profile-close-password"
+                  >
+                    Close password
+                  </div>
+                )}
+                {fastLogin && !showPassword && (
+                  <div
+                    onClick={() => setShowPassword(true)}
+                    className="profile-create-password"
+                  >
+                    Create new password
+                  </div>
+                )}
+              </div>
               {/*
             {fastLogin && (
               <Form.Item

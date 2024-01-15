@@ -44,6 +44,10 @@ export function loginUser(body) {
   return axios.post(`${BASE_URL}/auth/authenticate`, body);
 }
 
+export function sendUserLoginCode(email) {
+  return axios.get(`${BASE_URL}/auth/sendUserLoginCode/${email}`);
+}
+
 /* PROCESS */
 export function processStore(body) {
   return axios.post(`${BASE_URL}/process`, body, getHeaderConfig());
