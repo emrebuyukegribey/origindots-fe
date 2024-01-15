@@ -139,7 +139,6 @@ function ProperForm({
           clearAllPropers();
         },
         onCancel() {},
-        okType: "danger",
       });
     }
   };

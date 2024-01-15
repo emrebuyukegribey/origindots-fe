@@ -336,7 +336,6 @@ function NewProcess(props) {
         deleteProperOnForm(proper);
       },
       onCancel() {},
-      okType: "danger",
     });
   };
 

@@ -165,9 +165,7 @@ function UserManagement(props) {
       onOk() {
         handleDeleteUser(user);
       },
-
-      onCancel() {},
-      okType: "danger",
+      // onCancel() {},
     });
   };
 

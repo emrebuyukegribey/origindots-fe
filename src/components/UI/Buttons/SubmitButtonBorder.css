@@ -1,8 +1,8 @@
 
 
-.ant-btn-default {
+.submit-button-border {
     background-color: #ffffff;
-    border-color: var(--dark300);
+    border-color: var(--dark300) !important;
     color: var(--dark300);
     padding: 20px;
     display: flex;
@@ -14,7 +14,7 @@
     border-radius: 50px;
 }
 
-.ant-btn-default:hover {
+.submit-button-border:hover {
     background-color: var(--dark300) !important;
     color: #fff !important;
     border-color: var(--dark300) !important;
