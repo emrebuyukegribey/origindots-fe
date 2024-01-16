@@ -232,28 +232,6 @@ function NewProcess(props) {
     return properValue;
   };
 
-  const addProperValue = (proper) => {
-    if (
-      proper.type === "MultiSelectField" ||
-      proper.type === "SingleSelectField" ||
-      proper.type === "DropDownField"
-    ) {
-      /*
-      const properValue1 = createProperValue(proper, "Value1");
-      const properValue2 = createProperValue(proper, "Value2");
-      const properValue3 = createProperValue(proper, "Value3");
-      */
-
-      setProperValueList((oldProperValues) => [
-        ...oldProperValues,
-        /*properValue1,
-        properValue2,
-        properValue3,
-        */
-      ]);
-    }
-  };
-
   const openFormForSelectedValue = (value) => {
     setOpenProperty(false);
     const selectedValue = value.type
@@ -350,9 +328,11 @@ function NewProcess(props) {
     }
   }
 
+  /*
   function createUUID() {
     return uuidv4();
   }
+  */
 
   function splitID(payload) {
     return payload.split("-");
@@ -416,9 +396,9 @@ function NewProcess(props) {
       newList.push(Object.assign({}, c));
       newList[i].id = keyList[c.id];
 
-      if (c.parentId != null) newList[i].parentId = keyList[c.parentId];
+      if (c.parentId !== null) newList[i].parentId = keyList[c.parentId];
 
-      if (c.properId != null) newList[i].properId = keyList[c.properId];
+      if (c.properId !== null) newList[i].properId = keyList[c.properId];
 
       i++;
     });

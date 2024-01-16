@@ -1,7 +1,7 @@
 import "./LoginScreen.css";
 
 import { withTranslation } from "react-i18next";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CircleLoading from "../../../components/UI/Loading/LoadingBar";
 import { useEffect } from "react";
@@ -17,10 +17,12 @@ import LoginButton from "../../../components/UI/Buttons/LoginButton";
 import { useAuth } from "../../../contexts/AuthContext";
 
 function LoginScreen(props) {
+  /*
   const onChangeLanguage = (language) => {
     const { i18n } = props;
     i18n.changeLanguage(language);
   };
+  */
 
   const [fastLogin, setFastLogin] = useState();
   const [resendCode, setResendCode] = useState(false);
@@ -47,6 +49,7 @@ function LoginScreen(props) {
     }));
   };
 
+  /*
   const checkError = () => {
     if (!values.email || !values.email.length <= 0) {
       setError(props.t("Email field is required"));
@@ -56,10 +59,13 @@ function LoginScreen(props) {
     setError("");
     return;
   };
+  */
 
+  /*
   const registerTab = () => {
     setActiveTabSection("register");
   };
+  */
 
   const loginVerify = async () => {
     if (!values.email) {
