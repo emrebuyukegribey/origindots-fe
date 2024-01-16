@@ -455,6 +455,7 @@ function NewProcess(props) {
     setProperList(
       properList.filter((p) => p.parentId !== proper.id && p.id !== proper.id)
     );
+    setProperValueList(properValueList.filter((v) => v.properId !== proper.id));
     showMessage("error", `Deleted proper on the form : ${proper.text}`);
   };
 
