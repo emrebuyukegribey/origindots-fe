@@ -104,15 +104,18 @@ export function FormRender({
     );
   }
   if (proper.type === "ProperGroupField") {
-    return (
-      <FormPropergroup
-        addValueOnFormValues
-        formValues={formValues}
-        proper={proper}
-        properList={properList}
-        onChangeForParent={onChangeForParent}
-      />
-    );
+    if (proper.childCount > 0) {
+      return (
+        <FormPropergroup
+          addValueOnFormValues
+          formValues={formValues}
+          proper={proper}
+          properList={properList}
+          onChangeForParent={onChangeForParent}
+        />
+      );
+    }
+    return;
   }
 
   if (proper.type === "SingleSelectField") {
