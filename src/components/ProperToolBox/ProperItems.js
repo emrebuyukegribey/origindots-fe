@@ -3,6 +3,7 @@ import {
   BiPhotoAlbum,
   BiSelectMultiple,
   BiCodeCurly,
+  BiCommentDetail,
 } from "react-icons/bi";
 import { BsCursorText, BsDatabaseAdd, BsTextareaResize } from "react-icons/bs";
 import { GoNumber, GoMultiSelect } from "react-icons/go";
@@ -33,6 +34,7 @@ import ServiceUrlField from "../UI/Propers/ServiceUrlField";
 import ProperGroupField from "../UI/Propers/ProperGroupField";
 import DateField from "../UI/Propers/DateField";
 import TextareaField from "../UI/Propers/TextareaField";
+import ExplanationField from "../UI/Propers/ExplanationField";
 
 const ProperItems = [
   {
@@ -41,6 +43,13 @@ const ProperItems = [
     text: "Header",
     type: "HeaderField",
     title: "Header",
+  },
+  {
+    id: 18,
+    icon: <BiCommentDetail />,
+    text: "Explanation",
+    type: "ExplanationField",
+    title: "Explanation",
   },
   {
     id: 2,
@@ -223,6 +232,12 @@ export const renderers = {
     <HeaderField
       title={HeaderField.title}
       description={HeaderField.description}
+    />
+  ),
+  ExplanationField: () => (
+    <ExplanationField
+      title={ExplanationField.title}
+      description={ExplanationField.description}
     />
   ),
   InputField: () => (

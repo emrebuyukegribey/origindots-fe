@@ -16,6 +16,7 @@ import SingleSelectField from "../UI/Propers/SingleSelectField";
 import DateField from "../UI/Propers/DateField";
 import { withTranslation } from "react-i18next";
 import TextareaField from "../UI/Propers/TextareaField";
+import ExplanationField from "../UI/Propers/ExplanationField";
 
 function ProperRender(
   proper,
@@ -29,6 +30,16 @@ function ProperRender(
   if (proper.type === "HeaderField") {
     return (
       <HeaderField
+        proper={proper}
+        deleteProper={deleteProper}
+        editProper={editProper}
+        key={proper.id}
+        t={t}
+      />
+    );
+  } else if (proper.type === "ExplanationField") {
+    return (
+      <ExplanationField
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}

@@ -2,6 +2,7 @@ import FormData from "./propers/FormData";
 import FormDate from "./propers/FormDate";
 import FormDropdown from "./propers/FormDropdown";
 import FormEmail from "./propers/FormEmail";
+import FormExplanation from "./propers/FormExplanation";
 import FormHeader from "./propers/FormHeader";
 import FormInput from "./propers/FormInput";
 import FormMultiselect from "./propers/FormMultiselect";
@@ -25,6 +26,10 @@ export function FormRender({
 }) {
   if (proper.type === "HeaderField") {
     return <FormHeader proper={proper} />;
+  }
+
+  if (proper.type === "ExplanationField") {
+    return <FormExplanation proper={proper} />;
   }
 
   if (proper.type === "InputField") {

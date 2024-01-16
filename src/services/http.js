@@ -12,7 +12,7 @@ axios.interceptors.request.use((request) => {
 });
 
 axios.interceptors.response.use((response) => {
-  if (response.status == 403) {
+  if (response.status === 403) {
     localStorage.clear();
     window.location.reload();
   }

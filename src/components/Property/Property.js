@@ -119,7 +119,7 @@ function Property({
         <div className="property-field-container">
           <h3>{t("Base Settings")}</h3>
           <div className="property-field-divider" />
-          {type !== "HeaderField" && (
+          {type !== "HeaderField" && type !== "ExplanationField" && (
             <div>
               <div className="property-field-container">
                 <div className="property-field-label">
@@ -159,7 +159,7 @@ function Property({
           <div className="property-field-label">{t("Proper title")}</div>
           <Input value={t(title)} onChange={onChangeName} />
         </div>
-        {type !== "HeaderField" && (
+        {type !== "HeaderField" && type !== "ExplanationField" && (
           <div>
             <div className="property-field-container">
               <div className="property-field-label">

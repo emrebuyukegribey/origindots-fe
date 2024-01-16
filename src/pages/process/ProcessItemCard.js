@@ -5,6 +5,7 @@ import { useState } from "react";
 import "./ProcessItemCard.css";
 import {
   BiCodeCurly,
+  BiCommentDetail,
   BiHeading,
   BiPhotoAlbum,
   BiSelectMultiple,
@@ -33,6 +34,8 @@ function ProcessItemCard(props) {
   const properIcon = (properId) => {
     if (properId.includes("HeaderField")) {
       return <BiHeading />;
+    } else if (properId.includes("ExplanationField")) {
+      return <BiCommentDetail />;
     } else if (properId.includes("InputField")) {
       return <BsCursorText />;
     } else if (properId.includes("TextareaField")) {
