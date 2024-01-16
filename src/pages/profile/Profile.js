@@ -2,16 +2,12 @@ import { useEffect, useState } from "react";
 import LeftBar from "../../components/LeftBar/LeftBar";
 import Navbar from "../../components/Navbar/Navbar";
 import { MainContext, useContext } from "../../context";
-import { Form, Image, Input, Switch, Upload } from "antd";
+import { Form, Input, Switch, Upload } from "antd";
 import { withTranslation } from "react-i18next";
 import "./Profile.css";
-import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
 import { HiOutlinePhoto } from "react-icons/hi2";
 import {
-  getProfilePhoto,
   getUser,
-  storeUser,
-  updateUser,
   updateUserProfile,
   uploadProfilePhoto,
 } from "../../services/http";
