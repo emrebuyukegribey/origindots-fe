@@ -44,6 +44,11 @@ export function loginUser(body) {
   return axios.post(`${BASE_URL}/auth/authenticate`, body);
 }
 
+export function socialLoginUser(body) {
+  console.log("body : ", body);
+  return axios.post(`${BASE_URL}/auth/socialAuthenticate`, body);
+}
+
 export function sendUserLoginCode(email) {
   return axios.get(`${BASE_URL}/auth/sendUserLoginCode/${email}`);
 }

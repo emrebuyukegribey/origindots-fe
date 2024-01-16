@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import {
   loginUser,
   sendUserLoginCode,
+  socialLoginUser,
   verifyUser,
 } from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
@@ -15,6 +16,8 @@ import { Col, Row, Input, Divider } from "antd";
 import { BsFacebook, BsGoogle, BsInstagram } from "react-icons/bs";
 import LoginButton from "../../../components/UI/Buttons/LoginButton";
 import { useAuth } from "../../../contexts/AuthContext";
+import axios from "axios";
+import { useGoogleLogin } from "@react-oauth/google";
 
 function LoginScreen(props) {
   /*
@@ -36,6 +39,7 @@ function LoginScreen(props) {
   const [activeTabSection, setActiveTabSection] = useState("login");
   const auth = useAuth();
   const navigate = useNavigate();
+  const [authUser, setAuthUser] = useState();
 
   useEffect(() => {}, [error, setError]);
 
@@ -165,6 +169,47 @@ function LoginScreen(props) {
     }
   };
 
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (response) => {
+      const res = await axios.get(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: `Bearer ${response.access_token}`,
+          },
+        }
+      );
+      const socialUser = {
+        firstName: res.data.name.split(" ")[0],
+        lastName: res.data.name.split(" ")[1],
+        email: res.data.email,
+        picture: res.data.picture,
+      };
+      console.log("socialUser : ", socialUser);
+      setAuthUser(socialUser);
+      if (socialUser && socialUser.email) {
+        try {
+          const response = await socialLoginUser(socialUser);
+          console.log("response : ", response);
+          if (response.status === 200) {
+            if (response.data) {
+              const { token, user } = response.data;
+              user.token = token;
+              console.log("user : ", user);
+              localStorage.setItem("token", response.data.token);
+              //  props.setToken(response.data?.token);
+              auth.login(user);
+              navigate("/");
+            }
+          }
+        } catch (e) {
+          console.log("Google login error : ", e);
+        }
+        // setCurrentStep(1);
+      }
+    },
+  });
+
   if (loading) {
     return <CircleLoading />;
   }
@@ -287,7 +332,10 @@ function LoginScreen(props) {
                     justifyContent: "space-between",
                   }}
                 >
-                  <div className="login-screen-social-button-container">
+                  <div
+                    className="login-screen-social-button-container"
+                    onClick={loginWithGoogle}
+                  >
                     <BsGoogle
                       className="login-screen-login-button"
                       color="#fff"
