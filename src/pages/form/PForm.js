@@ -17,6 +17,7 @@ import axios from "axios";
 import InstagramButtonBorder from "../../components/UI/Buttons/InstagramButtonBorder";
 import ReactFacebookLogin from "react-facebook-login";
 import { InstagramLogin } from "@amraneze/react-instagram-login";
+import { BsFacebook } from "react-icons/bs";
 
 function PForm() {
   const { id } = useParams();
@@ -27,7 +28,7 @@ function PForm() {
   const [properValueList, setProperValueList] = useState([]);
   const [tempProperList, setTempProperList] = useState([]);
   const [tempProperValueList, setTempProperValueList] = useState([]);
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const [formValues, setFormValues] = useState([]);
 
@@ -342,20 +343,10 @@ function PForm() {
                   fields="name,email,picture"
                   callback={loginWithFacebook}
                   icon={
-                    <FaFacebook
-                      style={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        width: "30px",
-                        height: "30px",
-                        color: "#0866ff",
-                        marginRight: "80px",
-                        marginLeft: "0px !important",
-                        backgroundColor: "white",
-                        borderRadius: "50%",
-                        padding: "3px",
-                      }}
+                    <BsFacebook
+                      size={24}
+                      color="#fff"
+                      style={{ marginRight: "60px" }}
                     />
                   }
                   cssClass="facebook-button-border-container facebook-button-border-text"
