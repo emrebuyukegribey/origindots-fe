@@ -266,7 +266,7 @@ function PForm() {
       console.log("loggedUser : ", loggedUser);
       setAuthUser(loggedUser);
       if (loggedUser && loggedUser.name) {
-        setCurrentStep();
+        setCurrentStep(1);
       }
     },
   });
