@@ -18,6 +18,9 @@ import LoginButton from "../../../components/UI/Buttons/LoginButton";
 import { useAuth } from "../../../contexts/AuthContext";
 import axios from "axios";
 import { useGoogleLogin } from "@react-oauth/google";
+import ReactFacebookLogin from "react-facebook-login";
+import { InstagramLogin } from "@amraneze/react-instagram-login";
+import InstagramButtonBorder from "../../../components/UI/Buttons/InstagramButtonBorder";
 
 function LoginScreen(props) {
   /*
@@ -39,7 +42,6 @@ function LoginScreen(props) {
   const [activeTabSection, setActiveTabSection] = useState("login");
   const auth = useAuth();
   const navigate = useNavigate();
-  const [authUser, setAuthUser] = useState();
 
   useEffect(() => {}, [error, setError]);
 
@@ -185,19 +187,14 @@ function LoginScreen(props) {
         email: res.data.email,
         picture: res.data.picture,
       };
-      console.log("socialUser : ", socialUser);
-      setAuthUser(socialUser);
       if (socialUser && socialUser.email) {
         try {
           const response = await socialLoginUser(socialUser);
-          console.log("response : ", response);
           if (response.status === 200) {
             if (response.data) {
               const { token, user } = response.data;
               user.token = token;
-              console.log("user : ", user);
               localStorage.setItem("token", response.data.token);
-              //  props.setToken(response.data?.token);
               auth.login(user);
               navigate("/");
             }
@@ -205,10 +202,39 @@ function LoginScreen(props) {
         } catch (e) {
           console.log("Google login error : ", e);
         }
-        // setCurrentStep(1);
       }
     },
   });
+
+  const loginWithFacebook = async (response) => {
+    const socialUser = {
+      firstName: response.name.split(" ")[0],
+      lastName: response.name.split(" ")[1],
+      email: response.email,
+      picture: response.picture,
+    };
+
+    if (socialUser && socialUser.email) {
+      try {
+        const response = await socialLoginUser(socialUser);
+        if (response.status === 200) {
+          if (response.data) {
+            const { token, user } = response.data;
+            user.token = token;
+            localStorage.setItem("token", response.data.token);
+            auth.login(user);
+            navigate("/");
+          }
+        }
+      } catch (e) {
+        console.log("Google login error : ", e);
+      }
+    }
+  };
+
+  const loginWithInstagram = async (response) => {
+    console.log("response 1 : ", response);
+  };
 
   if (loading) {
     return <CircleLoading />;
@@ -325,6 +351,7 @@ function LoginScreen(props) {
                     Login with others
                   </span>
                 </Divider>
+
                 <Row
                   className="register-screen-row"
                   style={{
@@ -341,13 +368,35 @@ function LoginScreen(props) {
                       color="#fff"
                     />
                   </div>
-                  <div className="login-screen-social-button-container">
+
+                  <ReactFacebookLogin
+                    appId="3148320675410866"
+                    autoLoad
+                    fields="name,email,picture"
+                    callback={loginWithFacebook}
+                    textButton=""
+                    icon={<BsFacebook size={24} color="#fff" />}
+                    cssClass="login-screen-social-button-container"
+                  />
+
+                  <InstagramLogin
+                    clientId="176752001538012"
+                    redirectUri="https://www.google.com"
+                    onSuccess={loginWithInstagram}
+                    onFailure={loginWithInstagram}
+                    cssClass="login-screen-social-button-container"
+                  >
+                    <BsInstagram size={24} color="#fff" />
+                  </InstagramLogin>
+                  {/*
                     <BsFacebook
                       size={28}
                       className="login-screen-login-button"
                       color="#fff"
                     />
-                  </div>
+                */}
+
+                  {/*
                   <div className="login-screen-social-button-container">
                     <BsInstagram
                       size={28}
@@ -355,6 +404,7 @@ function LoginScreen(props) {
                       color="#fff"
                     />
                   </div>
+              */}
                 </Row>
               </Col>
             </Row>
