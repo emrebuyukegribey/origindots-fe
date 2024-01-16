@@ -10,6 +10,7 @@ function ProperValueList({
   values,
   deleteProperValue,
   editProperValue,
+  readOnlyProperValue,
   openPropertyDrawer,
   onCloseProperty,
   openFormForSelectedValue,
@@ -42,6 +43,7 @@ function ProperValueList({
     const properValue = {
       id: properValueUniqueId,
       name: name,
+      readOnly: false,
       properId: selectedProper.id,
       listNo: properValueList.length,
       childCount: 0,
@@ -74,6 +76,7 @@ function ProperValueList({
             value={element}
             deleteProperValue={deleteValue}
             editProperValue={editProperValue}
+            readOnlyProperValue={readOnlyProperValue}
             openFormForSelectedValue={openFormForSelectedValue}
             key={element.id}
             onChangeNewProperValue={onChangeNewProperValue}

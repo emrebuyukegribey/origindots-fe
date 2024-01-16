@@ -486,6 +486,14 @@ function NewProcess(props) {
     );
   };
 
+  const readOnlyProperValue = (properValue, readOnly) => {
+    properValue.readOnly = readOnly.target.checked;
+    const updatingProperValue = properValueList.indexOf(properValue);
+    const updatedValueList = [...properValueList];
+    updatedValueList[updatingProperValue] = properValue;
+    setProperValueList(updatedValueList);
+  };
+
   const openPropertyDrawer = (proper) => {
     setSelectedProper(proper);
     setOpenProperty(true);
@@ -587,6 +595,7 @@ function NewProcess(props) {
                 editProper={editProperOnForm}
                 deleteProperValue={deleteProperValue}
                 editProperValue={editProperValue}
+                readOnlyProperValue={readOnlyProperValue}
                 openFormForSelectedValue={openFormForSelectedValue}
                 selectedValueForAddProper={selectedValueForAddProper}
                 setSelectedValueForAddProper={selectedValueForAddProper}

@@ -155,7 +155,12 @@ function FormSingleselect({
             {properValueList
               .filter((v) => v.properId === proper.id)
               .map((prop, index) => (
-                <Radio size="large" key={index} value={prop.name}>
+                <Radio
+                  size="large"
+                  key={index}
+                  value={prop.name}
+                  disabled={prop.readOnly}
+                >
                   <div
                     style={{
                       display: "flex",

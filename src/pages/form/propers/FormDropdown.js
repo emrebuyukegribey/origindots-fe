@@ -46,13 +46,14 @@ function FormDropdown({
             </div>
           </div>
         ) : (
-          <div key={element.name} value={element.name}>
+          <div key={element.name} value={element.name} disabled>
             {element.name}
           </div>
         );
       const obj = {
         label: name,
         value: element.name,
+        disabled: element.readOnly,
       };
       properValues.push(obj);
     });

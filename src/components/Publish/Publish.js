@@ -34,10 +34,11 @@ function Publish(props) {
     });
 
     properValueList.forEach((element) => {
+      const readOnly = element.readOnly ? "(" + props.t("Read Only") + ")" : "";
       const item = {
         id: element.id,
         icon: <PiNoteBlankLight />,
-        title: `${props.t(element.name)} (${props.t("Value")})`,
+        title: `${props.t(element.name)} (${props.t("Value")}) ${readOnly}`,
         key: element.name,
         parentId: element.properId,
         childCount: element.childCount,

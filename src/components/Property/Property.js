@@ -17,6 +17,7 @@ function Property({
   editProper,
   deleteProperValue,
   editProperValue,
+  readOnlyProperValue,
   openFormForSelectedValue,
   properList,
   setProperList,
@@ -199,6 +200,7 @@ function Property({
                 values={values ? values : []}
                 deleteProperValue={deleteProperValue}
                 editProperValue={editProperValue}
+                readOnlyProperValue={readOnlyProperValue}
                 openPropertyDrawer={openPropertyDrawer}
                 onCloseProperty={onClose}
                 openFormForSelectedValue={openFormForSelectedValue}

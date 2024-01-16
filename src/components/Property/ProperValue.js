@@ -1,4 +1,4 @@
-import { Input, Modal } from "antd";
+import { Checkbox, Input, Modal } from "antd";
 import "./ProperValue.css";
 import {
   AiOutlinePlus,
@@ -14,6 +14,7 @@ function ProperValue({
   value,
   deleteProperValue,
   editProperValue,
+  readOnlyProperValue,
   openFormForSelectedValue,
   onChangeNewProperValue,
   t,
@@ -37,42 +38,48 @@ function ProperValue({
   };
 
   return (
-    <div className="proper-value-container">
-      <div className="proper-value-name">
-        <Input name="name" value={value.name} onChange={onChangeProperValue} />
-      </div>
-      <div className="proper-value-button-container">
-        <div className="proper-value-add-button">
-          <AiOutlinePlus
-            onClick={() => {
-              openFormForSelectedValue(value);
-            }}
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="proper-value-container">
+        <div className="proper-value-name">
+          <Input
+            name="name"
+            value={value.name}
+            onChange={onChangeProperValue}
           />
         </div>
-        <div className="proper-value-edit-button">
-          <AiOutlineEdit onClick={() => setOpenEditForm(true)} />
-        </div>
-        <div
-          className="proper-value-delete-button"
-          onClick={() => deleteProperValue(value)}
-        >
-          <AiOutlineDelete />
-        </div>
-        <div>
-          {value.childCount > 0 ? (
-            <div
-              className="proper-value-visible-button"
+        <div className="proper-value-button-container">
+          <div className="proper-value-add-button">
+            <AiOutlinePlus
               onClick={() => {
                 openFormForSelectedValue(value);
               }}
-            >
-              <AiOutlineEye />
-            </div>
-          ) : (
-            <div className="proper-value-nonvisible-button">
-              <AiOutlineEyeInvisible />
-            </div>
-          )}
+            />
+          </div>
+          <div className="proper-value-edit-button">
+            <AiOutlineEdit onClick={() => setOpenEditForm(true)} />
+          </div>
+          <div
+            className="proper-value-delete-button"
+            onClick={() => deleteProperValue(value)}
+          >
+            <AiOutlineDelete />
+          </div>
+          <div>
+            {value.childCount > 0 ? (
+              <div
+                className="proper-value-visible-button"
+                onClick={() => {
+                  openFormForSelectedValue(value);
+                }}
+              >
+                <AiOutlineEye />
+              </div>
+            ) : (
+              <div className="proper-value-nonvisible-button">
+                <AiOutlineEyeInvisible />
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <Modal
@@ -87,6 +94,14 @@ function ProperValue({
           placeholder={t("Please enter proper value name")}
         />
       </Modal>
+      <div style={{ marginTop: "-8px" }}>
+        <Checkbox
+          onChange={(e) => readOnlyProperValue(value, e)}
+          checked={value.readOnly}
+        >
+          Read Only
+        </Checkbox>
+      </div>
     </div>
   );
 }

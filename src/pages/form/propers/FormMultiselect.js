@@ -192,6 +192,7 @@ function FormMultiselect({
       const obj = {
         label: name,
         value: element.name,
+        disabled: element.readOnly,
       };
       properValues.push(obj);
     });
