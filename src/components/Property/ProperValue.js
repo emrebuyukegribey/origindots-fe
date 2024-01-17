@@ -41,11 +41,14 @@ function ProperValue({
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div className="proper-value-container">
         <div className="proper-value-name">
+          {/*
           <Input
             name="name"
             value={value.name}
             onChange={onChangeProperValue}
           />
+  */}
+          <div>{value.name}</div>
         </div>
         <div className="proper-value-button-container">
           <div className="proper-value-add-button">
@@ -102,6 +105,7 @@ function ProperValue({
           Read Only
         </Checkbox>
       </div>
+      <div style={{ borderBottom: "1px solid #dfdfdf" }}></div>
     </div>
   );
 }

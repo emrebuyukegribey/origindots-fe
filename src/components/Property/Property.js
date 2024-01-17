@@ -193,7 +193,7 @@ function Property({
           (selectedProper.type === "MultiSelectField" ||
             selectedProper.type === "SingleSelectField" ||
             selectedProper.type === "DropDownField") && (
-            <div style={{ marginTop: "50px" }}>
+            <div style={{ marginTop: "30px" }}>
               <ProperValueList
                 properList={properList}
                 setProperList={setProperList}
