@@ -28,7 +28,6 @@ function ProperToolBox(props) {
         props.openProcessBar ? "pb-opened-container" : "pb-closed-container"
       }
     >
-      {console.log("props.openProcessBar : ", props.openProcessBar)}
       {!props.openProcessBar ? (
         <div
           className="pb-open-button-container"
