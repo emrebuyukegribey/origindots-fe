@@ -36,6 +36,7 @@ function Property({
   const [required, setRequired] = useState(false);
   const [contentInfo, setContentInfo] = useState(false);
   const [mask, setMask] = useState(false);
+  const [unitValue, setUnitValue] = useState(false);
   const [updatedField, setUpdatedFields] = useState(false);
   const [values, setValues] = useState();
 
@@ -48,6 +49,7 @@ function Property({
       setRequired(selectedProper.required);
       setContentInfo(selectedProper.contentInfo);
       setMask(selectedProper.mask);
+      setUnitValue(selectedProper.unitValue);
       if (selectedProper.type === "ProperGroupField") {
         setValues(
           properList
@@ -95,11 +97,16 @@ function Property({
     setMask(e.target.checked);
   };
 
+  const onChangeUnitValue = (e) => {
+    setUnitValue(e.target.checked);
+  };
+
   const edit = () => {
     let updatedProper = selectedProper;
     updatedProper.required = required;
     updatedProper.contentInfo = contentInfo;
     updatedProper.mask = mask;
+    updatedProper.unitValue = unitValue;
     updatedProper.title = title;
     updatedProper.placeholder = placeholder;
     updatedProper.description = description;
@@ -150,6 +157,17 @@ function Property({
                     checked={mask}
                     value={mask}
                     onChange={onChangeMask}
+                    style={{ marginLeft: "10px" }}
+                  />
+                </div>
+              </div>
+              <div className="property-field-container">
+                <div className="property-field-label">
+                  {t("Unit value")}:
+                  <Checkbox
+                    checked={unitValue}
+                    value={unitValue}
+                    onChange={onChangeUnitValue}
                     style={{ marginLeft: "10px" }}
                   />
                 </div>

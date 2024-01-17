@@ -11,13 +11,21 @@ axios.interceptors.request.use((request) => {
   return request;
 });
 
-axios.interceptors.response.use((response) => {
-  if (response.status === 403) {
-    localStorage.clear();
-    window.location.reload();
+axios.interceptors.response.use(
+  (response) => {
+    if (!response || response.status === 403) {
+      localStorage.clear();
+      window.location.reload();
+    }
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 403) {
+      localStorage.clear();
+      window.location.reload();
+    }
   }
-  return response;
-});
+);
 
 const getHeaderConfig = () => {
   const token = localStorage.getItem("token");

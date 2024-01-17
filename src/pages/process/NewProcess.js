@@ -143,6 +143,7 @@ function NewProcess(props) {
     shallow.required = false;
     shallow.contentInfo = false;
     shallow.mask = false;
+    shallow.unitValue = false;
 
     shallow.childCount = 0;
     shallow.parentId = selectedValueForAddProper
