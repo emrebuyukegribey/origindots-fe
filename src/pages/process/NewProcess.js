@@ -603,7 +603,7 @@ function NewProcess(props) {
         open={openDesktopPreview}
         onOk={() => setOpenDesktopPreview(false)}
         onCancel={() => setOpenDesktopPreview(false)}
-        width={900}
+        width={1100}
       >
         <div style={{ height: "700px", overflow: "auto", marginTop: "30px" }}>
           <Preview
@@ -639,7 +639,7 @@ function NewProcess(props) {
         open={openMobilePreview}
         onOk={() => setOpenMobilePreview(false)}
         onCancel={() => setOpenMobilePreview(false)}
-        width={500}
+        width={475}
       >
         <div style={{ height: "700px", overflow: "auto", marginTop: "30px" }}>
           <Preview
