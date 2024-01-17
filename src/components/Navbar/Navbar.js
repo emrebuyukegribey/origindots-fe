@@ -10,24 +10,38 @@ import { useContext, MainContext } from "../../context";
 import { withTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { ProfilePhotoDefault } from "../../assets/profile-default.jpg";
-import { FaRegUser, FaUser } from "react-icons/fa";
-import { FiUser } from "react-icons/fi";
-import { CiUser } from "react-icons/ci";
-import { HiOutlineUser } from "react-icons/hi2";
-import { LuUser } from "react-icons/lu";
-import { AiOutlineUsb, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
+import { getUserRelations } from "../../services/http";
+import { useEffect } from "react";
 
 function Navbar(props) {
   const { activeLeftBar, navbarHeaderText } = useContext(MainContext);
   const auth = useAuth();
-
   const headerText = String(navbarHeaderText);
 
   const onChangeLanguage = (language) => {
     const { i18n } = props;
     i18n.changeLanguage(language);
   };
+
+  useEffect(() => {
+    async function setUserRelations() {
+      if (localStorage.getItem("token")) {
+        try {
+          const response = await getUserRelations();
+          if (response.status === 200) {
+            const organizationList = response.data.organizationList;
+            const processList = response.data.processList;
+            const userList = response.data.userList;
+            auth.setAuthUserRelations(organizationList, processList, userList);
+          }
+        } catch (e) {
+          console.log("Getting user relations error : ", e);
+        }
+      }
+    }
+    setUserRelations();
+  }, []);
   return (
     <div
       className="nb-container"

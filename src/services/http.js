@@ -45,7 +45,6 @@ export function loginUser(body) {
 }
 
 export function socialLoginUser(body) {
-  console.log("body : ", body);
   return axios.post(`${BASE_URL}/auth/socialAuthenticate`, body);
 }
 
@@ -185,4 +184,8 @@ export function deleteProcessFromOrganization(organizationId, processId) {
     `${BASE_URL}/organizations/organization/${organizationId}/process/${processId}`,
     getHeaderConfig()
   );
+}
+
+export function getUserRelations() {
+  return axios.get(`${BASE_URL}/organizations/relations`, getHeaderConfig());
 }

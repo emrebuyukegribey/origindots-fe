@@ -26,6 +26,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const setAuthUserRelations = async (
+    organizationList,
+    processList,
+    userList
+  ) => {
+    authUser.organizationList = organizationList;
+    authUser.processList = processList;
+    authUser.userList = userList;
+    setAuthUser(authUser);
+  };
+
   const login = (user) => {
     setAuthUser(user);
     localStorage.setItem("token", user.token);
@@ -39,7 +50,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ authUser, login, logout }}>
+    <AuthContext.Provider
+      value={{ authUser, login, logout, setAuthUserRelations }}
+    >
       {children}
     </AuthContext.Provider>
   );
