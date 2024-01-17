@@ -1,30 +1,196 @@
-.review-container {}
+@import "../../variables.css";
 
-.review-process-container {
+.pf-container {
     display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--grey200);
-    padding-bottom: 20px;
-    margin-bottom: 30px;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    padding: 20px;
 }
 
-.review-process-icon {
-    margin-right: 15px;
-    color: #fff;
-    background-color: var(--dark300);
-    padding: 5px;
+.pf-step-container {
+    padding: 10px 20px;
+    margin-bottom: 40px;
+    background-color: #f5f5f5;
+    border: 1px solid var(--grey300);
+    border-radius: 30px;
+}
+
+.pf-process-container {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.pf-body-container {
+    padding: 10px 30px;
+}
+
+.pf-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+}
+
+.pf-submit-button {
+    background-color: var(--dark100);
+    width: 160px;
+    height: 50px !important;
+    border-radius: 50px !important;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.pf-submit-button:hover {
+    background-color: var(--dark300) !important;
+}
+
+.pf-process-icon {
+    display: flex;
+    font-size: 26px;
+    margin-right: 12px;
+    color: var(--dark200);
     border-radius: 5px;
+    padding: 5px;
+}
+
+.pf-process-name {
+    display: flex;
+    color: var(--dark200);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.pf-divider {
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    border-bottom: 1px solid var(--grey300);
+}
+
+.pf-back-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
 }
 
-.review-process-name {
-    font-weight: 500;
-    font-size: 20px;
-    letter-spacing: 0.5px;
+.ant-steps .ant-steps-item-finish .ant-steps-item-icon {
+    background-color: var(--dark100);
+    border-color: var(--dark100);
+}
+
+.ant-steps-icon {
+    color: #fff !important;
+}
+
+.ant-steps .ant-steps-item-wait .ant-steps-item-icon {
+    background-color: var(--dark400);
+    border-color: var(--dark400);
+}
+
+.ant-steps .ant-steps-item-process .ant-steps-item-icon {
+    background-color: var(--dark300);
+    border-color: var(--dark300);
+}
+
+.ant-steps .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {
+    background-color: var(--dark100) !important;
+    opacity: 0.2;
+}
+
+.ant-steps .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title::after {
+    background-color: var(--dark100);
+}
+
+.pf-auth-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.pf-auth-icon {
+    display: flex;
+    font-size: 26px;
+    margin-right: 12px;
     color: var(--dark200);
+    border-radius: 5px;
+    padding: 5px;
 }
 
-.review-propers-container {}
+.pf-auth-header {
+    display: flex;
+    color: var(--dark200);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.pf-auth-body {
+    margin-top: 50px;
+    
+    width: 100%;
+    max-width: 500px;
+}
+
+.pf-auth-email-input {
+    height: 45px;
+    border-radius: 100px;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+
+.divider {
+    margin: 30px 0px !important;
+    border-color: var(--dark100) !important;
+    color: var(--dark100) !important;
+
+}
+
+
+.facebook-button-border-container {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 7px 0px 7px 50px;
+    background-color: var(--dark200);
+    border-radius: 50px;
+    margin: 20px 0px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border: 0px;
+}
+
+.facebook-button-border-container:hover {
+    background-color: var(--red100); 
+    transition: all 0.3s ease-in-out;
+}
+
+.facebook-button-border-text {
+    color: #fff;
+    font-weight: 500;
+    font-size: 17px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-left: -80px;
+}
+
+.facebook-button-border-container:hover .facebook-button-border-text{
+    color: #fff;
+}
+
+.ins-button-border-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #fff;
+    border: 0px solid var(--dark300);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}

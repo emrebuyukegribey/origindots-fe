@@ -11,11 +11,12 @@ import { Steps, message, Modal } from "antd";
 import Property from "../../components/Property/Property";
 import { CiCircleAlert } from "react-icons/ci";
 import ProcessIcons from "../../components/Process/ProcessIcons";
-import Preview from "../../components/Preview/Preview";
+// import Preview from "../../components/Preview/old/Preview";
 import { withTranslation } from "react-i18next";
 import Publish from "../../components/Publish/Publish";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import { v4 as uuidv4 } from "uuid";
+import Preview from "../../components/Preview/Preview";
 
 const steps = [
   {
@@ -47,6 +48,8 @@ function NewProcess(props) {
   const [properValueList, setProperValueList] = useState([]);
   const [selectedProper, setSelectedProper] = useState({});
   const [openDesktopPreview, setOpenDesktopPreview] = useState(false);
+  const [openTabletPreview, setOpenTabletPreview] = useState(false);
+  const [openMobilePreview, setOpenMobilePreview] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
@@ -542,6 +545,9 @@ function NewProcess(props) {
                   setProperValueList={setProperValueList}
                   openDesktopPreview={openDesktopPreview}
                   setOpenDesktopPreview={setOpenDesktopPreview}
+                  setOpenTabletPreview={setOpenTabletPreview}
+                  setOpenMobilePreview={setOpenMobilePreview}
+                  setOPent
                   t={props.t}
                 />
               )}
@@ -599,12 +605,51 @@ function NewProcess(props) {
         onCancel={() => setOpenDesktopPreview(false)}
         width={900}
       >
-        <Preview
-          properList={properList}
-          processName={processName}
-          processType={processType}
-          processIcon={processIcon}
-        />
+        <div style={{ height: "700px", overflow: "auto", marginTop: "30px" }}>
+          <Preview
+            propers={properList}
+            properValues={properValueList}
+            processName={processName}
+            processType={processType}
+            processIcon={processIcon}
+          />
+        </div>
+      </Modal>
+
+      <Modal
+        centered
+        open={openTabletPreview}
+        onOk={() => setOpenTabletPreview(false)}
+        onCancel={() => setOpenTabletPreview(false)}
+        width={1000}
+      >
+        <div style={{ height: "500px", overflow: "auto", marginTop: "30px" }}>
+          <Preview
+            propers={properList}
+            properValues={properValueList}
+            processName={processName}
+            processType={processType}
+            processIcon={processIcon}
+          />
+        </div>
+      </Modal>
+
+      <Modal
+        centered
+        open={openMobilePreview}
+        onOk={() => setOpenMobilePreview(false)}
+        onCancel={() => setOpenMobilePreview(false)}
+        width={500}
+      >
+        <div style={{ height: "700px", overflow: "auto", marginTop: "30px" }}>
+          <Preview
+            propers={properList}
+            properValues={properValueList}
+            processName={processName}
+            processType={processType}
+            processIcon={processIcon}
+          />
+        </div>
       </Modal>
     </>
   );

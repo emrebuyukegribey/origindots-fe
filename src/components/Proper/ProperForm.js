@@ -33,6 +33,8 @@ function ProperForm({
   selectedValueForAddProper,
   setProperValueList,
   setOpenDesktopPreview,
+  setOpenTabletPreview,
+  setOpenMobilePreview,
   t,
 }) {
   const [messageApi, contextHolder] = message.useMessage();
@@ -150,8 +152,14 @@ function ProperForm({
         {!selectedValueForAddProper && (
           <div className="proper-preview-container">
             <div className="proper-preview-inner-container">
-              <HiOutlineDevicePhoneMobile className="proper-preview-icon" />
-              <AiOutlineTablet className="proper-preview-icon" />
+              <HiOutlineDevicePhoneMobile
+                className="proper-preview-icon"
+                onClick={() => setOpenMobilePreview(true)}
+              />
+              <AiOutlineTablet
+                className="proper-preview-icon"
+                onClick={() => setOpenTabletPreview(true)}
+              />
               <SlScreenDesktop
                 className="proper-preview-icon"
                 onClick={() => {
