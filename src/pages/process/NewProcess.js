@@ -51,6 +51,7 @@ function NewProcess(props) {
   const [openTabletPreview, setOpenTabletPreview] = useState(false);
   const [openMobilePreview, setOpenMobilePreview] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
+  const [openProcessBar, setOpenProcessBar] = useState(false);
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
     useContext(MainContext);
@@ -516,12 +517,23 @@ function NewProcess(props) {
         <div className="cp-container">
           {currentStep === 1 && (
             <div className="cp-proper-tool-box-container">
-              <ProperToolBox addProper={addProperOnForm} />
+              <ProperToolBox
+                addProper={addProperOnForm}
+                openProcessBar={openProcessBar}
+                setOpenProcessBar={setOpenProcessBar}
+              />
             </div>
           )}
           <div
             className="cp-body-container"
-            style={{ marginLeft: currentStep === 0 ? "150px" : "300px" }}
+            style={{
+              marginLeft:
+                currentStep === 0
+                  ? "150px"
+                  : openProcessBar
+                  ? "300px"
+                  : "150px",
+            }}
           >
             <div className="cp-body-top-container">
               <Steps current={currentStep} items={items} />

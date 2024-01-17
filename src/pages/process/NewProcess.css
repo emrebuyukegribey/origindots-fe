@@ -13,6 +13,7 @@
 .cp-body-container {
     margin-left: 350px;
     width: 100%;
+    transition: all 0.5s;
 }
 
 .cp-body-container-process-form {
@@ -28,6 +29,10 @@
     width: 70% !important;
     margin-bottom: 30px;
     margin-right: 20px;
+    padding: 4px 5px;
+    border-radius: 50px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px;
 }
 
 .cp-preview-icon {
