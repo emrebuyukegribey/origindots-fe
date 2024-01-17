@@ -98,13 +98,15 @@
     background-color: #fff;
     color: var(--dark100);
     padding: 4px;
+    width: 24px;
+    height: 24px;
 }
 
 .pb-close-button-icon-container:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:  var(--red100);
+    background-color:  var(--red200);
     color: #fff;
     transition: all 0.5s ease-in-out;
     cursor: pointer;
