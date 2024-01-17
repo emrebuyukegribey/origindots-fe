@@ -11,6 +11,7 @@
     padding: 10px 50px 5px 30px;
     box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px;
     height: 65px;
+    border-bottom: 2px solid var(--grey400);
 }
 
 .nb-logo-container {
