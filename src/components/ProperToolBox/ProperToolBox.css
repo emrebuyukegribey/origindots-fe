@@ -50,7 +50,7 @@
     width: 270px;
     margin-left: 0px;
     transition: all 0.5s;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
     margin-bottom: 50px;
     border-radius: 10px;
 }
