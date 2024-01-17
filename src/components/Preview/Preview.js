@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Preview.css";
-import { Form } from "antd";
+import { Button, Form } from "antd";
 import BackButtonBorder from "../UI/Buttons/BackButtonBorder";
 import ReturnButtonBorder from "../UI/Buttons/ReturnButtonBorder";
 import { FormRender } from "../../pages/form/FormRender";
@@ -177,7 +177,7 @@ function Preview({ processName, processIcon, propers, properValues }) {
                 <ReturnButtonBorder onClick={goReturn} />
               </div>
             )}
-            {/*
+
             <div className="pg-submit-button">
               <Button
                 type="primary"
@@ -188,7 +188,6 @@ function Preview({ processName, processIcon, propers, properValues }) {
                 KAYDET
               </Button>
             </div>
-            */}
           </div>
         </Form>
       </div>
