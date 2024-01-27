@@ -374,7 +374,7 @@ function LoginScreen(props) {
                     appId="3148320675410866"
                     autoLoad
                     fields="name,email,picture"
-                    callback={loginWithFacebook}
+                    callback={() => loginWithFacebook()}
                     textButton=""
                     icon={<BsFacebook size={24} color="#fff" />}
                     cssClass="login-screen-social-button-container"
