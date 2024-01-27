@@ -1,0 +1,58 @@
+@import "../../../variables.css";
+
+.login-button-border-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px 8px 20px;
+    background-color: #fff;
+    border: 1px solid var(--dark200);
+    background-color: var(--dark200);
+    border-radius: 50px;
+    margin: 10px 0px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+}
+
+
+.login-button-border-container:hover {
+    border: 1px solid var(--red100);
+    background-color: var(--red100); 
+    transition: all 0.3s ease-in-out;
+}
+
+.login-button-border-text {
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.login-button-border-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    border-radius: 100%;
+}
+
+.login-button-border-icon {
+    font-size: 30px;
+    color: var(--dark200);
+}
+
+.login-button-border-container:hover .login-button-border-text{
+    color: #fff;
+}
+
+.login-button-border-container:hover .login-button-border-icon-container{
+    border-radius: 100%;
+}
+
+.login-button-border-container:hover .login-button-border-icon{
+    color: var(--red100);
+    border-radius: 100%;
+}

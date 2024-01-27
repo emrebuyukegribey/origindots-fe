@@ -1,45 +1,52 @@
 import "./LoginScreen.css";
-import Logo from "../../../assets/logo-white.png";
-import DarkButton from "../../../components/UI/Buttons/DarkButton";
+
 import { withTranslation } from "react-i18next";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CircleLoading from "../../../components/UI/Loading/LoadingBar";
 import { useEffect } from "react";
-import { loginUser } from "../../../services/http";
+import {
+  loginUser,
+  sendUserLoginCode,
+  socialLoginUser,
+  verifyUser,
+} from "../../../services/http";
 import RegisterScreen from "../register/RegisterScreen";
-
-import { Button, Col, Row, Form, Input,Carousel } from "antd";
-
-import GoogleIcon from "../../../assets/icons/google.svg";
-import AppleIcon from "../../../assets/icons/apple-logo.svg";
-import DarkButtonBorder from "../../../components/UI/Buttons/DarkButtonBorder";
+import { Col, Row, Input, Divider } from "antd";
+import { BsFacebook, BsGoogle, BsInstagram } from "react-icons/bs";
+import LoginButton from "../../../components/UI/Buttons/LoginButton";
+import { useAuth } from "../../../contexts/AuthContext";
+import axios from "axios";
+import { useGoogleLogin } from "@react-oauth/google";
+import ReactFacebookLogin from "react-facebook-login";
+import { InstagramLogin } from "@amraneze/react-instagram-login";
+import InstagramButtonBorder from "../../../components/UI/Buttons/InstagramButtonBorder";
 
 function LoginScreen(props) {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
+  /*
   const onChangeLanguage = (language) => {
     const { i18n } = props;
     i18n.changeLanguage(language);
   };
+  */
 
+  const [fastLogin, setFastLogin] = useState();
+  const [resendCode, setResendCode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     email: "",
     password: "",
+    code: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState();
   const [activeTabSection, setActiveTabSection] = useState("login");
+  const auth = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {}, [error, setError]);
 
   const handleInputChange = (e) => {
+    setError(null);
     e.preventDefault();
     const { name, value } = e.target;
     setValues((values) => ({
@@ -48,54 +55,116 @@ function LoginScreen(props) {
     }));
   };
 
+  /*
   const checkError = () => {
-    if (!values.email) {
+    if (!values.email || !values.email.length <= 0) {
       setError(props.t("Email field is required"));
-    } else if (!values.password) {
-      setError(props.t("Password field is required"));
-    } else {
-      setError("");
       return;
     }
+
+    setError("");
     return;
   };
+  */
 
+  /*
   const registerTab = () => {
     setActiveTabSection("register");
+  };
+  */
+
+  const loginVerify = async () => {
+    if (!values.email) {
+      setError(props.t("Email field is required"));
+      setLoading(false);
+      return;
+    }
+    if (
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+        values.email
+      ) === false
+    ) {
+      setError(props.t("Please enter a valid email address"));
+      setLoading(false);
+      return;
+    }
+
+    if (values.email && !error) {
+      try {
+        const response = await verifyUser({
+          email: values.email,
+          code: values.code,
+        });
+        if (response.status === 200) {
+          if (response.data === false) {
+            setFastLogin("code");
+            setTimeout(() => {
+              setResendCode(true);
+            }, 10000);
+          } else {
+            setFastLogin("password");
+          }
+        }
+      } catch (e) {
+        console.log("Error verifying email : ", e);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    checkError();
-    if (error !== null) {
+    // checkError();
+    if (!values.email) {
+      setError(props.t("Email field is required"));
+      setLoading(false);
+      return;
+    }
+    if (!values.code && !values.password) {
+      setError(props.t("The login code / password is required"));
+      setLoading(false);
+      return;
+    }
+    if (
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+        values.email
+      ) === false
+    ) {
+      setError(props.t("Please enter a valid email address"));
+      setLoading(false);
+      return;
+    }
+    if (values.email && !error) {
       try {
         const response = await loginUser({
           email: values.email,
           password: values.password,
+          code: values.code,
         });
 
         if (response.status === 200) {
           if (response.data) {
+            const { token, user } = response.data;
+            user.token = token;
             localStorage.setItem("token", response.data.token);
-            localStorage.setItem("email", response.data.email);
-            localStorage.setItem("id", response.data.id);
-            localStorage.setItem("firstName", response.data.firstName);
-            localStorage.setItem("lastName", response.data.lastName);
-            localStorage.setItem("userName", response.data.userName);
-
-            props.setToken(response.data?.token);
+            //  props.setToken(response.data?.token);
+            auth.login(user);
+            navigate("/");
           }
         }
       } catch (e) {
         if (e.response?.data) {
-          setError(e.response.data.message);
+          {
+            setTimeout(() => {
+              setError(e.response.data.message);
+            }, 300);
+          }
         }
-        setLoading(false);
       } finally {
+        setLoading(false);
         setTimeout(() => {
           if (localStorage.getItem("token")) {
-            window.location.href = "/";
+            // window.location.href = "/";
             setLoading(false);
           }
         }, 100);
@@ -103,18 +172,255 @@ function LoginScreen(props) {
     }
   };
 
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (response) => {
+      const res = await axios.get(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: `Bearer ${response.access_token}`,
+          },
+        }
+      );
+      const socialUser = {
+        firstName: res.data.name.split(" ")[0],
+        lastName: res.data.name.split(" ")[1],
+        email: res.data.email,
+        picture: res.data.picture,
+      };
+      if (socialUser && socialUser.email) {
+        try {
+          const response = await socialLoginUser(socialUser);
+          if (response.status === 200) {
+            if (response.data) {
+              const { token, user } = response.data;
+              user.token = token;
+              localStorage.setItem("token", response.data.token);
+              auth.login(user);
+              navigate("/");
+            }
+          }
+        } catch (e) {
+          console.log("Google login error : ", e);
+        }
+      }
+    },
+  });
+
+  const loginWithFacebook = async (response) => {
+    const socialUser = {
+      firstName: response.name.split(" ")[0],
+      lastName: response.name.split(" ")[1],
+      email: response.email,
+      picture: response.picture,
+    };
+
+    if (socialUser && socialUser.email) {
+      try {
+        const response = await socialLoginUser(socialUser);
+        if (response.status === 200) {
+          if (response.data) {
+            const { token, user } = response.data;
+            user.token = token;
+            localStorage.setItem("token", response.data.token);
+            auth.login(user);
+            navigate("/");
+          }
+        }
+      } catch (e) {
+        console.log("Google login error : ", e);
+      }
+    }
+  };
+
+  const loginWithInstagram = async (response) => {
+    console.log("response 1 : ", response);
+  };
+
   if (loading) {
     return <CircleLoading />;
   }
+
+  const sendLoginCode = async (e) => {
+    e.preventDefault();
+    try {
+      //setLoading(true);
+      const response = await sendUserLoginCode(values.email);
+      if (response.status === 200) {
+        setResendCode(false);
+        setTimeout(() => {
+          setResendCode(true);
+        }, 10000);
+      }
+    } catch (e) {
+      console.log("Sending user login code error : ", e);
+      setTimeout(() => {
+        setResendCode(true);
+      }, 1000);
+    } finally {
+      //setLoading(false);
+    }
+  };
+
+  /*
+  if (localStorage.getItem("token")) {
+    return <Navigate replace to="/" />;
+  }
+  */
 
   if (activeTabSection === "login") {
     return (
       <div className="login-screen-container">
         <Row align="middle" style={{ height: "100%", width: "100%" }}>
           <div className="login-screen-left-container">
-          <Carousel autoplay>
+            <Col span={20} style={{ borderRadius: "30px" }}></Col>
+          </div>
+          <div className="login-screen-right-container">
+            <div className="login-screen-right-header-container">
+              <div className="login-screen-right-welcome-header">
+                {props.t("Welcome")}
+              </div>
+              <div className="login-screen-welcome-text">
+                {props.t("We are glad to see you back with us")}
+              </div>
+            </div>
+            <Row justify="center" style={{ width: "85%" }}>
+              <Col span={24} className="login-screen-row-container">
+                <Input
+                  className="login-screen-input"
+                  placeholder={props.t("Your email address")}
+                  name="email"
+                  onChange={handleInputChange}
+                />
+                {fastLogin === "code" && (
+                  <div>
+                    <Input
+                      className="login-screen-input"
+                      placeholder={props.t("Please enter login code")}
+                      name="code"
+                      onChange={handleInputChange}
+                    />
+                    {resendCode && (
+                      <div
+                        className="login-screen-resend-container"
+                        onClick={(e) => sendLoginCode(e)}
+                      >
+                        {props.t("Re-send login code")}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {fastLogin === "password" && (
+                  <Input.Password
+                    className="login-screen-input"
+                    placeholder={props.t("Your password")}
+                    name="password"
+                    onChange={handleInputChange}
+                  />
+                )}
+
+                <div
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <div style={{ width: "100%" }}>
+                    {error && (
+                      <div className="login-screen-error-container">
+                        <div>{error}</div>
+                      </div>
+                    )}
+                    <LoginButton
+                      type="primary"
+                      text={props.t("Go on")}
+                      size="small"
+                      onClick={fastLogin ? handleSubmit : loginVerify}
+                    />
+                  </div>
+                </div>
+                <Divider style={{ borderColor: "#000", margin: "40px 0px" }}>
+                  <span
+                    style={{
+                      color: "#000",
+                      fontSize: "17px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Login with others
+                  </span>
+                </Divider>
+
+                <Row
+                  className="register-screen-row"
+                  style={{
+                    marginTop: "20px",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div
+                    className="login-screen-social-button-container"
+                    onClick={loginWithGoogle}
+                  >
+                    <BsGoogle
+                      className="login-screen-login-button"
+                      color="#fff"
+                    />
+                  </div>
+
+                  <ReactFacebookLogin
+                    appId="3148320675410866"
+                    autoLoad
+                    fields="name,email,picture"
+                    callback={loginWithFacebook}
+                    textButton=""
+                    icon={<BsFacebook size={24} color="#fff" />}
+                    cssClass="login-screen-social-button-container"
+                  />
+
+                  <InstagramLogin
+                    clientId="176752001538012"
+                    redirectUri="https://www.google.com"
+                    onSuccess={loginWithInstagram}
+                    onFailure={loginWithInstagram}
+                    cssClass="login-screen-social-button-container"
+                  >
+                    <BsInstagram size={24} color="#fff" />
+                  </InstagramLogin>
+                  {/*
+                    <BsFacebook
+                      size={28}
+                      className="login-screen-login-button"
+                      color="#fff"
+                    />
+                */}
+
+                  {/*
+                  <div className="login-screen-social-button-container">
+                    <BsInstagram
+                      size={28}
+                      className="login-screen-login-button"
+                      color="#fff"
+                    />
+                  </div>
+              */}
+                </Row>
+              </Col>
+            </Row>
+          </div>
+        </Row>
+      </div>
+    );
+    /*
+    return (
+      <div className="login-screen-container">
+        <Row align="middle" style={{ height: "100%", width: "100%" }}>
+          <div className="login-screen-left-container">
+            <Carousel autoplay>
               <div>
-                <h3>1</h3>
+                <h3>1asdasd</h3>
               </div>
               <div>
                 <h3>2</h3>
@@ -179,9 +485,10 @@ function LoginScreen(props) {
                         alignContent: "center",
                       }}
                     >
-                      <h3>Şifremi unuttum</h3>
+                      <h3>Şifremi unuttum</h3>  
                     </Col>
                   </Row>
+                  
 
                   <Row
                     justify="center"
@@ -190,6 +497,7 @@ function LoginScreen(props) {
                   >
                     <Col span={24}>
                       <Row className="login-screen-row">
+                        
                         <Col span={8}>
                           <h2
                             onClick={registerTab}
@@ -198,13 +506,23 @@ function LoginScreen(props) {
                             Sign Up
                           </h2>
                         </Col>
-                        <Col span={16}>
+                        
+                        <Col
+                          span={24}
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                          }}
+                        >
+                          
                           <DarkButtonBorder
                             type="primary"
                             text={props.t("Go on")}
                             size="small"
                             onClick={handleSubmit}
                           />
+                      
+                          <LoginButton />
                         </Col>
                       </Row>
                       <Row
@@ -235,6 +553,7 @@ function LoginScreen(props) {
         </Row>
       </div>
     );
+    */
   } else {
     return <RegisterScreen />;
   }

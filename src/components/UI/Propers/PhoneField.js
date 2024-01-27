@@ -18,7 +18,7 @@ function PhoneField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="phone-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="phone-field-required">*</span>
               )}
             </span>

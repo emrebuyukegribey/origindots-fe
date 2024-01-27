@@ -15,9 +15,10 @@ import {
 } from "../../services/http";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import ProcessTable from "./ProcessTable";
-import { Modal, message, notification } from "antd";
+import { Col, Modal, Switch, message, notification } from "antd";
 import ProcessItemCard from "./ProcessItemCard";
 import { CiCircleAlert } from "react-icons/ci";
+import ShareItemCard from "./ShareItemCard";
 
 function ProcessManagement(props) {
   const { activeLeftBar } = useContext(MainContext);
@@ -28,10 +29,18 @@ function ProcessManagement(props) {
   const [allProcess, setAllProcess] = useState([]);
   const [searchedAllProcess, setSearchedAllProcess] = useState([]);
   const [showProcessModal, setShowProcessModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [process, setProcess] = useState({});
   const [properList, setProperList] = useState([]);
   const [properValuesList, setProperValueList] = useState([]);
-  const [oldNewProperIdList, setOldNewProperIdList] = useState([]);
+  const [shareAuthentication, setShareAuthentication] = useState(false);
+  const [shareLocation, setShareLocation] = useState(false);
+  const [shareLocationType, setShareLocationType] = useState();
+  const [shareLocationPoints, setShareLocationPoints] = useState();
+  const [shareDate, setShareDate] = useState(false);
+  const [shareStartDate, setShareStartDate] = useState();
+  const [shareEndDate, setShareEndDate] = useState();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -154,6 +163,10 @@ function ProcessManagement(props) {
     setShowProcessModal(false);
   };
 
+  const cancelShowShareInformations = () => {
+    setShowShareModal(false);
+  };
+
   const uniqueProperId = (proper) => {
     const uniqueId = `prp-${Date.now()}-${proper.type}-${Math.floor(
       Math.random() * 1000
@@ -241,6 +254,11 @@ function ProcessManagement(props) {
     }
   };
 
+  const shareProcess = (process) => {
+    setProcess(process);
+    setShowShareModal(true);
+  };
+
   const searchProcess = (e) => {
     const value = e.target.value;
     const filteredProcess = searchedAllProcess.filter(
@@ -288,6 +306,7 @@ function ProcessManagement(props) {
             deleteProcess={deleteProcessWarning}
             updateProcess={updateProcess}
             duplicateProcess={duplicateProcess}
+            shareProcess={shareProcess}
             t={props.t}
           />
         </div>
@@ -306,6 +325,34 @@ function ProcessManagement(props) {
             properList={properList}
             properValueList={properValuesList}
             t={props.t}
+          />
+        </div>
+      </Modal>
+
+      <Modal
+        title={props.t("Share Informations")}
+        width={1200}
+        open={showShareModal}
+        onOk={cancelShowShareInformations}
+        onCancel={cancelShowShareInformations}
+      >
+        <div>
+          <div className="user-management-divider" />
+          <ShareItemCard
+            shareAuthentication={shareAuthentication}
+            setShareAuthentication={setShareAuthentication}
+            shareLocation={shareLocation}
+            setShareLocation={setShareLocation}
+            shareLocationType={shareLocationType}
+            setShareLocationType={setShareLocationType}
+            shareLocationPoints={shareLocationPoints}
+            setShareLocationPoints={setShareLocationPoints}
+            shareDate={shareDate}
+            setShareDate={setShareDate}
+            shareStartDate={shareStartDate}
+            setShareStartDate={setShareStartDate}
+            shareEndDate={shareEndDate}
+            setShareEndDate={setShareEndDate}
           />
         </div>
       </Modal>

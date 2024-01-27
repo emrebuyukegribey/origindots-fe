@@ -62,7 +62,7 @@ function DropDownField({
             </div>
             <span className="drop-down-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="drop-down-field-required">*</span>
               )}
             </span>

@@ -19,7 +19,7 @@ function DateField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="date-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="date-field-required">*</span>
               )}
             </span>

@@ -17,6 +17,7 @@ function Property({
   editProper,
   deleteProperValue,
   editProperValue,
+  readOnlyProperValue,
   openFormForSelectedValue,
   properList,
   setProperList,
@@ -29,11 +30,13 @@ function Property({
   const [title, setTitle] = useState(
     selectedProper ? selectedProper.title : ""
   );
+
   const [placeholder, setPlaceholder] = useState();
   const [description, setDescription] = useState();
-  const [isRequired, setRequired] = useState(false);
-  const [isContentInfo, setContentInfo] = useState(false);
-  const [hasMask, setMask] = useState(false);
+  const [required, setRequired] = useState(false);
+  const [contentInfo, setContentInfo] = useState(false);
+  const [mask, setMask] = useState(false);
+  const [unitValue, setUnitValue] = useState(false);
   const [updatedField, setUpdatedFields] = useState(false);
   const [values, setValues] = useState();
 
@@ -43,9 +46,10 @@ function Property({
       setTitle(selectedProper.title);
       setPlaceholder(selectedProper.placeholder);
       setDescription(selectedProper.description);
-      setRequired(selectedProper.isRequired);
-      setContentInfo(selectedProper.isContentInfo);
-      setMask(selectedProper.hasMask);
+      setRequired(selectedProper.required);
+      setContentInfo(selectedProper.contentInfo);
+      setMask(selectedProper.mask);
+      setUnitValue(selectedProper.unitValue);
       if (selectedProper.type === "ProperGroupField") {
         setValues(
           properList
@@ -93,15 +97,20 @@ function Property({
     setMask(e.target.checked);
   };
 
+  const onChangeUnitValue = (e) => {
+    setUnitValue(e.target.checked);
+  };
+
   const edit = () => {
     let updatedProper = selectedProper;
-    updatedProper.isRequired = isRequired;
-    updatedProper.isContentInfo = isContentInfo;
-    updatedProper.hasMask = hasMask;
+    updatedProper.required = required;
+    updatedProper.contentInfo = contentInfo;
+    updatedProper.mask = mask;
+    updatedProper.unitValue = unitValue;
     updatedProper.title = title;
     updatedProper.placeholder = placeholder;
     updatedProper.description = description;
-    editProper(selectedProper);
+    editProper(updatedProper);
     setUpdatedFields(false);
     onClose();
   };
@@ -117,14 +126,14 @@ function Property({
         <div className="property-field-container">
           <h3>{t("Base Settings")}</h3>
           <div className="property-field-divider" />
-          {type !== "HeaderField" && (
+          {type !== "HeaderField" && type !== "ExplanationField" && (
             <div>
               <div className="property-field-container">
                 <div className="property-field-label">
                   {t("Is required")}:
                   <Checkbox
-                    checked={isRequired}
-                    value={isRequired}
+                    checked={required}
+                    value={required}
                     onChange={onChangeRequired}
                     style={{ marginLeft: "10px" }}
                   />
@@ -134,8 +143,8 @@ function Property({
                 <div className="property-field-label">
                   {t("Is content info")}:
                   <Checkbox
-                    checked={isContentInfo}
-                    value={isContentInfo}
+                    checked={contentInfo}
+                    value={contentInfo}
                     onChange={onChangeContentInfo}
                     style={{ marginLeft: "10px" }}
                   />
@@ -145,9 +154,20 @@ function Property({
                 <div className="property-field-label">
                   {t("Has mask")}:
                   <Checkbox
-                    checked={hasMask}
-                    value={hasMask}
+                    checked={mask}
+                    value={mask}
                     onChange={onChangeMask}
+                    style={{ marginLeft: "10px" }}
+                  />
+                </div>
+              </div>
+              <div className="property-field-container">
+                <div className="property-field-label">
+                  {t("Unit value")}:
+                  <Checkbox
+                    checked={unitValue}
+                    value={unitValue}
+                    onChange={onChangeUnitValue}
                     style={{ marginLeft: "10px" }}
                   />
                 </div>
@@ -157,7 +177,7 @@ function Property({
           <div className="property-field-label">{t("Proper title")}</div>
           <Input value={t(title)} onChange={onChangeName} />
         </div>
-        {type !== "HeaderField" && (
+        {type !== "HeaderField" && type !== "ExplanationField" && (
           <div>
             <div className="property-field-container">
               <div className="property-field-label">
@@ -191,13 +211,14 @@ function Property({
           (selectedProper.type === "MultiSelectField" ||
             selectedProper.type === "SingleSelectField" ||
             selectedProper.type === "DropDownField") && (
-            <div style={{ marginTop: "50px" }}>
+            <div style={{ marginTop: "30px" }}>
               <ProperValueList
                 properList={properList}
                 setProperList={setProperList}
                 values={values ? values : []}
                 deleteProperValue={deleteProperValue}
                 editProperValue={editProperValue}
+                readOnlyProperValue={readOnlyProperValue}
                 openPropertyDrawer={openPropertyDrawer}
                 onCloseProperty={onClose}
                 openFormForSelectedValue={openFormForSelectedValue}

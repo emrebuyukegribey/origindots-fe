@@ -13,7 +13,7 @@ import logoSmall from "../../assets/logo-small.png";
 
 import "./LeftBar.css";
 import { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
 function LeftBar(props) {

@@ -1,10 +1,8 @@
-import { Input, Modal, message, notification } from "antd";
+import { Modal, message, notification } from "antd";
 import LeftBar from "../../components/LeftBar/LeftBar";
 import Navbar from "../../components/Navbar/Navbar";
-import DarkButtonBorder from "../../components/UI/Buttons/DarkButtonBorder";
 import { MainContext, useContext } from "../../context";
 import "./UserManagementStyles.css";
-import { IoSearchOutline } from "react-icons/io5";
 import NewUser from "./NewUser";
 import { useEffect, useState } from "react";
 import UserTable from "./UserTable";
@@ -14,10 +12,8 @@ import {
   inviteUser,
 } from "../../services/http";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
 import UserItemCard from "./UserItemCard";
-import confirm from "antd/es/modal/confirm";
 import { CiCircleAlert } from "react-icons/ci";
 import { withTranslation } from "react-i18next";
 import PageHeaderMenu from "../../components/UI/PageHeaderMenu";
@@ -165,9 +161,7 @@ function UserManagement(props) {
       onOk() {
         handleDeleteUser(user);
       },
-
-      onCancel() {},
-      okType: "danger",
+      // onCancel() {},
     });
   };
 

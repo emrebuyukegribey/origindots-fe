@@ -50,6 +50,7 @@
 
 .header-field-title-container {
     display: flex;
+    position: relative;
     justify-content: space-between;
 }
 
@@ -90,9 +91,9 @@
 
 .header-field-outer-container:hover .header-field-icons-container {
     display: flex ;
-    justify-content: center;
-    align-items: center;
-    margin-top: -45px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-top: -10px;
     margin-right: -12px;
 }
 

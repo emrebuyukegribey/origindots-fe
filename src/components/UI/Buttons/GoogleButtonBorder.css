@@ -1,0 +1,35 @@
+@import "../../../variables.css";
+
+.google-button-border-container {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 7px 0px 7px 50px;
+    background-color: var(--dark200);
+    border-radius: 50px;
+    margin: 20px 0px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.google-button-border-container:hover {
+    background-color: var(--red100); 
+    transition: all 0.3s ease-in-out;
+}
+
+.google-button-border-text {
+    color: #fff;
+    font-weight: 500;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: -80px;
+}
+
+.google-button-border-container:hover .google-button-border-text{
+    color: #fff;
+}

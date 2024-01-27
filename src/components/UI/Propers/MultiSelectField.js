@@ -61,7 +61,7 @@ function MultiSelectField({
             </div>
             <span className="multi-select-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="multi-select-field-required">*</span>
               )}
             </span>

@@ -1,0 +1,138 @@
+@import "../../../variables.css";
+
+
+.ant-input[disabled] {
+    background-color: #fff !important;
+}
+
+.explanation-field-outer-container {
+   display: flex; 
+   width: 100%;
+   background-color: #fff;
+   margin: 10px 10px;
+   transition: all 0.5s ease-in-out;
+}
+
+.explanation-field-drag-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.explanation-field-drag-icon {
+    font-size: 24px;
+    color: var(--grey200)
+}
+
+.explanation-field-outer-container:hover .explanation-field-drag-icon {
+    color: var(--dark100);
+    transition: all 0.5ms ease-in-out;
+}
+
+.explanation-field-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 10px 15px 10px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid var(--grey400);
+    border-radius: 2px;
+    transition: width 0.5ms ease-in-out;
+}
+
+.explanation-field-outer-container:hover .explanation-field-container {
+    border: 1px solid var(--dark300);
+    transition: all 0.5s ease-in-out;
+}
+
+.explanation-field-title-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.explanation-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px ;
+    font-size: 18px;
+    border-color: var(--dark300);   
+}
+
+.explanation-field-title {
+    margin-top: 15px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--dark200)
+}
+
+.explanation-field-description {
+    padding-top: 5px;
+    padding-left: 3px;
+    font-size: 13px;
+    color: var(--dark300);
+}
+
+.explanation-field-icons-container {
+    display: none;
+}
+
+.explanation-field-outer-container:hover .explanation-field-icons-container {
+    display: flex ;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-top: -10px;
+    margin-right: -12px;
+}
+
+.explanation-field-edit-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.explanation-field-edit-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.explanation-field-delete-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.explanation-field-delete-icon:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}

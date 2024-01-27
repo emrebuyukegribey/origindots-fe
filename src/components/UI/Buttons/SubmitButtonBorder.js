@@ -3,7 +3,14 @@ import "./SubmitButtonBorder.css";
 
 function SubmitButtonBorder(props) {
   return (
-    <Button htmlType="submit" className="submit-ant-btn-default">
+    <Button
+      htmlType="submit"
+      className="submit-button-border"
+      style={{
+        width: "150px",
+        height: "40px",
+      }}
+    >
       {props.text}
     </Button>
   );

@@ -20,7 +20,7 @@ function TextareaField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="textarea-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="textarea-field-required">*</span>
               )}
             </span>

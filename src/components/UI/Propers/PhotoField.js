@@ -19,7 +19,7 @@ function PhotoField({ proper, deleteProper, editProper, t }) {
             </div>
             <span className="photo-field-title">
               {t(proper.title)}
-              {proper.isRequired && (
+              {proper.required && (
                 <span className="photo-field-required">*</span>
               )}
             </span>

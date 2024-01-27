@@ -6,7 +6,6 @@ import "./OrganizationForm.css";
 import { useEffect } from "react";
 
 function OrganizationForm(props) {
-  console.log("props : ", props);
   const [form] = Form.useForm();
 
   const formItemLayout = {

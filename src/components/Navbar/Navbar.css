@@ -9,9 +9,9 @@
     /*background-color: var(--bgGrey100);*/
     background-color: #fff;
     padding: 10px 50px 5px 30px;
-    
     box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 3px;
     height: 65px;
+    border-bottom: 2px solid var(--grey400);
 }
 
 .nb-logo-container {
@@ -49,11 +49,12 @@
 }
 
 .nb-right-menu-profile {
+    display: flex;
     text-decoration: none;
-    width: 30px;
+    width: auto;
     height: 30px;
     margin-left: 0px;
-    margin-right: 10px;
+    margin-right: 20px;
     color: var(--dark100);
     padding: 5px;
     border-radius: 50%;
@@ -62,10 +63,33 @@
 }
 
 .nb-right-menu-profile-pic {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-top: -5px;
+}
+
+.nb-right-menu-profile--no-pic {
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    border-radius: 50%;
+    margin-top: -5px;
+    background-color: var(--dark100);
+    color: #fff;
+}
+
+.nb-right-menu-profile-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.nb-right-menu-profile-text {
+    margin: 2px 0px 2px 10px;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .nb-language-container {
@@ -79,8 +103,10 @@
 .nb-language-selector {
     border: 0; 
     font-weight: 600; 
-    background-color: #fff;
+    border: 1px solid var(--dark200);
     color: var(--dark100);
+    padding: 3px;
+    border-radius: 5px;
 }
 
 @media screen and (max-width: 850px) {

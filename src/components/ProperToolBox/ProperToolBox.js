@@ -8,9 +8,15 @@ import { useEffect } from "react";
 
 function ProperToolBox(props) {
   const openingProperty = localStorage.getItem("openingProperty");
+  /*
   const [isOpenProcessbar, setOpenProcessBar] = useState(
     openingProperty ? true : false
   );
+  */
+
+  const toggleProcessBar = () => {
+    props.setOpenProcessBar(props.openProcessBar === true ? false : true);
+  };
 
   useEffect(() => {
     localStorage.removeItem("openingProperty");
@@ -19,13 +25,13 @@ function ProperToolBox(props) {
   return (
     <div
       className={
-        isOpenProcessbar ? "pb-opened-container" : "pb-closed-container"
+        props.openProcessBar ? "pb-opened-container" : "pb-closed-container"
       }
     >
-      {!isOpenProcessbar ? (
+      {!props.openProcessBar ? (
         <div
           className="pb-open-button-container"
-          onClick={() => setOpenProcessBar(true)}
+          onClick={() => toggleProcessBar()}
         >
           <div className="pb-open-button-text">{props.t("Add Property")}</div>
           {/*<AiOutlinePlus size={30} color="#fff" />*/}
@@ -39,7 +45,7 @@ function ProperToolBox(props) {
             <div className="pb-close-button-icon-container">
               <AiOutlineClose
                 size={17}
-                onClick={() => setOpenProcessBar(false)}
+                onClick={() => toggleProcessBar(false)}
                 style={{ cursor: "pointer" }}
               />
             </div>

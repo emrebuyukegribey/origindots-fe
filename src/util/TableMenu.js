@@ -5,10 +5,16 @@ import {
   AiOutlineUserAdd,
 } from "react-icons/ai";
 import { BiSolidEdit } from "react-icons/bi";
-import { IoDuplicateOutline } from "react-icons/io5";
+import {
+  IoDuplicateOutline,
+  IoFlagSharp,
+  IoShareSocialOutline,
+} from "react-icons/io5";
 import "./TableMenu.css";
 import { MdPostAdd } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
+import { IoMdShareAlt } from "react-icons/io";
+import { LuShare2 } from "react-icons/lu";
 
 export const getProcessMenuItems = ({
   record,
@@ -16,6 +22,7 @@ export const getProcessMenuItems = ({
   updateProcess,
   deleteProcess,
   duplicateProcess,
+  shareProcess,
   t,
 }) => {
   const items = [];
@@ -84,6 +91,25 @@ export const getProcessMenuItems = ({
             }}
           >
             {t("Duplicate")}
+          </a>
+        </div>
+      </div>
+    </Menu.Item>
+  );
+
+  items.push(
+    <Menu.Item key="share">
+      <div className="menu-item-container">
+        <div className="menu-item-icon">
+          <LuShare2 />
+        </div>
+        <div className="menu-item-link">
+          <a
+            onClick={() => {
+              shareProcess(record);
+            }}
+          >
+            {t("Share")}
           </a>
         </div>
       </div>

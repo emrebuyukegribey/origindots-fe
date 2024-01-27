@@ -19,6 +19,7 @@ function ProcessTable(props) {
     updateProcess,
     deleteProcess,
     duplicateProcess,
+    shareProcess,
     t,
   } = props;
   const columns: ColumnsType<DataType> = [
@@ -64,43 +65,35 @@ function ProcessTable(props) {
       title: props.t("Actions"),
       key: "actions",
       render: (text, record) => (
-        <div>
-          {record.deleted === false ?
-            (<div style={{ display: "flex" }}>
-              <Dropdown
-                overlay={
-                  <Menu key={record.id}>
-                    {getProcessMenuItems({
-                      record,
-                      showProcessInformations,
-                      updateProcess,
-                      deleteProcess,
-                      duplicateProcess,
-                      t,
-                    })}
-                  </Menu>
-                }
-              >
-                <div
-                  key={record.id}
-                  onClick={(e) => e.preventDefault()}
-                  className="process-table-menu"
-                >
-                  <div className="process-table-menu-text">
-                    {props.t("Actions")}
-                  </div>{" "}
-                  <div className="process-table-menu-icon">
-                    <IoCaretDownOutline />
-                  </div>
-                </div>
-              </Dropdown>
-            </div>) : 
-            (
-              <div style={{ display: "flex" }}>
-                <label style={{color:"red",fontWeight:"bold",fontStyle:"italic"}}>Silme Sırasında</label>
+        <div style={{ display: "flex" }}>
+          <Dropdown
+            overlay={
+              <Menu key={record.id}>
+                {getProcessMenuItems({
+                  record,
+                  showProcessInformations,
+                  updateProcess,
+                  deleteProcess,
+                  duplicateProcess,
+                  shareProcess,
+                  t,
+                })}
+              </Menu>
+            }
+          >
+            <div
+              key={record.id}
+              onClick={(e) => e.preventDefault()}
+              className="process-table-menu"
+            >
+              <div className="process-table-menu-text">
+                {props.t("Actions")}
+              </div>{" "}
+              <div className="process-table-menu-icon">
+                <IoCaretDownOutline />
               </div>
-            )
-          }
+            </div>
+          </Dropdown>
         </div>
 
       ),

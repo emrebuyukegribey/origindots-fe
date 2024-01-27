@@ -33,13 +33,13 @@ function ProperForm({
   selectedValueForAddProper,
   setProperValueList,
   setOpenDesktopPreview,
+  setOpenTabletPreview,
+  setOpenMobilePreview,
   t,
 }) {
   const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
   let dragOver = useRef();
-
-
 
   const properListForm = properList.filter((proper) =>
     selectedValueForAddProper
@@ -141,7 +141,6 @@ function ProperForm({
           clearAllPropers();
         },
         onCancel() {},
-        okType: "danger",
       });
     }
   };
@@ -153,8 +152,14 @@ function ProperForm({
         {!selectedValueForAddProper && (
           <div className="proper-preview-container">
             <div className="proper-preview-inner-container">
-              <HiOutlineDevicePhoneMobile className="proper-preview-icon" />
-              <AiOutlineTablet className="proper-preview-icon" />
+              <HiOutlineDevicePhoneMobile
+                className="proper-preview-icon"
+                onClick={() => setOpenMobilePreview(true)}
+              />
+              <AiOutlineTablet
+                className="proper-preview-icon"
+                onClick={() => setOpenTabletPreview(true)}
+              />
               <SlScreenDesktop
                 className="proper-preview-icon"
                 onClick={() => {
@@ -241,7 +246,7 @@ function ProperForm({
         )}
         {!selectedValueForAddProper && (
           <div style={{ display: "flex" }}>
-             <div>
+            <div>
               <RedButtonBorder
                 text={t("Clear All Propers")}
                 onClick={() =>
@@ -259,7 +264,6 @@ function ProperForm({
                 }
               />
             </div>
-           
           </div>
         )}
       </div>

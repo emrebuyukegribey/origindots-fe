@@ -11,11 +11,12 @@ import { Steps, message, Modal } from "antd";
 import Property from "../../components/Property/Property";
 import { CiCircleAlert } from "react-icons/ci";
 import ProcessIcons from "../../components/Process/ProcessIcons";
-import Preview from "../../components/Preview/Preview";
+// import Preview from "../../components/Preview/old/Preview";
 import { withTranslation } from "react-i18next";
 import Publish from "../../components/Publish/Publish";
 import CircleLoading from "../../components/UI/Loading/LoadingBar";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import Preview from "../../components/Preview/Preview";
 
 const steps = [
   {
@@ -33,7 +34,6 @@ const steps = [
 ];
 
 function NewProcess(props) {
-
   const [loading, setLoading] = useState(false);
 
   const [processId, setProcessId] = useState();
@@ -48,7 +48,10 @@ function NewProcess(props) {
   const [properValueList, setProperValueList] = useState([]);
   const [selectedProper, setSelectedProper] = useState({});
   const [openDesktopPreview, setOpenDesktopPreview] = useState(false);
+  const [openTabletPreview, setOpenTabletPreview] = useState(false);
+  const [openMobilePreview, setOpenMobilePreview] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
+  const [openProcessBar, setOpenProcessBar] = useState(false);
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
     useContext(MainContext);
@@ -137,9 +140,10 @@ function NewProcess(props) {
     )}`;
     shallow.id = uniqueId;
     shallow.isDrag = false;
-    shallow.isRequired = false;
-    shallow.isContentInfo = false;
-    shallow.hasMask = false;
+    shallow.required = false;
+    shallow.contentInfo = false;
+    shallow.mask = false;
+    shallow.unitValue = false;
 
     shallow.childCount = 0;
     shallow.parentId = selectedValueForAddProper
@@ -212,10 +216,11 @@ function NewProcess(props) {
   };
 
   const createProperValue = (proper, valueName) => {
-    const properValueUniqueId = `prp-v-${Date.now()}-${proper.type
-      }-${Math.floor(Math.random() * 1000)}-value-${valueName}-${Math.floor(
-        Math.random() * 1000
-      )}`;
+    const properValueUniqueId = `prp-v-${Date.now()}-${
+      proper.type
+    }-${Math.floor(Math.random() * 1000)}-value-${valueName}-${Math.floor(
+      Math.random() * 1000
+    )}`;
 
     const properValue = {
       id: properValueUniqueId,
@@ -223,35 +228,13 @@ function NewProcess(props) {
       properId: proper.id,
       listNo: selectedValueForAddProper
         ? properValueList.filter(
-          (value) => value.properId === selectedValueForAddProper.id
-        ).length
+            (value) => value.properId === selectedValueForAddProper.id
+          ).length
         : properValueList.length,
       childCount: 0,
     };
 
     return properValue;
-  };
-
-  const addProperValue = (proper) => {
-    if (
-      proper.type === "MultiSelectField" ||
-      proper.type === "SingleSelectField" ||
-      proper.type === "DropDownField"
-    ) {
-      /*
-      const properValue1 = createProperValue(proper, "Value1");
-      const properValue2 = createProperValue(proper, "Value2");
-      const properValue3 = createProperValue(proper, "Value3");
-      */
-
-      setProperValueList((oldProperValues) => [
-        ...oldProperValues,
-        /*properValue1,
-        properValue2,
-        properValue3,
-        */
-      ]);
-    }
   };
 
   const openFormForSelectedValue = (value) => {
@@ -335,12 +318,9 @@ function NewProcess(props) {
       onOk() {
         deleteProperOnForm(proper);
       },
-      onCancel() { },
-      okType: "danger",
+      onCancel() {},
     });
   };
-
-
 
   function createDataID(prefix, properType) {
     const timestamp = new Date().getTime();
@@ -353,18 +333,19 @@ function NewProcess(props) {
     }
   }
 
+  /*
   function createUUID() {
     return uuidv4();
   }
+  */
 
   function splitID(payload) {
     return payload.split("-");
   }
 
-
   const duplicateProperOnForm = (baseItem) => {
     const tempList = [];
-    baseItem['datatype'] = 'proper';
+    baseItem["datatype"] = "proper";
     const parentId= baseItem.parentId;
     tempList.push(Object.assign({}, baseItem));
     function findRelatedItemsRecursively(currentItem) {
@@ -377,7 +358,7 @@ function NewProcess(props) {
           (proper) => proper.parentId === currentItem.id
         );
         childPropers.forEach((element) => {
-          element['datatype'] = 'proper';
+          element["datatype"] = "proper";
           tempList.push(Object.assign({}, element));
         });
       } else {
@@ -385,7 +366,7 @@ function NewProcess(props) {
           (value) => value.properId === currentItem.id
         );
         childValues.forEach((element) => {
-          element['datatype'] = 'value';
+          element["datatype"] = "value";
           tempList.push(Object.assign({}, element));
         });
       }
@@ -403,18 +384,16 @@ function NewProcess(props) {
     copyProperAndValueOfList(newList);
   };
 
- 
   function changeID(payload) {
     const idMap = {};
-    payload.forEach(p => {
-      if (p['datatype'] == 'proper') {
+    payload.forEach((p) => {
+      if (p["datatype"] == "proper") {
         const [prefix, , properType] = splitID(p.id);
         idMap[p.id] = createDataID(prefix, properType);
       } else {
         const [properType, , prefix] = splitID(p.id);
         idMap[p.id] = createDataID(prefix, properType);
       }
-
     });
     return idMap;
   }
@@ -422,21 +401,18 @@ function NewProcess(props) {
   function createNewCopyList(coppiedItem, keyList) {
     var newList = [];
     var i = 0;
-    coppiedItem.forEach(c => {
+    coppiedItem.forEach((c) => {
       newList.push(Object.assign({}, c));
-      newList[i].id=keyList[c.id];
-      
-      if(c.parentId!=null)
-      newList[i].parentId=keyList[c.parentId];
+      newList[i].id = keyList[c.id];
 
-      if(c.properId!=null)
-      newList[i].properId=keyList[c.properId];
+      if (c.parentId !== null) newList[i].parentId = keyList[c.parentId];
+
+      if (c.properId !== null) newList[i].properId = keyList[c.properId];
 
       i++;
-    })
+    });
     return newList;
   }
-
 
   const copyProperAndValueOfList = (relatedItems) => {
     setLoading(true);
@@ -468,6 +444,7 @@ function NewProcess(props) {
     setProperList(
       properList.filter((p) => p.parentId !== proper.id && p.id !== proper.id)
     );
+    setProperValueList(properValueList.filter((v) => v.properId !== proper.id));
     showMessage("error", `Deleted proper on the form : ${proper.text}`);
   };
 
@@ -497,6 +474,14 @@ function NewProcess(props) {
       "success",
       `Updated proper value on the form : ${properValue.name}`
     );
+  };
+
+  const readOnlyProperValue = (properValue, readOnly) => {
+    properValue.readOnly = readOnly.target.checked;
+    const updatingProperValue = properValueList.indexOf(properValue);
+    const updatedValueList = [...properValueList];
+    updatedValueList[updatingProperValue] = properValue;
+    setProperValueList(updatedValueList);
   };
 
   const openPropertyDrawer = (proper) => {
@@ -537,12 +522,23 @@ function NewProcess(props) {
         <div className="cp-container">
           {currentStep === 1 && (
             <div className="cp-proper-tool-box-container">
-              <ProperToolBox addProper={addProperOnForm} />
+              <ProperToolBox
+                addProper={addProperOnForm}
+                openProcessBar={openProcessBar}
+                setOpenProcessBar={setOpenProcessBar}
+              />
             </div>
           )}
           <div
             className="cp-body-container"
-            style={{ marginLeft: currentStep === 0 ? "150px" : "300px" }}
+            style={{
+              marginLeft:
+                currentStep === 0
+                  ? "150px"
+                  : openProcessBar
+                  ? "300px"
+                  : "150px",
+            }}
           >
             <div className="cp-body-top-container">
               <Steps current={currentStep} items={items} />
@@ -566,6 +562,9 @@ function NewProcess(props) {
                   setProperValueList={setProperValueList}
                   openDesktopPreview={openDesktopPreview}
                   setOpenDesktopPreview={setOpenDesktopPreview}
+                  setOpenTabletPreview={setOpenTabletPreview}
+                  setOpenMobilePreview={setOpenMobilePreview}
+                  setOPent
                   t={props.t}
                 />
               )}
@@ -600,6 +599,7 @@ function NewProcess(props) {
                 editProper={editProperOnForm}
                 deleteProperValue={deleteProperValue}
                 editProperValue={editProperValue}
+                readOnlyProperValue={readOnlyProperValue}
                 openFormForSelectedValue={openFormForSelectedValue}
                 selectedValueForAddProper={selectedValueForAddProper}
                 setSelectedValueForAddProper={selectedValueForAddProper}
@@ -620,14 +620,53 @@ function NewProcess(props) {
         open={openDesktopPreview}
         onOk={() => setOpenDesktopPreview(false)}
         onCancel={() => setOpenDesktopPreview(false)}
-        width={900}
+        width={1100}
       >
-        <Preview
-          properList={properList}
-          processName={processName}
-          processType={processType}
-          processIcon={processIcon}
-        />
+        <div style={{ height: "700px", overflow: "auto", marginTop: "30px" }}>
+          <Preview
+            propers={properList}
+            properValues={properValueList}
+            processName={processName}
+            processType={processType}
+            processIcon={processIcon}
+          />
+        </div>
+      </Modal>
+
+      <Modal
+        centered
+        open={openTabletPreview}
+        onOk={() => setOpenTabletPreview(false)}
+        onCancel={() => setOpenTabletPreview(false)}
+        width={1000}
+      >
+        <div style={{ height: "500px", overflow: "auto", marginTop: "30px" }}>
+          <Preview
+            propers={properList}
+            properValues={properValueList}
+            processName={processName}
+            processType={processType}
+            processIcon={processIcon}
+          />
+        </div>
+      </Modal>
+
+      <Modal
+        centered
+        open={openMobilePreview}
+        onOk={() => setOpenMobilePreview(false)}
+        onCancel={() => setOpenMobilePreview(false)}
+        width={475}
+      >
+        <div style={{ height: "700px", overflow: "auto", marginTop: "30px" }}>
+          <Preview
+            propers={properList}
+            properValues={properValueList}
+            processName={processName}
+            processType={processType}
+            processIcon={processIcon}
+          />
+        </div>
       </Modal>
     </>
   );

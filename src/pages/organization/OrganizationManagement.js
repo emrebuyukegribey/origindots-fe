@@ -33,7 +33,6 @@ import {
   storeOrganization,
 } from "../../services/http";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import OrganizationTable from "./OrganizationTable";
 import { useEffect } from "react";
 import OrganizationItemCard from "./OrganizationItemCard";
@@ -505,7 +504,6 @@ function OrganizationManagement(props) {
   };
 
   const deleteOrganizationAndChilds = async (organization) => {
-    console.log("organization : ", organization.id);
     setLoading(true);
     try {
       const response = await deleteOrganization(organization.id);
