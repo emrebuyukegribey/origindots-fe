@@ -369,16 +369,17 @@ function LoginScreen(props) {
                       color="#fff"
                     />
                   </div>
-
-                  <ReactFacebookLogin
-                    appId="3148320675410866"
-                    autoLoad
-                    fields="name,email,picture"
-                    callback={() => loginWithFacebook()}
-                    textButton=""
-                    icon={<BsFacebook size={24} color="#fff" />}
-                    cssClass="login-screen-social-button-container"
-                  />
+                  <div>
+                    <ReactFacebookLogin
+                      appId="3148320675410866"
+                      fields="name,email,picture"
+                      callback={loginWithFacebook}
+                      autoLoad={false}
+                      textButton=""
+                      icon={<BsFacebook size={24} color="#fff" />}
+                      cssClass="login-screen-social-button-container"
+                    />
+                  </div>
 
                   <InstagramLogin
                     clientId="176752001538012"
