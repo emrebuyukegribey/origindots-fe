@@ -194,6 +194,11 @@ export function deleteProcessFromOrganization(organizationId, processId) {
   );
 }
 
+
 export function getUserRelations() {
   return axios.get(`${BASE_URL}/organizations/relations`, getHeaderConfig());
+}
+
+export function getRelation(userId){
+  return axios.get(`${BASE_URL}/organizations/relations/user/${userId}`,headerConfig);
 }

@@ -53,7 +53,6 @@ function ProcessTable(props) {
         </div>
       ),
     },
-
     {
       title: props.t("Created Date"),
       dataIndex: "createdDate",
@@ -62,7 +61,6 @@ function ProcessTable(props) {
         <div>{new Date(record.createdDate).toLocaleString()}</div>
       ),
     },
-
     {
       title: props.t("Actions"),
       key: "actions",
@@ -97,6 +95,7 @@ function ProcessTable(props) {
             </div>
           </Dropdown>
         </div>
+
       ),
     },
   ];

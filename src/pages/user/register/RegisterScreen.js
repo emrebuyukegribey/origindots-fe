@@ -11,8 +11,8 @@ import LoginScreen from "../login/LoginScreen";
 import "./RegisterScreen.css";
 import DarkButtonBorder from "../../../components/UI/Buttons/DarkButtonBorder";
 import GoogleIcon from "../../../assets/icons/google.svg";
-import FacebookIcon from "../../../assets/icons/facebook.svg";
-import TwitterXIcon from "../../../assets/icons/twitterx.svg";
+import AppleIcon from "../../../assets/icons/apple-logo.svg";
+
 
 function RegisterScreen(props) {
   const [loading, setLoading] = useState(false);
@@ -231,9 +231,8 @@ function RegisterScreen(props) {
                   className="register-screen-row"
                   style={{ marginTop: "40px", justifyContent: "space-around" }}
                 >
-                  <img src={GoogleIcon} alt="google" />
-                  <img src={FacebookIcon} alt="facebook" />
-                  <img src={TwitterXIcon} alt="twitterX" />
+                 <img src={GoogleIcon} alt="google" />
+                <img src={AppleIcon} width={'36px'} height={'36px'} alt="apple" />
                 </Row>
               </Col>
             </Row>

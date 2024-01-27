@@ -141,6 +141,7 @@ function LoginScreen(props) {
           password: values.password,
           code: values.code,
         });
+
         if (response.status === 200) {
           if (response.data) {
             const { token, user } = response.data;
@@ -540,8 +541,8 @@ function LoginScreen(props) {
                         }}
                       >
                         <img src={GoogleIcon} alt="google" />
-                        <img src={FacebookIcon} alt="facebook" />
-                        <img src={TwitterXIcon} alt="twitterX" />
+                        <img src={AppleIcon} width={'36px'} height={'36px'} alt="apple" />
+                        
                       </Row>
                     </Col>
                   </Row>

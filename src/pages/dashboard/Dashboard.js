@@ -5,6 +5,7 @@ import { MainContext, useContext } from "../../context";
 import "./Dashboard.css";
 import MapBoard from "./MapBoard";
 import DailyRecords from "./DailyRecords";
+import { getRelation } from "../../services/http";
 import DailyShares from "./DailyShares";
 import UserNumbers from "./UserNumbers";
 import RecordTable from "./RecordTable";
@@ -24,6 +25,21 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Tooltip } from "antd";
 import { Switch, Space } from "antd";
 function Dashboard(props) {
+
+  const relations = getRelation(localStorage.getItem("id"));
+
+  relations.then(result => {
+    console.log(result);
+    if (result.status == 200) {
+      console.log(result.data);
+    } else {
+      console.log("Error Getting Config...")
+    }
+  })
+    .catch(error => console.log(error))
+    .finally(() => { console.log("Config getted...") })
+
+
   const { activeLeftBar } = useContext(MainContext);
   const items = [
     {
