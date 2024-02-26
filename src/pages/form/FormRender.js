@@ -70,13 +70,21 @@ export function FormRender({
 
   if (proper.type === "PhotoField") {
     return (
-      <FormPhoto proper={proper} addValueOnFormValues={addValueOnFormValues} />
+      <FormPhoto
+        proper={proper}
+        addValueOnFormValues={addValueOnFormValues}
+        formValues={formValues}
+      />
     );
   }
 
   if (proper.type === "VideoField") {
     return (
-      <FormVideo proper={proper} addValueOnFormValues={addValueOnFormValues} />
+      <FormVideo
+        proper={proper}
+        addValueOnFormValues={addValueOnFormValues}
+        formValues={formValues}
+      />
     );
   }
 
@@ -91,7 +99,11 @@ export function FormRender({
 
   if (proper.type === "DataField") {
     return (
-      <FormData proper={proper} addValueOnFormValues={addValueOnFormValues} />
+      <FormData
+        proper={proper}
+        addValueOnFormValues={addValueOnFormValues}
+        formValues={formValues}
+      />
     );
   }
 

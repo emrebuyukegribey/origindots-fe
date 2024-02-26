@@ -68,6 +68,34 @@
     background-color: var(--red300);
 }
 
+.form-photo-description {
+    display: flex;
+    justify-content: flex-start;
+    color: var(--dark300);
+    padding-top: 5px;
+    font-size: 14px;
+}
+
+.form-data-description {
+    display: flex;
+    justify-content: flex-start;
+    color: var(--dark300);
+    padding-top: 5px;
+    font-size: 14px;
+}
+
+.form-video-description {
+    display: flex;
+    justify-content: flex-start;
+    color: var(--dark300);
+    padding-top: 5px;
+    font-size: 14px;
+}
+
 .ant-checkbox-wrapper {
     margin-bottom: 7px;
+}
+
+.ant-form-item-extra {
+    color: var(--dark300) !important;
 }

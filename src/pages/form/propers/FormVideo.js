@@ -23,19 +23,22 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-function FormVideo({ proper, addValueOnFormValues }) {
+function FormVideo({ proper, addValueOnFormValues, formValues }) {
   const [files, setFiles] = useState([]);
-  const [imageUrl, setImageUrl] = useState();
-  const handleChange = (info) => {
-    if (info.file.status === "uploading") {
-      return;
-    }
-    if (info.file.status === "done") {
-      getBase64(info.file.originFileObj, (url) => {
-        setImageUrl(url);
-      });
-    }
-  };
+
+  let defaultFileList = [];
+
+  const properFormValue = formValues.filter(
+    (fv) => fv.properId === proper.id
+  )[0];
+
+  if (
+    properFormValue &&
+    properFormValue.properValue &&
+    properFormValue.properValue.length > 0
+  ) {
+    defaultFileList = properFormValue.properValue;
+  }
 
   const onChange = (e) => {
     setFiles(e.fileList);
@@ -73,6 +76,8 @@ function FormVideo({ proper, addValueOnFormValues }) {
           beforeUpload={() => false}
           onChange={(e) => onChange(e)}
           onRemove={(e) => fileRemoved(e)}
+          listType="picture"
+          defaultFileList={defaultFileList}
         >
           <div className="form-photo-container ">
             <AiOutlineVideoCameraAdd className="photo-field-upload-icon" />
