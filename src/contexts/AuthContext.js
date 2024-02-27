@@ -31,10 +31,12 @@ export const AuthProvider = ({ children }) => {
     processList,
     userList
   ) => {
-    authUser.organizationList = organizationList;
-    authUser.processList = processList;
-    authUser.userList = userList;
-    setAuthUser(authUser);
+    let user ={};
+    user['organizationList'] = organizationList !=null ? organizationList : [];
+    user['processList'] = processList!=null ? processList : [];
+    user['userList'] = userList!=null ? userList : [];
+    
+    setAuthUser(user);
   };
 
   const login = (user) => {

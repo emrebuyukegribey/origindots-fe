@@ -7,25 +7,32 @@ let headerConfig = {
   headers: { Authorization: `Bearer ${token}` },
 };
 
+/*
 axios.interceptors.request.use((request) => {
   return request;
 });
 
 axios.interceptors.response.use(
   (response) => {
-    if (!response || response.status === 403) {
+    
+    if (response && response.status === 403) {
       localStorage.clear();
       window.location.reload();
     }
+    
     return response;
+    
   },
   (error) => {
+    
     if (error.response.status === 403) {
       localStorage.clear();
       window.location.reload();
     }
+    
   }
 );
+*/
 
 const getHeaderConfig = () => {
   const token = localStorage.getItem("token");
@@ -199,6 +206,21 @@ export function getUserRelations() {
   return axios.get(`${BASE_URL}/organizations/relations`, getHeaderConfig());
 }
 
-export function getRelation(userId){
-  return axios.get(`${BASE_URL}/organizations/relations/user/${userId}`,headerConfig);
+export function getRelation(userId) {
+  return axios.get(`${BASE_URL}/organizations/relations/user/${userId}`, headerConfig);
+}
+
+
+/* SHARE PROCESS TEMP */
+
+export function storeShareProcessTemp(payload) {
+  
+  let headerConfig = {
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      "content-type": "application/json",
+    },
+  };
+  return axios.post(`${BASE_URL}/shareProcess`,payload, headerConfig );
+
 }

@@ -28,7 +28,7 @@ function PForm() {
   const [properValueList, setProperValueList] = useState([]);
   const [tempProperList, setTempProperList] = useState([]);
   const [tempProperValueList, setTempProperValueList] = useState([]);
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const [formValues, setFormValues] = useState([]);
 
@@ -378,7 +378,7 @@ function PForm() {
           </div>
         </div>
       )}
-      {currentStep === 1 && <div>Step2 AuthUser: {authUser.name}</div>}
+      {currentStep === 1 && <div>Step2 AuthUser:  {/*{authUser.name} */}</div>}
       {currentStep === 2 && (
         <div>
           <div className="pf-process-container">

@@ -19,6 +19,7 @@ import { Col, Modal, Switch, message, notification } from "antd";
 import ProcessItemCard from "./ProcessItemCard";
 import { CiCircleAlert } from "react-icons/ci";
 import ShareItemCard from "./ShareItemCard";
+import { storeShareProcessTemp } from "../../services/http";
 
 function ProcessManagement(props) {
   const { activeLeftBar } = useContext(MainContext);
@@ -36,7 +37,7 @@ function ProcessManagement(props) {
   const [shareAuthentication, setShareAuthentication] = useState(false);
   const [shareLocation, setShareLocation] = useState(false);
   const [shareLocationType, setShareLocationType] = useState();
-  const [shareLocationPoints, setShareLocationPoints] = useState();
+  const [shareLocationPoints, setShareLocationPoints] = useState([]);
   const [shareDate, setShareDate] = useState(false);
   const [shareStartDate, setShareStartDate] = useState();
   const [shareEndDate, setShareEndDate] = useState();
@@ -153,7 +154,7 @@ function ProcessManagement(props) {
         handleDeleteProcess(user);
       },
 
-      onCancel() {},
+      onCancel() { },
       okType: "danger",
     });
   };
@@ -165,6 +166,74 @@ function ProcessManagement(props) {
 
   const cancelShowShareInformations = () => {
     setShowShareModal(false);
+
+  };
+
+  const generate8BitUniqueValue = (input) => {
+    let hash = 0;
+    for (let i = 0; i < input.length; i++) {
+        const character = input.charCodeAt(i);
+        hash = ((hash << 5) - hash) + character;
+        hash |= 0;
+    }
+
+    const maskedValue = hash & 0xFFFF;
+    return maskedValue.toString(16).toUpperCase();
+}
+
+ const getCurrentDate = () => {
+  const createdDate = new Date();
+  const createdDateString =
+    createdDate.getFullYear() +
+    "-" +
+    (createdDate.getMonth() + 1) +
+    "-" +
+    createdDate.getDate() +
+    " " +
+    ("0" + createdDate.getHours()).slice(-2) +
+    ":" +
+    ("0" + createdDate.getMinutes()).slice(-2) +
+    ":" +
+    ("0" + createdDate.getSeconds()).slice(-2);
+
+  return createdDateString;
+};
+
+  const okShowShareInformations = async () => {
+
+    const locationList = []
+    shareLocationPoints.forEach(l => {
+
+      locationList.push({ type: "Point", coordinates: [l.coords[0].lng, l.coords[0].lat], address: l.address })
+
+    })
+
+    const payload = {
+      sharedKey: generate8BitUniqueValue(getCurrentDate()),
+      processId:process.id,
+      processName:process.name,
+      hasAuth: shareAuthentication,
+      hasLocation: shareLocation,
+      locType: shareLocationType,
+      locList: locationList,
+      hasDateRange: shareDate,
+      dateRangeStart: shareStartDate,
+      dateRangeEnd: shareEndDate
+    }
+
+
+    try {
+      const response = await storeShareProcessTemp(payload);
+      
+      console.log(response)
+
+      if (response.status === 200) {
+        console.log("Status ok")
+      }
+    } catch (e) {
+      console.log("Getting user relations error : ", e);
+    }
+
   };
 
   const uniqueProperId = (proper) => {
@@ -333,7 +402,7 @@ function ProcessManagement(props) {
         title={props.t("Share Informations")}
         width={1200}
         open={showShareModal}
-        onOk={cancelShowShareInformations}
+        onOk={okShowShareInformations}
         onCancel={cancelShowShareInformations}
       >
         <div>

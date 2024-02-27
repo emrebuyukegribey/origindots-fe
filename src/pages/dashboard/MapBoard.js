@@ -1,5 +1,5 @@
 import { Component } from "react";
-import CustomGoogleMap from "./CustomGoogleMap";
+import CustomGoogleMap from "../../components/UI/Map/CustomGoogleMap";
 
 class MapBoard extends Component {
 

@@ -1,11 +1,14 @@
-import { Col, DatePicker, Radio, Switch } from "antd";
+import { Col, DatePicker, Radio, Switch, Modal } from "antd";
 import "./ShareItemCard.css";
+import { withTranslation } from "react-i18next";
 
 import moment from "moment";
 import { useState } from "react";
+import LittleMap from "../../components/UI/LittleMap/LittleMap"
 
 function ShareItemCard(props) {
-  const [locationType, setLocationType] = useState(1);
+  let locationList = [];
+  const [showMapModal, setShowMapModal] = useState(false);
 
   const onChangeAuthentication = (checked) => {
     props.setShareAuthentication(checked);
@@ -18,7 +21,30 @@ function ShareItemCard(props) {
   const onChangeLocationType = (e) => {
     const value = e.target.value;
 
+    if (value == 1)
+      setShowMapModal(true);
+
     props.setShareLocationType(value);
+
+  };
+
+  const setLocation = (loc) => {
+    locationList.push(loc)
+  }
+
+  const removeLocation = (key) => {
+    locationList = locationList.filter(location => location.key !== key)
+  }
+
+  const okShowMapModal = () => {
+    // console.log(locationList)
+    setShowMapModal(false);
+    props.setShareLocationPoints(locationList);
+  }
+
+  const cancelShowMapModal = () => {
+    setShowMapModal(false);
+    props.setShareLocationPoints([]);
   };
 
   const onChangeDate = (checked) => {
@@ -93,9 +119,7 @@ function ShareItemCard(props) {
           </div>
         </Col>
       )}
-      {props.shareLocation && props.shareLocationType === 1 && (
-        <div className="share-location-map-container">Harita burada olacak</div>
-      )}
+
       <div style={{ display: "flex", marginTop: "20px" }}>
         <Col span={16}>
           <div style={{ fontSize: "16px", fontWeight: "400" }}>
@@ -138,8 +162,21 @@ function ShareItemCard(props) {
           </div>
         </Col>
       )}
+      <Modal
+        title={props.t("Map Modal")}
+        width={1200}
+        open={showMapModal}
+        onOk={okShowMapModal}
+        onCancel={cancelShowMapModal}
+      >
+
+        <LittleMap setLoc={setLocation} removeLoc={removeLocation}
+        />
+      </Modal>
     </>
   );
 }
 
-export default ShareItemCard;
+
+const ShareItemCardWithTranslation = withTranslation()(ShareItemCard);
+export default ShareItemCardWithTranslation;

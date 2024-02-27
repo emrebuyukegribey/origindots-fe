@@ -146,7 +146,8 @@ i18n.use(initReactI18next).init({
         "User Informations": "User Informations",
         "Process Informations": "Process Information",
         Duplicate: "Duplicate",
-        "UserRoleInformation":"Role Management"
+        "UserRoleInformation":"Role Management",
+        "Location List":"Location List"
       },
     },
     tr: {
@@ -294,6 +295,8 @@ i18n.use(initReactI18next).init({
         "Process Informations": "Süreç Özeti",
         "User Informations": "Kullanıcı Bilgileri",
         Duplicate: "Çoğalt",
+        "Location List":"Lokasyon Listesi"
+
       },
     },
   },

@@ -1,0 +1,55 @@
+.locationList{
+    position: absolute;
+    z-index: 2;
+    background-color: #ffffffc2;
+    height: 40vh;
+    top: 12vh;
+    left: 1.5vw;
+    border-radius: 15px;
+    width: 35%;
+    padding: 5px
+}
+
+.adressSearchInput{
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 3px;
+    color: white;
+    font-weight: 700;
+    background-color: #34393e;
+    margin-right: 5px;
+    padding: 5px;
+}
+.adressSearchInput::placeholder {
+    color: rgb(248, 248, 248); 
+    font-weight: 500;
+    padding: 2px;
+
+}  
+
+.adressSearchButton{
+    cursor: pointer;
+    border-style: solid;
+    border-width: 0.5px;
+    padding: 5px;
+    font-weight: 800;
+    border-radius: 3px;
+    color: white;
+    background-color: #EF4136;
+    margin-right: 5px;
+}
+
+
+.adressClearButton{
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 3px;
+    border-color: gray;
+    color: white;
+    font-weight: 700;
+    background-color: #ffffff;
+    margin-right: 5px;
+    padding: 5px;
+    cursor: pointer;
+
+}
