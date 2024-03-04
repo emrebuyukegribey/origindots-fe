@@ -45,7 +45,7 @@ i18n.use(initReactI18next).init({
         "CREATE PROPERS": "CREATE PROPERS",
         "Create Process": "Create Process",
         "Create Propers": "Create Propers",
-        "Create Organization":"Create Organization",
+        "Create Organization": "Create Organization",
         "Clear All Propers": "Clear All Propers",
         "You can create your properties by clicking on the toolbar menu":
           "You can create your properties by clicking on the toolbar menu.",
@@ -87,6 +87,7 @@ i18n.use(initReactI18next).init({
         Header: "Header",
         Explanation: "Explanation",
         "Text Input": "Short Text",
+        "Dynamic Text Input": "Dynamic Short Text",
         "Textarea Input": "Long Text",
         "Number Input": "Number",
         "Email Input": "Email",
@@ -146,12 +147,12 @@ i18n.use(initReactI18next).init({
         "User Informations": "User Informations",
         "Process Informations": "Process Information",
         Duplicate: "Duplicate",
-        "UserRoleInformation":"Role Management"
+        UserRoleInformation: "Role Management",
       },
     },
     tr: {
       translations: {
-        "UserRoleInformation":"Yetkilendirme",
+        UserRoleInformation: "Yetkilendirme",
         Dashboard: "Gösterge Paneli",
         "Organization Management": "Organizasyon Yönetimi",
         "User Management": "Kullanıcı Yönetimi",
@@ -192,7 +193,7 @@ i18n.use(initReactI18next).init({
         "CREATE PROPERS": "ÖZELLİKLER OLUŞTUR",
         "Create Process": "Süreç Oluştur",
         "Create Propers": "Özellikleri Oluştur",
-        "Create Organization":"Organizasyon Oluştur",
+        "Create Organization": "Organizasyon Oluştur",
         "Clear All Propers": "Bütün Özellikleri Sil",
         "You can create your properties by clicking on the toolbar menu":
           "Araç çubuğu menüsüne tıklayarak özelliklerinizi oluşturabilirsiniz.",
@@ -235,6 +236,7 @@ i18n.use(initReactI18next).init({
         Header: "Başlık",
         Explanation: "Açıklama",
         "Text Input": "Kısa Metin",
+        "Dynamic Text Input": "Dinamik Kısa Metin",
         "Textarea Input": "Uzun Metin",
         "Number Input": "Sayı",
         "Email Input": "Email",

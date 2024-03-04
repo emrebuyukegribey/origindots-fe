@@ -1,18 +1,3 @@
-import EmailField from "../../UI/Propers/EmailField";
-import HeaderField from "../../UI/Propers/HeaderField";
-import InputField from "../../UI/Propers/InputField";
-import NumberField from "../../UI/Propers/NumberField";
-import PhoneField from "../../UI/Propers/PhoneField";
-import DataField from "../../UI/Propers/DataField";
-import TimeField from "../../UI/Propers/TimeField";
-import ProperGroupField from "../../UI/Propers/ProperGroupField";
-import PhotoField from "../../UI/Propers/PhotoField";
-import VideoField from "../../UI/Propers/VideoField";
-import QRField from "../../UI/Propers/QRField";
-import OCRField from "../../UI/Propers/OCRField";
-import DropDownField from "../../UI/Propers/DropDownField";
-import MultiSelectField from "../../UI/Propers/MultiSelectField";
-import SingleSelectField from "../../UI/Propers/SingleSelectField";
 import DataFieldPreview from "../../UI/Propers/DataFieldPreview";
 import InputFieldPreview from "../../UI/Propers/InputFieldPreview";
 import EmailFieldPreview from "../../UI/Propers/EmailFieldPreview";
@@ -25,6 +10,7 @@ import QRFieldPreview from "../../UI/Propers/QRFieldPreview";
 import TimeFieldPreview from "../../UI/Propers/TimeFieldPreview";
 import DateFieldPreview from "../../UI/Propers/DateFieldPreview";
 import ProperGroupFieldPreview from "../../UI/Propers/ProperGroupFieldPreview";
+import DynamicInputField from "../../UI/Propers/DynamicInputField";
 
 export default function PreviewProperRender(
   proper,
@@ -36,6 +22,9 @@ export default function PreviewProperRender(
   }
   if (proper.type === "InputField") {
     return <InputFieldPreview proper={proper} key={proper.id} />;
+  }
+  if (proper.type === "DynamicInputField") {
+    return <DynamicInputField proper={proper} key={proper.id} />;
   }
   if (proper.type === "TextareaField") {
     return <InputFieldPreview proper={proper} key={proper.id} />;
