@@ -394,6 +394,7 @@ function PForm(props) {
                 <FormRender
                   addValueOnFormValues={addValueOnFormValues}
                   formValues={formValues}
+                  setFormValues={setFormValues}
                   proper={p}
                   properList={properList.filter((v) => v.parentId === p.id)}
                   allProperList={properList}

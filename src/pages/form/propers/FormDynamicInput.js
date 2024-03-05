@@ -1,15 +1,32 @@
-import { Form, Input } from "antd";
+import { Form } from "antd";
 import "./FormItem.css";
 import { getCurrentDate } from "../PFormUtil";
 import { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import SmallLoadingBar from "../../../components/UI/Loading/SmallLoadingBar";
 import TextArea from "antd/es/input/TextArea";
-import { IoMdAdd } from "react-icons/io";
 
-function FormDynamicInput({ proper, addValueOnFormValues, t }) {
+function FormDynamicInput({
+  proper,
+  formValues,
+  setFormValues,
+  addValueOnFormValues,
+  t,
+}) {
   const [loading, setLoading] = useState(false);
   const [inputs, setInputs] = useState([]);
+
+  let properFormValue = formValues.filter((fm) => fm.properId === proper.id)[0];
+
+  useEffect(() => {
+    if (
+      properFormValue &&
+      properFormValue.properValue &&
+      properFormValue.properValue.length > 0
+    ) {
+      setInputs(properFormValue.properValue);
+    }
+  }, []);
 
   const onChange = (e, field) => {
     field.value = e.target.value;
@@ -75,6 +92,14 @@ function FormDynamicInput({ proper, addValueOnFormValues, t }) {
   const deleteField = (deletedField) => {
     setLoading(true);
     setInputs(inputs.filter((f) => f.id !== deletedField.id));
+    const tempFormValues = formValues;
+
+    const inputsAfterDeleting = inputs.filter((f) => f.id !== deletedField.id);
+
+    tempFormValues.filter((fm) => fm.properId === proper.id)[0].properValue =
+      inputsAfterDeleting;
+
+    setFormValues(tempFormValues);
     setTimeout(() => {
       setLoading(false);
     }, 200);

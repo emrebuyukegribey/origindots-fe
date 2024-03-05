@@ -20,6 +20,7 @@ import FormVideo from "./propers/FormVideo";
 export function FormRender({
   addValueOnFormValues,
   formValues,
+  setFormValues,
   proper,
   properList,
   allProperList,
@@ -45,6 +46,8 @@ export function FormRender({
     return (
       <FormDynamicInput
         proper={proper}
+        formValues={formValues}
+        setFormValues={setFormValues}
         addValueOnFormValues={addValueOnFormValues}
         t={t}
       />
