@@ -25,6 +25,7 @@ export function FormRender({
   allProperList,
   properValueList,
   onChangeForParent,
+  t,
 }) {
   if (proper.type === "HeaderField") {
     return <FormHeader proper={proper} />;
@@ -45,6 +46,7 @@ export function FormRender({
       <FormDynamicInput
         proper={proper}
         addValueOnFormValues={addValueOnFormValues}
+        t={t}
       />
     );
   }

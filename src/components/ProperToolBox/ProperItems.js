@@ -11,7 +11,7 @@ import {
   MdAlternateEmail,
   MdOutlineDateRange,
   MdOutlineRadioButtonChecked,
-  MdOutlineTextIncrease,
+  MdTextRotateVertical,
 } from "react-icons/md";
 import {
   AiOutlinePhone,
@@ -64,8 +64,8 @@ const ProperItems = [
   },
   {
     id: 19,
-    icon: <MdOutlineTextIncrease />,
-    text: "Dynamic Text Input",
+    icon: <MdTextRotateVertical />,
+    text: "Dynamic Input",
     type: "DynamicInputField",
     title: "Proper name",
     placeholder: "Placeholder",

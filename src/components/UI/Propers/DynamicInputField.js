@@ -5,7 +5,11 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDraggable } from "react-icons/ri";
 import { BsCursorText } from "react-icons/bs";
 import { useEffect, useState } from "react";
-import { MdDeleteForever } from "react-icons/md";
+import {
+  MdDeleteForever,
+  MdOutlineTextIncrease,
+  MdTextRotateVertical,
+} from "react-icons/md";
 import LoadingBar from "../Loading/LoadingBar";
 import SmallLoadingBar from "../Loading/SmallLoadingBar";
 import TextArea from "antd/es/input/TextArea";
@@ -20,6 +24,9 @@ function DynamicInputField({
 }) {
   const [loading, setLoading] = useState(false);
 
+  console.log("proper : ", proper);
+
+  /*
   useEffect(() => {
     setLoading(true);
     if (
@@ -39,6 +46,7 @@ function DynamicInputField({
       setLoading(false);
     }, 200);
   }, []);
+  */
 
   const addField = () => {
     setLoading(true);
@@ -71,7 +79,7 @@ function DynamicInputField({
         <div className="dynamic-input-field-title-container">
           <div style={{ display: "flex" }}>
             <div className="dynamic-input-field-icon">
-              {proper.icon ? proper.icon : <BsCursorText />}
+              {proper.icon ? proper.icon : <MdTextRotateVertical />}
             </div>
             <span className="dynamic-input-field-title">
               {t(proper.title)}
@@ -139,7 +147,7 @@ function DynamicInputField({
             className="dynamic-input-field-add-field-button"
             onClick={loading ? {} : addField}
           >
-            Add New Field
+            {t("Add New Field")}
           </div>
         </div>
 

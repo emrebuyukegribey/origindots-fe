@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import SmallLoadingBar from "../../../components/UI/Loading/SmallLoadingBar";
 import TextArea from "antd/es/input/TextArea";
+import { IoMdAdd } from "react-icons/io";
 
-function FormDynamicInput({ proper, addValueOnFormValues }) {
+function FormDynamicInput({ proper, addValueOnFormValues, t }) {
   const [loading, setLoading] = useState(false);
   const [inputs, setInputs] = useState([]);
 
   const onChange = (e, field) => {
     field.value = e.target.value;
+    field.valueCreatedDate = new Date();
     const tempInputs = inputs;
     tempInputs.map((f) => (f.id === field.id ? { ...f, field } : f));
     setInputs(tempInputs);
@@ -24,12 +26,10 @@ function FormDynamicInput({ proper, addValueOnFormValues }) {
       properType: proper.type,
       createdDate: getCurrentDate(),
     };
-
-    console.log("properObject : ", properObject);
-
     addValueOnFormValues(properObject);
   };
 
+  /*
   useEffect(() => {
     setLoading(true);
     if (
@@ -48,23 +48,19 @@ function FormDynamicInput({ proper, addValueOnFormValues }) {
       setLoading(false);
     }, 200);
   }, []);
+  */
 
   const addField = () => {
     setLoading(true);
     const uniqueId = `dynamic-input-${Date.now()}-${Math.floor(
       Math.random() * 1000
     )}`;
-    const parentProperId = proper.id;
-    const fieldCreatedDate = new Date();
-    const value = "";
-    const valueCreatedDate = new Date();
 
     const field = {
       id: uniqueId,
-      parentProperId: parentProperId,
-      fieldCreatedDate: fieldCreatedDate,
-      value: value,
-      valueCreatedDate: valueCreatedDate,
+      parentProperId: proper.id,
+      value: "",
+      valueCreatedDate: new Date(),
     };
 
     const tempInputs = inputs;
@@ -73,14 +69,12 @@ function FormDynamicInput({ proper, addValueOnFormValues }) {
 
     setTimeout(() => {
       setLoading(false);
-    }, 200);
+    }, 300);
   };
 
-  const deleteField = (id) => {
-    const tempList = inputs;
-    tempList.pop(deleteField);
-    setInputs(tempList);
+  const deleteField = (deletedField) => {
     setLoading(true);
+    setInputs(inputs.filter((f) => f.id !== deletedField.id));
     setTimeout(() => {
       setLoading(false);
     }, 200);
@@ -130,7 +124,7 @@ function FormDynamicInput({ proper, addValueOnFormValues }) {
                 <div className="form-dynamic-input-field-delete-container">
                   <MdDeleteForever
                     className="form-dynamic-input-field--input-delete-icon"
-                    onClick={() => deleteField(f.id)}
+                    onClick={() => deleteField(f)}
                   />
                 </div>
               </div>
@@ -140,7 +134,7 @@ function FormDynamicInput({ proper, addValueOnFormValues }) {
           className="form-dynamic-input-add-field-button-container"
           onClick={addField}
         >
-          Add New Field
+          {t("Add New Field")}
         </div>
       </Form.Item>
     </>
