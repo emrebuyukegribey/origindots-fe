@@ -66,6 +66,7 @@ const ProperItems = [
     id: 19,
     icon: <MdOutlineTextIncrease />,
     text: "Dynamic Text Input",
+    type: "DynamicInputField",
     title: "Proper name",
     placeholder: "Placeholder",
     description: "description (optional)",

@@ -1,0 +1,193 @@
+@import "../../../variables.css";
+
+
+.ant-input[disabled] {
+    background-color: #fff !important;
+}
+
+.dynamic-input-field-outer-container {
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+    margin: 10px 10px;
+    transition: all 0.5s ease-in-out;
+}
+
+.dynamic-input-field-drag-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.dynamic-input-field-drag-icon {
+    font-size: 24px;
+    color: var(--grey200)
+}
+
+.dynamic-input-field-outer-container:hover .dynamic-input-field-drag-icon {
+    color: var(--dark100);
+    transition: all 0.5ms ease-in-out;
+}
+
+.dynamic-input-field-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 10px 15px 10px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid var(--grey400);
+    border-radius: 2px;
+    transition: width 0.5ms ease-in-out;
+}
+
+.dynamic-input-field-outer-container:hover .dynamic-input-field-container {
+    border: 1px solid var(--dark300);
+    transition: all 0.5s ease-in-out;
+}
+
+.dynamic-input-field-title-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dynamic-input-field-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px -10px -10px -20px;
+    background-color: var(--grey400);
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    color: var(--dark100);
+    padding: 2px 6px 4px 2px;
+    font-size: 18px;
+    border-color: var(--dark300);
+}
+
+.dynamic-input-field-title {
+    margin-top: 15px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--dark200)
+}
+
+.dynamic-input-field-description {
+    padding-top: 5px;
+    padding-left: 3px;
+    font-size: 13px;
+    color: var(--dark300);
+}
+
+.dynamic-input-field-icons-container {
+    display: none;
+}
+
+.dynamic-input-field-outer-container:hover .dynamic-input-field-icons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -45px;
+    margin-right: -12px;
+}
+
+.dynamic-input-field-edit-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.dynamic-input-field-edit-icon:hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.dynamic-input-field-delete-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark300);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.dynamic-input-field-delete-icon:hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.dynamic-input-field-required {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--red100);
+}
+
+.dynamic-input-field-add-field-container {
+    width: 100%;
+    display: flex;
+    
+    margin: 8px 0px;
+}
+
+.dynamic-input-field-add-field-button {
+    padding: 7px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark300);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.dynamic-input-field-add-field-button:hover {
+    background-color: var(--dark100);
+}
+
+.dynamic-input-field-inputs-container {
+    margin: 10px 0px;
+}
+
+.dynamic-input-field-input-container {
+    display: flex;
+}
+
+.dynamic-input-field-delete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.dynamic-input-field--input-delete-icon {
+    color: var(--red300);
+    width: 28px;
+    height: 28px;
+}
+
+.dynamic-input-field--input-delete-icon:hover {
+    color: var(--red100);
+    cursor: pointer;
+}

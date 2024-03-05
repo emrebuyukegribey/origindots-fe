@@ -39,10 +39,6 @@ export function FormRender({
     );
   }
 
-  {
-    console.log("proper : ", proper);
-  }
-
   if (proper.type === "DynamicInputField") {
     return (
       <DynamicInputField

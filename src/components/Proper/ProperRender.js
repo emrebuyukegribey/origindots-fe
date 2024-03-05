@@ -17,6 +17,7 @@ import DateField from "../UI/Propers/DateField";
 import { withTranslation } from "react-i18next";
 import TextareaField from "../UI/Propers/TextareaField";
 import ExplanationField from "../UI/Propers/ExplanationField";
+import DynamicInputField from "../UI/Propers/DynamicInputField";
 
 function ProperRender(
   proper,
@@ -50,6 +51,16 @@ function ProperRender(
   } else if (proper.type === "InputField") {
     return (
       <InputField
+        proper={proper}
+        deleteProper={deleteProper}
+        editProper={editProper}
+        key={proper.id}
+        t={t}
+      />
+    );
+  } else if (proper.type === "DynamicInputField") {
+    return (
+      <DynamicInputField
         proper={proper}
         deleteProper={deleteProper}
         editProper={editProper}
