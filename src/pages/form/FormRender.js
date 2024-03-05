@@ -2,6 +2,7 @@ import DynamicInputField from "../../components/UI/Propers/DynamicInputField";
 import FormData from "./propers/FormData";
 import FormDate from "./propers/FormDate";
 import FormDropdown from "./propers/FormDropdown";
+import FormDynamicInput from "./propers/FormDynamicInput";
 import FormEmail from "./propers/FormEmail";
 import FormExplanation from "./propers/FormExplanation";
 import FormHeader from "./propers/FormHeader";
@@ -41,7 +42,7 @@ export function FormRender({
 
   if (proper.type === "DynamicInputField") {
     return (
-      <DynamicInputField
+      <FormDynamicInput
         proper={proper}
         addValueOnFormValues={addValueOnFormValues}
       />

@@ -26,7 +26,9 @@ function ProperRender(
   editProper,
   properValueList,
   properList,
-  t
+  t,
+  dynamicInputs,
+  setDynamicInputs
 ) {
   if (proper.type === "HeaderField") {
     return (
@@ -66,6 +68,8 @@ function ProperRender(
         editProper={editProper}
         key={proper.id}
         t={t}
+        dynamicInputs={dynamicInputs}
+        setDynamicInputs={setDynamicInputs}
       />
     );
   } else if (proper.type === "TextareaField") {

@@ -52,6 +52,7 @@ function NewProcess(props) {
   const [openMobilePreview, setOpenMobilePreview] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
   const [openProcessBar, setOpenProcessBar] = useState(false);
+  const [dynamicInputs, setDynamicInputs] = useState([]);
 
   const { setNavbarHeaderText, setActiveLeftBar, activeLeftBar } =
     useContext(MainContext);
@@ -346,10 +347,9 @@ function NewProcess(props) {
   const duplicateProperOnForm = (baseItem) => {
     const tempList = [];
     baseItem["datatype"] = "proper";
-    const parentId= baseItem.parentId;
+    const parentId = baseItem.parentId;
     tempList.push(Object.assign({}, baseItem));
     function findRelatedItemsRecursively(currentItem) {
-
       if (
         currentItem.id.includes("ProperGroupField") ||
         currentItem.id.includes("value")
@@ -379,8 +379,10 @@ function NewProcess(props) {
     }
     const updatedList = changeID(tempList);
     const newList = createNewCopyList(tempList, updatedList);
-    
-    newList.length > 0 ? newList[0].parentId=parentId : newList[0].parentId=null;
+
+    newList.length > 0
+      ? (newList[0].parentId = parentId)
+      : (newList[0].parentId = null);
     copyProperAndValueOfList(newList);
   };
 
@@ -564,8 +566,9 @@ function NewProcess(props) {
                   setOpenDesktopPreview={setOpenDesktopPreview}
                   setOpenTabletPreview={setOpenTabletPreview}
                   setOpenMobilePreview={setOpenMobilePreview}
-                  setOPent
                   t={props.t}
+                  dynamicInputs={dynamicInputs}
+                  setDynamicInputs={setDynamicInputs}
                 />
               )}
               {currentStep === 2 && (

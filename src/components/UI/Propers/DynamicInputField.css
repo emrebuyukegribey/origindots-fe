@@ -147,7 +147,6 @@
 .dynamic-input-field-add-field-container {
     width: 100%;
     display: flex;
-    
     margin: 8px 0px;
 }
 
@@ -164,6 +163,7 @@
 
 .dynamic-input-field-add-field-button:hover {
     background-color: var(--dark100);
+    cursor: pointer;
 }
 
 .dynamic-input-field-inputs-container {
@@ -172,6 +172,8 @@
 
 .dynamic-input-field-input-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dynamic-input-field-delete-container {

@@ -95,7 +95,6 @@ function FormPhoto(props) {
           },
         ]}
       >
-        {console.log("files : ", files)}
         <Upload
           name="file"
           showUploadList={{ showRemoveIcon: true }}

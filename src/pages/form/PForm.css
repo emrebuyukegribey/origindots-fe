@@ -128,7 +128,6 @@
 
 .pf-auth-body {
     margin-top: 50px;
-    
     width: 100%;
     max-width: 500px;
 }
@@ -144,9 +143,7 @@
     margin: 30px 0px !important;
     border-color: var(--dark100) !important;
     color: var(--dark100) !important;
-
 }
-
 
 .facebook-button-border-container {
     width: 100%;
@@ -193,4 +190,47 @@
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+}
+
+.form-dynamic-input-add-field-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: var(--dark300);
+    width: auto;
+    margin: 15px 0px 10px 0px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+    width: 150px;
+}
+
+.form-dynamic-input-add-field-button-container:hover {
+    background-color: var(--dark100);
+    cursor: pointer;
+}
+
+.form-dynamic-input-field-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-dynamic-input-field-delete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.form-dynamic-input-field--input-delete-icon {
+    color: var(--red300);
+    width: 28px;
+    height: 28px;
+}
+
+.form-dynamic-input-field--input-delete-icon:hover {
+    color: var(--red100);
+    cursor: pointer;
 }

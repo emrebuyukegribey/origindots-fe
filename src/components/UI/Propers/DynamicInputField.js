@@ -6,24 +6,60 @@ import { RiDraggable } from "react-icons/ri";
 import { BsCursorText } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
+import LoadingBar from "../Loading/LoadingBar";
+import SmallLoadingBar from "../Loading/SmallLoadingBar";
+import TextArea from "antd/es/input/TextArea";
 
-function DynamicInputField({ proper, deleteProper, editProper, t }) {
-  const [inputs, setInputs] = useState([]);
+function DynamicInputField({
+  proper,
+  deleteProper,
+  editProper,
+  t,
+  dynamicInputs,
+  setDynamicInputs,
+}) {
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const temp = [...inputs];
-    const uniqueId = `input-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    const input = { id: uniqueId };
-    temp.push(input);
-    setInputs(temp);
+    setLoading(true);
+    if (
+      dynamicInputs &&
+      dynamicInputs.filter((input) => input.parentProperId === proper.id)
+        .length === 0
+    ) {
+      const temp = [...dynamicInputs];
+      const input = { id: 1, parentProperId: proper.id };
+      temp.push(input);
+      setDynamicInputs(temp);
+      setTimeout(() => {
+        setLoading(false);
+      }, 200);
+    }
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
   }, []);
 
   const addField = () => {
+    setLoading(true);
     const uniqueId = `input-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    const newInput = { id: uniqueId };
-    const tempInputs = inputs;
+    const newInput = { id: uniqueId, parentProperId: proper.id };
+    const tempInputs = dynamicInputs;
     tempInputs.push(newInput);
-    setInputs(tempInputs);
+    setDynamicInputs(tempInputs);
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+  };
+
+  const deleteField = (id) => {
+    const tempList = dynamicInputs;
+    tempList.pop(deleteField);
+    setDynamicInputs(tempList);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
   };
 
   return (
@@ -60,20 +96,48 @@ function DynamicInputField({ proper, deleteProper, editProper, t }) {
           </div>
         </div>
         <div className="dynamic-input-field-inputs-container">
-          {inputs.map((f) => (
-            <div className="dynamic-input-field-input-container">
-              <Input />
-              <div className="dynamic-input-field-delete-container">
-                <MdDeleteForever className="dynamic-input-field--input-delete-icon" />
-              </div>
+          {loading && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                paddingLeft: "100px",
+                position: "initial",
+              }}
+            >
+              <SmallLoadingBar />
             </div>
-          ))}
+          )}
+          {!loading &&
+            dynamicInputs
+              .filter((input) => input.parentProperId === proper.id)
+              .map((f, index) => (
+                <div
+                  className="dynamic-input-field-input-container"
+                  key={index}
+                >
+                  <TextArea
+                    style={{
+                      marginBottom: "10px",
+                    }}
+                  />
+
+                  <div className="dynamic-input-field-delete-container">
+                    <MdDeleteForever
+                      className="dynamic-input-field--input-delete-icon"
+                      onClick={() => deleteField(f.id)}
+                    />
+                  </div>
+                </div>
+              ))}
         </div>
 
         <div className="dynamic-input-field-add-field-container">
           <div
             className="dynamic-input-field-add-field-button"
-            onClick={addField}
+            onClick={loading ? {} : addField}
           >
             Add New Field
           </div>
