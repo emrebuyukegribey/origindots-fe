@@ -46,8 +46,6 @@ export function FormRender({
     return (
       <FormDynamicInput
         proper={proper}
-        formValues={formValues}
-        setFormValues={setFormValues}
         addValueOnFormValues={addValueOnFormValues}
         t={t}
       />
