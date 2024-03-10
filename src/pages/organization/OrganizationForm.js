@@ -6,6 +6,7 @@ import "./OrganizationForm.css";
 import { useEffect } from "react";
 
 function OrganizationForm(props) {
+  console.log("props  :", props);
   const [form] = Form.useForm();
 
   const formItemLayout = {
@@ -72,14 +73,15 @@ function OrganizationForm(props) {
           {...formItemLayout}
           className="new-user-label"
         >
+          {console.log("option.data. : ", options)}
           <Select
             size="large"
             mode="single"
-            style={{ width: "100%" }}
+            style={{ width: "100%", color: "red" }}
             placeholder="Please select parent organization"
             optionLabelProp="label"
             options={options}
-            optionRender={(option) => <Space>{option.data.desc}</Space>}
+            optionRender={(option) => <Space>{option.label}</Space>}
           />
         </Form.Item>
         <Form.Item
