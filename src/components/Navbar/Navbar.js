@@ -24,6 +24,7 @@ function Navbar(props) {
     i18n.changeLanguage(language);
   };
 
+  /*
   useEffect(() => {
     async function setUserRelations() {
       if (localStorage.getItem("token")) {
@@ -42,6 +43,7 @@ function Navbar(props) {
     }
     setUserRelations();
   }, []);
+  */
 
   return (
     <div

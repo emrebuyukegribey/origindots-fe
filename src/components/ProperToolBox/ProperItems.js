@@ -11,6 +11,7 @@ import {
   MdAlternateEmail,
   MdOutlineDateRange,
   MdOutlineRadioButtonChecked,
+  MdTextRotateVertical,
 } from "react-icons/md";
 import {
   AiOutlinePhone,
@@ -35,6 +36,7 @@ import ProperGroupField from "../UI/Propers/ProperGroupField";
 import DateField from "../UI/Propers/DateField";
 import TextareaField from "../UI/Propers/TextareaField";
 import ExplanationField from "../UI/Propers/ExplanationField";
+import DynamicInputField from "../UI/Propers/DynamicInputField";
 
 const ProperItems = [
   {
@@ -56,6 +58,15 @@ const ProperItems = [
     icon: <BsCursorText />,
     text: "Text Input",
     type: "InputField",
+    title: "Proper name",
+    placeholder: "Placeholder",
+    description: "description (optional)",
+  },
+  {
+    id: 19,
+    icon: <MdTextRotateVertical />,
+    text: "Dynamic Input",
+    type: "DynamicInputField",
     title: "Proper name",
     placeholder: "Placeholder",
     description: "description (optional)",
@@ -245,6 +256,13 @@ export const renderers = {
       title={InputField.title}
       placeholder={InputField.placeholder}
       description={InputField.description}
+    />
+  ),
+  DynamicInputField: () => (
+    <DynamicInputField
+      title={DynamicInputField.title}
+      placeholder={DynamicInputField.placeholder}
+      description={DynamicInputField.description}
     />
   ),
   TextareaField: () => {

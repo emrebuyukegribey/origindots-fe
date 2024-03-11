@@ -1,6 +1,8 @@
+import DynamicInputField from "../../components/UI/Propers/DynamicInputField";
 import FormData from "./propers/FormData";
 import FormDate from "./propers/FormDate";
 import FormDropdown from "./propers/FormDropdown";
+import FormDynamicInput from "./propers/FormDynamicInput";
 import FormEmail from "./propers/FormEmail";
 import FormExplanation from "./propers/FormExplanation";
 import FormHeader from "./propers/FormHeader";
@@ -18,11 +20,13 @@ import FormVideo from "./propers/FormVideo";
 export function FormRender({
   addValueOnFormValues,
   formValues,
+  setFormValues,
   proper,
   properList,
   allProperList,
   properValueList,
   onChangeForParent,
+  t,
 }) {
   if (proper.type === "HeaderField") {
     return <FormHeader proper={proper} />;
@@ -35,6 +39,16 @@ export function FormRender({
   if (proper.type === "InputField") {
     return (
       <FormInput proper={proper} addValueOnFormValues={addValueOnFormValues} />
+    );
+  }
+
+  if (proper.type === "DynamicInputField") {
+    return (
+      <FormDynamicInput
+        proper={proper}
+        addValueOnFormValues={addValueOnFormValues}
+        t={t}
+      />
     );
   }
 
@@ -70,13 +84,21 @@ export function FormRender({
 
   if (proper.type === "PhotoField") {
     return (
-      <FormPhoto proper={proper} addValueOnFormValues={addValueOnFormValues} />
+      <FormPhoto
+        proper={proper}
+        addValueOnFormValues={addValueOnFormValues}
+        formValues={formValues}
+      />
     );
   }
 
   if (proper.type === "VideoField") {
     return (
-      <FormVideo proper={proper} addValueOnFormValues={addValueOnFormValues} />
+      <FormVideo
+        proper={proper}
+        addValueOnFormValues={addValueOnFormValues}
+        formValues={formValues}
+      />
     );
   }
 
@@ -91,7 +113,11 @@ export function FormRender({
 
   if (proper.type === "DataField") {
     return (
-      <FormData proper={proper} addValueOnFormValues={addValueOnFormValues} />
+      <FormData
+        proper={proper}
+        addValueOnFormValues={addValueOnFormValues}
+        formValues={formValues}
+      />
     );
   }
 

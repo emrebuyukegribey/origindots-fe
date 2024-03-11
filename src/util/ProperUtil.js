@@ -16,6 +16,7 @@ import {
   MdAlternateEmail,
   MdOutlineDateRange,
   MdOutlineRadioButtonChecked,
+  MdOutlineTextIncrease,
 } from "react-icons/md";
 
 export function getIconFromProper(proper) {
@@ -23,6 +24,8 @@ export function getIconFromProper(proper) {
     return <BiHeading />;
   } else if (proper.type === "InputField") {
     return <BsCursorText />;
+  } else if (proper.type === "DynamicInputField") {
+    return <MdOutlineTextIncrease />;
   } else if (proper.type === "TextareaField") {
     return <BsTextareaResize />;
   } else if (proper.type === "NumberField") {

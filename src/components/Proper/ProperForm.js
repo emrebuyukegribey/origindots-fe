@@ -36,6 +36,8 @@ function ProperForm({
   setOpenTabletPreview,
   setOpenMobilePreview,
   t,
+  dynamicInputs,
+  setDynamicInputs,
 }) {
   const [messageApi, contextHolder] = message.useMessage();
   let dragStart = useRef();
@@ -219,7 +221,9 @@ function ProperForm({
                   editProper,
                   properValueList,
                   properList,
-                  t
+                  t,
+                  dynamicInputs,
+                  setDynamicInputs
                 )}
               </div>
               {proper.isDrag ? (

@@ -16,6 +16,7 @@ import {
   MdAlternateEmail,
   MdOutlineDateRange,
   MdOutlineRadioButtonChecked,
+  MdOutlineTextIncrease,
 } from "react-icons/md";
 import { AiOutlineQrcode, AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { IoMdQrScanner, IoMdTimer } from "react-icons/io";
@@ -38,6 +39,8 @@ function ProcessItemCard(props) {
       return <BiCommentDetail />;
     } else if (properId.includes("InputField")) {
       return <BsCursorText />;
+    } else if (properId.includes("DynamicInputField")) {
+      return <MdOutlineTextIncrease />;
     } else if (properId.includes("TextareaField")) {
       return <BsTextareaResize />;
     } else if (properId.includes("NumberField")) {

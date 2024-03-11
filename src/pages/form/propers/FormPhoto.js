@@ -10,6 +10,20 @@ function FormPhoto(props) {
   const [file, setFile] = useState();
   const [files, setFiles] = useState([]);
 
+  let defaultFileList = [];
+
+  const properFormValue = props.formValues.filter(
+    (fv) => fv.properId === props.proper.id
+  )[0];
+
+  if (
+    properFormValue &&
+    properFormValue.properValue &&
+    properFormValue.properValue.length > 0
+  ) {
+    defaultFileList = properFormValue.properValue;
+  }
+
   const handleChange = (info) => {
     if (info.file.status === "uploading") {
       return;
@@ -43,12 +57,6 @@ function FormPhoto(props) {
     return isJpgOrPng && isLt2M;
   };
 
-  const onRemove = () => {
-    localStorage.removeItem(props.proper.id);
-    setFile(null);
-    setImageUrl(null);
-  };
-
   useEffect(() => {
     setFile(JSON.parse(localStorage.getItem("file")));
     setImageUrl(localStorage.getItem(props.proper.id));
@@ -65,16 +73,6 @@ function FormPhoto(props) {
       createdDate: getCurrentDate(),
     };
 
-    /*
-    const imageUrls = [];
-    e.fileList.forEach((element) => {
-      getBase64(element.originFileObj, (url) => {
-        imageUrls.push(url);
-      });
-    });
-    setImageUrl(imageUrls);
-    */
-
     props.addValueOnFormValues(properObject);
   };
 
@@ -88,7 +86,7 @@ function FormPhoto(props) {
       <Form.Item
         className="form-input-container"
         label={props.proper.title}
-        extra={props.proper.description}
+        // extra={props.proper.description}
         name={props.proper.id}
         rules={[
           {
@@ -104,20 +102,17 @@ function FormPhoto(props) {
           beforeUpload={() => false}
           onChange={(e) => onChange(e)}
           onRemove={(e) => fileRemoved(e)}
+          defaultFileList={defaultFileList}
+          listType="picture"
         >
           <div className="form-photo-container ">
             <HiOutlinePhoto className="photo-field-upload-icon" />
             <div>{props.proper.placeholder}</div>
           </div>
-        </Upload>
-        {imageUrl && (
-          <div className="form-photo-image-container">
-            <img src={imageUrl} className="form-photo-image" />
-            <div onClick={onRemove} style={{ cursor: "pointer" }}>
-              <MdClose className="form-photo-close-icon" />
-            </div>
+          <div className="form-photo-description">
+            {props.proper.description}
           </div>
-        )}
+        </Upload>
       </Form.Item>
     </>
   );

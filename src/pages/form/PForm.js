@@ -18,8 +18,9 @@ import InstagramButtonBorder from "../../components/UI/Buttons/InstagramButtonBo
 import ReactFacebookLogin from "react-facebook-login";
 import { InstagramLogin } from "@amraneze/react-instagram-login";
 import { BsFacebook } from "react-icons/bs";
+import { withTranslation } from "react-i18next";
 
-function PForm() {
+function PForm(props) {
   const { id } = useParams();
 
   const [process, setProcess] = useState([]);
@@ -38,6 +39,7 @@ function PForm() {
   const [authEmailError, setAuthEmailError] = useState();
 
   const [authUser, setAuthUser] = useState();
+
   const getProcess = async () => {
     try {
       const response = await getProcessWithAllAtributes(id);
@@ -392,6 +394,7 @@ function PForm() {
                 <FormRender
                   addValueOnFormValues={addValueOnFormValues}
                   formValues={formValues}
+                  setFormValues={setFormValues}
                   proper={p}
                   properList={properList.filter((v) => v.parentId === p.id)}
                   allProperList={properList}
@@ -400,6 +403,7 @@ function PForm() {
                   )}
                   key={p.id}
                   onChangeForParent={onChangeForParent}
+                  t={props.t}
                 />
               ))}
             </div>
@@ -432,4 +436,5 @@ function PForm() {
   );
 }
 
-export default PForm;
+const NewPFormWithTranslation = withTranslation()(PForm);
+export default NewPFormWithTranslation;

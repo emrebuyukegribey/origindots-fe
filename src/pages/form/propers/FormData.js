@@ -6,12 +6,22 @@ import { HiOutlinePhoto } from "react-icons/hi2";
 import { AiOutlineUpload } from "react-icons/ai";
 import { getCurrentDate } from "../PFormUtil";
 
-function FormData({ proper, addValueOnFormValues }) {
+function FormData({ proper, addValueOnFormValues, formValues }) {
   const [files, setFiles] = useState([]);
 
-  const uploadChanged = (event) => {
-    setFiles(event.fileList);
-  };
+  let defaultFileList = [];
+
+  const properFormValue = formValues.filter(
+    (fv) => fv.properId === proper.id
+  )[0];
+
+  if (
+    properFormValue &&
+    properFormValue.properValue &&
+    properFormValue.properValue.length > 0
+  ) {
+    defaultFileList = properFormValue.properValue;
+  }
 
   const fileRemoved = (event) => {
     const filteredFiles = files.filter((file) => file !== event);
@@ -37,7 +47,6 @@ function FormData({ proper, addValueOnFormValues }) {
       <Form.Item
         className="form-input-container"
         label={proper.title}
-        extra={proper.description}
         name={proper.id}
         rules={[
           { required: proper.required, message: proper.title + " is required" },
@@ -50,11 +59,13 @@ function FormData({ proper, addValueOnFormValues }) {
           beforeUpload={() => false}
           onChange={(e) => onChange(e)}
           onRemove={(e) => fileRemoved(e)}
+          defaultFileList={defaultFileList}
         >
           <div className="form-photo-container ">
             <AiOutlineUpload className="photo-field-upload-icon" />
             <div>{proper.placeholder}</div>
           </div>
+          <div className="form-data-description">{proper.description}</div>
         </Upload>
       </Form.Item>
     </>
