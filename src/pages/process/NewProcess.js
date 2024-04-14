@@ -334,12 +334,7 @@ function NewProcess(props) {
     }
   }
 
-  /*
-  function createUUID() {
-    return uuidv4();
-  }
-  */
-
+  
   function splitID(payload) {
     return payload.split("-");
   }

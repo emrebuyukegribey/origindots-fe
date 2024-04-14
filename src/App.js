@@ -12,6 +12,7 @@ import UserManagement from "./pages/users/UserManagement";
 import OrganizationManagement from "./pages/organization/OrganizationManagement";
 
 import PForm from "./pages/form/PForm";
+import SForm from "./pages/form/SForm";
 import Profile from "./pages/profile/Profile";
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -94,6 +95,10 @@ function App() {
           <Route
             path="/process/:id"
             element={<PForm setNavbarHeaderText={setNavbarHeaderText} />}
+          />
+           <Route
+            path="/shared/:id"
+            element={<SForm setNavbarHeaderText={setNavbarHeaderText} />}
           />
         </Routes>
       </MainContext.Provider>

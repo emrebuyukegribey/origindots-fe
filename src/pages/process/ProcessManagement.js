@@ -172,32 +172,32 @@ function ProcessManagement(props) {
   const generate8BitUniqueValue = (input) => {
     let hash = 0;
     for (let i = 0; i < input.length; i++) {
-        const character = input.charCodeAt(i);
-        hash = ((hash << 5) - hash) + character;
-        hash |= 0;
+      const character = input.charCodeAt(i);
+      hash = ((hash << 5) - hash) + character;
+      hash |= 0;
     }
 
     const maskedValue = hash & 0xFFFF;
     return maskedValue.toString(16).toUpperCase();
-}
+  }
 
- const getCurrentDate = () => {
-  const createdDate = new Date();
-  const createdDateString =
-    createdDate.getFullYear() +
-    "-" +
-    (createdDate.getMonth() + 1) +
-    "-" +
-    createdDate.getDate() +
-    " " +
-    ("0" + createdDate.getHours()).slice(-2) +
-    ":" +
-    ("0" + createdDate.getMinutes()).slice(-2) +
-    ":" +
-    ("0" + createdDate.getSeconds()).slice(-2);
+  const getCurrentDate = () => {
+    const createdDate = new Date();
+    const createdDateString =
+      createdDate.getFullYear() +
+      "-" +
+      (createdDate.getMonth() + 1) +
+      "-" +
+      createdDate.getDate() +
+      " " +
+      ("0" + createdDate.getHours()).slice(-2) +
+      ":" +
+      ("0" + createdDate.getMinutes()).slice(-2) +
+      ":" +
+      ("0" + createdDate.getSeconds()).slice(-2);
 
-  return createdDateString;
-};
+    return createdDateString;
+  };
 
   const okShowShareInformations = async () => {
 
@@ -210,8 +210,8 @@ function ProcessManagement(props) {
 
     const payload = {
       sharedKey: generate8BitUniqueValue(getCurrentDate()),
-      processId:process.id,
-      processName:process.name,
+      processId: process.id,
+      processName: process.name,
       hasAuth: shareAuthentication,
       hasLocation: shareLocation,
       locType: shareLocationType,
@@ -224,14 +224,22 @@ function ProcessManagement(props) {
 
     try {
       const response = await storeShareProcessTemp(payload);
-      
-      console.log(response)
 
       if (response.status === 200) {
-        console.log("Status ok")
+        setShowShareModal(false);
+        openErrorNotification(
+          "info",
+          props.t("INFO"),
+          "Process shared"
+        );
       }
     } catch (e) {
-      console.log("Getting user relations error : ", e);
+
+      openErrorNotification(
+        "info",
+        props.t("Share error"),
+        "Check your information"
+      );
     }
 
   };
