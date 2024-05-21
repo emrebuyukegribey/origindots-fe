@@ -13,7 +13,8 @@ axios.interceptors.request.use((request) => {
 
 axios.interceptors.response.use(
   (response) => {
-    if (!response || response.status === 403) {
+    // if (!response || response.status === 403) {
+    if (response && response.status === 403) {
       localStorage.clear();
       window.location.reload();
     }
@@ -114,6 +115,7 @@ export function getUser() {
 }
 
 export function getProfilePhoto(id) {
+  console.log("token : ", token);
   let headerConfigUpload = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -194,11 +196,13 @@ export function deleteProcessFromOrganization(organizationId, processId) {
   );
 }
 
-
 export function getUserRelations() {
   return axios.get(`${BASE_URL}/organizations/relations`, getHeaderConfig());
 }
 
-export function getRelation(userId){
-  return axios.get(`${BASE_URL}/organizations/relations/user/${userId}`,headerConfig);
+export function getRelation(userId) {
+  return axios.get(
+    `${BASE_URL}/organizations/relations/user/${userId}`,
+    headerConfig
+  );
 }

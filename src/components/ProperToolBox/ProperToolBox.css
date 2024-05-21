@@ -1,24 +1,6 @@
 @import "../../variables.css";
 
 .pb-closed-container {
-    /*
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--red100);
-    height: 60px;
-    padding: 10px 20px 10px 10px;
-    width: 130px;
-    border-radius: 0px 30px 30px 0px;
-    */
-    /*border-radius: 10px;*/
-    /*
-    z-index: -1;
-    margin-left: -30px;
-    transition: width 0.5s;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 5px;
-    margin-top: 125px;
-    */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,12 +16,67 @@
     border: 6px solid var(--red400);
     background: linear-gradient(180deg, var(--red100  ) 0%, var(--red200) 100%);
     cursor: pointer;
+    -webkit-animation: pulse 1s ease 0s infinite normal;
+    -o-animation: pulse 1s ease 0s infinite normal;
+    -moz-animation: pulse 1s ease 0s infinite normal;
+    animation: pulse 1s ease 0s infinite normal;
 }
+
 
 .pb-closed-container:hover {
     background: linear-gradient(0deg, var(--red300) 0%, var(--red100) 100%);
     box-shadow: rgba(0, 0, 0, 0.05) 0px 5px 5px;
     border: 7px solid var(--red500);
+    -webkit-animation:  1s ease 0s infinite normal;
+    -o-animation:  1s ease 0s infinite normal;
+    -moz-animation:  1s ease 0s infinite normal;
+    animation:  1s ease 0s infinite normal;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+      -webkit-transform: scale(1) rotate(0deg); 
+    }
+    50% {
+      -webkit-transform: scale(1.05) rotate(5deg);
+    }
+    100% {
+      -webkit-transform: scale(1) rotate(0deg); 
+    }
+}
+@-o-keyframes pulse {
+    0% {
+      -o-transform: scale(1) rotate(0deg); 
+    
+    }
+    50% {
+      -o-transform: scale(1.05) rotate(5deg); 
+    }
+    100% {
+      -o-transform: scale(1) rotate(0deg); 
+    }
+}
+@-moz-keyframes pulse {
+    0% {
+      -moz-transform: scale(1) rotate(0deg); 
+    }
+    50% {
+      -moz-transform: scale(1.05) rotate(5deg); 
+    }
+    100% {
+      -moz-transform: scale(1) rotate(0deg); 
+    }
+}
+@keyframes pulse {
+    0% {
+      transform: scale(1) rotate(0deg); 
+    }
+    50% {
+      transform: scale(1.05) rotate(5deg); 
+    }
+    100% {
+      transform: scale(1) rotate(0deg); 
+    }
 }
 
 .pb-opened-container {

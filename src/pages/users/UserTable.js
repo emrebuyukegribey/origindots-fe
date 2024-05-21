@@ -18,6 +18,25 @@ function UserTable(props) {
 
   const columns: ColumnsType<DataType> = [
     {
+      title: props.t(""),
+      dataIndex: "profilePhoto",
+      key: "profilePhoto",
+      render: (text, record) => (
+        <div className="user-table-isActive-container">
+          {console.log("record : ", record)}
+          <div
+            className="user-table-isActive"
+            style={{
+              backgroundColor: record.active ? "#18bd5b" : "#f45c52",
+              color: "#fff",
+            }}
+          >
+            {record.active === true ? props.t("YES") : props.t("NO")}
+          </div>
+        </div>
+      ),
+    },
+    {
       title: props.t("First Name"),
       dataIndex: "firstName",
       key: "firsname",
